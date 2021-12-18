@@ -1,0 +1,5 @@
+#!name=MitM All Possible APP Hostnames
+#!desc=(BETA) Perform MitM on APP hostnames
+
+[MITM]
+hostname = %APPEND% *.netflix.com, *.nflxso.net, *.nflxvideo.net, *.bamgrid.com, *.media.dssott.com, *.disney-plus.net, disney.my.sentry.io, disney.demdex.net, cdn.registerdisney.go.com,
