@@ -18,8 +18,8 @@ README:https://github.com/VirgilClyne/iRingo
 */
 
 /* 
-//🇭🇰HongKong
-location = {
+//🇭🇰HongKong 1
+"location": {
 	"region_name": "",
 	"type": "COUNTRY_CODE",
 	"asn": 141677,
@@ -31,6 +31,16 @@ location = {
 	"connection_type": "",
 	"dma": 0
   };
+//🇭🇰HongKong 2
+"location": {
+    "regionName": "",
+    "countryCode": "HK",
+    "asn": 9304,
+    "type": "COUNTRY_CODE",
+    "dma": 0,
+    "connectionType": "mobile wireless",
+    "zipCode": ""
+},
 //🇸🇬Singapore
 "location": {
 	"region_name": "",
@@ -171,6 +181,7 @@ if (url.search(path3) != -1) {
 	if (graphql.data?.me?.activeSession?.homeLocation) graphql.data.me.activeSession.homeLocation = home_location;
 	if (graphql.data?.activeSession?.location) graphql.data.activeSession.location = location;
 	if (graphql.data?.activeSession?.homeLocation) graphql.data.activeSession.homeLocation = home_location;
+	if (graphql.extensions?.sdk?.session?.inSupportedLocation) graphql.extensions.sdk.session.inSupportedLocation = true;
 	if (graphql.extensions?.sdk?.session?.location) graphql.extensions.sdk.session.location = location;
 	if (graphql.extensions?.sdk?.session?.homeLocation) graphql.extensions.sdk.session.homeLocation = home_location;
 	body = JSON.stringify(graphql);
