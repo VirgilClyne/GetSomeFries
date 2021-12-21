@@ -14,7 +14,7 @@ const done = (value = {}) => {
 };
 
 /*
-README:https://github.com/VirgilClyne/iRingo
+README:https://github.com/VirgilClyne/GetSomeFries
 */
 
 /* 
@@ -33,13 +33,22 @@ README:https://github.com/VirgilClyne/iRingo
   };
 //🇭🇰HongKong 2
 "location": {
+	"regionName": "",
+	"countryCode": "HK",
+	"asn": 9304,
+	"type": "COUNTRY_CODE",
+	"dma": 0,
+	"connectionType": "mobile wireless",
+	"zipCode": ""
+},
+"location": {
     "regionName": "",
     "countryCode": "HK",
-    "asn": 9304,
+	 "asn": 4760,
     "type": "COUNTRY_CODE",
-    "dma": 0,
-    "connectionType": "mobile wireless",
-    "zipCode": ""
+  	"dma": 0,
+  	"connectionType": "tx",
+  	"zipCode": ""
 },
 //🇸🇬Singapore
 "location": {
@@ -53,7 +62,7 @@ README:https://github.com/VirgilClyne/iRingo
 	"city_name": "",
 	"connection_type": "",
 	"dma": 0
-  },
+},
 //🇹🇼TaiWan 1
   "location": {
 	"region_name": "",
@@ -66,7 +75,7 @@ README:https://github.com/VirgilClyne/iRingo
 	"city_name": "zhongzheng district",
 	"connection_type": "dsl",
 	"dma": 0
-  },
+},
 //🇹🇼TaiWan 2
 	"location": {
 	"region_name": "",
@@ -92,7 +101,7 @@ README:https://github.com/VirgilClyne/iRingo
 	"city_name": "syracuse",
 	"connection_type": "",
 	"dma": 555
-  },
+},
 */
 
 // Default location
