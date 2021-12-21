@@ -18,14 +18,15 @@ README:https://github.com/VirgilClyne/iRingo
 */
 
 // Default Settings
-geolocation = {};
+var geolocation = {};
 geolocation.policy = "ALLOW";
 geolocation.country = "SG"
-allowWidevinePlayback = true;
-airPlayDisabledEnabledOnBuild = "0";
-//preferRichWebVTTOverImageBasedSubtitle = true;
-reuseAVPlayerEnabledOnBuild = "0";
-nfplayerReduxEnabledOnBuild = "0";
+var config = {};
+config.allowWidevinePlayback = new Boolean(true);
+config.airPlayDisabledEnabledOnBuild = "50.0.0";
+//preferRichWebVTTOverImageBasedSubtitle = Boolean(true);
+config.reuseAVPlayerEnabledOnBuild = "0";
+config.nfplayerReduxEnabledOnBuild = "50.0.0";
 
 // Argument Function Supported
 if (typeof $argument != "undefined") {
@@ -33,11 +34,11 @@ if (typeof $argument != "undefined") {
 	console.log(JSON.stringify(arg));
 	geolocation.policy = arg.geolocation.policy
 	geolocation.country = arg.geolocation.country;
-	allowWidevinePlayback = arg.allowWidevinePlayback;
-	airPlayDisabledEnabledOnBuild = arg.airPlayDisabledEnabledOnBuild;
-	//preferRichWebVTTOverImageBasedSubtitle = arg.preferRichWebVTTOverImageBasedSubtitle;
-	reuseAVPlayerEnabledOnBuild = arg.reuseAVPlayerEnabledOnBuild;
-	nfplayerReduxEnabledOnBuild = arg.nfplayerReduxEnabledOnBuild;
+	config.allowWidevinePlayback = arg.config.allowWidevinePlayback;
+	config.airPlayDisabledEnabledOnBuild = arg.config.airPlayDisabledEnabledOnBuild;
+	//config.preferRichWebVTTOverImageBasedSubtitle = arg.preferRichWebVTTOverImageBasedSubtitle;
+	config.reuseAVPlayerEnabledOnBuild = arg.config.reuseAVPlayerEnabledOnBuild;
+	config.nfplayerReduxEnabledOnBuild = arg.config.nfplayerReduxEnabledOnBuild;
 };
 
 const url = $request.url;
@@ -50,10 +51,12 @@ if (url.search(path1) != -1) {
 	let content = JSON.parse(body);
 	if (content.value?.geolocation?.policy) content.value.geolocation.policy = geolocation.policy
 	if (content.value?.geolocation?.country) content.value.geolocation.country = geolocation.country;
-	if (content.value?.config?.allowWidevinePlayback) content.value.config.allowWidevinePlayback = allowWidevinePlayback;
-	if (content.value?.config?.airPlayDisabledEnabledOnBuild) content.value.config.airPlayDisabledEnabledOnBuild = airPlayDisabledEnabledOnBuild;
-	//if (content.value?.config?.preferRichWebVTTOverImageBasedSubtitle) content.value.config.preferRichWebVTTOverImageBasedSubtitle = preferRichWebVTTOverImageBasedSubtitle;
-	if (content.value?.config?.nfplayerReduxEnabledOnBuild) content.value.config.nfplayerReduxEnabledOnBuild = nfplayerReduxEnabledOnBuild;
+	//if (content.value?.config?.allowWidevinePlayback) content.value.config.allowWidevinePlayback = config.allowWidevinePlayback;
+	content.value.config.allowWidevinePlayback = true;
+	if (content.value?.config?.airPlayDisabledEnabledOnBuild) content.value.config.airPlayDisabledEnabledOnBuild = config.airPlayDisabledEnabledOnBuild;
+	//if (content.value?.config?.preferRichWebVTTOverImageBasedSubtitle) content.value.config.preferRichWebVTTOverImageBasedSubtitle = config.preferRichWebVTTOverImageBasedSubtitle;
+	if (content.value?.config?.reuseAVPlayerEnabledOnBuild) content.value.config.reuseAVPlayerEnabledOnBuild = config.reuseAVPlayerEnabledOnBuild;
+	if (content.value?.config?.nfplayerReduxEnabledOnBuild) content.value.config.nfplayerReduxEnabledOnBuild = config.nfplayerReduxEnabledOnBuild;
 	body = JSON.stringify(content);
 	done({ body });
 };
