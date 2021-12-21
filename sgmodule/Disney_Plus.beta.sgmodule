@@ -7,7 +7,7 @@
 
 [Script]
 # Redirect Disney Plus Region Check Result to 🇸🇬SG
-Disney Plus = type=http-response,pattern=^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(token|session|v1\/public\/graphql), requires-body=1, binary-body-mode=0, max-size=0 ,script-update-interval=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Disney_Plus.js
+Disney Plus = type=http-response,pattern=^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(token|session|(graph\/)?v1\/public\/graphql), requires-body=1, binary-body-mode=0, max-size=0 ,script-update-interval=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Disney_Plus.js
 # Disney Plus = type=http-response,pattern=^https?:\/\/disney\.content\.edge\.bamgrid\.com\/(svc\/content\/DmcVideo), requires-body=1, binary-body-mode=0, max-size=0 ,script-update-interval=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Disney_Plus.js
 
 [MITM]
