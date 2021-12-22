@@ -14,7 +14,7 @@ const done = (value = {}) => {
 };
 
 /*
-README:https://github.com/VirgilClyne/iRingo
+README:https://github.com/VirgilClyne/GetSomeFries
 */
 
 // Default Settings
@@ -22,7 +22,7 @@ var geolocation = {};
 geolocation.policy = "ALLOW";
 geolocation.country = "SG"
 var config = {};
-config.allowWidevinePlayback = new Boolean(true);
+config.allowWidevinePlayback = Boolean(true);
 config.airPlayDisabledEnabledOnBuild = "50.0.0";
 //preferRichWebVTTOverImageBasedSubtitle = Boolean(true);
 config.reuseAVPlayerEnabledOnBuild = "0";
@@ -49,6 +49,8 @@ if (url.search(path1) != -1) {
 	let body = $response.body;
 	console.log(path1);
 	let content = JSON.parse(body);
+	console.log(content.value.config.allowWidevinePlayback.toString());
+	console.log(content.value.config.allowWidevinePlayback.valueOf());
 	if (content.value?.geolocation?.policy) content.value.geolocation.policy = geolocation.policy
 	if (content.value?.geolocation?.country) content.value.geolocation.country = geolocation.country;
 	//if (content.value?.config?.allowWidevinePlayback) content.value.config.allowWidevinePlayback = config.allowWidevinePlayback;
