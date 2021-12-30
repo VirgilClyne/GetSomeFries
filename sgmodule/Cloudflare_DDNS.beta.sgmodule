@@ -1,0 +1,6 @@
+#!name=🍟 Cloudflare DDNS
+#!desc=(BETA) Auto Update Cloudflare DDNS
+#!system=mac
+
+Cloudflare DDNS = type=event,network-changed,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Cloudflare_DDNS.js
+Cloudflare DDNS = type=cron,cronexp=/10 *,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Cloudflare_DDNS.js
