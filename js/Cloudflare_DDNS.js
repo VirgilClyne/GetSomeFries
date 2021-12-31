@@ -2,12 +2,14 @@
 README:https://github.com/VirgilClyne/GetSomeFries
 */
 
-// Default Example User API Tokens
-let CF_KEY = 'exampleKey';//Tokens that can be used to access Cloudflare v4 APIs
+// refer:https://github.com/phil-r/node-cloudflare-ddns
+
+// Default Example User API Keys
+let CF_KEY = 'exampleKey';//Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
 let CF_EMAIL = 'admin@example.com';//Your contact email address
 // Default Example DNS Records for a Zone
-let ZONE = 'example.com';//The domain name
-let SUBDOMAIN = 'domain.example.com';//DNS record name
+let ZONE = 'example.com';//The domain/website name you want to run updates for (e.g. example.com)
+let SUBDOMAIN = 'domain.example.com';//DNS record name, subdomain/CNAME you want to run updates for
 let PROXIED = 'true';//Whether the record is receiving the performance and security benefits of Cloudflare
 
 // Argument Function Supported
@@ -15,7 +17,10 @@ if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	console.log(JSON.stringify(arg));
 	CF_KEY = arg.CF_KEY;
-	CF_EMAIL = arg.CF_EMAIL
+	CF_EMAIL = arg.CF_EMAIL;
+	ZONE = arg.ZONE;
+	SUBDOMAIN = arg.SUBDOMAIN;
+	PROXIED = arg.PROXIED;
 };
 
 const $ = new Env('Cloudflare DDNS');
@@ -28,46 +33,72 @@ $.VAL_headers = {
 }
 
 
-!(async () => {
-	$.log('Getting IP Address');
-	const ipv4Address = await networkInfo(IPV4)
-	const ipv6Address = await networkInfo(IPV6)
-	$.log('IPV4 Address:', ipv4Address, 'IPV6 Address:', ipv6Address);
-	const zone = await getZone(ZONE);
-	$.log('zone.id', zone.id);
-	const record = await getRecord(zone, SUBDOMAIN);
-	console.log('record', record);
-	const recordObjectV4 = {
-		name: SUBDOMAIN,
-		content: ipv4Address,
-		type: 'A',
-		proxied: PROXIED === 'true'
-	};
-	const recordObjectV6 = {
-		name: SUBDOMAIN,
-		content: ipv6Address,
-		type: 'AAAA',
-		proxied: PROXIED === 'true'
-	};
-	let newRecord;
-	if (!record) {
-		if (ipv4Address) {
-			newRecord = await createRecord(zone, recordObjectV4);
-			console.log('New record', newRecord);
+(async () => {
+	try {
+		//Step 1
+		$.log('获取外部IP地址中');
+		//Refer: https://manual.nssurge.com/scripting/common.html
+		const ipv4Address = await networkInfo(IPV4) //获取IPV4地址
+		const ipv6Address = await networkInfo(IPV6) //获取IPV6地址
+		$.log('IPV4地址:', ipv4Address, 'IPV6地址:', ipv6Address);
+		//Step 2
+		$.log('查询区域信息');
+		const zone = await listZone(ZONE);
+		$.log('zone.id', zone.id);
+		//Step 3
+		$.log('查询记录信息'); //需要改进，根据A或AAAA查两次，新建也是两次
+		const record = await listRecord(zone, SUBDOMAIN);
+		console.log('record', record);
+		//Step 4
+		$.log('构造更新内容');
+		const recordObjectV4 = {
+			name: SUBDOMAIN,
+			content: networkInfo(IPV4),
+			type: 'A',
+			proxied: PROXIED === 'true'
+		};
+		const recordObjectV6 = {
+			name: SUBDOMAIN,
+			content: networkInfo(IPV6),
+			type: 'AAAA',
+			proxied: PROXIED === 'true'
+		};
+		//Step 5
+		$.log('开始更新内容');
+		let newRecord;
+		if (!record) {
+			$.log('无记录');
+			if (ipv4Address) {
+				$.log('有IPV4');
+				newRecord = await createRecord(zone, recordObjectV4);
+				console.log('New record', newRecord);
+			}
+			if (ipv6Address) {
+				$.log('有IPV6');
+				newRecord = await createRecord(zone, recordObjectV6);
+				console.log('New record', newRecord);
+			}
+		} else if (record.type == 'A' && record.content !== ipv4Address) {
+			$.log('有A记录但地址不对');
+			newRecord = await updateRecord(zone, record, recordObj);
+			console.log('记录已更新', newRecord);
+		} else if (record.type == 'AAAA' && record.content !== ipv6Address) {
+			$.log('有AAAA记录但地址不对');
+			newRecord = await updateRecord(zone, record, recordObj);
+			console.log('记录已更新', newRecord);
+		} else {
+			console.log('不需要更新');
 		}
-		if (ipv6Address) {
-			newRecord = await createRecord(zone, recordObjectV6);
-			console.log('New record', newRecord);
-		}	
-	} else if (record.content !== ip) {
-		newRecord = await updateRecord(zone, record, recordObj);
-		console.log('Updated record', newRecord);
-	} else {
-		console.log('No update required');
+	} catch (e) {
+		if (e.response) {
+			$.logErr(e.response.data);
+		} else {
+			$.logErr(e);
+		}
+	} finally {
+		$.done()
 	}
 })()
-    .catch((e) => $.logErr(e))
-    .finally(() => $.done())
 
 /***************** function *****************/
 // Step 1
@@ -75,28 +106,34 @@ $.VAL_headers = {
 // Basic Information
 //https://manual.nssurge.com/scripting/common.html
 async function networkInfo(type) {
-	let SSID = $network.wifi.ssid;
-	let IPV4 = $network.v4.primaryAddress;
-	let IPV6 = $network.v6.primaryAddress;
-	return type
+	var result
+	switch (type) {
+		case 'SSID':
+		case 'ssid':
+			result = $network.wifi.ssid;
+		case 'IPV4':
+		case 'A':
+			result = $network.v4.primaryAddress;
+		case 'IPV6':
+		case 'AAAA':
+			result = $network.v6.primaryAddress;
+		default:
+			result = $network.v4.primaryAddress;
+	} return result
 }
 
 // Step 2
 // User Details
 //https://api.cloudflare.com/#user-user-details
 async function getUser() {
-	return new Promise((resolve) => {
-		const url = { url: `${baseURL}user`, headers: JSON.parse($.VAL_headers) }
-		$.get(url, (error, response, data) => {
-			try {
-				const _data = JSON.parse(data)
-				if (error) throw new Error(error)
-			} catch (e) {
-				$.log(`❗️ ${$.name}, getUser执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-			} finally {
-				resolve()
-			}
-		})
+	const url = { url: `${baseURL}user`, headers: JSON.parse($.VAL_headers) }
+	$.get(url, (error, response, data) => {
+		try {
+			const _data = JSON.parse(data)
+			if (error) throw new Error(error)
+		} catch (e) {
+			$.log(`❗️ ${$.name}, getUser执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+		}
 	})
 }
 
@@ -123,19 +160,16 @@ async function getZone(zone) {
 // Step 3B
 // List Zones
 //https://api.cloudflare.com/#zone-list-zones
-async function listZone(name) {
-	return new Promise((resolve) => {
-		const url = { url: `${baseURL}zones?name=${name}`, headers: JSON.parse($.VAL_headers) }
-		$.get(url, (error, response, data) => {
-			try {
-				const _data = JSON.parse(data)
-				if (error) throw new Error(error)
-			} catch (e) {
-				$.log(`❗️ ${$.name}, listZone执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-			} finally {
-				resolve()
-			}
-		})
+async function listZone(name, type = 'A') {
+	const url = { url: `${baseURL}zones?type=${type}&name=${name}`, headers: JSON.parse($.VAL_headers) }
+	$.get(url, (error, response, data) => {
+		try {
+			const _data = JSON.parse(data)
+			if (error) throw new Error(error)
+			if (_data.success === true) return _data.result[0]
+		} catch (e) {
+			$.log(`❗️ ${$.name}, listZone执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+		}
 	})
 }
 
@@ -143,18 +177,15 @@ async function listZone(name) {
 // Create DNS Record
 //https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
 async function createRecord(zone, { type, name, content, ttl = 1, priority, proxied }) {
-	return new Promise((resolve) => {
-		const url = { url: `${baseURL}zones/${zone.id}/dns_records`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, priority, proxied } }
-		$.get(url, (error, response, data) => {
-			try {
-				const _data = JSON.parse(data)
-				if (error) throw new Error(error)
-			} catch (e) {
-				$.log(`❗️ ${$.name}, createRecord执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-			} finally {
-				resolve()
-			}
-		})
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, priority, proxied } }
+	$.get(url, (error, response, data) => {
+		try {
+			const _data = JSON.parse(data)
+			if (error) throw new Error(error)
+			if (_data.success === true) return _data.result
+		} catch (e) {
+			$.log(`❗️ ${$.name}, createRecord执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+		}
 	})
 }
 
@@ -168,6 +199,7 @@ async function getRecord(zone, record) {
 			try {
 				const _data = JSON.parse(data)
 				if (error) throw new Error(error)
+				if (_data.success === true) return _data.result
 			} catch (e) {
 				$.log(`❗️ ${$.name}, getRecord执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
 			} finally {
@@ -181,37 +213,31 @@ async function getRecord(zone, record) {
 // List DNS Records
 //https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 async function listRecord(zone, name) {
-	return new Promise((resolve) => {
-		const url = { url: `${baseURL}zones/${zone.id}/dns_records?name=${name}.${zone.name}`, headers: JSON.parse($.VAL_headers) }
-		$.get(url, (error, response, data) => {
-			try {
-				const _data = JSON.parse(data)
-				if (error) throw new Error(error)
-			} catch (e) {
-				$.log(`❗️ ${$.name}, listRecord执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-			} finally {
-				resolve()
-			}
-		})
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records?name=${name}.${zone.name}`, headers: JSON.parse($.VAL_headers) }
+	$.get(url, (error, response, data) => {
+		try {
+			const _data = JSON.parse(data)
+			if (error) throw new Error(error)
+			if (_data.success === true) return _data.result[0]
+		} catch (e) {
+			$.log(`❗️ ${$.name}, listRecord执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+		}
 	})
 }
 
 // Step 6
 // Update DNS Record
 //https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
-async function updateRecord(zone, record, { type, name, content, ttl = 1, proxied }) {
-	return new Promise((resolve) => {
-		const url = { url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, proxied } }
-		$.get(url, (error, response, data) => {
-			try {
-				const _data = JSON.parse(data)
-				if (error) throw new Error(error)
-			} catch (e) {
-				$.log(`❗️ ${$.name}, updateRecord执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-			} finally {
-				resolve()
-			}
-		})
+async function updateRecord(zone, record, { type, name, content, ttl = 1, proxied = true}) {
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, proxied } }
+	$.get(url, (error, response, data) => {
+		try {
+			const _data = JSON.parse(data)
+			if (error) throw new Error(error)
+			if (_data.success === true) return _data.result
+		} catch (e) {
+			$.log(`❗️ ${$.name}, updateRecord执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+		}
 	})
 }
 
