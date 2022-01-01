@@ -11,6 +11,10 @@ let CF_EMAIL = 'admin@example.com';//Your contact email address
 let ZONE = 'example.com';//The domain/website name you want to run updates for (e.g. example.com)
 let SUBDOMAIN = 'domain.example.com';//DNS record name, subdomain/CNAME you want to run updates for
 let PROXIED = 'true';//Whether the record is receiving the performance and security benefits of Cloudflare
+let RECORD = {id: 'abcdefghijklmn'}
+ZONE.id = 'abcdefghijklmn'
+RECORD.id =' abcdefghijklmn'
+
 
 // Argument Function Supported
 if (typeof $argument != "undefined") {
@@ -43,14 +47,17 @@ $.VAL_headers = {
 		$.log('IPV4地址:', ipv4Address, 'IPV6地址:', ipv6Address);
 		//Step 2
 		$.log('查询区域信息');
-		const zone = await listZone(ZONE);
+		if (ipv4Address) const zone = await listZone(ZONE, 'A');
+		if (ipv6Address) const zone = await listZone(ZONE, 'AAAA');
 		$.log('zone.id', zone.id);
 		//Step 3
 		$.log('查询记录信息'); //需要改进，根据A或AAAA查两次，新建也是两次
-		const record = await listRecord(zone, SUBDOMAIN);
+		if (ipv4Address) const record = await listRecord(zone, SUBDOMAIN, 'A');
+		if (ipv6Address) const record = await listRecord(zone, SUBDOMAIN, 'AAAA');
 		console.log('record', record);
 		//Step 4
 		$.log('构造更新内容');
+
 		const recordObjectV4 = {
 			name: SUBDOMAIN,
 			content: networkInfo(IPV4),
@@ -68,14 +75,14 @@ $.VAL_headers = {
 		let newRecord;
 		if (!record) {
 			$.log('无记录');
-			if (ipv4Address) {
-				$.log('有IPV4');
-				newRecord = await createRecord(zone, recordObjectV4);
+			if (networkInfo(IPV4)) {
+				$.log('有IPV4, 创建IPV4记录');
+				newRecord = await createRecord(zone, { type: 'A', name: SUBDOMAIN, content: networkInfo(IPV4) });
 				console.log('New record', newRecord);
 			}
-			if (ipv6Address) {
-				$.log('有IPV6');
-				newRecord = await createRecord(zone, recordObjectV6);
+			if (networkInfo(IPV6)) {
+				$.log('有IPV6, 创建IPV6记录');
+				newRecord = await createRecord(zone, { type: 'AAAA', name: SUBDOMAIN, content: networkInfo(IPV6) });
 				console.log('New record', newRecord);
 			}
 		} else if (record.type == 'A' && record.content !== ipv4Address) {
@@ -111,14 +118,18 @@ async function networkInfo(type) {
 		case 'SSID':
 		case 'ssid':
 			result = $network.wifi.ssid;
+			$.log('SSID:', result);
 		case 'IPV4':
 		case 'A':
 			result = $network.v4.primaryAddress;
+			$.log('IPV4地址:', result);
 		case 'IPV6':
 		case 'AAAA':
 			result = $network.v6.primaryAddress;
+			$.log('IPV6地址:', result);
 		default:
 			result = $network.v4.primaryAddress;
+			$.log('IPV4地址:', result);
 	} return result
 }
 
@@ -176,7 +187,7 @@ async function listZone(name, type = 'A') {
 // Step 4
 // Create DNS Record
 //https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
-async function createRecord(zone, { type, name, content, ttl = 1, priority, proxied }) {
+async function createRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = false }) {
 	const url = { url: `${baseURL}zones/${zone.id}/dns_records`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, priority, proxied } }
 	$.get(url, (error, response, data) => {
 		try {
@@ -212,8 +223,8 @@ async function getRecord(zone, record) {
 // Step 5B
 // List DNS Records
 //https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
-async function listRecord(zone, name) {
-	const url = { url: `${baseURL}zones/${zone.id}/dns_records?name=${name}.${zone.name}`, headers: JSON.parse($.VAL_headers) }
+async function listRecord(zone, name, type = 'A') {
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records?type=${type}&name=${name}.${zone.name}&order=type`, headers: JSON.parse($.VAL_headers) }
 	$.get(url, (error, response, data) => {
 		try {
 			const _data = JSON.parse(data)
@@ -228,8 +239,8 @@ async function listRecord(zone, name) {
 // Step 6
 // Update DNS Record
 //https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
-async function updateRecord(zone, record, { type, name, content, ttl = 1, proxied = true}) {
-	const url = { url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, proxied } }
+async function updateRecord(zone, record, { type, name, content, ttl = 1, priority = 10, proxied = true}) {
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, priority, proxied } }
 	$.get(url, (error, response, data) => {
 		try {
 			const _data = JSON.parse(data)
