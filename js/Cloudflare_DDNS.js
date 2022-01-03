@@ -4,72 +4,149 @@ README:https://github.com/VirgilClyne/GetSomeFries
 
 // refer:https://github.com/phil-r/node-cloudflare-ddns
 
-// Default Example User API Keys
-let CF_KEY = 'exampleKey';//Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
-let CF_EMAIL = 'admin@example.com';//Your contact email address
-// Default Example DNS Records for a Zone
-let ZONE = 'example.com';//The domain/website name you want to run updates for (e.g. example.com)
-let SUBDOMAIN = 'domain.example.com';//DNS record name, subdomain/CNAME you want to run updates for
-let PROXIED = 'true';//Whether the record is receiving the performance and security benefits of Cloudflare
-let RECORD = {id: 'abcdefghijklmn'}
-ZONE.id = 'abcdefghijklmn'
-RECORD.id =' abcdefghijklmn'
+// Requests
+// https://api.cloudflare.com/#getting-started-requests
+// API Tokens
+// API Tokens provide a new way to authenticate with the Cloudflare API.
+// var APIToken = 'YQSn-xWAQiiEh9qM58wZNnyQS7FUdoqGIUAbrh7T';
+var APIToken = '';
+// API Keys
+// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate. Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
+// var APIKey = '1234567893feefc5f0q5000bfo0c38d90bbeb'; //Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
+var APIKey = '';
+// var Email = 'example@example.com'; //Your contact email address
+var Email = '';
+
+// Zone
+// https://api.cloudflare.com/#zone-properties
+var zone = {};
+// Zone Details
+// https://api.cloudflare.com/#zone-zone-details
+// zone.id = '023e105f4ecef8ad9ca31a8372d0c353';
+zone.id = '';
+// List Zones
+// https://api.cloudflare.com/#zone-list-zones
+// zone.name = 'example.com'; //The domain/website name you want to run updates for (e.g. example.com)
+zone.name = '';
+
+// DNS Records for a Zone
+// https://api.cloudflare.com/#dns-records-for-a-zone-properties
+var dns_records = {};
+// DNS Record Details
+// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
+// dns_records.id = '372e67954025e0ba6aaa6d586b9e0b59';
+dns_records.id = '';
+// List DNS Records
+// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+// type
+// DNS record type
+dns_records.type = 'A';
+// name
+// DNS record name
+dns_records.name = 'example.com'; //DNS record name, subdomain/CNAME you want to run updates for
+// content
+// DNS record content
+dns_records.content = '0.0.0.0';
+// ttl
+// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
+dns_records.ttl = 1;
+// priority
+// Required for MX, SRV and URI records; unused by other record types.
+dns_records.priority = 10;
+// proxied
+// Whether the record is receiving the performance and security benefits of Cloudflare
+dns_records.proxied = true; //Whether the record is receiving the performance and security benefits of Cloudflare
 
 
 // Argument Function Supported
 if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	console.log(JSON.stringify(arg));
-	CF_KEY = arg.CF_KEY;
-	CF_EMAIL = arg.CF_EMAIL;
-	ZONE = arg.ZONE;
-	SUBDOMAIN = arg.SUBDOMAIN;
-	PROXIED = arg.PROXIED;
+	APIToken = arg.APIToken;
+	APIKey = arg.APIKey;
+	Email = arg.Email;
+	zone.id = arg.zone_id;
+	zone.name = arg.zone_name;
+	dns_records.id = arg.dns_records_id;
+	dns_records.name = arg.dns_records_name;
+	dns_records.ttl = arg.dns_records_ttl;
+	dns_records.proxied = arg.dns_records_proxied;
 };
 
 const $ = new Env('Cloudflare DDNS');
 
 const baseURL = 'https://api.cloudflare.com/client/v4/';
-$.VAL_headers = {
-	'X-Auth-Key': CF_KEY,
-	'X-Auth-Email': CF_EMAIL,
-	'Content-Type': 'application/json',
-}
+if (APIToken) $.VAL_headers = { 'Authorization': `Bearer ${APIToken}`, 'Content-Type': 'application/json' }
+else if (APIKey && Email) $.VAL_headers = { 'X-Auth-Key': APIKey, 'X-Auth-Email': Email, 'Content-Type': 'application/json' }
 
 
 (async () => {
 	try {
-		//Step 1
-		$.log('获取外部IP地址中');
-		//Refer: https://manual.nssurge.com/scripting/common.html
-		const ipv4Address = await networkInfo(IPV4) //获取IPV4地址
-		const ipv6Address = await networkInfo(IPV6) //获取IPV6地址
-		$.log('IPV4地址:', ipv4Address, 'IPV6地址:', ipv6Address);
-		//Step 2
-		$.log('查询区域信息');
-		if (ipv4Address) const zone = await listZone(ZONE, 'A');
-		if (ipv6Address) const zone = await listZone(ZONE, 'AAAA');
-		$.log('zone.id', zone.id);
-		//Step 3
-		$.log('查询记录信息'); //需要改进，根据A或AAAA查两次，新建也是两次
-		if (ipv4Address) const record = await listRecord(zone, SUBDOMAIN, 'A');
-		if (ipv6Address) const record = await listRecord(zone, SUBDOMAIN, 'AAAA');
-		console.log('record', record);
-		//Step 4
-		$.log('构造更新内容');
-
-		const recordObjectV4 = {
-			name: SUBDOMAIN,
-			content: networkInfo(IPV4),
-			type: 'A',
-			proxied: PROXIED === 'true'
-		};
-		const recordObjectV6 = {
-			name: SUBDOMAIN,
-			content: networkInfo(IPV6),
-			type: 'AAAA',
-			proxied: PROXIED === 'true'
-		};
+		if (networkInfo(IPV4)) {
+			dns_records.type = 'A';
+			dns_records.content = networkInfo(IPV4);
+			$.log(`IPV4地址:${dns_records.content}`, );
+			//Step 2
+			$.log('查询区域信息');		
+			if (zone.id) zone = await getZone(zone, dns_records);
+			else if (zone.name) zone = await listZone(zone, dns_records);
+			$.log(`区域 ID:${zone.id}`, );
+			//Step 3
+			$.log('查询记录信息');
+			if (dns_records.id) oldRecord = await getRecord(zone, dns_records);
+			else if (dns_records.name) oldRecord = await listRecord(zone, dns_records);
+			console.log(`记录查询结果:${oldRecord}`, );
+			//Step 4
+			$.log('构造更新内容');
+			var newRecord = dns_records.filter({id});
+			newRecord.content = networkInfo(IPV4)
+			//Step 5
+			$.log('开始更新内容');
+			if (!oldRecord) {
+				$.log('无记录');
+				newRecord = await createRecord(zone, newRecord);
+				console.log('新记录', newRecord);
+			} else if (oldRecord && oldRecord.content !== newRecord.content) {
+				$.log('有记录，但IP地址不符，开始更新');
+				newRecord = await updateRecord(zone, oldRecord, newRecord);
+				console.log(`记录已更新:${newRecord}`, );
+			} else {
+				console.log(`不需要更新:${oldRecord}`);
+			}
+		}
+		if (networkInfo(IPV6)) {
+			dns_records.type = 'AAAA';
+			dns_records.content = networkInfo(IPV6);
+			$.log(`IPV6地址:${dns_records.content}`, );
+			//Step 2
+			$.log('查询区域信息');	
+			if (zone.id) zone = await getZone(zone, dns_records);
+			else if (zone.name) zone = await listZone(zone, dns_records);
+			$.log(`区域 ID:${zone.id}`, );
+			//Step 3
+			$.log('查询记录信息');
+			if (dns_records.id) oldRecord = await getRecord(zone, dns_records);
+			else if (dns_records.name) oldRecord = await listRecord(zone, dns_records);
+			console.log(`记录查询结果:${oldRecord}`, );
+			//Step 4
+			$.log('构造更新内容');
+			var newRecord = dns_records.filter({id});
+			newRecord.content = networkInfo(IPV4)
+			//Step 5
+			$.log('开始更新内容');
+			if (!record) {
+				$.log('无记录');
+				newRecord = await createRecord(zone, newRecord);
+				console.log('新记录', newRecord);
+			} else if (oldRecord && oldRecord.content !== newRecord.content) {
+				$.log('有记录，但IP地址不符，开始更新');
+				newRecord = await updateRecord(zone, oldRecord, newRecord);
+				console.log(`记录已更新:${newRecord}`, );
+			} else {
+				console.log(`不需要更新:${oldRecord}`);
+			}
+		}
+		/*
 		//Step 5
 		$.log('开始更新内容');
 		let newRecord;
@@ -96,6 +173,7 @@ $.VAL_headers = {
 		} else {
 			console.log('不需要更新');
 		}
+		*/
 	} catch (e) {
 		if (e.response) {
 			$.logErr(e.response.data);
@@ -133,7 +211,7 @@ async function networkInfo(type) {
 	} return result
 }
 
-// Step 2
+// Step 2A
 // User Details
 //https://api.cloudflare.com/#user-user-details
 async function getUser() {
@@ -145,6 +223,26 @@ async function getUser() {
 		} catch (e) {
 			$.log(`❗️ ${$.name}, getUser执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
 		}
+	})
+}
+
+// Step 2B
+// Verify Token
+//https://api.cloudflare.com/#user-api-tokens-verify-token
+async function verifyToken(zone) {
+	return new Promise((resolve) => {
+		const url = { url: `${baseURL}user/tokens/verify`, headers: JSON.parse($.VAL_headers) }
+		$.get(url, (error, response, data) => {
+			try {
+				const _data = JSON.parse(data)
+				if (error) throw new Error(error)
+				if (_data.success === true) return _data.result
+			} catch (e) {
+				$.log(`❗️ ${$.name}, verifyToken执行失败!`, `error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+			} finally {
+				resolve()
+			}
+		})
 	})
 }
 
@@ -171,8 +269,8 @@ async function getZone(zone) {
 // Step 3B
 // List Zones
 //https://api.cloudflare.com/#zone-list-zones
-async function listZone(name, type = 'A') {
-	const url = { url: `${baseURL}zones?type=${type}&name=${name}`, headers: JSON.parse($.VAL_headers) }
+async function listZone(zone, record) {
+	const url = { url: `${baseURL}zones?type=${record.type}&name=${zone.name}`, headers: JSON.parse($.VAL_headers) }
 	$.get(url, (error, response, data) => {
 		try {
 			const _data = JSON.parse(data)
@@ -188,7 +286,7 @@ async function listZone(name, type = 'A') {
 // Create DNS Record
 //https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
 async function createRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = false }) {
-	const url = { url: `${baseURL}zones/${zone.id}/dns_records`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, priority, proxied } }
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records`, headers: JSON.parse($.VAL_headers), body: { type, name, content, ttl, priority, proxied } }
 	$.get(url, (error, response, data) => {
 		try {
 			const _data = JSON.parse(data)
@@ -223,8 +321,8 @@ async function getRecord(zone, record) {
 // Step 5B
 // List DNS Records
 //https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
-async function listRecord(zone, name, type = 'A') {
-	const url = { url: `${baseURL}zones/${zone.id}/dns_records?type=${type}&name=${name}.${zone.name}&order=type`, headers: JSON.parse($.VAL_headers) }
+async function listRecord(zone, record) {
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records?type=${record.type}&name=${record.name}.${zone.name}&order=type`, headers: JSON.parse($.VAL_headers) }
 	$.get(url, (error, response, data) => {
 		try {
 			const _data = JSON.parse(data)
@@ -240,7 +338,7 @@ async function listRecord(zone, name, type = 'A') {
 // Update DNS Record
 //https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
 async function updateRecord(zone, record, { type, name, content, ttl = 1, priority = 10, proxied = true}) {
-	const url = { url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: JSON.parse($.VAL_headers), body = { type, name, content, ttl, priority, proxied } }
+	const url = { url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: JSON.parse($.VAL_headers), body: { type, name, content, ttl, priority, proxied } }
 	$.get(url, (error, response, data) => {
 		try {
 			const _data = JSON.parse(data)
