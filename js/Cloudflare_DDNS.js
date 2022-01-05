@@ -80,142 +80,78 @@ if (APIToken) $.VAL_headers = { 'Authorization': `Bearer ${APIToken}`, 'Content-
 else if (APIKey && Email) $.VAL_headers = { 'X-Auth-Key': APIKey, 'X-Auth-Email': Email, 'Content-Type': 'application/json' }
 
 
+
 (async () => {
 	try {
-		if (networkInfo(IPV4)) {
-			dns_records.type = 'A';
-			//Step 1
-			if (networkInfo(IPV4)) {
-				dns_records.content = networkInfo(IPV4);
-				$.log(`IPV4地址:${dns_records.content}`, );
-			} else {
-				$.log('无IPV4地址');
-				$.done();
-			}
-			//Step 2
-			$.log('查询区域信息');		
-			if (zone.id) {
-				zone = await getZone(zone, dns_records);
-				$.log(`区域 ID:${zone.id}`, );
-			} else if (zone.name) {
-				zone = await listZone(zone, dns_records);
-				$.log(`区域 ID:${zone.id}`, );
-			} else { 
-				$.log('未设置区域信息');
-				$.done();
-			}
-			//Step 3
-			$.log('查询记录信息');
-			if (dns_records.id) {
-				oldRecord = await getRecord(zone, dns_records);
-				$.log(`记录查询结果:${oldRecord}`, );
-			} else if (dns_records.name) {
-				oldRecord = await listRecord(zone, dns_records);
-				$.log(`记录查询结果:${oldRecord}`, );
-			} else {
-				$.log('未查询到记录信息');
-				$.done();
-			}
-			//Step 4
-			$.log('构造更新内容');
-			var newRecord = dns_records.filter({id});
-			newRecord.content = networkInfo(IPV4)
-			//Step 5
-			$.log('开始更新内容');
-			if (!oldRecord) {
-				$.log('无记录');
-				newRecord = await createRecord(zone, newRecord);
-				$.log('新记录', newRecord);
-			} else if (oldRecord && oldRecord.content !== newRecord.content) {
-				$.log('有记录，但IP地址不符，开始更新');
-				newRecord = await updateRecord(zone, oldRecord, newRecord);
-				$.log(`记录已更新:${newRecord}`, );
-			} else {
-				$.log(`不需要更新:${oldRecord}`);
-				$.done();
-			}
+		await getUser().then($.log('验证用户:', await getUser()));
+		await verifyToken().then($.log('验证Token:', await verifyToken()));
+		if (networkInfo('IPV4')) {
+			await DDNS('A', networkInfo('IPV4'))
+		} else if (networkInfo('IPV6')) {
+			await DDNS('AAAA', networkInfo('IPV6'))
+		} else {
+			$.log(`无${dns_records.type}类地址`,);
+			$.done();
 		}
-		if (networkInfo(IPV6)) {
-			dns_records.type = 'AAAA';
-			//Step 1
-			if (networkInfo(IPV6)) {
-				dns_records.content = networkInfo(IPV6);
-				$.log(`IPV6地址:${dns_records.content}`, );
-			} else {
-				$.log('无IPV6地址');
-				$.done();
-			}
-			//Step 2
-			$.log('查询区域信息');	
-			if (zone.id) {
-				zone = await getZone(zone, dns_records);
-				$.log(`区域 ID:${zone.id}`, );
-			} else if (zone.name) {
-				zone = await listZone(zone, dns_records);
-				$.log(`区域 ID:${zone.id}`, );
-			} else { 
-				$.log('未设置区域信息');
-				$.done();
-			}
-			//Step 3
-			$.log('查询记录信息');
-			if (dns_records.id) {
-				oldRecord = await getRecord(zone, dns_records);
-				$.log(`记录查询结果:${oldRecord}`, );
-			} else if (dns_records.name) {
-				oldRecord = await listRecord(zone, dns_records);
-				$.log(`记录查询结果:${oldRecord}`, );
-			} else {
-				$.log('未查询到记录信息');
-				$.done();
-			}
-			//Step 4
-			$.log('构造更新内容');
-			var newRecord = dns_records.filter({id});
-			newRecord.content = networkInfo(IPV4)
-			//Step 5
-			$.log('开始更新内容');
-			if (!record) {
-				$.log('无记录');
-				newRecord = await createRecord(zone, newRecord);
-				$.log('新记录', newRecord);
-			} else if (oldRecord && oldRecord.content !== newRecord.content) {
-				$.log('有记录，但IP地址不符，开始更新');
-				newRecord = await updateRecord(zone, oldRecord, newRecord);
-				$.log(`记录已更新:${newRecord}`, );
-			} else {
-				$.log(`不需要更新:${oldRecord}`);
-				$.done();
-			}
+	} catch (e) {
+		$.logErr(e.response.data);
+	}
+})();
+
+
+async function DDNS(type, content) {
+	try {
+		//Step 1
+		$.log('写入地址');
+		if (content) {
+			dns_records.type = type;
+			dns_records.content = content;
+			$.log(`${dns_records.type}类地址:${dns_records.content}`,);
+		} else {
+			$.log(`无${dns_records.type}类地址`,);
+			$.done();
 		}
-		/*
+		//Step 2
+		$.log('查询区域信息');
+		if (zone.id) {
+			zone = await getZone(zone, dns_records);
+			$.log(`区域 ID:${zone.id}`,);
+		} else if (zone.name) {
+			zone = await listZone(zone, dns_records);
+			$.log(`区域 ID:${zone.id}`,);
+		} else {
+			$.log('未设置区域信息');
+			$.done();
+		}
+		//Step 3
+		$.log('查询记录信息');
+		if (dns_records.id) {
+			oldRecord = await getRecord(zone, dns_records);
+			$.log(`记录查询结果:${oldRecord}`,);
+		} else if (dns_records.name) {
+			oldRecord = await listRecord(zone, dns_records);
+			$.log(`记录查询结果:${oldRecord}`,);
+		} else {
+			$.log('未查询到记录信息');
+			$.done();
+		}
+		//Step 4
+		$.log('构造更新内容');
+		var newRecord = dns_records.filter({ id });
 		//Step 5
 		$.log('开始更新内容');
-		let newRecord;
-		if (!record) {
+		if (!oldRecord) {
 			$.log('无记录');
-			if (networkInfo(IPV4)) {
-				$.log('有IPV4, 创建IPV4记录');
-				newRecord = await createRecord(zone, { type: 'A', name: SUBDOMAIN, content: networkInfo(IPV4) });
-				console.log('New record', newRecord);
-			}
-			if (networkInfo(IPV6)) {
-				$.log('有IPV6, 创建IPV6记录');
-				newRecord = await createRecord(zone, { type: 'AAAA', name: SUBDOMAIN, content: networkInfo(IPV6) });
-				console.log('New record', newRecord);
-			}
-		} else if (record.type == 'A' && record.content !== ipv4Address) {
-			$.log('有A记录但地址不对');
-			newRecord = await updateRecord(zone, record, recordObj);
-			console.log('记录已更新', newRecord);
-		} else if (record.type == 'AAAA' && record.content !== ipv6Address) {
-			$.log('有AAAA记录但地址不对');
-			newRecord = await updateRecord(zone, record, recordObj);
-			console.log('记录已更新', newRecord);
+			newRecord = await createRecord(zone, newRecord);
+			$.log('新记录', newRecord);
+		} else if (oldRecord && oldRecord.content !== newRecord.content) {
+			$.log('有记录，但IP地址不符，开始更新');
+			newRecord = await updateRecord(zone, oldRecord, newRecord);
+			$.log(`记录已更新:${newRecord}`,);
 		} else {
-			console.log('不需要更新');
+			$.log(`不需要更新:${oldRecord}`);
+			$.done();
 		}
-		*/
 	} catch (e) {
 		if (e.response) {
 			$.logErr(e.response.data);
@@ -225,7 +161,7 @@ else if (APIKey && Email) $.VAL_headers = { 'X-Auth-Key': APIKey, 'X-Auth-Email'
 	} finally {
 		$.done()
 	}
-})()
+}
 
 /***************** function *****************/
 // Step 1
@@ -239,14 +175,17 @@ async function networkInfo(type) {
 		case 'ssid':
 			result = $network.wifi.ssid;
 			$.log('SSID:', result);
+			break;
 		case 'IPV4':
 		case 'A':
 			result = $network.v4.primaryAddress;
 			$.log('IPV4地址:', result);
+			break;
 		case 'IPV6':
 		case 'AAAA':
 			result = $network.v6.primaryAddress;
 			$.log('IPV6地址:', result);
+			break;
 		default:
 			result = $network.v4.primaryAddress;
 			$.log('IPV4地址:', result);
@@ -274,7 +213,7 @@ async function getUser() {
 // Step 2B
 // Verify Token
 //https://api.cloudflare.com/#user-api-tokens-verify-token
-async function verifyToken(zone) {
+async function verifyToken() {
 	const url = { url: `${baseURL}user/tokens/verify`, headers: JSON.parse($.VAL_headers) }
 	const { data: { result } } = await $.get(url, (error, response, data) => {
 		try {
