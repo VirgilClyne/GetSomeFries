@@ -71,7 +71,7 @@ if (typeof $argument != "undefined") {
 	dns_records.name = arg.dns_records_name;
 	dns_records.ttl = arg.dns_records_ttl;
 	dns_records.priority = arg.dns_records_priority;
-	dns_records.proxied = new Boolean(arg.dns_records_proxied);
+	//dns_records.proxied = Boolean(JSON.parse(arg.dns_records_proxied));
 };
 
 !(async () => {
@@ -249,26 +249,20 @@ function getZone(zone) {
 			try {
 				if (error) throw new Error(error)
 				else if (data) _data = JSON.parse(data)
-				else throw new Error(response)
-				if (_data.success === true) {
+				else throw new Error(response);
+				//if (_data.success === true) {
+					//if (_data.messages) throw _data.messages;
 					if (_data.result) resolve(_data.result);
-					if (_data.messages) throw _data.messages;
-				} else if (_data.success === false) throw _data.errors;
+				//} else if (_data.success === false) throw _data.errors;
 			} catch (e) {
-				$.logErr(`❗️ ${$.name}, ${getZone.name}执行失败`, ` error = ${error}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-				throw e;
+				$.logErr(`❗️${$.name}, ${getZone.name}执行失败`, ` error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+				throw e
 			} finally {
-				$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data}`, '');
+				$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data}`, '')
 				resolve()
 			}
-		});
-		/*
-		const data = await $.http.get(url).then();
-		$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data.body}`, '');
-		const _data = JSON.parse(data.body)
-		if (_data.success === true) return _data.result;
-		*/
-	});
+		})
+	})
 }
 
 // Function 3B
