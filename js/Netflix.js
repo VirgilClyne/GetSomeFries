@@ -22,9 +22,9 @@ var geolocation = {};
 geolocation.policy = "ALLOW";
 geolocation.country = "SG"
 var config = {};
-config.allowWidevinePlayback = Boolean(true);
+config.allowWidevinePlayback = true;
 config.airPlayDisabledEnabledOnBuild = "50.0.0";
-//preferRichWebVTTOverImageBasedSubtitle = Boolean(true);
+config.preferRichWebVTTOverImageBasedSubtitle = true;
 config.reuseAVPlayerEnabledOnBuild = "0";
 config.nfplayerReduxEnabledOnBuild = "50.0.0";
 
@@ -34,9 +34,9 @@ if (typeof $argument != "undefined") {
 	console.log(JSON.stringify(arg));
 	geolocation.policy = arg.geolocation.policy
 	geolocation.country = arg.geolocation.country;
-	config.allowWidevinePlayback = arg.config.allowWidevinePlayback;
+	config.allowWidevinePlayback = new Boolean(arg.config.allowWidevinePlayback);
 	config.airPlayDisabledEnabledOnBuild = arg.config.airPlayDisabledEnabledOnBuild;
-	//config.preferRichWebVTTOverImageBasedSubtitle = arg.preferRichWebVTTOverImageBasedSubtitle;
+	//config.preferRichWebVTTOverImageBasedSubtitle = new Boolean(arg.preferRichWebVTTOverImageBasedSubtitle);
 	config.reuseAVPlayerEnabledOnBuild = arg.config.reuseAVPlayerEnabledOnBuild;
 	config.nfplayerReduxEnabledOnBuild = arg.config.nfplayerReduxEnabledOnBuild;
 };
@@ -53,10 +53,9 @@ if (url.search(path1) != -1) {
 	console.log(content.value.config.allowWidevinePlayback.valueOf());
 	if (content.value?.geolocation?.policy) content.value.geolocation.policy = geolocation.policy
 	if (content.value?.geolocation?.country) content.value.geolocation.country = geolocation.country;
-	//if (content.value?.config?.allowWidevinePlayback) content.value.config.allowWidevinePlayback = config.allowWidevinePlayback;
-	content.value.config.allowWidevinePlayback = true;
+	if (content.value?.config?.allowWidevinePlayback) content.value.config.allowWidevinePlayback = config.allowWidevinePlayback;
 	if (content.value?.config?.airPlayDisabledEnabledOnBuild) content.value.config.airPlayDisabledEnabledOnBuild = config.airPlayDisabledEnabledOnBuild;
-	//if (content.value?.config?.preferRichWebVTTOverImageBasedSubtitle) content.value.config.preferRichWebVTTOverImageBasedSubtitle = config.preferRichWebVTTOverImageBasedSubtitle;
+	if (content.value?.config?.preferRichWebVTTOverImageBasedSubtitle) content.value.config.preferRichWebVTTOverImageBasedSubtitle = config.preferRichWebVTTOverImageBasedSubtitle;
 	if (content.value?.config?.reuseAVPlayerEnabledOnBuild) content.value.config.reuseAVPlayerEnabledOnBuild = config.reuseAVPlayerEnabledOnBuild;
 	if (content.value?.config?.nfplayerReduxEnabledOnBuild) content.value.config.nfplayerReduxEnabledOnBuild = config.nfplayerReduxEnabledOnBuild;
 	body = JSON.stringify(content);
