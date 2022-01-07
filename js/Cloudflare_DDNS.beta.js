@@ -71,14 +71,14 @@ if (typeof $argument != "undefined") {
 	dns_records.name = arg.dns_records_name;
 	dns_records.ttl = arg.dns_records_ttl;
 	dns_records.priority = arg.dns_records_priority;
-	dns_records.proxied = new Boolean(arg.dns_records_proxied);
+	dns_records.proxied = Boolean(JSON.parse(arg.dns_records_proxied));
 };
 
 !(async () => {
 	try {
 		await Verify(Token, Key, Email)
 		DDNS('A', await getPublicIP(4));
-		DDNS('AAAA', await getPublicIP(6));
+		//DDNS('AAAA', await networkInfo('IPv6').then());
 		//await Promise.all([DDNS('A', 4), DDNS('AAAA', 6)])
 	} catch (e) {
 		$.logErr(e);
@@ -189,29 +189,25 @@ async function getPublicIP(type) {
 // Public API
 // Basic Information
 // https://manual.nssurge.com/scripting/common.html
-function networkInfo(type) {
-	switch (type) {
-		case 'BSSID':
+async function networkInfo(type) {
+	switch(type.toLowerCase()) {
 		case 'bssid':
-			result = $network.wifi.bssid;
-			break;
-		case 'SSID':
+			return $network.wifi.bssid;
 		case 'ssid':
-			result = $network.wifi.ssid;
-			break;
-		case 'V4':
-		case 'IPv4':
-		case 'A':
-			result = $network.v4.primaryAddress;
-			break;
-		case 'V6':
-		case 'IPv6':
-		case 'AAAA':
-			result = $network.v6.primaryAddress;
-			break;
+			return $network.wifi.ssid;
+		case 4:
+		case 'v4':
+		case 'ipv4':
+		case 'a':
+			return $network.v4.primaryAddress;
+		case 6:
+		case 'v6':
+		case 'ipv6':
+		case 'aaaa':
+			return $network.v6.primaryAddress;
 		default:
-			result = $network;
-	} return result
+			return $network;
+	}
 }
 
 // Function 2A
@@ -249,26 +245,20 @@ function getZone(zone) {
 			try {
 				if (error) throw new Error(error)
 				else if (data) _data = JSON.parse(data)
-				else throw new Error(response)
-				if (_data.success === true) {
+				else throw new Error(response);
+				//if (_data.success === true) {
+					//if (_data.messages) throw _data.messages;
 					if (_data.result) resolve(_data.result);
-					if (_data.messages) throw _data.messages;
-				} else if (_data.success === false) throw _data.errors;
+				//} else if (_data.success === false) throw _data.errors;
 			} catch (e) {
-				$.logErr(`❗️ ${$.name}, ${getZone.name}执行失败`, ` error = ${error}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-				throw e;
+				$.logErr(`❗️${$.name}, ${getZone.name}执行失败`, ` error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+				throw e
 			} finally {
-				$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data}`, '');
+				$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data}`, '')
 				resolve()
 			}
-		});
-		/*
-		const data = await $.http.get(url).then();
-		$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data.body}`, '');
-		const _data = JSON.parse(data.body)
-		if (_data.success === true) return _data.result;
-		*/
-	});
+		})
+	})
 }
 
 // Function 3B
@@ -285,7 +275,7 @@ async function listZone(zone, record) {
 // Function 4
 // Create DNS Record
 // https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
-async function createRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = false }) {
+async function createRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = true }) {
 	const url = { url: `${baseURL}zones/${zone.id}/dns_records`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
 	const data = await $.http.post(url).then();
 	$.log(`🚧 ${$.name}, ${createRecord.name}调试信息`, `data = ${data.body}`, '');
