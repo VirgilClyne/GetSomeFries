@@ -35,7 +35,7 @@ zone.name = 'example.com'; //The domain/website name you want to run updates for
 var dns_records = {};
 // DNS Record Details
 // https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
-dns_records.id = '372e67954025e0ba6aaa6d586b9e0b59';
+//dns_records.id = '372e67954025e0ba6aaa6d586b9e0b59';
 // List DNS Records
 // https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 // type
@@ -43,7 +43,7 @@ dns_records.id = '372e67954025e0ba6aaa6d586b9e0b59';
 dns_records.type = 'A';
 // name
 // DNS record name
-dns_records.name = 'server'; //DNS record name, subdomain/CNAME you want to run updates for
+dns_records.name = 'example'; //DNS record name, subdomain/CNAME you want to run updates for
 // content
 // DNS record content
 dns_records.content = '0.0.0.0';
@@ -71,16 +71,15 @@ if (typeof $argument != "undefined") {
 	dns_records.name = arg.dns_records_name;
 	dns_records.ttl = arg.dns_records_ttl;
 	dns_records.priority = arg.dns_records_priority;
-	dns_records.proxied = arg.dns_records_proxied;
+	dns_records.proxied = new Boolean(arg.dns_records_proxied);
 };
-
-console.log(networkInfo());
 
 !(async () => {
 	try {
 		await Verify(Token, Key, Email)
-		await DDNS('A')
-		await DDNS('AAAA')
+		DDNS('A', await getPublicIP(4));
+		DDNS('AAAA', await getPublicIP(6));
+		//await Promise.all([DDNS('A', 4), DDNS('AAAA', 6)])
 	} catch (e) {
 		$.logErr(e);
 	} finally {
@@ -107,19 +106,17 @@ async function Verify(Token, Key, Email) {
 }
 
 //Update DDNS
-async function DDNS(type) {
+async function DDNS(type, content) {
 	try {
-		$.log('开始更新DDNS');
+		$.log(`开始更新${type}类型记录`);
 		//Step 1
 		$.log('写入地址');
-		var content = networkInfo(type)
 		if (content) {
 			dns_records.type = type;
 			dns_records.content = content;
 			$.log(`${dns_records.type}类地址:${dns_records.content}`, '');
 		} else {
-			$.logErr(`无${dns_records.type}类地址`, '');
-			$.done();
+			$.log(`无${dns_records.type}类地址`, '');
 		}
 		//Step 2
 		$.log('查询区域信息');
@@ -144,10 +141,14 @@ async function DDNS(type) {
 		} $.log(`记录查询结果:`, `记录ID:${oldRecord.id}`, `名称:${oldRecord.name}`, `类型:${oldRecord.type}`, `内容:${oldRecord.content}`, `代理状态:${oldRecord.proxied}`, `TTL:${oldRecord.ttl}`, '');
 		//Step 4
 		$.log('构造更新内容');
-		$.log(`构造更新内容:`, `dns_records:${JSON.stringify(dns_records)}`, '')
+		$.log(`dns_records:${JSON.stringify(dns_records)}`, '')
 		var newRecord = dns_records
-		delete newRecord.id
-		$.log(`构造更新内容:`, `newRecord:${JSON.stringify(newRecord)}`, '')
+		//delete newRecord.id
+		if (oldRecord.proxiable === false) {
+			$.log('当前记录不可代理');
+			newRecord.proxied = false
+		}
+		$.log(`newRecord:${JSON.stringify(newRecord)}`, '')
 		//Step 5
 		$.log('开始更新内容');
 		if (!oldRecord) {
@@ -160,24 +161,35 @@ async function DDNS(type) {
 			$.log(`记录已更新:${JSON.stringify(newRecord)}`, '');
 		} else {
 			$.log(`不需要更新:${JSON.stringify(oldRecord)}`, '');
-			$.done();
 		}
 	} catch (e) {
 		if (e.response) {
-			$.logErr(e.response.data);
+			$.logErr(e.response);
 		} else {
 			$.logErr(e);
 		}
 	} finally {
-		$.done()
+		$.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`);
 	}
 };
 
 /***************** function *****************/
-// Function 1
+// Function 1A
+// Get Public IP / External IP address
+// https://www.my-ip.io/api
+async function getPublicIP(type) {
+	$.log(`${getPublicIP.name}`);
+	const url = { url: `https://api${type}.my-ip.io/ip.json`};
+	const data = await $.http.get(url).then();
+	$.log(`🚧 ${$.name}, ${getPublicIP.name}调试信息`, `data = ${data.body}`, '');
+	const _data = JSON.parse(data.body);
+	if (_data.success === true) return _data.ip;
+}
+
+// Function 1B
 // Public API
 // Basic Information
-//https://manual.nssurge.com/scripting/common.html
+// https://manual.nssurge.com/scripting/common.html
 function networkInfo(type) {
 	switch (type) {
 		case 'BSSID':
@@ -189,12 +201,12 @@ function networkInfo(type) {
 			result = $network.wifi.ssid;
 			break;
 		case 'V4':
-		case 'IPV4':
+		case 'IPv4':
 		case 'A':
 			result = $network.v4.primaryAddress;
 			break;
 		case 'V6':
-		case 'IPV6':
+		case 'IPv6':
 		case 'AAAA':
 			result = $network.v6.primaryAddress;
 			break;
@@ -205,90 +217,90 @@ function networkInfo(type) {
 
 // Function 2A
 // Verify Token
-//https://api.cloudflare.com/#user-api-tokens-verify-token
+// https://api.cloudflare.com/#user-api-tokens-verify-token
 async function verifyToken(Token) {
 	const url = { url: `${baseURL}user/tokens/verify`, headers: { 'Authorization': `Bearer ${Token}`, 'Content-Type': 'application/json' } };
 	const data = await $.http.get(url).then();
+	$.log(`🚧 ${$.name}, ${verifyToken.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${verifyToken.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
 	if (_data.messages[0].code == 10000) return url.headers;
 }
 
 // Function 2B
 // User Details
-//https://api.cloudflare.com/#user-user-details
+// https://api.cloudflare.com/#user-user-details
 async function getUser(Key, Email) {
 	const url = { url: `${baseURL}user`, headers: { 'X-Auth-Key': Key, 'X-Auth-Email': Email, 'Content-Type': 'application/json' } }
 	const data = await $.http.get(url).then();
+	$.log(`🚧 ${$.name}, ${getUser.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${getUser.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
 	return url.headers;
 }
 
 // Function 3A
 // Zone Details
-//https://api.cloudflare.com/#zone-zone-details
+// https://api.cloudflare.com/#zone-zone-details
 async function getZone(zone) {
 	const url = { url: `${baseURL}zones/${zone.id}`, headers: $.VAL_headers }
 	const data = await $.http.get(url).then();
+	$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
-	return JSON.parse(data.body).result;
+	return _data.result;
 }
 
 // Function 3B
 // List Zones
-//https://api.cloudflare.com/#zone-list-zones
+// https://api.cloudflare.com/#zone-list-zones
 async function listZone(zone, record) {
 	const url = { url: `${baseURL}zones?type=${record.type}&name=${zone.name}`, headers: $.VAL_headers }
 	const data = await $.http.get(url).then();
+	$.log(`🚧 ${$.name}, ${listZone.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${listZone.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
-	return JSON.parse(data.body).result[0];
+	return _data.result[0];
 }
 
 // Function 4
 // Create DNS Record
-//https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
+// https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
 async function createRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = false }) {
 	const url = { url: `${baseURL}zones/${zone.id}/dns_records`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
 	const data = await $.http.post(url).then();
+	$.log(`🚧 ${$.name}, ${createRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${createRecord.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
-	return JSON.parse(data.body).result;
+	return _data.result;
 }
 
 // Function 5A
 // DNS Record Details
-//https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
+// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
 async function getRecord(zone, record) {
 	const url = { url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers }
 	const data = await $.http.get(url).then();
+	$.log(`🚧 ${$.name}, ${getRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${getRecord.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
-	return JSON.parse(data.body).result;
+	return _data.result;
 }
 
 // Function 5B
 // List DNS Records
-//https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 async function listRecord(zone, record) {
 	const url = { url: `${baseURL}zones/${zone.id}/dns_records?type=${record.type}&name=${record.name}.${zone.name}&order=type`, headers: $.VAL_headers }
 	const data = await $.http.get(url).then();
+	$.log(`🚧 ${$.name}, ${listRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${listRecord.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
-	return JSON.parse(data.body).result[0];
+	return _data.result[0];
 }
 
 // Function 6
 // Update DNS Record
-//https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
+// https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
 async function updateRecord(zone, record, { type, name, content, ttl = 1, priority = 10, proxied = true}) {
-	const url = { method: 'put', url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
+	const url = {method: 'PUT', url: `${baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
 	const data = await $.http.post(url).then();
+	$.log(`🚧 ${$.name}, ${updateRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	$.log(`🚧 ${$.name}, ${updateRecord.name}调试信息`, `data = ${JSON.stringify(_data)}`, '');
-	return JSON.parse(data.body).result;
+	return _data.result;
 }
 
 /***************** Env *****************/
