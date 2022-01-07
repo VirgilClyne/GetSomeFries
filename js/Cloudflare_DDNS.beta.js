@@ -35,7 +35,7 @@ zone.name = 'example.com'; //The domain/website name you want to run updates for
 var dns_records = {};
 // DNS Record Details
 // https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
-//dns_records.id = '372e67954025e0ba6aaa6d586b9e0b59';
+dns_records.id = '372e67954025e0ba6aaa6d586b9e0b59';
 // List DNS Records
 // https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 // type
@@ -121,7 +121,8 @@ async function DDNS(type, content) {
 		//Step 2
 		$.log('查询区域信息');
 		if (zone.id) {
-			zone = await getZone(zone, dns_records);
+			zone = await getZone(zone).then();
+			$.log(`${zone}`, '');
 			$.log(`区域ID:${zone.id}`, '');
 		} else if (zone.name) {
 			zone = await listZone(zone, dns_records);
@@ -143,7 +144,7 @@ async function DDNS(type, content) {
 		$.log('构造更新内容');
 		$.log(`dns_records:${JSON.stringify(dns_records)}`, '')
 		var newRecord = dns_records
-		//delete newRecord.id
+		delete newRecord.id
 		if (oldRecord.proxiable === false) {
 			$.log('当前记录不可代理');
 			newRecord.proxied = false
@@ -234,7 +235,7 @@ async function getUser(Key, Email) {
 	const data = await $.http.get(url).then();
 	$.log(`🚧 ${$.name}, ${getUser.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	return url.headers;
+	if (_data.success === true) return url.headers;
 }
 
 // Function 3A
@@ -242,10 +243,29 @@ async function getUser(Key, Email) {
 // https://api.cloudflare.com/#zone-zone-details
 async function getZone(zone) {
 	const url = { url: `${baseURL}zones/${zone.id}`, headers: $.VAL_headers }
+	return await $.get(url, (error, response, data) => {
+		try {
+			if (error) throw new Error(error)
+			const _data = JSON.parse(data)
+			if (_data.success === true) {
+				if (_data.messages[0]) $.msg(getZone.name, _data.messages[0].code, _data.messages[0].message);
+				result = _data.result;
+				return result
+			} else if (_data.success === false) throw new Error(_data)
+		} catch (e) {
+			if (e.errors[0]) $.msg(getZone.name, e.errors[0].code, e.errors[0].message);
+			if (e.errors[1]) $.msg(getZone.name, e.errors[1].code, e.errors[1].message);
+			else $.log(`❗️ ${$.name}, ${getZone.name}执行失败`, ` error = ${error}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+		} finally {
+			$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data}`, '');
+		}
+	})
+	/*
 	const data = await $.http.get(url).then();
 	$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	return _data.result;
+	if (_data.success === true) return _data.result;
+	*/
 }
 
 // Function 3B
@@ -256,7 +276,7 @@ async function listZone(zone, record) {
 	const data = await $.http.get(url).then();
 	$.log(`🚧 ${$.name}, ${listZone.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	return _data.result[0];
+	if (_data.success === true) return _data.result[0];
 }
 
 // Function 4
@@ -267,7 +287,7 @@ async function createRecord(zone, { type, name, content, ttl = 1, priority = 10,
 	const data = await $.http.post(url).then();
 	$.log(`🚧 ${$.name}, ${createRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	return _data.result;
+	if (_data.success === true) return _data.result;
 }
 
 // Function 5A
@@ -278,7 +298,7 @@ async function getRecord(zone, record) {
 	const data = await $.http.get(url).then();
 	$.log(`🚧 ${$.name}, ${getRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	return _data.result;
+	if (_data.success === true) return _data.result;
 }
 
 // Function 5B
@@ -289,7 +309,7 @@ async function listRecord(zone, record) {
 	const data = await $.http.get(url).then();
 	$.log(`🚧 ${$.name}, ${listRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	return _data.result[0];
+	if (_data.success === true) return _data.result[0];
 }
 
 // Function 6
@@ -300,7 +320,7 @@ async function updateRecord(zone, record, { type, name, content, ttl = 1, priori
 	const data = await $.http.post(url).then();
 	$.log(`🚧 ${$.name}, ${updateRecord.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	return _data.result;
+	if (_data.success === true) return _data.result;
 }
 
 /***************** Env *****************/
