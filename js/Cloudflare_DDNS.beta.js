@@ -163,12 +163,10 @@ async function DDNS(type, content) {
 		} else {
 			$.log(`不需要更新:${JSON.stringify(oldRecord)}`, '');
 		}
-	} catch (e) {
-		if (e.response) {
-			$.logErr(e.response);
-		} else {
-			$.logErr(e);
-		}
+	} catch (data) {
+		if (data.message) data.message.forEach((code, message) => { $.msg($.name, code, message); })
+		if (data.error) data.error.forEach((code, message) => { $.msg($.name, code, message); })
+		else $.logErr(data);
 	} finally {
 		$.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`);
 	}
@@ -224,7 +222,10 @@ async function verifyToken(Token) {
 	const data = await $.http.get(url).then();
 	$.log(`🚧 ${$.name}, ${verifyToken.name}调试信息`, `data = ${data.body}`, '');
 	const _data = JSON.parse(data.body)
-	if (_data.messages[0].code == 10000) return url.headers;
+	if (_data.success === true) {
+		if (_data.messages[0].code == 10000) return url.headers;
+		else if (_data.messages[0]) $.msg(getZone.name, _data.messages[0].code, _data.messages[0].message);
+	} else if (_data.success === false) throw new Error(_data)
 }
 
 // Function 2B
@@ -241,31 +242,33 @@ async function getUser(Key, Email) {
 // Function 3A
 // Zone Details
 // https://api.cloudflare.com/#zone-zone-details
-async function getZone(zone) {
-	const url = { url: `${baseURL}zones/${zone.id}`, headers: $.VAL_headers }
-	return await $.get(url, (error, response, data) => {
-		try {
-			if (error) throw new Error(error)
-			const _data = JSON.parse(data)
-			if (_data.success === true) {
-				if (_data.messages[0]) $.msg(getZone.name, _data.messages[0].code, _data.messages[0].message);
-				result = _data.result;
-				return result
-			} else if (_data.success === false) throw new Error(_data)
-		} catch (e) {
-			if (e.errors[0]) $.msg(getZone.name, e.errors[0].code, e.errors[0].message);
-			if (e.errors[1]) $.msg(getZone.name, e.errors[1].code, e.errors[1].message);
-			else $.log(`❗️ ${$.name}, ${getZone.name}执行失败`, ` error = ${error}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
-		} finally {
-			$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data}`, '');
-		}
-	})
-	/*
-	const data = await $.http.get(url).then();
-	$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data.body}`, '');
-	const _data = JSON.parse(data.body)
-	if (_data.success === true) return _data.result;
-	*/
+function getZone(zone) {
+	return new Promise((resolve) => {
+		const url = { url: `${baseURL}zones/${zone.id}`, headers: $.VAL_headers }
+		$.get(url, (error, response, data) => {
+			try {
+				if (error) throw new Error(error)
+				else if (data) _data = JSON.parse(data)
+				else throw new Error(response)
+				if (_data.success === true) {
+					if (_data.result) resolve(_data.result);
+					if (_data.messages) throw _data.messages;
+				} else if (_data.success === false) throw _data.errors;
+			} catch (e) {
+				$.logErr(`❗️ ${$.name}, ${getZone.name}执行失败`, ` error = ${error}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+				throw e;
+			} finally {
+				$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data}`, '');
+				resolve()
+			}
+		});
+		/*
+		const data = await $.http.get(url).then();
+		$.log(`🚧 ${$.name}, ${getZone.name}调试信息`, `data = ${data.body}`, '');
+		const _data = JSON.parse(data.body)
+		if (_data.success === true) return _data.result;
+		*/
+	});
 }
 
 // Function 3B
