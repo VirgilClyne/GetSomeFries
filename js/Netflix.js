@@ -34,9 +34,9 @@ if (typeof $argument != "undefined") {
 	console.log(JSON.stringify(arg));
 	geolocation.policy = arg.geolocation.policy
 	geolocation.country = arg.geolocation.country;
-	config.allowWidevinePlayback = new Boolean(arg.config.allowWidevinePlayback);
+	config.allowWidevinePlayback = Boolean(JSON.parse(arg.config.allowWidevinePlayback));
 	config.airPlayDisabledEnabledOnBuild = arg.config.airPlayDisabledEnabledOnBuild;
-	//config.preferRichWebVTTOverImageBasedSubtitle = new Boolean(arg.preferRichWebVTTOverImageBasedSubtitle);
+	config.preferRichWebVTTOverImageBasedSubtitle = Boolean(JSON.parse(arg.preferRichWebVTTOverImageBasedSubtitle));
 	config.reuseAVPlayerEnabledOnBuild = arg.config.reuseAVPlayerEnabledOnBuild;
 	config.nfplayerReduxEnabledOnBuild = arg.config.nfplayerReduxEnabledOnBuild;
 };
