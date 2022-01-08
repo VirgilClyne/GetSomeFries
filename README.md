@@ -12,6 +12,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [功能列表](#功能列表)
   - [todo](#todo)
   - [安装链接](#安装链接)
+    - [正式版](#正式版)
     - [🧪测试版](#测试版)
 - [🍟 Disney Plus](#-disney-plus)
   - [简介](#简介-1)
@@ -49,6 +50,10 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * 并行处理优化
 
 ## 安装链接
+### 正式版
+  * Surge:
+    * [Cloudflare_DDNS.sgmodule](./sgmodule/Cloudflare_DDNS.sgmodule?raw=true "🍟 Cloudflare DDNS")
+      * 不能直接用，需要复制此模块，编辑argument内容为自己要更新的信息
 ### 🧪测试版
   * Surge:
     * [Cloudflare_DDNS.beta.sgmodule](./sgmodule/Cloudflare_DDNS.beta.sgmodule?raw=true "🍟 Cloudflare DDNS")
