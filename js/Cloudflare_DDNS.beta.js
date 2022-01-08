@@ -258,7 +258,25 @@ async function networkInfo(type) {
 // Verify Token
 // https://api.cloudflare.com/#user-api-tokens-verify-token
 async function verifyToken(Token) {
-	const url = { url: `${baseURL}user/tokens/verify`, headers: { 'Authorization': `Bearer ${Token}`, 'Content-Type': 'application/json' } };
+	const url = { url: `${baseURL}user/tokens/verify`, headers: { 'Authorization': `Bearer ${Token}` } };
+	return await $httpClient.get(url, function (error, response, data) {
+		try {
+			if (error) throw new Error(error)
+			else if (data) {
+				_data = JSON.parse(data)
+				if (_data.success === true) {
+					//if (_data.messages.length != 0) throw body;
+					if (_data.messages[0].code == 10000) return url.headers;
+				} else if (_data.success === false) {
+					if (_data.messages.length != 0) throw body;
+					if (_data.errors.length != 0) throw new Error(body.errors);
+				}
+			} else throw new Error(response);
+		} catch (e) {
+			$.logErr(`❗️${$.name}, ${verifyToken.name}执行失败`, ` error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
+		}
+	});
+	/*
 	const response = await $.http.get(url).then();
 	$.log(`🚧 ${$.name}, ${verifyToken.name}调试信息`, `response = ${JSON.stringify(response)}`, '');
 	const body = JSON.parse(response.body)
@@ -269,6 +287,7 @@ async function verifyToken(Token) {
 		if (body.messages.length != 0) throw body;
 		if (body.errors.length != 0) throw new Error(body.errors);
 	}
+	*/
 	/*
 	return new Promise((resolve) => {
 		const url = { url: `${baseURL}user/tokens/verify`, headers: { 'Authorization': `Bearer ${Token}`, 'Content-Type': 'application/json' } };
