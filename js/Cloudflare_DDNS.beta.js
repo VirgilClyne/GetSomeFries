@@ -22,17 +22,6 @@ var Key = {
 	'X-Auth-Email': 'example@example.com', //Your contact email address
 	'X-Auth-User-Service-Key': 'v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a' //User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
 }
-$.VAL_headers = {};
-if (Token) {
-	$.VAL_headers.Authorization = `Bearer ${Token}`;
-} else if (Key["X-Auth-Key"] && Key["X-Auth-Email"]) {
-	$.VAL_headers = { 'X-Auth-Key': Key["X-Auth-Key"], 'X-Auth-Email': Key["X-Auth-Email"] };
-} else if (Key["X-Auth-User-Service-Key"]) {
-	$.VAL_headers["X-Auth-User-Service-Key"] = Key["X-Auth-User-Service-Key"];
-} else {
-	$.logErr('无可用授权方式', `Token=${Token}`, `Key=${Key}`, '');
-	$.done();
-}
 
 // Zone
 // https://api.cloudflare.com/#zone-properties
@@ -89,6 +78,18 @@ if (typeof $argument != "undefined") {
 	dns_records.priority = arg.dns_records_priority;
 	dns_records.proxied = Boolean(JSON.parse(arg.dns_records_proxied));
 };
+
+$.VAL_headers = {};
+if (Token) {
+	$.VAL_headers.Authorization = `Bearer ${Token}`;
+} else if (Key["X-Auth-Key"] && Key["X-Auth-Email"]) {
+	$.VAL_headers = { 'X-Auth-Key': Key["X-Auth-Key"], 'X-Auth-Email': Key["X-Auth-Email"] };
+} else if (Key["X-Auth-User-Service-Key"]) {
+	$.VAL_headers["X-Auth-User-Service-Key"] = Key["X-Auth-User-Service-Key"];
+} else {
+	$.logErr('无可用授权方式', `Token=${Token}`, `Key=${Key}`, '');
+	$.done();
+}
 
 !(async () => {
 		let status = await Verify(Token, Key)
@@ -187,10 +188,11 @@ async function DDNS(type, content) {
 			$.log(`不需要更新:${JSON.stringify(oldRecord)}`, '');
 		}
 	} catch (data) {
-		if (data) data.forEach((code, message) => { $notification.post($.name, code, message); })
+		if (data) data.forEach(element => { $notification.post($.name, `code: ${element.code}`, `message: ${element.message}`); })
 		//if (data.message) data.message.forEach((code, message) => { $.msg($.name, code, message); })
 		//if (data.error) data.error.forEach((code, message) => { $.msg($.name, code, message); })
 		else $.logErr(data);
+		//throw e
 	} finally {
 		$.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`);
 	}
@@ -206,7 +208,7 @@ function ParseCFjson(url) {
 				if (error) throw new Error(error)
 				else if (data) {
 					_data = JSON.parse(data)
-					if (_data.messages.length != 0) _data.messages.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`, element.type); })
+					if (_data.messages.length != 0) _data.messages.forEach(element => { notification.post($.name, `code: ${element.code}`, `message: ${element.message}`); })
 					if (_data.success === true) {
 						if (_data.ip) resolve(_data.ip);
 						else if (_data.result) resolve(_data.result);
@@ -215,7 +217,7 @@ function ParseCFjson(url) {
 					}
 				} else throw new Error(response);
 			} catch (e) {
-				if (e) e.forEach(element => { $.msg($.name, element.code, element.message, element.type); })
+				if (e) e.forEach(element => { notification.post($.name, `code: ${element.code}`, `message: ${element.message}`); })
 				else $.logErr(`❗️${$.name}, ${ParseCFjson.name}执行失败`, ` error = ${error || e}`, `response = ${JSON.stringify(response)}`, `data = ${data}`, '')
 				//throw e
 			} finally {
