@@ -39,10 +39,10 @@ if (Token) {
 var zone = {
 	// Zone Details
 	// https://api.cloudflare.com/#zone-zone-details
-	'id': '023e105f4ecef8ad9ca31a8372d0c353',
+	id: '023e105f4ecef8ad9ca31a8372d0c353',
 	// List Zones
 	// https://api.cloudflare.com/#zone-list-zones
-	'name': 'example.com' //The domain/website name you want to run updates for (e.g. example.com)
+	name: 'example.com' //The domain/website name you want to run updates for (e.g. example.com)
 };
 
 // DNS Records for a Zone
@@ -50,27 +50,27 @@ var zone = {
 var dns_records = {
 	// DNS Record Details
 	// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
-	'id': '372e67954025e0ba6aaa6d586b9e0b59',
+	id: '372e67954025e0ba6aaa6d586b9e0b59',
 	// List DNS Records
 	// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 	// type
 	// DNS record type
-	'type': '',
+	type: '',
 	// name
 	// DNS record name
-	'name': 'example', //DNS record name, subdomain/CNAME you want to run updates for
+	name: 'example', //DNS record name, subdomain/CNAME you want to run updates for
 	// content
 	// DNS record content
-	'content': '',
+	content: '',
 	// ttl
 	// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
-	'ttl': 1,
+	ttl: 1,
 	// priority
 	// Required for MX, SRV and URI records; unused by other record types.
-	'priority': 10,
+	priority: 10,
 	// proxied
 	// Whether the record is receiving the performance and security benefits of Cloudflare
-	'proxie': false //Whether the record is receiving the performance and security benefits of Cloudflare
+	proxied: false //Whether the record is receiving the performance and security benefits of Cloudflare
 };
 
 // Argument Function Supported
@@ -187,9 +187,9 @@ async function DDNS(type, content) {
 			$.log(`不需要更新:${JSON.stringify(oldRecord)}`, '');
 		}
 	} catch (data) {
-		if (data) data.forEach((code, message) => { $.msg($.name, code, message); })
-		if (data.message) data.message.forEach((code, message) => { $.msg($.name, code, message); })
-		if (data.error) data.error.forEach((code, message) => { $.msg($.name, code, message); })
+		if (data) data.forEach((code, message) => { $notification.post($.name, code, message); })
+		//if (data.message) data.message.forEach((code, message) => { $.msg($.name, code, message); })
+		//if (data.error) data.error.forEach((code, message) => { $.msg($.name, code, message); })
 		else $.logErr(data);
 	} finally {
 		$.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`);
