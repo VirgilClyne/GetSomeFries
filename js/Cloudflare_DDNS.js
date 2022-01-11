@@ -132,7 +132,7 @@ async function DDNS(type, content) {
 		//Step 2
 		$.log('查询区域信息');
 		if (zone.id) {
-			zone = await getZone(zone);
+			//zone = await getZone(zone);
 			$.log(`区域ID:${zone.id}`, '');
 		} else if (zone.name) {
 			zone = await listZone(zone, dns_records);
