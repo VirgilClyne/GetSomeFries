@@ -107,21 +107,21 @@ if (Token) {
 
 /***************** async *****************/
 //Verify API Token/Key
-async function Verify(Token, { Key, Email, ServiceKey}) {
+async function Verify(Token, { Key, Email, ServiceKey }) {
 	$.log('验证授权');
 	if (Token) {
-		$.VAL_headers = { 'Authorization': `Bearer ${Token}` };
+		$.VAL_headers = { 'Authorization': `Bearer ${Token}`, 'Content-Type': 'application/json' };
 		const url = { url: `${$.baseURL}user/tokens/verify`, headers: $.VAL_headers };
 		const result = await getCFjson(url);
 		if (result.status == 'active') return true
 	} else if (ServiceKey) {
-		$.VAL_headers = { 'X-Auth-User-Service-Key': Key["X-Auth-User-Service-Key"] };
+		$.VAL_headers = { 'X-Auth-User-Service-Key': Key["X-Auth-User-Service-Key"], 'Content-Type': 'application/json' };
 		const url = { url: `${$.baseURL}user`, headers: $.VAL_headers }
 		const result = await getCFjson(url);
 		return result.suspended
 		//if (result.email == Email) return true
 	} else if (Key && Email) {
-		$.VAL_headers = { 'X-Auth-Key': Key["X-Auth-Key"], 'X-Auth-Email': Key["X-Auth-Email"] };
+		$.VAL_headers = { 'X-Auth-Key': Key["X-Auth-Key"], 'X-Auth-Email': Key["X-Auth-Email"], 'Content-Type': 'application/json' };
 		const url = { url: `${$.baseURL}user`, headers: $.VAL_headers }
 		const result = await getCFjson(url);
 		return result.suspended
@@ -148,7 +148,7 @@ async function DDNS(type, content) {
 		//Step 2
 		$.log('查询区域信息');
 		if (zone.id) {
-			zone = await getZone(zone);
+			//zone = await getZone(zone);
 			$.log(`区域ID:${zone.id}`, '');
 		} else if (zone.name) {
 			zone = await listZone(zone, dns_records);
@@ -199,9 +199,9 @@ async function DDNS(type, content) {
 /***************** function *****************/
 // Function 0A
 // Get Cloudflare JSON
-async function getCFjson(url) {
+function getCFjson(url) {
 	return new Promise((resolve) => {
-		return $.get(url, (error, response, data) => {
+		$.get(url, (error, response, data) => {
 			try {
 				if (error) throw new Error(error)
 				else if (data) {
@@ -227,9 +227,9 @@ async function getCFjson(url) {
 
 // Function 0B
 // Fatch Cloudflare JSON
-async function fatchCFjson(url) {
+function fatchCFjson(url) {
 	return new Promise((resolve) => {
-		return $.post(url, (error, response, data) => {
+		$.post(url, (error, response, data) => {
 			try {
 				if (error) throw new Error(error)
 				else if (data) {
