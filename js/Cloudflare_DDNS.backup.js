@@ -163,11 +163,12 @@ async function Verify(Token, { Key, Email, ServiceKey }) {
 //Step 2
 async function checkZoneInfo(zone) {
 	$.log('查询区域信息');
+	/*
 	return (zone.id && zone.name) ? zone
 		: (zone.id) ? await getZone(zone)
 			: (zone.name) ? await listZones(zone)
 				: $.logErr('未设置区域信息'), $.done()
-	/*
+	*/
 	if (zone.id && zone.name) {
 		zone = zone;
 	} else if (zone.id) {
@@ -180,7 +181,6 @@ async function checkZoneInfo(zone) {
 	}
 	$.log(`区域ID:${zone.id}`, `区域名称:${zone.name}`, '');
 	return zone
-	*/
 }
 
 //Step 3
@@ -194,13 +194,13 @@ async function checkRecordContent(type, content) {
 			return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
 		} else {
 			$.log(`无内容, 获取`, '');
-			dns_records.content = (type == 'A') ? await getPublicIP(4)
-				: (type == 'AAAA') ? await getPublicIP(6)
-					: $.log(`类型为${type}, 不需要获取外部IP, 跳过`, '')
-			/*
 			if (type == 'A') dns_records.content = await getPublicIP(4);
 			else if (type == 'AAAA') dns_records.content = await getPublicIP(6);
 			else $.log(`类型为${type}, 不需要获取外部IP, 跳过`, '');
+			/*
+			dns_records.content = (type == 'A') ? await getPublicIP(4)
+				: (type == 'AAAA') ? await getPublicIP(6)
+					: $.log(`类型为${type}, 不需要获取外部IP, 跳过`, '')
 			*/
 		} return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
 	} else {
