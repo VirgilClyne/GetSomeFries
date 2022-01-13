@@ -90,8 +90,8 @@ if (typeof $argument != "undefined") {
 		//Step 2
 		zone = await checkZoneInfo(zone);
 		//Step 3 4 5 6
-		await DDNS(zone, 'A', dns_records);
-		await DDNS(zone, 'AAAA', dns_records);
+		await DDNS('A', await getPublicIP(4));
+		await DDNS('AAAA', await getPublicIP(6));
 		//await Promise.all([DDNS('A', await getPublicIP(4)), DDNS('AAAA', await networkInfo(6))])
 	} else throw new Error('验证失败')
 })()
@@ -101,11 +101,11 @@ if (typeof $argument != "undefined") {
 /***************** DDNS *****************/
 
 //Update DDNS
-async function DDNS(zone, type, dns_records) {
+async function DDNS(type, content) {
 	try {
 		$.log(`开始更新${type}类型记录`);
 		//Step 3
-		await checkRecordContent(type, dns_records);
+		dns_records = await checkRecordContent(type, content);
 		//Step 4
 		var oldRecord = await checkRecordInfo(zone, dns_records);
 		//Step 5
@@ -161,24 +161,28 @@ async function checkZoneInfo(zone) {
 }
 
 //Step 3
-async function checkRecordContent(type, dns_records) {
+async function checkRecordContent(type, content) {
 	if (type) {
 		$.log(`有类型${type}, 继续`, '');
 		dns_records.type = type;
-		if (dns_records.content) {
-			$.log(`有内容${dns_records.content}, 跳过`, '');
-			dns_records.content = dns_records.content;
-			return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+		if (content) {
+			$.log(`有内容${content}, 跳过`, '');
+			dns_records.content = content;
 		} else {
 			$.log(`无内容, 获取`, '');
-			if (dns_records.type == 'A') dns_records.content = await getPublicIP(4);
-			else if (dns_records.type == 'AAAA') dns_records.content = await getPublicIP(6);
-			else $.log(`类型为${dns_records.type}, 不需要获取外部IP, 跳过`, '');
-		} return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+			if (type == 'A') dns_records.content = await getPublicIP(4);
+			else if (type == 'AAAA') dns_records.content = await getPublicIP(6);
+			else {
+				$.log(`类型${dns_records.type}, 无内容，也不需要获取外部IP,中止`, '');
+				$.done();
+			}
+		}
 	} else {
-		$.log(`无类型${dns_records.type},中止`, '');
+		$.log(`无类型${type},中止`, '');
 		$.done();
 	}
+	$.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+	return dns_records
 }
 
 //Step 4
