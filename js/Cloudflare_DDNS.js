@@ -222,7 +222,7 @@ async function setupRecord(zone, oldRecord, newRecord) {
 	} else {
 		$.log(`不需要更新:${JSON.stringify(oldRecord)}`, '');
 	}
-	return $.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`);
+	return $.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`, '');
 }
 
 /***************** function *****************/
@@ -289,36 +289,19 @@ async function getPublicIP(type) {
 	return await getCFjson(url);
 }
 
-// Function 1B
-// Public API
-// Basic Information
-// https://manual.nssurge.com/scripting/common.html
-async function networkInfo(type) {
-	switch(type) {
-		case 'BSSID':
-			return $network.wifi.bssid;
-		case 'SSID':
-			return $network.wifi.ssid;
-		case 4:
-		case 'v4':
-		case 'IPv4':
-		case 'A':
-			return $network.v4.primaryAddress;
-		case 6:
-		case 'v6':
-		case 'IPv6':
-		case 'AAAA':
-			return $network.v6.primaryAddress;
-		default:
-			return $network;
-	}
-}
-
 // Function 2A
 // Verify Token
 // https://api.cloudflare.com/#user-api-tokens-verify-token
 async function verifyToken(headers) {
 	const url = { url: `${$.baseURL}user/tokens/verify`, headers: headers };
+	return await getCFjson(url);
+}
+
+// Function 2B
+// User Details
+// https://api.cloudflare.com/#user-user-details
+async function getUser(headers) {
+	const url = { url: `${$.baseURL}user`, headers: headers }
 	return await getCFjson(url);
 }
 
