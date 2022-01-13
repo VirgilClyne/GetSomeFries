@@ -10,6 +10,78 @@ const $ = new Env('Cloudflare DDNS');
 // https://api.cloudflare.com/#getting-started-endpoints
 $.baseURL = 'https://api.cloudflare.com/client/v4/';
 
+$.config = {
+	// Requests
+	// https://api.cloudflare.com/#getting-started-requests
+	// API Tokens
+	// API Tokens provide a new way to authenticate with the Cloudflare API.
+    "Token":"",
+	// API Keys
+	// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate. Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
+    "Key":{
+        "X-Auth-Email":"", //Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
+        "X-Auth-Key":"", //Your contact email address
+        "X-Auth-User-Service-Key":"" //User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
+    },
+	// Zone
+	// https://api.cloudflare.com/#zone-properties
+    "zone":{
+		// Zone Details
+		// https://api.cloudflare.com/#zone-zone-details
+        "id":"",
+		// List Zones
+		// https://api.cloudflare.com/#zone-list-zones
+        "name":"", //The domain/website name you want to run updates for (e.g. example.com)
+		// DNS Records for a Zone
+		// https://api.cloudflare.com/#dns-records-for-a-zone-properties
+        "dns_records":[
+            {
+				// DNS Record Details
+				// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
+                "id":"",
+				// List DNS Records
+				// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+				// type
+				// DNS record type
+                "type":"A",
+				// name
+				// DNS record name
+                "name":"",
+				// content
+				// DNS record content
+                "content":"",
+				// ttl
+				// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
+                "ttl":1,
+				// priority
+				// Required for MX, SRV and URI records; unused by other record types.
+				//"priority":10,
+				// proxied
+				// Whether the record is receiving the performance and security benefits of Cloudflare
+                "proxied":false //Whether the record is receiving the performance and security benefits of Cloudflare
+            },
+            {
+                "id":"",
+                "type":"AAAA",
+                "name":"",
+                "content":"",
+                "ttl":1,
+                "proxied":false
+            },
+            {
+                "id":"",
+                "type":"MX",
+                "name":"",
+                "content":"",
+                "ttl":1,
+				"priority":10,
+                "proxied":false
+            }
+        ]
+    }
+}
+
+/*
 // Requests
 // https://api.cloudflare.com/#getting-started-requests
 // API Tokens
@@ -22,7 +94,9 @@ var Key = {
 	'X-Auth-Email': 'example@example.com', //Your contact email address
 	'X-Auth-User-Service-Key': 'v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a' //User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
 }
+*/
 
+/*
 // DNS Records for a Zone
 // https://api.cloudflare.com/#dns-records-for-a-zone-properties
 var dns_records = {
@@ -53,7 +127,9 @@ var dns_records = {
 	// Whether the record is receiving the performance and security benefits of Cloudflare
 	proxied: false //Whether the record is receiving the performance and security benefits of Cloudflare
 };
+*/
 
+/*
 // Zone
 // https://api.cloudflare.com/#zone-properties
 var zone = {
@@ -65,9 +141,14 @@ var zone = {
 	//name: 'example.com', //The domain/website name you want to run updates for (e.g. example.com)
 	...{dns_records}
 };
+*/
 
 // Argument Function Supported
 if (typeof $argument != "undefined") {
+	let arg = JSON.parse($argument);
+	$.log('$argument=' + JSON.stringify($argument));
+	$.config = arg
+	/*
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
 	Token = arg.Token;
@@ -82,10 +163,10 @@ if (typeof $argument != "undefined") {
 	dns_records.ttl = arg.dns_records_ttl;
 	dns_records.priority = arg.dns_records_priority;
 	dns_records.proxied = Boolean(JSON.parse(arg.dns_records_proxied));
+	*/
 };
 
-
-$.config = {Token, Key, zone}
+//$.config = {Token, Key, zone}
 console.log($.config)
 
 /*
@@ -103,13 +184,16 @@ if (Token) {
 
 !(async () => {
 	//Step 1
-	let status = await Verify(Token, Key)
+	let status = await Verify($.config.Token, $.config.Key)
 	if (status == true) {
 		//Step 2
-		zone = await checkZoneInfo(zone);
+		$.config.zone = await checkZoneInfo($.config.zone)
 		//Step 3 4 5 6
+		for (let i in $.config.zone.dns_records) { await DDNS($.config.zone, $.config.zone.dns_records[i]); }
+		/*
 		await DDNS('A', await getPublicIP(4));
 		await DDNS('AAAA', await getPublicIP(6));
+		*/
 		//await Promise.all([DDNS('A', await getPublicIP(4)), DDNS('AAAA', await networkInfo(6))])
 	} else throw new Error('验证失败')
 })()
@@ -119,11 +203,11 @@ if (Token) {
 /***************** DDNS *****************/
 
 //Update DDNS
-async function DDNS(type, content) {
+async function DDNS(zone, dns_records) {
 	try {
-		$.log(`开始更新${type}类型记录`);
+		$.log(`开始更新${dns_records.type}类型记录`);
 		//Step 3
-		await checkRecordContent(type, content);
+		await checkRecordContent(dns_records);
 		//Step 4
 		var oldRecord = await checkRecordInfo(zone, dns_records);
 		//Step 5
@@ -133,7 +217,7 @@ async function DDNS(type, content) {
 	} catch (e) {
 		$.logErr(e);
 	} finally {
-		return $.log(`${DDNS.name}完成`, `type:${type}`, `content:${content}`, '');
+		return $.log(`${DDNS.name}完成`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
 	}
 };
 
@@ -170,41 +254,42 @@ async function checkZoneInfo(zone) {
 				: $.logErr('未设置区域信息'), $.done()
 	*/
 	if (zone.id && zone.name) {
-		zone = zone;
+		newZone = zone;
 	} else if (zone.id) {
-		zone = await getZone(zone);
+		newZone = await getZone(zone);
 	} else if (zone.name) {
-		zone = await listZones(zone);	
+		newZone = await listZones(zone);	
 	} else {
 		$.logErr('未设置区域信息');
 		$.done();
 	}
-	$.log(`区域ID:${zone.id}`, `区域名称:${zone.name}`, '');
-	return zone
+	$.log(`区域查询结果:`, `区域ID:${newZone.id}`, `名称:${newZone.name}`, `状态:${newZone.status}`, `仅DNS服务:${newZone.paused}`, `类型:${newZone.type}`, `开发者模式:${newZone.development_mode}`, `名称服务器:${newZone.name_servers}`, `原始名称服务器:${newZone.original_name_servers}`, '');
+	const config = await Object.assign(zone, newZone);
+	return config;
 }
 
 //Step 3
-async function checkRecordContent(type, content) {
-	if (type) {
-		$.log(`有类型${type}, 继续`, '');
-		dns_records.type = type;
-		if (content) {
-			$.log(`有内容${content}, 跳过`, '');
-			dns_records.content = content;
+async function checkRecordContent(dns_records) {
+	if (dns_records.type) {
+		$.log(`有类型${dns_records.type}, 继续`, '');
+		dns_records.type = dns_records.type;
+		if (dns_records.content) {
+			$.log(`有内容${dns_records.content}, 跳过`, '');
+			dns_records.content = dns_records.content;
 			return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
 		} else {
 			$.log(`无内容, 获取`, '');
-			if (type == 'A') dns_records.content = await getPublicIP(4);
-			else if (type == 'AAAA') dns_records.content = await getPublicIP(6);
-			else $.log(`类型为${type}, 不需要获取外部IP, 跳过`, '');
+			if (dns_records.type == 'A') dns_records.content = await getPublicIP(4);
+			else if (dns_records.type == 'AAAA') dns_records.content = await getPublicIP(6);
+			else $.log(`类型为${dns_records.type}, 不需要获取外部IP, 跳过`, '');
 			/*
-			dns_records.content = (type == 'A') ? await getPublicIP(4)
-				: (type == 'AAAA') ? await getPublicIP(6)
-					: $.log(`类型为${type}, 不需要获取外部IP, 跳过`, '')
+			dns_records.content = (dns_records.type == 'A') ? await getPublicIP(4)
+				: (dns_records.type == 'AAAA') ? await getPublicIP(6)
+					: $.log(`类型为${dns_records.type}, 不需要获取外部IP, 跳过`, '')
 			*/
 		} return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
 	} else {
-		$.log(`无类型${type},中止`, '');
+		$.log(`无类型${dns_records.type},中止`, '');
 		$.done();
 	}
 }
