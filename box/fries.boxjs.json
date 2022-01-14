@@ -63,10 +63,10 @@
           "name": "DNS记录内容",
           "val": "",
           "type": "textarea",
-          "placeholder": "023e105f4ecef8ad9ca31a8372d0c353,subdomain,A,192.168.1.123,1,10,true\n,subdomain,AAAA,,1,,false",
+          "placeholder": "记录ID,类型,名称,内容,TTL,优先级,是否代理\nABC,A,WWW,192.168.1.123,1,10,false",
           "autoGrow": true,
-          "rows": 2,
-          "desc": "一行一个记录内容，以回车分隔多行记录, 内容为空的A与AAAA记录会自动获取当前外部IP地址, 按照此顺序提供,没有的项目就逗号分隔留空: 记录ID,子域名,类型,内容,TTL,优先级,是否代理"
+          "rows": 3,
+          "desc": "一行一个记录内容，以回车分隔多行记录, 名称是子域名, 类型与名称是必填项, 没有的项目就逗号分隔留空, 内容为空的A与AAAA记录会自动获取当前外部IP地址"
         }
       ],
       "author": "@VirgilClyne",
