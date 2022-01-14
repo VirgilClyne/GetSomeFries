@@ -9,81 +9,53 @@ const $ = new Env('Cloudflare DDNS');
 // Endpoints
 // https://api.cloudflare.com/#getting-started-endpoints
 $.baseURL = 'https://api.cloudflare.com/client/v4/';
+$.config = "GetSomeFries";
 
-$.config = {
-	// Requests
-	// https://api.cloudflare.com/#getting-started-requests
-	// API Tokens
-	// API Tokens provide a new way to authenticate with the Cloudflare API.
-	Token: '',
-	// API Keys
-	// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate. Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
-	Key: {
-		["X-Auth-Key"]: '', //Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
-		["X-Auth-Email"]: '', //Your contact email address
-		["X-Auth-User-Service-Key"]: '', //User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
-	},
-	// Zone
-	// https://api.cloudflare.com/#zone-properties
-	zone: {
-		// Zone Details
-		// https://api.cloudflare.com/#zone-zone-details
-		id: '',
-		// List Zones
-		// https://api.cloudflare.com/#zone-list-zones
-		name: '', //The domain/website name you want to run updates for (e.g. example.com)
-		// DNS Records for a Zone
-		// https://api.cloudflare.com/#dns-records-for-a-zone-properties
-		dns_records:[...
-			{
-				// DNS Record Details
-				// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
-				id: '',
-				// List DNS Records
-				// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
-				// type
-				// DNS record type
-				type: '',
-				// name
-				// DNS record name
-				name: '', //DNS record name, subdomain/CNAME you want to run updates for
-				// content
-				// DNS record content
-				content: '',
-				// ttl
-				// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
-				ttl: 1,
-				// priority
-				// Required for MX, SRV and URI records; unused by other record types.
-				priority: 10,
-				// proxied
-				// Whether the record is receiving the performance and security benefits of Cloudflare
-				proxied: false //Whether the record is receiving the performance and security benefits of Cloudflare		
-			},
-		]
-	},
-};
-
+// BoxJs Function Supported
+if (typeof $.config != "undefined") {
+	// load user prefs from BoxJs
+	const Cloudflare = JSON.parse($.getdata($.config)).Cloudflare
+	console.log(Cloudflare)
+	Cloudflare.zone.records = Array.from(Cloudflare.zone.records.split("\n"))
+	console.log(Cloudflare.zone.records)
+	Cloudflare.zone.dns_records = [];
+	Cloudflare.zone.records.forEach(records => {
+		let newRecord = Object.fromEntries(records.split("&").map((item) => item.split("=")));
+		console.log(newRecord);
+		Cloudflare.zone.dns_records.unshift(newRecord);
+	})
+	console.log(Cloudflare.zone.dns_records);
+	console.log(Cloudflare)
 // Argument Function Supported
-if (typeof $argument != "undefined") {
-	let arg = JSON.parse($argument);
-	$.log('$argument=' + JSON.stringify($argument));
-	$.config = arg
-};
-
-console.log($.config)
-
+} else if (typeof $argument != "undefined") {
+	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
+	$.log(JSON.stringify(arg));
+	Cloudflare.Verify.Content = arg.Token;
+	Cloudflare.Verify.Content = arg.ServiceKey;
+	Cloudflare.Verify.Content[0] = arg.Key;
+	Cloudflare.Verify.Content[1] = arg.Email;
+	Cloudflare.zone.id = arg.zone_id;
+	Cloudflare.zone.name = arg.zone_name;
+	Cloudflare.dns_records.id = arg.dns_records_id;
+	Cloudflare.dns_records.name = arg.dns_records_name;
+	Cloudflare.dns_records.content = arg.dns_records_content;
+	Cloudflare.dns_records.ttl = arg.dns_records_ttl;
+	Cloudflare.dns_records.priority = arg.dns_records_priority;
+	Cloudflare.dns_records.proxied = Boolean(JSON.parse(arg.dns_records_proxied));
+} else Cloudflare = $.config;
 
 !(async () => {
 	//Step 1
-	let status = await Verify($.config.Token, $.config.Key)
+	let status = await Verify(Cloudflare.Verify.Mode, Cloudflare.Verify.Content)
 	if (status == true) {
 		//Step 2
-		$.config.zone = await checkZoneInfo($.config.zone);
+		Cloudflare.zone = await checkZoneInfo(Cloudflare.zone)
 		//Step 3 4 5 6
-		$.config.zone.dns_records.forEach(dns_records => await DDNS(dns_records));
-		//await DDNS('A', await getPublicIP(4));
-		//await DDNS('AAAA', await getPublicIP(6));
+		for (let i in Cloudflare.zone.dns_records) { await DDNS(Cloudflare.zone, Cloudflare.zone.dns_records[i]); }
+		/*
+		await DDNS('A', await getPublicIP(4));
+		await DDNS('AAAA', await getPublicIP(6));
+		*/
 		//await Promise.all([DDNS('A', await getPublicIP(4)), DDNS('AAAA', await networkInfo(6))])
 	} else throw new Error('验证失败')
 })()
@@ -93,13 +65,13 @@ console.log($.config)
 /***************** DDNS *****************/
 
 //Update DDNS
-async function DDNS(dns_records) {
+async function DDNS(zone, dns_records) {
 	try {
-		$.log(`开始更新${type}类型记录`);
+		$.log(`开始更新${dns_records.type}类型记录`);
 		//Step 3
-		await checkRecordContent(dns_records.type, dns_records.content);
+		dns_records = await checkRecordContent(dns_records);
 		//Step 4
-		var oldRecord = await checkRecordInfo($.config.zonezone, dns_records);
+		var oldRecord = await checkRecordInfo(zone, dns_records);
 		//Step 5
 		var newRecord = await constructRecord(dns_records);
 		//Step 6
@@ -114,22 +86,22 @@ async function DDNS(dns_records) {
 /***************** async *****************/
 //Step 1
 //Verify API Token/Key
-async function Verify(Token, { Key, Email, ServiceKey }) {
+async function Verify(Mode, Content) {
 	$.log('验证授权');
-	if (Token) {
-		$.VAL_headers = { 'Authorization': `Bearer ${Token}` };
+	if (Mode == "Token") {
+		$.VAL_headers = { 'Authorization': `Bearer ${Content}` };
 		const result = await verifyToken($.VAL_headers);
 		if (result.status == 'active') return true
-	} else if (ServiceKey) {
-		$.VAL_headers = { 'X-Auth-User-Service-Key': Key["X-Auth-User-Service-Key"] };
+	} else if (Mode == "ServiceKey") {
+		$.VAL_headers = { 'X-Auth-User-Service-Key': Content };
 		const result = await getUser($.VAL_headers);
 		return result.suspended
-	} else if (Key && Email) {
-		$.VAL_headers = { 'X-Auth-Key': Key["X-Auth-Key"], 'X-Auth-Email': Key["X-Auth-Email"] };
+	} else if (Mode == "Key") {
+		$.VAL_headers = { 'X-Auth-Key': Content[0], 'X-Auth-Email': Content[1] };
 		const result = await getUser($.VAL_headers);
 		return result.suspended
 	} else {
-		$.logErr('无可用授权方式', `Token=${Token}`, `Key=${Key}`, '');
+		$.logErr('无可用授权方式', `Mode=${Mode}`, `Content=${Content}`, '');
 		$.done();
 	}
 }
@@ -137,31 +109,44 @@ async function Verify(Token, { Key, Email, ServiceKey }) {
 //Step 2
 async function checkZoneInfo(zone) {
 	$.log('查询区域信息');
-	return (zone.id && zone.name) ? zone
-		: (zone.id) ? await getZone(zone)
-			: (zone.name) ? await listZones(zone)
-				: $.logErr('未设置区域信息'), $.done()
+	if (zone.id && zone.name) {
+		newZone = zone;
+	} else if (zone.id) {
+		newZone = await getZone(zone);
+	} else if (zone.name) {
+		newZone = await listZones(zone);	
+	} else {
+		$.logErr('未设置区域信息');
+		$.done();
+	}
+	$.log(`区域查询结果:`, `区域ID:${newZone.id}`, `名称:${newZone.name}`, `状态:${newZone.status}`, `仅DNS服务:${newZone.paused}`, `类型:${newZone.type}`, `开发者模式:${newZone.development_mode}`, `名称服务器:${newZone.name_servers}`, `原始名称服务器:${newZone.original_name_servers}`, '');
+	const result = await Object.assign(zone, newZone);
+	return result
 }
 
 //Step 3
-async function checkRecordContent(type, content) {
-	if (type) {
-		$.log(`有类型${type}, 继续`, '');
-		dns_records.type = type;
-		if (content) {
-			$.log(`有内容${content}, 跳过`, '');
-			dns_records.content = content;
-			return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+async function checkRecordContent(dns_records) {
+	if (dns_records.type) {
+		$.log(`有类型${dns_records.type}, 继续`, '');
+		dns_records.type = dns_records.type;
+		if (dns_records.content) {
+			$.log(`有内容${dns_records.content}, 跳过`, '');
+			dns_records.content = dns_records.content;
 		} else {
 			$.log(`无内容, 获取`, '');
-			dns_records.content = (type == 'A') ? await getPublicIP(4)
-				: (type == 'AAAA') ? await getPublicIP(6)
-					: $.log(`类型为${type}, 不需要获取外部IP, 跳过`, '')
-		} return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+			if (dns_records.type == 'A') dns_records.content = await getPublicIP(4);
+			else if (dns_records.type == 'AAAA') dns_records.content = await getPublicIP(6);
+			else {
+				$.log(`类型${dns_records.type}, 无内容，也不需要获取外部IP,中止`, '');
+				$.done();
+			}
+		}
 	} else {
-		$.log(`无类型${type},中止`, '');
+		$.log(`无类型${dns_records.type},中止`, '');
 		$.done();
 	}
+	$.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+	return dns_records
 }
 
 //Step 4

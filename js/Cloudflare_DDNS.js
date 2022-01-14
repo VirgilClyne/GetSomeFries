@@ -105,7 +105,7 @@ async function DDNS(type, content) {
 	try {
 		$.log(`开始更新${type}类型记录`);
 		//Step 3
-		await checkRecordContent(type, content);
+		dns_records = await checkRecordContent(type, content);
 		//Step 4
 		var oldRecord = await checkRecordInfo(zone, dns_records);
 		//Step 5
@@ -115,7 +115,7 @@ async function DDNS(type, content) {
 	} catch (e) {
 		$.logErr(e);
 	} finally {
-		return $.log(`${DDNS.name}完成`, `type:${type}`, `content:${content}`, '');
+		return $.log(`${DDNS.name}完成`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
 	}
 };
 
@@ -146,17 +146,18 @@ async function Verify(Token, { Key, Email, ServiceKey }) {
 async function checkZoneInfo(zone) {
 	$.log('查询区域信息');
 	if (zone.id && zone.name) {
-		zone = zone;
+		newZone = zone;
 	} else if (zone.id) {
-		zone = await getZone(zone);
+		newZone = await getZone(zone);
 	} else if (zone.name) {
-		zone = await listZones(zone);
+		newZone = await listZones(zone);	
 	} else {
 		$.logErr('未设置区域信息');
 		$.done();
 	}
-	$.log(`区域ID:${zone.id}`, `区域名称:${zone.name}`, '');
-	return zone
+	$.log(`区域查询结果:`, `区域ID:${newZone.id}`, `名称:${newZone.name}`, `状态:${newZone.status}`, `仅DNS服务:${newZone.paused}`, `类型:${newZone.type}`, `开发者模式:${newZone.development_mode}`, `名称服务器:${newZone.name_servers}`, `原始名称服务器:${newZone.original_name_servers}`, '');
+	const result = await Object.assign(zone, newZone);
+	return result
 }
 
 //Step 3
@@ -167,17 +168,21 @@ async function checkRecordContent(type, content) {
 		if (content) {
 			$.log(`有内容${content}, 跳过`, '');
 			dns_records.content = content;
-			return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
 		} else {
 			$.log(`无内容, 获取`, '');
 			if (type == 'A') dns_records.content = await getPublicIP(4);
 			else if (type == 'AAAA') dns_records.content = await getPublicIP(6);
-			else $.log(`类型为${type}, 不需要获取外部IP, 跳过`, '');
-		} return $.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+			else {
+				$.log(`类型${dns_records.type}, 无内容，也不需要获取外部IP,中止`, '');
+				$.done();
+			}
+		}
 	} else {
 		$.log(`无类型${type},中止`, '');
 		$.done();
 	}
+	$.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
+	return dns_records
 }
 
 //Step 4
@@ -200,10 +205,6 @@ async function constructRecord(dns_records) {
 	$.log(`dns_records:${JSON.stringify(dns_records)}`, '')
 	var newRecord = dns_records
 	delete newRecord.id
-	if (oldRecord.proxiable === false) {
-		$.log('当前记录不可代理');
-		newRecord.proxied = false
-	}
 	$.log(`newRecord:${JSON.stringify(newRecord)}`, '')
 	return newRecord
 }
