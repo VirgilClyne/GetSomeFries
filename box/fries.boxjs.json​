@@ -1,0 +1,80 @@
+{
+  "id": "getSomeFries.app.sub",
+  "name": "🍟整点薯条",
+  "author": "@VirgilClyne",
+  "description": "待会去码头整点薯条",
+  "icon": "https://avatars.githubusercontent.com/u/2111377?s=100&v=4",
+  "repo": "https://github.com/VirgilClyne/GetSomeFries",
+  "apps": [
+    {
+      "id": "VirgilClyne.Cloudflare",
+      "name": "Cloudflare",
+      "keys": ["@VirgilClyne.Cloudflare"],
+      "settings": [
+        {
+          "id": "@VirgilClyne.Cloudflare.Verify.Mode",
+          "name": "验证方式与内容",
+          "val": "Token",
+          "type": "radios",
+          "items": [
+            {
+              "key": "Token",
+              "label": "令牌"
+            },
+            {
+              "key": "Key",
+              "label": "密钥"
+            },
+            {
+              "key": "ServiceKey",
+              "label": "用户服务密钥"
+            }
+          ],
+          "desc": "默认验证方式,三选一"
+        },
+        {
+          "id": "@VirgilClyne.Cloudflare.Verify.Content",
+          "name": "验证内容",
+          "val": "",
+          "type": "text",
+          "placeholder": "1234567893feefc5f0q5000bfo0c38d90bbeb,\nexample@example.com",
+          "autoGrow": false,
+          "rows": 2,
+          "desc": "‘令牌’与‘用户服务密钥’验证方式写一行即可,\n‘密钥’的key与email以回车分隔写两行"
+        },
+        {
+          "id": "@VirgilClyne.Cloudflare.zone.id",
+          "name": "区域ID",
+          "val": "",
+          "type": "text",
+          "placeholder": "023e105f4ecef8ad9ca31a8372d0c353",
+          "desc": "区域ID和区域名称至少提供一个"
+        },
+                {
+          "id": "@VirgilClyne.Cloudflare.zone.name",
+          "name": "区域名称",
+          "val": "",
+          "type": "text",
+          "placeholder": "example.com",
+          "desc": "区域ID和区域名称至少提供一个"
+        },
+        {
+          "id": "@VirgilClyne.Cloudflare.zone.dns_records",
+          "name": "DNS记录内容",
+          "val": "",
+          "type": "textarea",
+          "placeholder": "023e105f4ecef8ad9ca31a8372d0c353,subdomain,A,192.168.1.123,1,10,true\,subdomain,AAAA,,1,,false",
+          "autoGrow": true,
+          "rows": 2,
+          "desc": "一行一个记录内容，以回车分隔多行记录,\n按照此顺序提供：记录ID,子域名,类型,内容,TTL,优先级,是否代理\n没有的项目就逗号分隔留空\n内容为空的A与AAAA记录会自动获取当前外部IP地址"
+        }
+      ],
+      "author": "@VirgilClyne",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_DDNS.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_DDNS.js",
+      "icons": [
+        "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/blob/main/img/Cloudflare.js"
+      ]
+    }
+  ]
+}
