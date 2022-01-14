@@ -9,49 +9,116 @@ const $ = new Env('Cloudflare DDNS');
 // Endpoints
 // https://api.cloudflare.com/#getting-started-endpoints
 $.baseURL = 'https://api.cloudflare.com/client/v4/';
-$.config = "GetSomeFries";
 
 // BoxJs Function Supported
-if (typeof $.config != "undefined") {
+if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
-	const Cloudflare = JSON.parse($.getdata($.config)).Cloudflare
-	console.log(Cloudflare)
-	Cloudflare.zone.records = Array.from(Cloudflare.zone.records.split("\n"))
-	console.log(Cloudflare.zone.records)
-	Cloudflare.zone.dns_records = [];
-	Cloudflare.zone.records.forEach(records => {
-		let newRecord = Object.fromEntries(records.split("&").map((item) => item.split("=")));
-		console.log(newRecord);
-		Cloudflare.zone.dns_records.unshift(newRecord);
+	$.config = JSON.parse($.getdata("GetSomeFries")).Cloudflare
+	//console.log($.config)
+	$.config.zone.dns_records = Array.from($.config.zone.dns_records.split("\n"))
+	//console.log($.config.zone.dns_records)
+	$.config.zone.dns_records.forEach((item, i) => {
+		$.config.zone.dns_records[i] = Object.fromEntries(item.split("&").map((item) => item.split("=")));
+		$.config.zone.dns_records[i].proxied = Boolean(JSON.parse($.config.zone.dns_records[i].proxied));
 	})
-	console.log(Cloudflare.zone.dns_records);
-	console.log(Cloudflare)
-// Argument Function Supported
+	//console.log($.config.zone.dns_records);
+	// Argument Function Supported
 } else if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
-	Cloudflare.Verify.Content = arg.Token;
-	Cloudflare.Verify.Content = arg.ServiceKey;
-	Cloudflare.Verify.Content[0] = arg.Key;
-	Cloudflare.Verify.Content[1] = arg.Email;
-	Cloudflare.zone.id = arg.zone_id;
-	Cloudflare.zone.name = arg.zone_name;
-	Cloudflare.dns_records.id = arg.dns_records_id;
-	Cloudflare.dns_records.name = arg.dns_records_name;
-	Cloudflare.dns_records.content = arg.dns_records_content;
-	Cloudflare.dns_records.ttl = arg.dns_records_ttl;
-	Cloudflare.dns_records.priority = arg.dns_records_priority;
-	Cloudflare.dns_records.proxied = Boolean(JSON.parse(arg.dns_records_proxied));
-} else Cloudflare = $.config;
+	$.config.Verify.Content = arg.Token;
+	$.config.Verify.Content = arg.ServiceKey;
+	$.config.Verify.Content[0] = arg.Key;
+	$.config.Verify.Content[1] = arg.Email;
+	$.config.zone.id = arg.zone_id;
+	$.config.zone.name = arg.zone_name;
+	$.config.dns_records.id = arg.dns_records_id;
+	$.config.dns_records.name = arg.dns_records_name;
+	$.config.dns_records.content = arg.dns_records_content;
+	$.config.dns_records.ttl = arg.dns_records_ttl;
+	$.config.dns_records.priority = arg.dns_records_priority;
+	$.config.dns_records.proxied = Boolean(JSON.parse(arg.dns_records_proxied));
+} else {
+	$.config = {
+		"Verify":{
+			"Mode":"Token",
+			// Requests
+			// https://api.cloudflare.com/#getting-started-requests
+			"Content":""
+			// API Tokens
+			// API Tokens provide a new way to authenticate with the Cloudflare API.
+			//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
+			// API Keys
+			// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate.
+			// Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
+			/*
+			//Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
+			"Content":["1234567893feefc5f0q5000bfo0c38d90bbeb",
+			//Your contact email address
+			"example@example.com" ]
+			//User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
+			"Content": "v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a"
+			*/
+		},
+		// Zone
+		// https://api.cloudflare.com/#zone-properties
+		"zone":{
+			// Zone Details
+			// https://api.cloudflare.com/#zone-zone-details
+			"id":"",
+			// List Zones
+			// https://api.cloudflare.com/#zone-list-zones
+			"name":"", //The domain/website name you want to run updates for (e.g. example.com)
+			// DNS Records for a Zone
+			// https://api.cloudflare.com/#dns-records-for-a-zone-properties
+			"dns_records":[
+				{
+					// DNS Record Details
+					// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
+					"id":"",
+					// List DNS Records
+					// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+					// type
+					// DNS record type
+					"type":"A",
+					// name
+					// DNS record name
+					"name":"",
+					// content
+					// DNS record content
+					"content":"",
+					// ttl
+					// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
+					"ttl":1,
+					// priority
+					// Required for MX, SRV and URI records; unused by other record types.
+					//"priority":10,
+					// proxied
+					// Whether the record is receiving the performance and security benefits of Cloudflare
+					"proxied":false //Whether the record is receiving the performance and security benefits of Cloudflare
+				},
+				{
+					"id":"",
+					"type":"AAAA",
+					"name":"",
+					"content":"",
+					"ttl":1,
+					"proxied":false
+				}
+			]
+		}
+	}	
+};
+console.log($.config)
 
 !(async () => {
 	//Step 1
-	let status = await Verify(Cloudflare.Verify.Mode, Cloudflare.Verify.Content)
+	let status = await Verify($.config.Verify.Mode, $.config.Verify.Content)
 	if (status == true) {
 		//Step 2
-		Cloudflare.zone = await checkZoneInfo(Cloudflare.zone)
+		$.config.zone = await checkZoneInfo($.config.zone)
 		//Step 3 4 5 6
-		for (let i in Cloudflare.zone.dns_records) { await DDNS(Cloudflare.zone, Cloudflare.zone.dns_records[i]); }
+		for (let i in $.config.zone.dns_records) { await DDNS($.config.zone, $.config.zone.dns_records[i]); }
 		/*
 		await DDNS('A', await getPublicIP(4));
 		await DDNS('AAAA', await getPublicIP(6));
