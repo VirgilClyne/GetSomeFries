@@ -11,7 +11,7 @@ const $ = new Env('Cloudflare DDNS');
 $.baseURL = 'https://api.cloudflare.com/client/v4/';
 
 // load user prefs from box
-$.config = $.getdata("@VirgilClyne.Cloudflare");
+$.config = $.getdata("GetSomeFries.Cloudflare");
 console.log($.config)
 
 /*
