@@ -10,19 +10,32 @@ const $ = new Env('Cloudflare DDNS');
 // https://api.cloudflare.com/#getting-started-endpoints
 $.baseURL = 'https://api.cloudflare.com/client/v4/';
 
+// load user prefs from box
+$.config = $.getdata("@VirgilClyne.Cloudflare");
+console.log($.config)
+
+/*
 $.config = {
-	// Requests
-	// https://api.cloudflare.com/#getting-started-requests
-	// API Tokens
-	// API Tokens provide a new way to authenticate with the Cloudflare API.
-    "Token":"",
-	// API Keys
-	// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate. Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
-    "Key":{
-        "X-Auth-Email":"", //Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
-        "X-Auth-Key":"", //Your contact email address
-        "X-Auth-User-Service-Key":"" //User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
-    },
+	"Verify":{
+		"Mode":"Token",
+		// Requests
+		// https://api.cloudflare.com/#getting-started-requests
+		"Content":""
+		// API Tokens
+		// API Tokens provide a new way to authenticate with the Cloudflare API.
+		//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
+		// API Keys
+		// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate.
+		// Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
+		
+		//Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
+		"Content":["1234567893feefc5f0q5000bfo0c38d90bbeb",
+		//Your contact email address
+		"example@example.com" ]
+		//User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
+		"Content": "v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a"
+		
+	},
 	// Zone
 	// https://api.cloudflare.com/#zone-properties
     "zone":{
@@ -71,20 +84,11 @@ $.config = {
         ]
     }
 }
-
-// Argument Function Supported
-if (typeof $argument != "undefined") {
-	console.log($argument)
-	let arg = JSON.parse($argument);
-	$.log('$argument=' + JSON.stringify($argument));
-	$.config = arg
-};
-
-console.log($.config)
+*/
 
 !(async () => {
 	//Step 1
-	let status = await Verify($.config.Token, $.config.Key)
+	let status = await Verify($.config.Verify.Mode, $.config.Verify.Content)
 	if (status == true) {
 		//Step 2
 		$.config.zone = await checkZoneInfo($.config.zone)
@@ -124,22 +128,22 @@ async function DDNS(zone, dns_records) {
 /***************** async *****************/
 //Step 1
 //Verify API Token/Key
-async function Verify(Token, { Key, Email, ServiceKey }) {
+async function Verify(Mode, Content) {
 	$.log('验证授权');
-	if (Token) {
-		$.VAL_headers = { 'Authorization': `Bearer ${Token}` };
+	if (Mode == "Token") {
+		$.VAL_headers = { 'Authorization': `Bearer ${Content}` };
 		const result = await verifyToken($.VAL_headers);
 		if (result.status == 'active') return true
-	} else if (ServiceKey) {
-		$.VAL_headers = { 'X-Auth-User-Service-Key': Key["X-Auth-User-Service-Key"] };
+	} else if (Mode == "ServiceKey") {
+		$.VAL_headers = { 'X-Auth-User-Service-Key': Content };
 		const result = await getUser($.VAL_headers);
 		return result.suspended
-	} else if (Key && Email) {
-		$.VAL_headers = { 'X-Auth-Key': Key["X-Auth-Key"], 'X-Auth-Email': Key["X-Auth-Email"] };
+	} else if (Mode == "Key") {
+		$.VAL_headers = { 'X-Auth-Key': Content[0], 'X-Auth-Email': Content[1] };
 		const result = await getUser($.VAL_headers);
 		return result.suspended
 	} else {
-		$.logErr('无可用授权方式', `Token=${Token}`, `Key=${Key}`, '');
+		$.logErr('无可用授权方式', `Mode=${Mode}`, `Content=${Content}`, '');
 		$.done();
 	}
 }
