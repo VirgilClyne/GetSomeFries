@@ -59,7 +59,7 @@
           "desc": "区域ID和区域名称至少提供一个"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.zone.records",
+          "id": "@GetSomeFries.Cloudflare.zone.dns_records",
           "name": "DNS记录内容",
           "val": "",
           "type": "textarea",
