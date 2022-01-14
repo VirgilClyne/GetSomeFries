@@ -7,12 +7,12 @@
   "repo": "https://github.com/VirgilClyne/GetSomeFries",
   "apps": [
     {
-      "id": "GetSomeFries.Cloudflare",
+      "id": "@GetSomeFries.Cloudflare",
       "name": "Cloudflare",
-      "keys": ["GetSomeFries.Cloudflare"],
+      "keys": ["@GetSomeFries.Cloudflare"],
       "settings": [
         {
-          "id": "GetSomeFries.Cloudflare.Verify.Mode",
+          "id": "@GetSomeFries.Cloudflare.Verify.Mode",
           "name": "验证方式",
           "val": "Token",
           "type": "radios",
@@ -33,7 +33,7 @@
           "desc": "验证方式三选一"
         },
         {
-          "id": "GetSomeFries.Cloudflare.Verify.Content",
+          "id": "@GetSomeFries.Cloudflare.Verify.Content",
           "name": "验证内容",
           "val": "",
           "type": "text",
@@ -43,7 +43,7 @@
           "desc": "‘令牌’与‘用户服务密钥’验证方式写一行即可, ‘密钥’的key与email以回车分隔写两行"
         },
         {
-          "id": "GetSomeFries.Cloudflare.zone.id",
+          "id": "@GetSomeFries.Cloudflare.zone.id",
           "name": "区域ID",
           "val": "",
           "type": "text",
@@ -51,7 +51,7 @@
           "desc": "区域ID和区域名称至少提供一个"
         },
                 {
-          "id": "GetSomeFries.Cloudflare.zone.name",
+          "id": "@GetSomeFries.Cloudflare.zone.name",
           "name": "区域名称",
           "val": "",
           "type": "text",
@@ -59,7 +59,7 @@
           "desc": "区域ID和区域名称至少提供一个"
         },
         {
-          "id": "GetSomeFries.Cloudflare.zone.dns_records",
+          "id": "@GetSomeFries.Cloudflare.zone.dns_records",
           "name": "DNS记录内容",
           "val": "",
           "type": "textarea",
