@@ -15,6 +15,10 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
 	$.config = JSON.parse($.getdata("GetSomeFries")).Cloudflare
 	//console.log($.config)
+	if ($.config.Verify.Mode == "Key") {
+		$.config.Verify.Content = Array.from($.config.Verify.Content.split("\n"))
+		//console.log($.config.Verify.Content)
+	};
 	$.config.zone.dns_records = Array.from($.config.zone.dns_records.split("\n"))
 	//console.log($.config.zone.dns_records)
 	$.config.zone.dns_records.forEach((item, i) => {
@@ -258,7 +262,9 @@ function getCFjson(url) {
 				if (error) throw new Error(error)
 				else if (data) {
 					_data = JSON.parse(data)
-					if (Array.isArray(_data.messages) && _data.messages.length != 0) _data.messages.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
+					if (Array.isArray(_data.messages) && _data.messages.length != 0) _data.messages.forEach(element => { 
+						if (element.code !== 10000) $.msg($.name, `code: ${element.code}`, `message: ${element.message}`);
+					})
 					if (_data.success === true) {
 						if (_data.ip) resolve(_data.ip);
 						else if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
