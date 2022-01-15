@@ -70,8 +70,8 @@
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_DDNS.js",
-      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_DDNS.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare.js",
       "icons": [
         "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/img/Cloudflare.png"
       ]
