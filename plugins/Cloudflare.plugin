@@ -1,0 +1,6 @@
+#!name=🍟 Cloudflare
+#!desc=Cloudflare DNS Records Management and Auto Update DDNS
+
+[Script]
+network-changed script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_DDNS.js,tag=Cloudflare,timeout=60
+cron "*/10 * * * *" script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_DDNS.js,tag=Cloudflare,timeout=60
