@@ -7,7 +7,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
 > 目录
 - [🍟 GetSomeFries](#-getsomefries)
-- [🍟 Cloudflare DDNS](#-cloudflare-ddns)
+- [🍟 Cloudflare](#-cloudflare)
   - [简介](#简介)
   - [功能列表](#功能列表)
   - [todo](#todo)
@@ -31,13 +31,12 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
 ---
 
-# 🍟 Cloudflare DDNS
+# 🍟 Cloudflare
 ## 简介
-  * 🍟 Cloudflare DDNS
+  * Cloudflare DNS记录管理及自动更新DDNS
 
   * 注:
-    * 暂时仅适用于`Surge for macOS`,支持BoxJs后应该都兼容
-    * 凑合用
+    * 本插件使用[my-ip.io](https://www.my-ip.io/api)的api进行外部IP探测，请注意相关域名`api4.my-ip.io`和`api6.my-ip.io`的分流，以免获取到的是节点出口IP
 
 ## 功能列表
   * 自定义更新特定类型和内容记录
@@ -88,11 +87,20 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
 ## 安装链接
 ### 正式版
+  * Loon:
+    * [Cloudflare.plugin](./plugins/Cloudflare.plugin?raw=true "🍟 Cloudflare")
+  * Quantumult X:
+    * 下载脚本[Cloudflare.js](./js/Cloudflare.js?raw=true "🍟 Cloudflare")并保存至`Quantumult X`的`Scripts`文件夹下
+      * 修改配置文件，在`[task_local]`段添加如下内容：
+      ```
+      event-network Cloudflare.js
+      */10 * * * * Cloudflare.js
+      ```
   * Surge:
-    * [Cloudflare_DDNS.sgmodule](./sgmodule/Cloudflare_DDNS.sgmodule?raw=true "🍟 Cloudflare DDNS")
+    * [Cloudflare.sgmodule](./sgmodule/Cloudflare.sgmodule?raw=true "🍟 Cloudflare")
 ### 🧪测试版
   * Surge:
-    * [Cloudflare_DDNS.beta.sgmodule](./sgmodule/Cloudflare_DDNS.beta.sgmodule?raw=true "🍟 Cloudflare DDNS")
+    * [Cloudflare.beta.sgmodule](./sgmodule/Cloudflare.beta.sgmodule?raw=true "🍟 Cloudflare")
 
 ---
 
