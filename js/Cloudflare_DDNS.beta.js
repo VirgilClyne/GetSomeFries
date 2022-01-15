@@ -33,6 +33,7 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	$.config.zone.id = arg.zone_id;
 	$.config.zone.name = arg.zone_name;
 	$.config.dns_records.id = arg.dns_records_id;
+	$.config.dns_records.type = arg.dns_records_type;
 	$.config.dns_records.name = arg.dns_records_name;
 	$.config.dns_records.content = arg.dns_records_content;
 	$.config.dns_records.ttl = arg.dns_records_ttl;
@@ -117,13 +118,8 @@ console.log($.config)
 	if (status == true) {
 		//Step 2
 		$.config.zone = await checkZoneInfo($.config.zone)
-		//Step 3 4 5 6
+		//Step 3 4 5
 		for (let i in $.config.zone.dns_records) { await DDNS($.config.zone, $.config.zone.dns_records[i]); }
-		/*
-		await DDNS('A', await getPublicIP(4));
-		await DDNS('AAAA', await getPublicIP(6));
-		*/
-		//await Promise.all([DDNS('A', await getPublicIP(4)), DDNS('AAAA', await networkInfo(6))])
 	} else throw new Error('验证失败')
 })()
 	.catch((e) => $.logErr(e))
@@ -140,13 +136,12 @@ async function DDNS(zone, dns_records) {
 		//Step 4
 		var oldRecord = await checkRecordInfo(zone, dns_records);
 		//Step 5
-		var newRecord = await constructRecord(dns_records);
-		//Step 6
-		await setupRecord(zone, oldRecord, newRecord)
+		var newRecord = await setupRecord(zone, oldRecord, dns_records)
+		$.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`, '');
 	} catch (e) {
 		$.logErr(e);
 	} finally {
-		return $.log(`${DDNS.name}完成`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
+		return $.log(`${DDNS.name}完成`, `名称:${dns_records.name}`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
 	}
 };
 
@@ -177,16 +172,19 @@ async function Verify(Mode, Content) {
 async function checkZoneInfo(zone) {
 	$.log('查询区域信息');
 	if (zone.id && zone.name) {
+		$.log(`有区域ID${zone.id}和区域名称${zone.name}, 继续`, '');
 		newZone = zone;
 	} else if (zone.id) {
+		$.log(`有区域ID${zone.id}, 继续`, '');
 		newZone = await getZone(zone);
 	} else if (zone.name) {
+		$.log(`有区域名称${zone.name}, 继续`, '');
 		newZone = await listZones(zone);	
 	} else {
-		$.logErr('未设置区域信息');
+		$.logErr('未提供记录ID和名称, 终止', '');
 		$.done();
 	}
-	$.log(`区域查询结果:`, `区域ID:${newZone.id}`, `名称:${newZone.name}`, `状态:${newZone.status}`, `仅DNS服务:${newZone.paused}`, `类型:${newZone.type}`, `开发者模式:${newZone.development_mode}`, `名称服务器:${newZone.name_servers}`, `原始名称服务器:${newZone.original_name_servers}`, '');
+	$.log(`区域查询结果:`, `ID:${newZone.id}`, `名称:${newZone.name}`, `状态:${newZone.status}`, `仅DNS服务:${newZone.paused}`, `类型:${newZone.type}`, `开发者模式:${newZone.development_mode}`, `名称服务器:${newZone.name_servers}`, `原始名称服务器:${newZone.original_name_servers}`, '');
 	const result = await Object.assign(zone, newZone);
 	return result
 }
@@ -220,41 +218,34 @@ async function checkRecordContent(dns_records) {
 async function checkRecordInfo(zone, dns_records) {
 	$.log('查询记录信息');
 	if (dns_records.id) {
-		oldRecord = await getDNSRecord(zone, dns_records);
+		$.log(`有记录ID${dns_records.id}, 继续`, '');
+		var oldRecord = await getDNSRecord(zone, dns_records);
 	} else if (dns_records.name) {
-		oldRecord = await listDNSRecords(zone, dns_records);
+		$.log(`有记录名称${dns_records.name}, 继续`, '');
+		var oldRecord = await listDNSRecords(zone, dns_records);
 	} else {
-		$.log('未查询到记录信息');
+		$.log('未提供记录ID和名称, 终止', '');
+		$.done();
 	}
-	$.log(`记录查询结果:`, `记录ID:${oldRecord.id}`, `名称:${oldRecord.name}`, `类型:${oldRecord.type}`, `内容:${oldRecord.content}`, `代理状态:${oldRecord.proxied}`, `TTL:${oldRecord.ttl}`, '');
+	$.log(`记录查询结果:`, `ID:${oldRecord.id}`, `名称:${oldRecord.name}`, `类型:${oldRecord.type}`, `内容:${oldRecord.content}`, `代理状态:${oldRecord.proxied}`, `TTL:${oldRecord.ttl}`, '');
 	return oldRecord
 }
 
 //Step 5
-async function constructRecord(dns_records) {
-	$.log('构造更新内容');
-	$.log(`dns_records:${JSON.stringify(dns_records)}`, '')
-	var newRecord = dns_records
-	delete newRecord.id
-	$.log(`newRecord:${JSON.stringify(newRecord)}`, '')
-	return newRecord
-}
-
-//Step 6
-async function setupRecord(zone, oldRecord, newRecord) {
+async function setupRecord(zone, oldRecord, dns_records) {
 	$.log('开始更新内容');
 	if (!oldRecord) {
 		$.log('无记录');
-		newRecord = await createDNSRecord(zone, newRecord);
-		$.log(`新记录':${JSON.stringify(newRecord)}`, '');
-	} else if (oldRecord && oldRecord.content !== newRecord.content) {
-		$.log('有记录，但IP地址不符，开始更新');
-		newRecord = await updateDNSRecord(zone, oldRecord, newRecord);
-		$.log(`记录已更新:${JSON.stringify(newRecord)}`, '');
-	} else {
-		$.log(`不需要更新:${JSON.stringify(oldRecord)}`, '');
+		var newRecord = await createDNSRecord(zone, dns_records);
+	} else if (oldRecord.content !== dns_records.content) {
+		$.log('有记录且IP地址不同');
+		var newRecord = await updateDNSRecord(zone, oldRecord, dns_records);
+	} else if (oldRecord.content === dns_records.content) {
+		$.log('有记录且IP地址相同');
+		var newRecord = oldRecord
 	}
-	return $.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`, '');
+	$.log(`记录更新结果:`, `ID:${newRecord.id}`, `名称:${newRecord.name}`, `类型:${newRecord.type}`, `内容:${newRecord.content}`, `可代理:${newRecord.proxiable}`, `代理状态:${newRecord.proxied}`, `TTL:${newRecord.ttl}`, `已锁定:${newRecord.locked}`, '');
+	return newRecord
 }
 
 /***************** function *****************/
@@ -317,6 +308,7 @@ function fatchCFjson(url) {
 // Get Public IP / External IP address
 // https://www.my-ip.io/api
 async function getPublicIP(type) {
+	$.log('获取公共IP');
 	const url = { url: `https://api${type}.my-ip.io/ip.json` };
 	return await getCFjson(url);
 }
@@ -325,6 +317,7 @@ async function getPublicIP(type) {
 // Verify Token
 // https://api.cloudflare.com/#user-api-tokens-verify-token
 async function verifyToken(headers) {
+	$.log('验证令牌');
 	const url = { url: `${$.baseURL}user/tokens/verify`, headers: headers };
 	return await getCFjson(url);
 }
@@ -333,6 +326,7 @@ async function verifyToken(headers) {
 // User Details
 // https://api.cloudflare.com/#user-user-details
 async function getUser(headers) {
+	$.log('获取用户详情');
 	const url = { url: `${$.baseURL}user`, headers: headers }
 	return await getCFjson(url);
 }
@@ -341,6 +335,7 @@ async function getUser(headers) {
 // Zone Details
 // https://api.cloudflare.com/#zone-zone-details
 async function getZone(zone) {
+	$.log('获取区域详情');
 	const url = { url: `${$.baseURL}zones/${zone.id}`, headers: $.VAL_headers };
 	return await getCFjson(url);
 }
@@ -349,6 +344,7 @@ async function getZone(zone) {
 // List Zones
 // https://api.cloudflare.com/#zone-list-zones
 async function listZones(zone) {
+	$.log('列出区域');
 	const url = { url: `${$.baseURL}zones?name=${zone.name}`, headers: $.VAL_headers }
 	return await getCFjson(url);
 }
@@ -357,6 +353,7 @@ async function listZones(zone) {
 // Create DNS Record
 // https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
 async function createDNSRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = true }) {
+	$.log('创建新记录');
 	const url = { method: 'post', url: `${$.baseURL}zones/${zone.id}/dns_records`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
 	return await fatchCFjson(url);
 }
@@ -365,6 +362,7 @@ async function createDNSRecord(zone, { type, name, content, ttl = 1, priority = 
 // DNS Record Details
 // https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
 async function getDNSRecord(zone, record) {
+	$.log('获取记录详情');
 	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers }
 	return await getCFjson(url);
 }
@@ -373,6 +371,7 @@ async function getDNSRecord(zone, record) {
 // List DNS Records
 // https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 async function listDNSRecords(zone, record) {
+	$.log('列出记录');
 	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records?type=${record.type}&name=${record.name}.${zone.name}&order=type`, headers: $.VAL_headers }	
 	return await getCFjson(url);
 }
@@ -381,6 +380,7 @@ async function listDNSRecords(zone, record) {
 // Update DNS Record
 // https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
 async function updateDNSRecord(zone, record, { type, name, content, ttl = 1, priority = 10, proxied = true }) {
+	$.log('更新记录');
 	const url = { method: 'put', url: `${$.baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
 	return await fatchCFjson(url);
 }
