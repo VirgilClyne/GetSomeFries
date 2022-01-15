@@ -27,6 +27,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [todo](#todo-2)
   - [安装链接](#安装链接-2)
     - [🧪测试版](#测试版-2)
+- [鸣谢](#鸣谢)
 
 
 ---
@@ -150,3 +151,15 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
     * [Netflix.beta.sgmodule](./sgmodule/Netflix.beta.sgmodule?raw=true "🍟 Unlock Netflix Hidden Feature")
 
 ---
+
+# 鸣谢
+  * 排名不分先后  
+[@chavyleung](https://github.com/chavyleung)  
+[@NobyDa](https://github.com/NobyDa)  
+[@zZPiglet](https://github.com/zZPiglet)  
+[@yichahucha](https://github.com/yichahucha)  
+[@Peng-YM](https://github.com/Peng-YM)  
+[@app2smile](https://github.com/app2smile)  
+[@Loon0x00](https://github.com/Loon0x00)  
+[@Tartarus2014](https://github.com/Tartarus2014)  
+[@Hackl0us](https://github.com/Hackl0us)  
