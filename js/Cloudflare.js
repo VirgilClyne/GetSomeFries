@@ -238,7 +238,7 @@ async function checkRecordInfo(zone, dns_records) {
 //Step 5
 async function setupRecord(zone, oldRecord, dns_records) {
 	$.log('开始更新内容');
-	if (!oldRecord) {
+	if (!oldRecord.content) {
 		$.log('无记录');
 		var newRecord = await createDNSRecord(zone, dns_records);
 	} else if (oldRecord.content !== dns_records.content) {
