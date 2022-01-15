@@ -12,6 +12,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [功能列表](#功能列表)
   - [todo](#todo)
   - [使用方式](#使用方式)
+  - [图片说明](#图片说明)
   - [安装链接](#安装链接)
     - [正式版](#正式版)
     - [🧪测试版](#测试版)
@@ -85,6 +86,14 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
       ```
       argument=Token=1234567ABCDEFG&zone_id=1234567ABCDEFG&dns_records_name=www&dns_records_type=A&dns_records_proxied=false
       ```
+
+## 图片说明
+|  获取令牌  | 获取区域 ID | DNS记录添加 |
+| :---- | :---- | :---- |
+| 验证内容  | 区域ID | DNS记录  |
+| 即API令牌内容或API 密钥内容 <br> 注意API 密钥需分两行填写，第一行密钥，第二行邮箱，如**示例2**  | 在区域页面右下角的API小节的区域 ID，单击复制 | **格式：** id=记录ID&type=类型&name=名称&content=内容&ttl=TTL&priority=优先级&proxied=是否代理 <br> **解读：** type为记录类型，name为解析子域名名称，proxied为是否开启代理（小云朵） <br> 如果你想要解析的域名为test.luca.xyz，解析的ip为1.2.3.4，那么name就是test，content就是1.2.3.4 <br> 如果你不知道一些参数的信息，可以只填写记录类型和记录名称以及指定的内容，如**示例2** |
+|**API 令牌示例(单行)：** <br> 8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T <br> **API 密钥示例(两行)：** <br> 1234567893feefc5f0q5000bfo0c38d90bbeb <br> example@example.com <br> **用户服务密钥示例(单行)：** <br> v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a|**示例：**  <br> 372e67954025e0ba6aaa6d586b9e0b59|**示例1：** <br> id=12345ABCDE&type=MX&name=mail&content=127.0.0.1&ttl=1&priority=10&proxied=true <br> **示例2：** <br> type=A&name=test&content=1.2.3.4&proxied=false|
+|![获取令牌](./img/Cloudflare%20-%201.How.to.get.API.token.PNG?raw=true "Cloudflare - 1.How to get API token")|![获取区域 ID](./img/Cloudflare%20-%202.How.to.get.zone.id.JPG?raw=true "Cloudflare - 2.How to get zone id")|![DNS记录添加](./img/Cloudflare%20-%203.How.to.fill.in.the.form.JPG?raw=true "Cloudflare - 3.How to fill in the form")|
 
 ## 安装链接
 ### 正式版
