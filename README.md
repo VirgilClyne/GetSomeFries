@@ -75,7 +75,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * 暂不支持多记录，推荐使用BoxJs设置
   * 格式如下:
       ```
-      argument=Token=令牌&zone_id=区域ID&zone_name=区域名称&dns_records_id=记录ID&dns_records_name=记录名称&dns_records_type=记录类型&dns_records_ttl=1&dns_records_priority=记录优先级&dns_records_proxied=是否代理
+      argument=Token=令牌&zone_id=区域ID&zone_name=区域名称&dns_records_id=记录ID&dns_records_name=记录名称&dns_records_type=记录类型&dns_records_ttl=TTL&dns_records_priority=记录优先级&dns_records_proxied=是否代理
       ```
       例如:
       ```
