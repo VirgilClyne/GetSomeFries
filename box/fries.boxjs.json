@@ -36,11 +36,11 @@
           "id": "@GetSomeFries.Cloudflare.Verify.Content",
           "name": "验证内容",
           "val": "",
-          "type": "text",
+          "type": "textarea",
           "placeholder": "1234567893feefc5f0q5000bfo0c38d90bbeb,\nexample@example.com",
           "autoGrow": false,
           "rows": 2,
-          "desc": "‘令牌’与‘用户服务密钥’验证方式写一行即可, ‘密钥’的key与email以回车分隔写两行"
+          "desc": "‘令牌’与‘用户服务密钥’验证方式的值写一行即可, ‘密钥’验证方式的key与email以换行分隔写两行"
         },
         {
           "id": "@GetSomeFries.Cloudflare.zone.id",
