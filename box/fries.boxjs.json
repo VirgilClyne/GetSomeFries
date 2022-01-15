@@ -36,11 +36,11 @@
           "id": "@GetSomeFries.Cloudflare.Verify.Content",
           "name": "验证内容",
           "val": "",
-          "type": "text",
+          "type": "textarea",
           "placeholder": "1234567893feefc5f0q5000bfo0c38d90bbeb,\nexample@example.com",
           "autoGrow": false,
           "rows": 2,
-          "desc": "‘令牌’与‘用户服务密钥’验证方式写一行即可, ‘密钥’的key与email以回车分隔写两行"
+          "desc": "‘令牌’与‘用户服务密钥’验证方式的值写一行即可, ‘密钥’验证方式的key与email以换行分隔写两行"
         },
         {
           "id": "@GetSomeFries.Cloudflare.zone.id",
@@ -63,17 +63,17 @@
           "name": "DNS记录内容",
           "val": "",
           "type": "textarea",
-          "placeholder": "id=记录ID&type=类型&name=名称&content=内容&ttl=TTL&priority=优先级&proxied=是否代理\nid=12345&type=A&name=www&content=127.0.0.1&ttl=1&priority=10&proxied=false",
+          "placeholder": "id=记录ID&type=类型&name=名称&content=内容&ttl=TTL&priority=优先级&proxied=是否代理\ntype=A&name=www&proxied=false",
           "autoGrow": true,
           "rows": 2,
-          "desc": "一行一个记录内容，以回车分隔多行记录, 名称仅是子域名, 类型与名称是必填项, 没有的项目就留空, 内容为空的A与AAAA记录会自动获取当前外部IP地址"
+          "desc": "一行一个记录内容，以回车分隔多行记录, 名称仅是子域名, 类型与名称是必填项, 没有的项目就删掉别写, 内容为空的A与AAAA记录会自动获取当前外部IP地址"
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_DDNS.js",
-      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_DDNS.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare.js",
       "icons": [
-        "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/blob/main/img/Cloudflare.js"
+        "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/img/Cloudflare.png"
       ]
     }
   ]
