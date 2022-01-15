@@ -11,6 +11,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [简介](#简介)
   - [功能列表](#功能列表)
   - [todo](#todo)
+  - [使用方式](#使用方式)
   - [安装链接](#安装链接)
     - [正式版](#正式版)
     - [🧪测试版](#测试版)
@@ -41,25 +42,57 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 ## 功能列表
   * 自定义更新特定类型和内容记录
   * 自动更新未指定IP的A记录和AAAA记录
+  * 通知(有，但不是完全有，有来自Cloudflare的错误和信息通知)
+  * BoxJs集成
+  * 持久化储存(有，但不是完全有，没有做反写功能)
 
 ## todo
-  * 通知(有来自Cloudflare的错误和信息通知)
-  * 并行处理优化(持续优化中)
-  * BoxJs集成
-  * 持久化储存
-  * web面板
+  * 并行处理优化(阶段性完工，除非有更好的方法)
+  * web面板(暂不开工)
 
-
+## 使用方式
+* 配合`BoxJs`及订阅使用
+  * 安装`BoxJs`插件:
+    * Loon: [boxjs.rewrite.loon.plugin](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.loon.plugin "BoxJs")
+    * Quantumult X: [boxjs.rewrite.quanx.conf](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.quanx.conf "BoxJs")
+    * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
+  * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
+  * 在`应用`-`整点薯条`-`Cloudflare`中填写您的Cloudflare DNS信息
+    * 验证方式: 
+      * API 令牌: 在[我的个人资料的'API 令牌'页面]([./box/fries.boxjs.json?raw=true](https://dash.cloudflare.com/profile/api-tokens) "API 令牌 | Cloudflare")的`API 令牌`生成，注意生成的令牌要有需管理区域的`DNS编辑`权限(推荐使用预设的`编辑区域 DNS`模版)
+      * API 密钥: 在[我的个人资料的'API 令牌'页面]([./box/fries.boxjs.json?raw=true](https://dash.cloudflare.com/profile/api-tokens) "API 令牌 | Cloudflare")的`API 密钥`的`Global API Key`获取，注意此密钥默认拥有全部权限，不建议使用此方式
+    * 验证内容: 即`API令牌`内容或`API 密钥`内容，注意`API 密钥`需分两行填写，第一行密钥，第二行邮箱
+    * 区域ID: 在`区域`页面右下角的`API`小节的`区域 ID`，单击复制
+    * 区域名称: 即域名
+    * DNS记录: 格式范例如下，一行一个记录，A记录和AAAA记录如果不带内容则自动获取外部IP，如果带内容则以内容为准
+      ```
+      id=记录ID&type=类型&name=名称&content=内容&ttl=TTL&priority=优先级&proxied=是否代理
+      id=12345ABCDE&type=MX&name=mail&content=127.0.0.1&ttl=1&priority=10&proxied=true
+      type=A&name=www&proxied=false
+      type=AAAA&name=ipv6&proxied=false
+      ```
+* 配合Surge模块的`argument`字段使用:
+  * 暂不支持多记录，推荐使用BoxJs设置
+  * 格式如下:
+      ```
+      argument=Token=令牌&zone_id=区域ID&zone_name=区域名称&dns_records_id=记录ID&dns_records_name=记录名称&dns_records_type=记录类型&dns_records_ttl=1&dns_records_priority=记录优先级&dns_records_proxied=是否代理
+      ```
+      例如:
+      ```
+      argument=Token=1234567ABCDEFG&zone_id=1234567ABCDEFG&zone_name=exapmle.com&dns_records_id=1234567ABCDEFG&dns_records_name=www&dns_records_proxied=false
+      ```
+      或
+      ```
+      argument=Token=1234567ABCDEFG&zone_id=1234567ABCDEFG&dns_records_name=www&dns_records_type=A&dns_records_proxied=false
+      ```
 
 ## 安装链接
 ### 正式版
   * Surge:
     * [Cloudflare_DDNS.sgmodule](./sgmodule/Cloudflare_DDNS.sgmodule?raw=true "🍟 Cloudflare DDNS")
-      * 不能直接用，需要复制此模块，编辑argument内容为自己要更新的信息
 ### 🧪测试版
   * Surge:
     * [Cloudflare_DDNS.beta.sgmodule](./sgmodule/Cloudflare_DDNS.beta.sgmodule?raw=true "🍟 Cloudflare DDNS")
-      * 不能直接用，需要复制此模块，编辑argument内容为自己要更新的信息
 
 ---
 
