@@ -59,8 +59,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
   * 在`应用`-`整点薯条`-`Cloudflare`中填写您的Cloudflare DNS信息
     * 验证方式: 
-      * API 令牌: 在[我的个人资料的'API 令牌'页面]([./box/fries.boxjs.json?raw=true](https://dash.cloudflare.com/profile/api-tokens) "API 令牌 | Cloudflare")的`API 令牌`生成，注意生成的令牌要有需管理区域的`DNS编辑`权限(推荐使用预设的`编辑区域 DNS`模版)
-      * API 密钥: 在[我的个人资料的'API 令牌'页面]([./box/fries.boxjs.json?raw=true](https://dash.cloudflare.com/profile/api-tokens) "API 令牌 | Cloudflare")的`API 密钥`的`Global API Key`获取，注意此密钥默认拥有全部权限，不建议使用此方式
+      * API 令牌: 在[我的个人资料的'API 令牌'页面](https://dash.cloudflare.com/profile/api-tokens "API 令牌 | Cloudflare")的`API 令牌`生成，注意生成的令牌要有需管理区域的`DNS编辑`权限(推荐使用预设的`编辑区域 DNS`模版)
+      * API 密钥: 在[我的个人资料的'API 令牌'页面](https://dash.cloudflare.com/profile/api-tokens "API 令牌 | Cloudflare")的`API 密钥`的`Global API Key`获取，注意此密钥默认拥有全部权限，不建议使用此方式
     * 验证内容: 即`API令牌`内容或`API 密钥`内容，注意`API 密钥`需分两行填写，第一行密钥，第二行邮箱
     * 区域ID: 在`区域`页面右下角的`API`小节的`区域 ID`，单击复制
     * 区域名称: 即域名
