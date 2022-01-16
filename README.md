@@ -103,8 +103,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
     * 下载脚本[Cloudflare.js](./js/Cloudflare.js?raw=true "🍟 Cloudflare")并保存至`Quantumult X`的`Scripts`文件夹下
       * 修改配置文件，在`[task_local]`段添加如下内容：
       ```
-      event-network Cloudflare.js
-      */10 * * * * Cloudflare.js
+      event-network https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare.js?raw=true, tag=Cloudflare DDNS, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png, enabled=true
+      */10 * * * * https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare.js?raw=true, tag=Cloudflare DDNS, img-url=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png, enabled=true
       ```
   * Surge:
     * [Cloudflare.sgmodule](./sgmodule/Cloudflare.sgmodule?raw=true "🍟 Cloudflare")
