@@ -147,7 +147,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
 ## 功能列表
   * 强制启用VTT字幕(似乎还要指定VTT字幕服务器)
-  * 强制启用AirPlay(需要正经支持Airplay视频投屏的设备如`Apple TV`,`Sony``LG``三星`电视，国产破解Airplay的兼容方案就别想了)
+  * 强制启用AirPlay
+    * 需要正经支持Airplay视频投屏的设备如`Apple TV`,`Sony`、`LG`、`三星`电视，国产破解Airplay的兼容方案就别想了
   * 强制使用Fairplay DRM
   * 我咋知道
 
