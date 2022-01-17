@@ -1,11 +1,8 @@
 #!name=🍟 Unlock Netflix Hidden Feature
 #!desc=(BETA) 解锁Netflix隐藏功能
 
-[URL Rewrite]
-^https?:\/\/ios\.prod\.ftl\.netflix\.com\/nq\/iosplatform\/pbo_manifest\/~1\.0\.0\/router header-replace X-Netflix.NetworkPrediction {"oc.throughput":0,"asn":"71378","aws.latency":0}
-
 [Script]
-Netflix = type=http-response,pattern=^https?:\/\/(ios|ios-anycast)\.prod\.ftl\.netflix\.com\/(iosui\/user\/), requires-body=1, binary-body-mode=0, max-size=0 ,script-update-interval=0, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.js
+Netflix = type=http-response,pattern=^https?:\/\/(ios|ios-anycast)\.prod\.(ftl|cloud)\.netflix\.com\/, requires-body=1, binary-body-mode=0, max-size=0, argument=geolocation_policy=ALLOW&geolocation_country=SG&onfig_allowWidevinePlayback=true&config_airPlayDisabledEnabledOnBuild=50.0.0&config_preferRichWebVTTOverImageBasedSubtitle=true&config_reuseAVPlayerEnabledOnBuild=0&config_nfplayerReduxEnabledOnBuild=50.0.0, script-update-interval=0, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.js
 
 [MITM]
-hostname = %APPEND% ios.prod.ftl.netflix.com, ios-anycast.prod.ftl.netflix.com
+hostname = %APPEND% *.prod.ftl.netflix.com, *.prod.cloud.netflix.com
