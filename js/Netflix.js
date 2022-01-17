@@ -31,6 +31,7 @@ var config = {
 	"allowWidevinePlayback": true, // 允许Widevine DRM回放
 	"airPlayDisabledEnabledOnBuild": "50.0.0", // 开始禁用airPlay的版本
 	"preferRichWebVTTOverImageBasedSubtitle": true, // 偏好使用RichWebVTT字幕多于图片字幕
+	"requestRichWebVTTAsExperimental": true, //试验性请求RichWebVTT字幕
 	"reuseAVPlayerEnabledOnBuild": "0", // 重新开始启用AVPlayer的版本
 	"nfplayerReduxEnabledOnBuild": "50.0.0", // 开始启用nfplayerRedux的版本
 };
@@ -79,14 +80,16 @@ const path2 = "/ftl/probe";
 
 //Function Settings
 if (url.search(path1) != -1) {
-	console.log(url);
+	console.log(path1);
 	let content = JSON.parse(body);
-	console.log('before' + content.value.config.allowWidevinePlayback);
 	if (content.value?.geolocation?.country) content.value.geolocation.country = geolocation.country ? geolocation.country : content.value.geolocation.country;
-	if (content.value?.config?.allowWidevinePlayback) content.value.config.allowWidevinePlayback = config.allowWidevinePlayback ? config.allowWidevinePlayback : content.value.config.allowWidevinePlayback;
-	console.log('after' + content.value.config.allowWidevinePlayback);
+	if (content.value?.config?.allowWidevinePlayback !== undefined) {
+		console.log('before, allowWidevinePlayback:' + content.value.config.allowWidevinePlayback);
+		content.value.config.allowWidevinePlayback = (config.allowWidevinePlayback !== undefined) ? config.allowWidevinePlayback : content.value.config.allowWidevinePlayback;
+		console.log('after, allowWidevinePlayback:' + content.value.config.allowWidevinePlayback);
+	}
 	if (content.value?.config?.airPlayDisabledEnabledOnBuild) content.value.config.airPlayDisabledEnabledOnBuild = config.airPlayDisabledEnabledOnBuild ? config.airPlayDisabledEnabledOnBuild : content.value.config.airPlayDisabledEnabledOnBuild;
-	if (content.value?.config?.preferRichWebVTTOverImageBasedSubtitle) content.value.config.preferRichWebVTTOverImageBasedSubtitle = config.preferRichWebVTTOverImageBasedSubtitle ? config.preferRichWebVTTOverImageBasedSubtitle : content.value.config.preferRichWebVTTOverImageBasedSubtitle;
+	if (content.value?.config?.preferRichWebVTTOverImageBasedSubtitle !== undefined) content.value.config.preferRichWebVTTOverImageBasedSubtitle = (config.preferRichWebVTTOverImageBasedSubtitle  !== undefined) ? config.preferRichWebVTTOverImageBasedSubtitle : content.value.config.preferRichWebVTTOverImageBasedSubtitle;
 	if (content.value?.config?.reuseAVPlayerEnabledOnBuild) content.value.config.reuseAVPlayerEnabledOnBuild = config.reuseAVPlayerEnabledOnBuild ? config.reuseAVPlayerEnabledOnBuild : content.value.config.reuseAVPlayerEnabledOnBuild;
 	if (content.value?.config?.nfplayerReduxEnabledOnBuild) content.value.config.nfplayerReduxEnabledOnBuild = config.nfplayerReduxEnabledOnBuild ? config.nfplayerReduxEnabledOnBuild : content.value.config.nfplayerReduxEnabledOnBuild;
 	body = JSON.stringify(content);
@@ -95,11 +98,13 @@ if (url.search(path1) != -1) {
 
 //Check IP Status
 else if (url.search(path2) != -1) {
-	console.log(url);
+	console.log(path2);
 	let content = JSON.parse(body);
-	console.log('before' + content.ctx);
-	if (content.ctx?.hasUser) content.ctx.hasUser = ctx.hasUser ? ctx.hasUser : content.ctx.hasUser;
-	console.log('after' + content.ctx);
+	if (content.ctx?.hasUser !== undefined) {
+		console.log('before, hasUser:' + content.ctx.hasUser);
+		content.ctx.hasUser = (ctx.hasUser  !== undefined) ? ctx.hasUser : content.ctx.hasUser;
+		console.log('after, hasUser:' + content.ctx.hasUser);
+	}
 	body = JSON.stringify(content);
 	done({ body });
 }
