@@ -111,7 +111,7 @@
           "name": "功能配置内容",
           "val": "",
           "type": "textarea",
-          "placeholder": ["allowWidevinePlayback=true","airPlayDisabledEnabledOnBuild=`50.0.0`"],
+          "placeholder": "allowWidevinePlayback=true\nairPlayDisabledEnabledOnBuild=50.0.0",
           "autoGrow": true,
           "rows": 5,
           "desc": "一行一个设置项，以回车分隔多个设置"
@@ -160,7 +160,7 @@
         {
           "id": "@GetSomeFries.Netflix.ctx.hasUser",
           "name": "CTX: 已有用户",
-          "val": true,
+          "val": false,
           "type": "radios",
           "items": [
             {
