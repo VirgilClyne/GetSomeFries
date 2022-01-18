@@ -26,8 +26,9 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [简介](#简介-2)
   - [功能列表](#功能列表-2)
   - [todo](#todo-2)
+  - [使用方式](#使用方式-1)
   - [安装链接](#安装链接-2)
-    - [🧪测试版](#测试版-2)
+    - [🧪试验版，随时可能修改/删除](#试验版随时可能修改删除)
 - [鸣谢](#鸣谢)
 
 
@@ -140,25 +141,54 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
 # 🍟 Netflix
 ## 简介
-  * 开启Netflix隐藏功能
+  * 自定义部分Netflix功能
 
   * 注:
-    * 凑合用,翻车别找我
+    * 试验性质
+    * 翻车别找我
+    * 部分设置可能改了也没效果
 
 ## 功能列表
+  * 强制解除地区限制(可能改了也没用)
   * 强制启用VTT字幕(似乎还要指定VTT字幕服务器)
-  * 强制启用AirPlay
+  * 强制启用AirPlay(可能改了也没用)
     * 需要正经支持Airplay视频投屏的设备如`Apple TV`,`Sony`、`LG`、`三星`电视，国产破解Airplay的兼容方案就别想了
   * 强制使用Fairplay DRM
-  * 我咋知道
+  * 其他设置内容详见[iOS平台全部设置项列表](./wiki/iOS平台全部设置项列表)
+  * 修改当前CDN所属地区
+  * 修改当前IP地址(可能改了也没用)
+  * 修改当前IP地址是否已有用户(可能改了也没用，关系到多人共用IP封非自制内容的问题)
 
 ## todo
   * 我咋知道
 
+## 使用方式
+* 配合`BoxJs`及订阅使用
+  * 安装`BoxJs`插件:
+    * Loon: [boxjs.rewrite.loon.plugin](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.loon.plugin "BoxJs")
+    * Quantumult X: [boxjs.rewrite.quanx.conf](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.quanx.conf "BoxJs")
+    * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
+  * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
+  * 在`应用`-`整点薯条`-`Netflix`中填写需要修改Netflix的信息
+* 配合Surge模块的`argument`字段使用:
+  * 暂不支持多记录，推荐使用BoxJs设置
+  * 格式如下:
+      ```
+      argument=懒得写
+      ```
+      例如:
+      ```
+      argument=geolocation_policy=ALLOW&geolocation_country=SG&onfig_allowWidevinePlayback=true&config_airPlayDisabledEnabledOnBuild=50.0.0&config_preferRichWebVTTOverImageBasedSubtitle=true&config_reuseAVPlayerEnabledOnBuild=0&config_nfplayerReduxEnabledOnBuild=50.0.0
+      ```
+
 ## 安装链接
-### 🧪测试版
+### 🧪试验版，随时可能修改/删除
+  * Loon:
+    * [Netflix.beta.plugin](./plugins/Netflix.beta.plugin?raw=true "🍟 Netflix")
+  * Quantumult X:
+    * [Netflix.beta.qxrewrite](./plugins/Netflix.beta.qxrewrite?raw=true "🍟 Netflix")
   * Surge:
-    * [Netflix.beta.sgmodule](./sgmodule/Netflix.beta.sgmodule?raw=true "🍟 Unlock Netflix Hidden Feature")
+    * [Netflix.beta.sgmodule](./sgmodule/Netflix.beta.sgmodule?raw=true "🍟 Netflix")
 
 ---
 
