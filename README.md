@@ -186,7 +186,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * Loon:
     * [Netflix.beta.plugin](./plugins/Netflix.beta.plugin?raw=true "🍟 Netflix")
   * Quantumult X:
-    * [Netflix.beta.qxrewrite](./plugins/Netflix.beta.qxrewrite?raw=true "🍟 Netflix")
+    * [Netflix.beta.qxrewrite](./qxrewrite/Netflix.beta.qxrewrite?raw=true "🍟 Netflix")
   * Surge:
     * [Netflix.beta.sgmodule](./sgmodule/Netflix.beta.sgmodule?raw=true "🍟 Netflix")
 
