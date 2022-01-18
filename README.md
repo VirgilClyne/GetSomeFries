@@ -150,11 +150,11 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
 ## 功能列表
   * 强制解除地区限制(可能改了也没用)
-  * 强制启用VTT字幕(似乎还要指定VTT字幕服务器)
-  * 强制启用AirPlay(可能改了也没用)
+  * 启用VTT字幕(对于Web和Android等平台,还要指定VTT字幕服务器)
+  * 启用AirPlay
     * 需要正经支持Airplay视频投屏的设备如`Apple TV`,`Sony`、`LG`、`三星`电视，国产破解Airplay的兼容方案就别想了
-  * 强制使用Fairplay DRM
-  * 其他设置内容详见[iOS平台全部设置项列表](./wiki/iOS平台全部设置项列表)
+  * 允许Widevine DRM播放
+  * 其他设置内容详见[iOS平台全部设置项列表](https://github.com/VirgilClyne/GetSomeFries/wiki/iOS平台全部设置项列表)
   * 修改当前CDN所属地区
   * 修改当前IP地址(可能改了也没用)
   * 修改当前IP地址是否已有用户(可能改了也没用，关系到多人共用IP封非自制内容的问题)
