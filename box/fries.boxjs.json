@@ -160,15 +160,15 @@
         {
           "id": "@GetSomeFries.Netflix.ctx.hasUser",
           "name": "CTX: 已有用户",
-          "val": false,
+          "val": "false",
           "type": "radios",
           "items": [
             {
-              "key": true,
+              "key": "true",
               "label": "是"
             },
             {
-              "key": false,
+              "key": "false",
               "label": "否"
             }
           ],
