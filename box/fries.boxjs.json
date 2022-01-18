@@ -75,6 +75,112 @@
       "icons": [
         "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/img/Cloudflare.png"
       ]
+    },
+    {
+      "id": "@GetSomeFries.Netflix",
+      "name": "Netflix",
+      "keys": ["@GetSomeFries.Netflix"],
+      "settings": [
+        {
+          "id": "@GetSomeFries.Netflix.geolocation.policy",
+          "name": "地理位置定位: 策略",
+          "val": "ALLOW",
+          "type": "radios",
+          "items": [
+            {
+              "key": "ALLOW",
+              "label": "允许"
+            },
+            {
+              "key": "DINY",
+              "label": "阻止"
+            }
+          ],
+          "desc": "此地区采用的策略"
+        },
+        {
+          "id": "@GetSomeFries.Netflix.geolocation.country",
+          "name": "地理位置定位: 国家或地区",
+          "val": "SG",
+          "type": "text",
+          "placeholder": "SG",
+          "desc": "采用ISO 3166-1标准的地区或国家二位代码，两个字母，如:US,HK,TW,SG,JP,MY等"
+        },
+        {
+          "id": "@GetSomeFries.Netflix.config",
+          "name": "功能配置内容",
+          "val": "",
+          "type": "textarea",
+          "placeholder": "allowWidevinePlayback=true\nairPlayDisabledEnabledOnBuild=50.0.0",
+          "autoGrow": true,
+          "rows": 5,
+          "desc": "一行一个设置项，以回车分隔多个设置"
+        },
+        {
+          "id": "@GetSomeFries.Netflix.ctx.region",
+          "name": "CTX: 区域",
+          "val": "us-west-02",
+          "type": "text",
+          "placeholder": "us-west-02",
+          "desc": "可能指数据中心区域，格式为国家-方位-数字，已知参数为: eu-west-01,us-east-01,us-west-02,sa-east-01,ap-northeast-01,ap-south-01"
+        },
+        {
+          "id": "@GetSomeFries.Netflix.ctx.device",
+          "name": "CTX: 设备",
+          "val": "ios",
+          "type": "radios",
+          "items": [
+            {
+              "key": "web",
+              "label": "网页"
+            },
+            {
+              "key": "ios",
+              "label": "iOS"
+            },
+            {
+              "key": "android",
+              "label": "Android"
+            },
+            {
+              "key": "cast",
+              "label": "Chromecast"
+            }
+          ],
+          "desc": "当前使用的设备类型"
+        },
+        {
+          "id": "@GetSomeFries.Netflix.ctx.ip",
+          "name": "CTX: IP",
+          "val": "",
+          "type": "text",
+          "placeholder": "1.2.3.4",
+          "desc": "当前连接使用的IP地址"
+        },
+        {
+          "id": "@GetSomeFries.Netflix.ctx.hasUser",
+          "name": "CTX: 已有用户",
+          "val": "false",
+          "type": "radios",
+          "items": [
+            {
+              "key": "true",
+              "label": "是"
+            },
+            {
+              "key": "false",
+              "label": "否"
+            }
+          ],
+          "desc": "当前IP是否已有用户在使用Netflix，关系到多人共用IP封非自制内容的问题"
+        }
+      ],
+      "author": "@VirgilClyne",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Netflix.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Netflix.js",
+      "icons": [
+        "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/img/Netflix.png"
+      ]
     }
   ]
 }
