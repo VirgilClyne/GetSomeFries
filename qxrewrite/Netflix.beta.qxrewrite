@@ -1,9 +1,9 @@
 #!name=🍟 Netflix
 #!desc=(BETA) Netflix Mod
 
-^https?:\/\/www\.netflix\.com\/(api\/ftl\/probe)  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, tag=Netflix Web
-^https?:\/\/(ios|ios-anycast|ios-prefix)\.prod\.(ftl|cloud|http1)\.netflix\.com\/  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, tag=Netflix iOS
-^https?:\/\/(android|android-anycast|android-prefix)\.prod\.(ftl|cloud)\.netflix\.com\/  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, tag=Netflix Android
-^https?:\/\/(cast|cast-uiboot|android-prefix)\.prod\.(http1)\.netflix\.com\/  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, tag=Netflix Chromecast
+^https?:\/\/www\.netflix\.com\/(api\/ftl\/probe)  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
+^https?:\/\/(ios|ios-anycast|ios-prefix)\.prod\.(ftl|cloud|http1)\.netflix\.com\/  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
+^https?:\/\/(android|android-anycast|android-prefix)\.prod\.(ftl|cloud)\.netflix\.com\/  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
+^https?:\/\/(cast|cast-uiboot|android-prefix)\.prod\.(http1)\.netflix\.com\/  url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
 
 hostname = www.netflix.com, *.prod.ftl.netflix.com, *.prod.cloud.netflix.com
