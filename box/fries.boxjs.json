@@ -84,11 +84,11 @@
         {
           "id": "@GetSomeFries.Netflix.geolocation.policy",
           "name": "地理位置定位: 策略",
-          "val": "",
+          "val": "AUTO",
           "type": "radios",
           "items": [
             {
-              "key": "",
+              "key": "AUTO",
               "label": "自动"
             },
             {
@@ -131,11 +131,11 @@
         {
           "id": "@GetSomeFries.Netflix.ctx.device",
           "name": "CTX: 设备",
-          "val": "",
+          "val": "AUTO",
           "type": "radios",
           "items": [
             {
-              "key": "",
+              "key": "AUTO",
               "label": "自动"
             },
             {
@@ -168,11 +168,11 @@
         {
           "id": "@GetSomeFries.Netflix.ctx.hasUser",
           "name": "CTX: 已有用户",
-          "val": "",
+          "val": "AUTO",
           "type": "radios",
           "items": [
             {
-              "key": "",
+              "key": "AUTO",
               "label": "自动"
             },
             {
