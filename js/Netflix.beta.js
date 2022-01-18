@@ -11,9 +11,11 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	$.log('before, Netflix:' + JSON.stringify($.Netflix))
 	$.Netflix.config = Object.fromEntries($.Netflix.config.split("\n").map((item) => item.split("=")));
 	$.log('after, Netflix:' + JSON.stringify($.Netflix))
+	/*
 	$.Netflix.config.allowWidevinePlayback = JSON.parse($.Netflix.config.allowWidevinePlayback);
 	$.Netflix.config.preferRichWebVTTOverImageBasedSubtitle = JSON.parse($.Netflix.config.preferRichWebVTTOverImageBasedSubtitle);
 	$.Netflix.config.requestRichWebVTTAsExperimental = JSON.parse($.Netflix.config.requestRichWebVTTAsExperimental);
+	*/
 	if ($.Netflix.ctx.hasUser != "AUTO") $.Netflix.ctx.hasUser = JSON.parse($.Netflix.ctx.hasUser);
 	$.log(JSON.stringify($.Netflix.config));
 } else if (typeof $argument != "undefined") {
@@ -22,19 +24,21 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	$.log(JSON.stringify(arg));
 	$.Netflix.geolocation.policy = (arg.geolocation_policy == "AUTO") ? $.Netflix.geolocation.policy : arg.geolocation_policy
 	$.Netflix.geolocation.country = arg.geolocation_country;
+	/*
 	$.Netflix.config.allowWidevinePlayback = JSON.parse(arg.config_allowWidevinePlayback);
 	$.Netflix.config.airPlayDisabledEnabledOnBuild = arg.config_airPlayDisabledEnabledOnBuild;
 	$.Netflix.config.preferRichWebVTTOverImageBasedSubtitle = JSON.parse(arg.config_preferRichWebVTTOverImageBasedSubtitle);
 	$.Netflix.config.requestRichWebVTTAsExperimental = JSON.parse(arg.config_requestRichWebVTTAsExperimental);
 	$.Netflix.config.reuseAVPlayerEnabledOnBuild = arg.config_reuseAVPlayerEnabledOnBuild;
 	$.Netflix.config.nfplayerReduxEnabledOnBuild = arg.config_nfplayerReduxEnabledOnBuild;
+	*/
 	$.Netflix.ctx.region = arg.ctx_region;
 	$.Netflix.ctx.device = (arg.ctx_device == "AUTO") ? $.Netflix.ctx.device : arg.ctx_device;
 	$.Netflix.ctx.ip = arg.ctx_ip;
 	$.Netflix.ctx.hasUser = (arg.ctx_hasUser == "AUTO") ? $.Netflix.ctx.hasUser : JSON.parse(arg.ctx_hasUser);
 } else {
 	// Default Settings
-	$.config = {
+	$.Netflix = {
 		"geolocation":{
 			"policy":"ALLOW", //策略
 			"country":"" // 国家
@@ -74,6 +78,7 @@ if (url.search(path1) != -1) {
 	if (content.value?.geolocation?.policy) content.value.geolocation.policy = 	($.Netflix.geolocation.policy != "AUTO") ? $.Netflix.geolocation.policy : content.value.geolocation.policy;
 	if (content.value?.geolocation?.country) content.value.geolocation.country = $.Netflix.geolocation.country ? $.Netflix.geolocation.country : content.value.geolocation.country;
 	if (content.value?.geolocation) $.msg($.name, `已修改配置文件链接`, `策略: ${content.value.geolocation.policy}, 国家: ${content.value.geolocation.country}`)
+	/*
 	if (content.value?.config?.allowWidevinePlayback !== undefined) {
 		$.log('before, allowWidevinePlayback:' + content.value.config.allowWidevinePlayback);
 		content.value.config.allowWidevinePlayback = ($.Netflix.config.allowWidevinePlayback !== undefined) ? $.Netflix.config.allowWidevinePlayback : content.value.config.allowWidevinePlayback;
@@ -83,6 +88,7 @@ if (url.search(path1) != -1) {
 	if (content.value?.config?.preferRichWebVTTOverImageBasedSubtitle !== undefined) content.value.config.preferRichWebVTTOverImageBasedSubtitle = ($.Netflix.config.preferRichWebVTTOverImageBasedSubtitle  !== undefined) ? $.Netflix.config.preferRichWebVTTOverImageBasedSubtitle : content.value.config.preferRichWebVTTOverImageBasedSubtitle;
 	if (content.value?.config?.reuseAVPlayerEnabledOnBuild) content.value.config.reuseAVPlayerEnabledOnBuild = $.Netflix.config.reuseAVPlayerEnabledOnBuild ? $.Netflix.config.reuseAVPlayerEnabledOnBuild : content.value.config.reuseAVPlayerEnabledOnBuild;
 	if (content.value?.config?.nfplayerReduxEnabledOnBuild) content.value.config.nfplayerReduxEnabledOnBuild = $.Netflix.config.nfplayerReduxEnabledOnBuild ? $.Netflix.config.nfplayerReduxEnabledOnBuild : content.value.config.nfplayerReduxEnabledOnBuild;
+	*/
 	body = JSON.stringify(content);
 	$.done({ body });
 }
