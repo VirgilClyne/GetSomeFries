@@ -84,9 +84,13 @@
         {
           "id": "@GetSomeFries.Netflix.geolocation.policy",
           "name": "地理位置定位: 策略",
-          "val": "ALLOW",
+          "val": "",
           "type": "radios",
           "items": [
+            {
+              "key": "",
+              "label": "自动"
+            },
             {
               "key": "ALLOW",
               "label": "允许"
@@ -101,35 +105,39 @@
         {
           "id": "@GetSomeFries.Netflix.geolocation.country",
           "name": "地理位置定位: 国家或地区",
-          "val": "SG",
+          "val": "",
           "type": "text",
           "placeholder": "SG",
-          "desc": "采用ISO 3166-1标准的地区或国家二位代码，两个字母，如:US,HK,TW,SG,JP,MY等"
+          "desc": "采用ISO 3166-1标准的地区或国家二位代码，两个字母，如:US,HK,TW,SG,JP,MY等,留空不修改"
         },
         {
           "id": "@GetSomeFries.Netflix.config",
-          "name": "功能配置内容",
+          "name": "配置: 功能内容",
           "val": "",
           "type": "textarea",
-          "placeholder": "allowWidevinePlayback=true\nairPlayDisabledEnabledOnBuild=50.0.0",
+          "placeholder": "allowWidevinePlayback=true",
           "autoGrow": true,
           "rows": 5,
-          "desc": "一行一个设置项，以回车分隔多个设置"
+          "desc": "一行一个设置项，以回车分隔多个设置，留空不修改"
         },
         {
           "id": "@GetSomeFries.Netflix.ctx.region",
           "name": "CTX: 区域",
-          "val": "us-west-02",
+          "val": "",
           "type": "text",
           "placeholder": "us-west-02",
-          "desc": "可能指数据中心区域，格式为国家-方位-数字，已知参数为: eu-west-01,us-east-01,us-west-02,sa-east-01,ap-northeast-01,ap-south-01"
+          "desc": "指定数据中心区域，留空不修改，已知参数为: eu-west-01,us-east-01,us-west-02,sa-east-01,ap-northeast-01,ap-south-01"
         },
         {
           "id": "@GetSomeFries.Netflix.ctx.device",
           "name": "CTX: 设备",
-          "val": "ios",
+          "val": "",
           "type": "radios",
           "items": [
+            {
+              "key": "",
+              "label": "自动"
+            },
             {
               "key": "web",
               "label": "网页"
@@ -155,14 +163,18 @@
           "val": "",
           "type": "text",
           "placeholder": "1.2.3.4",
-          "desc": "当前连接使用的IP地址"
+          "desc": "当前连接使用的IP地址，留空不修改"
         },
         {
           "id": "@GetSomeFries.Netflix.ctx.hasUser",
           "name": "CTX: 已有用户",
-          "val": "false",
+          "val": "",
           "type": "radios",
           "items": [
+            {
+              "key": "",
+              "label": "自动"
+            },
             {
               "key": "true",
               "label": "是"
