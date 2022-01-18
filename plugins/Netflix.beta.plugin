@@ -1,0 +1,11 @@
+#!name=🍟 Netflix
+#!desc=(BETA) Netflix Mod
+
+[Script]
+http-response ^https?:\/\/www\.netflix\.com\/(api\/ftl\/probe) script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, requires-body=1, tag=Netflix Web
+http-response ^https?:\/\/(ios|ios-anycast|ios-prefix)\.prod\.(ftl|cloud|http1)\.netflix\.com\/ script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, requires-body=1, tag=Netflix iOS
+http-response ^https?:\/\/(android|android-anycast|android-prefix)\.prod\.(ftl|cloud)\.netflix\.com\/ script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, requires-body=1, tag=Netflix Android
+http-response ^https?:\/\/(cast|cast-uiboot|android-prefix)\.prod\.(http1)\.netflix\.com\/ script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js, requires-body=1, tag=Netflix Chromecast
+
+[MITM]
+hostname = www.netflix.com, *.prod.ftl.netflix.com, *.prod.cloud.netflix.com
