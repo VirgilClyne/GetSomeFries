@@ -166,8 +166,22 @@
         {
           "id": "@GetSomeFries.Netflix.ctx.hasUser",
           "name": "CTX: 已有用户",
-          "val": false,
-          "type": "boolean",
+          "val": "AUTO",
+          "type": "radios",
+          "items": [
+            {
+              "key": "AUTO",
+              "label": "自动"
+            },
+            {
+              "key": "true",
+              "label": "是"
+            },
+            {
+              "key": "false",
+              "label": "否"
+            }
+          ],
           "desc": "当前IP是否已有用户在使用Netflix，关系到多人共用IP封非自制内容的问题"
         }
       ],
