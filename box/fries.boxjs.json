@@ -72,9 +72,7 @@
       "author": "@VirgilClyne",
       "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare.js",
       "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare.js",
-      "icons": [
-        "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/img/Cloudflare.png"
-      ]
+      "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
     },
     {
       "id": "@GetSomeFries.Netflix",
@@ -190,9 +188,7 @@
       "author": "@VirgilClyne",
       "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Netflix.js",
       "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Netflix.js",
-      "icons": [
-        "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/img/Netflix.png"
-      ]
+      "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Netflix.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png"]
     }
   ]
 }
