@@ -9,29 +9,32 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
 	$.Netflix = JSON.parse($.getdata("GetSomeFries")).Netflix
 	$.log('before, Netflix:' + JSON.stringify($.Netflix))
-	$.Netflix.config = Object.fromEntries($.Netflix.config.split("\n").map((item) => item.split("=")));
-	$.log('after, Netflix:' + JSON.stringify($.Netflix))
-	/*
-	$.Netflix.config.allowWidevinePlayback = JSON.parse($.Netflix.config.allowWidevinePlayback);
-	$.Netflix.config.preferRichWebVTTOverImageBasedSubtitle = JSON.parse($.Netflix.config.preferRichWebVTTOverImageBasedSubtitle);
-	$.Netflix.config.requestRichWebVTTAsExperimental = JSON.parse($.Netflix.config.requestRichWebVTTAsExperimental);
-	*/
+	if ($.Netflix.config) {
+		//$.log('before, Netflix.config:' + JSON.stringify($.Netflix.config))
+		$.Netflix.config = Object.fromEntries($.Netflix.config.split("\n").map((item) => item.split("=")));
+		//$.log('middle, Netflix.config:' + JSON.stringify($.Netflix.config))
+		for (var item in $.Netflix.config) $.Netflix.config[item] = ($.Netflix.config[item] == "true") ? true : ($.Netflix.config[item] == "false") ? false : $.Netflix.config[item];
+		//$.log('after, Netflix.config:' + JSON.stringify($.Netflix.config))
+	};
 	if ($.Netflix.ctx.hasUser != "AUTO") $.Netflix.ctx.hasUser = JSON.parse($.Netflix.ctx.hasUser);
-	$.log(JSON.stringify($.Netflix.config));
+	$.log('after, Netflix:' + JSON.stringify($.Netflix));
 } else if (typeof $argument != "undefined") {
 	// Argument Function Supported
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
 	$.Netflix.geolocation.policy = (arg.geolocation_policy == "AUTO") ? $.Netflix.geolocation.policy : arg.geolocation_policy
 	$.Netflix.geolocation.country = arg.geolocation_country;
-	/*
-	$.Netflix.config.allowWidevinePlayback = JSON.parse(arg.config_allowWidevinePlayback);
-	$.Netflix.config.airPlayDisabledEnabledOnBuild = arg.config_airPlayDisabledEnabledOnBuild;
-	$.Netflix.config.preferRichWebVTTOverImageBasedSubtitle = JSON.parse(arg.config_preferRichWebVTTOverImageBasedSubtitle);
-	$.Netflix.config.requestRichWebVTTAsExperimental = JSON.parse(arg.config_requestRichWebVTTAsExperimental);
-	$.Netflix.config.reuseAVPlayerEnabledOnBuild = arg.config_reuseAVPlayerEnabledOnBuild;
-	$.Netflix.config.nfplayerReduxEnabledOnBuild = arg.config_nfplayerReduxEnabledOnBuild;
-	*/
+	if (arg.config) {
+		$.Netflix.value.config = arg.config
+		/*
+		$.Netflix.config.allowWidevinePlayback = JSON.parse(arg.config_allowWidevinePlayback);
+		$.Netflix.config.airPlayDisabledEnabledOnBuild = arg.config_airPlayDisabledEnabledOnBuild;
+		$.Netflix.config.preferRichWebVTTOverImageBasedSubtitle = JSON.parse(arg.config_preferRichWebVTTOverImageBasedSubtitle);
+		$.Netflix.config.requestRichWebVTTAsExperimental = JSON.parse(arg.config_requestRichWebVTTAsExperimental);
+		$.Netflix.config.reuseAVPlayerEnabledOnBuild = arg.config_reuseAVPlayerEnabledOnBuild;
+		$.Netflix.config.nfplayerReduxEnabledOnBuild = arg.config_nfplayerReduxEnabledOnBuild;
+		*/
+	}
 	$.Netflix.ctx.region = arg.ctx_region;
 	$.Netflix.ctx.device = (arg.ctx_device == "AUTO") ? $.Netflix.ctx.device : arg.ctx_device;
 	$.Netflix.ctx.ip = arg.ctx_ip;
@@ -78,6 +81,10 @@ if (url.search(path1) != -1) {
 	if (content.value?.geolocation?.policy) content.value.geolocation.policy = 	($.Netflix.geolocation.policy != "AUTO") ? $.Netflix.geolocation.policy : content.value.geolocation.policy;
 	if (content.value?.geolocation?.country) content.value.geolocation.country = $.Netflix.geolocation.country ? $.Netflix.geolocation.country : content.value.geolocation.country;
 	if (content.value?.geolocation) $.msg($.name, `已修改配置文件链接`, `策略: ${content.value.geolocation.policy}, 国家: ${content.value.geolocation.country}`)
+	if (content.value?.config !== undefined && $.Netflix.value?.config !== undefined) {
+		content.value.config = Object.assign(content.value.config, $.Netflix.value.config);
+		$.log('after, content.value.config:' + JSON.stringify(content.value.config))
+	};
 	/*
 	if (content.value?.config?.allowWidevinePlayback !== undefined) {
 		$.log('before, allowWidevinePlayback:' + content.value.config.allowWidevinePlayback);
