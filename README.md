@@ -171,6 +171,18 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
     * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
   * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
   * 在`应用`-`整点薯条`-`Netflix`中填写需要修改Netflix的信息
+  * `配置：功能内容`段落示例如下
+    ```
+    hideAccountPaymentEnabledOnBuild=50.0.0
+    isAccountProfileLinkEnabled=true
+    allowWidevinePlayback=true
+    airPlayDisabledEnabledOnBuild=50.0.0
+    preferRichWebVTTOverImageBasedSubtitle=true
+    requestRichWebVTTAsExperimental=true
+    previewsWebVttStyleUrl=https:\/\/webvtt-s.nflxext.com\/35\/PreviewsWebVTTStyle.plist
+    iPhoneWebVttStyleUrl=https:\/\/webvtt-s.nflxext.com\/35\/iPhoneWebVTTStyle.plist
+    iPadWebVttStyleUrl=https:\/\/webvtt-s.nflxext.com\/35\/iPadWebVTTStyle.plist
+    ```
 * 配合Surge模块的`argument`字段使用:
   * 使用[@baranwang](https://github.com/baranwang)的[Surge模块Argument代理](https://sgmodule-argument-proxy.vercel.app/)直接生成带配置的专属模块[使用说明](https://github.com/baranwang/sgmodule-argument-proxy#readme)
   * 暂不支持多记录，推荐使用BoxJs设置
