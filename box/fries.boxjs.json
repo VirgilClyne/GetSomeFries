@@ -134,8 +134,8 @@
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_WARP.beta.js",
-      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_WARP.beta.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/beta/js/Cloudflare_WARP.beta.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Cloudflare_WARP.beta.js",
       "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
     },
     {
