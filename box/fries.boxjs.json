@@ -76,9 +76,17 @@
     },
     {
       "id": "@GetSomeFries.Cloudflare.WARP",
-      "name": "Cloudflare WARP",
+      "name": "Cloudflare WARP β",
       "keys": ["@GetSomeFries.Cloudflare.WARP"],
       "settings": [
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.Verify.LicenseKey",
+          "name": "许可证密钥",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": "许可证密钥"
+        },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.Mode",
           "name": "验证方式",
@@ -88,58 +96,46 @@
             {
               "key": "Token",
               "label": "令牌"
-            },
-            {
-              "key": "Key",
-              "label": "密钥"
-            },
-            {
-              "key": "ServiceKey",
-              "label": "用户服务密钥"
             }
           ],
-          "desc": "验证方式三选一"
+          "desc": "个人版的WARP的验证方式应该就只有Token，Team版的不知道"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.Content",
           "name": "验证内容",
           "val": "",
-          "type": "textarea",
-          "placeholder": "1234567893feefc5f0q5000bfo0c38d90bbeb,\nexample@example.com",
-          "autoGrow": false,
-          "rows": 2,
-          "desc": "‘令牌’与‘用户服务密钥’验证方式的值写一行即可, ‘密钥’验证方式的key与email以换行分隔写两行"
+          "type": "text",
+          "placeholder": "8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T",
+          "desc": "‘令牌’验证方式的值写一行即可"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.WARP.zone.id",
-          "name": "区域ID",
+          "id": "@GetSomeFries.Cloudflare.WARP.Verify.DeviceId",
+          "name": "设备ID",
           "val": "",
           "type": "text",
-          "placeholder": "023e105f4ecef8ad9ca31a8372d0c353",
-          "desc": "区域ID和区域名称至少提供一个"
-        },
-                {
-          "id": "@GetSomeFries.Cloudflare.WARP.zone.name",
-          "name": "区域名称",
-          "val": "",
-          "type": "text",
-          "placeholder": "example.com",
-          "desc": "区域ID和区域名称至少提供一个"
+          "placeholder": "",
+          "desc": "设备ID"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.WARP.zone.dns_records",
-          "name": "DNS记录内容",
+          "id": "@GetSomeFries.Cloudflare.WARP.Verify.PrivateKey",
+          "name": "私钥",
           "val": "",
-          "type": "textarea",
-          "placeholder": "id=记录ID&type=类型&name=名称&content=内容&ttl=TTL&priority=优先级&proxied=是否代理\ntype=A&name=www&proxied=false",
-          "autoGrow": true,
-          "rows": 2,
-          "desc": "一行一个记录内容，以回车分隔多行记录, 名称仅是子域名, 类型与名称是必填项, 没有的项目就删掉别写, 内容为空的A与AAAA记录会自动获取当前外部IP地址"
+          "type": "text",
+          "placeholder": "",
+          "desc": "私钥"
+        },
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.Version",
+          "name": "客户端版本",
+          "val": "v0a1922",
+          "type": "text",
+          "placeholder": "v0a1922",
+          "desc": "客户端版本，不懂别瞎改"
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_WARP.js",
-      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_WARP.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_WARP.beta.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_WARP.beta.js",
       "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
     },
     {
