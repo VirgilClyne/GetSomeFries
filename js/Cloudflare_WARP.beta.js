@@ -8,114 +8,46 @@ const $ = new Env('Cloudflare WARP');
 
 // Endpoints
 // https://api.cloudflare.com/#getting-started-endpoints
-$.baseURL = 'https://api.cloudflareclient.com';
-$.Version = "v0a1922";
+$.baseURL = 'https://api.cloudflareclient.com/';
 
 // BoxJs Function Supported
 if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
-	$.Cloudflare.WARP = JSON.parse($.getdata("GetSomeFries")).Cloudflare.WARP
+	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
 	//$.log(JSON.stringify($.Cloudflare.WARP))
 	if ($.Cloudflare.WARP.Verify.Mode == "Key") {
 		$.Cloudflare.WARP.Verify.Content = Array.from($.Cloudflare.WARP.Verify.Content.split("\n"))
 		//$.log(JSON.stringify($.Cloudflare.WARP.Verify.Content))
 	};
-	$.Cloudflare.WARP.zone.dns_records = Array.from($.Cloudflare.WARP.zone.dns_records.split("\n"))
-	//$.log(JSON.stringify($.Cloudflare.WARP.zone.dns_records))
-	$.Cloudflare.WARP.zone.dns_records.forEach((item, i) => {
-		$.Cloudflare.WARP.zone.dns_records[i] = Object.fromEntries(item.split("&").map((item) => item.split("=")));
-		$.Cloudflare.WARP.zone.dns_records[i].proxied = JSON.parse($.Cloudflare.WARP.zone.dns_records[i].proxied);
-	})
-	//$.log(JSON.stringify($.Cloudflare.WARP.zone.dns_records));
 	// Argument Function Supported
 } else if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
-	$.Cloudflare.WARP.Verify.Content = arg.Token;
+	$.Cloudflare.WARP.Verify.Mode = arg.Mode;
+	$.Cloudflare.WARP.Verify.Content = arg.AccessToken;
 	$.Cloudflare.WARP.Verify.Content = arg.ServiceKey;
 	$.Cloudflare.WARP.Verify.Content[0] = arg.Key;
 	$.Cloudflare.WARP.Verify.Content[1] = arg.Email;
-	$.Cloudflare.WARP.zone.id = arg.zone_id;
-	$.Cloudflare.WARP.zone.name = arg.zone_name;
-	$.Cloudflare.WARP.dns_records.id = arg.dns_records_id;
-	$.Cloudflare.WARP.dns_records.type = arg.dns_records_type;
-	$.Cloudflare.WARP.dns_records.name = arg.dns_records_name;
-	$.Cloudflare.WARP.dns_records.content = arg.dns_records_content;
-	$.Cloudflare.WARP.dns_records.ttl = arg.dns_records_ttl;
-	$.Cloudflare.WARP.dns_records.priority = arg.dns_records_priority;
-	$.Cloudflare.WARP.dns_records.proxied = JSON.parse(arg.dns_records_proxied);
+	$.Cloudflare.WARP.Verify.DeviceId = arg.DeviceId;
+	$.Cloudflare.WARP.Verify.PrivateKey = arg.PrivateKey;
+	$.Cloudflare.WARP.Verify.LicenseKey = arg.LicenseKey;
 } else {
 	$.Cloudflare.WARP = {
 		"Verify":{
 			"Mode":"Token",
 			// Requests
 			// https://api.cloudflare.com/#getting-started-requests
-			"Content":""
+			"Content":"",
 			// API Tokens
 			// API Tokens provide a new way to authenticate with the Cloudflare API.
 			//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
-			// API Keys
-			// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate.
-			// Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
-			/*
-			//Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
-			"Content":["1234567893feefc5f0q5000bfo0c38d90bbeb",
-			//Your contact email address
-			"example@example.com" ]
-			//User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
-			"Content": "v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a"
-			*/
+			"DeviceId":"",
+			"PrivateKey":"",
+			"LicenseKey":""
 		},
-		// Zone
-		// https://api.cloudflare.com/#zone-properties
-		"zone":{
-			// Zone Details
-			// https://api.cloudflare.com/#zone-zone-details
-			"id":"",
-			// List Zones
-			// https://api.cloudflare.com/#zone-list-zones
-			"name":"", //The domain/website name you want to run updates for (e.g. example.com)
-			// DNS Records for a Zone
-			// https://api.cloudflare.com/#dns-records-for-a-zone-properties
-			"dns_records":[
-				{
-					// DNS Record Details
-					// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
-					"id":"",
-					// List DNS Records
-					// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
-					// type
-					// DNS record type
-					"type":"A",
-					// name
-					// DNS record name
-					"name":"",
-					// content
-					// DNS record content
-					"content":"",
-					// ttl
-					// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
-					"ttl":1,
-					// priority
-					// Required for MX, SRV and URI records; unused by other record types.
-					//"priority":10,
-					// proxied
-					// Whether the record is receiving the performance and security benefits of Cloudflare
-					"proxied":false //Whether the record is receiving the performance and security benefits of Cloudflare
-				},
-				{
-					"id":"",
-					"type":"AAAA",
-					"name":"",
-					"content":"",
-					"ttl":1,
-					"proxied":false
-				}
-			]
-		}
 	}	
 };
-console.log($.Cloudflare.DNS)
+console.log($.Cloudflare.WARP)
 
 !(async () => {
 	//Step 1
@@ -158,6 +90,7 @@ async function Verify(Mode, Content) {
 	$.VAL_headers = {
 		"User-Agent":        "okhttp/3.12.1",
 		"CF-Client-Version": "a-6.3-1922",
+		"Debug": false
 	}
 	if (Mode == "Token") {
 		$.VAL_headers.Authorization = `Bearer ${Content}`;
@@ -319,10 +252,61 @@ function fatchCFjson(url) {
 // Function 1A
 // Get Public IP / External IP address
 // https://www.my-ip.io/api
-async function getPublicIP(type) {
-	$.log('获取公共IP');
-	const url = { url: `https://api${type}.my-ip.io/ip.json` };
+async function Register(publicKey, deviceModel) {
+	$.log('注册');
+	var body = {
+		FcmToken:  "", // not empty on actual client
+		InstallId: "", // not empty on actual client
+		Key:       publicKey.String(),
+		Locale:    "en_US",
+		Model:     deviceModel,
+		Tos:       timestamp,
+		Type:      "Android"
+	};
+	const url = { method: 'post', url: `${$.baseURL}/${version}/reg`, headers: $.VAL_headers, body }
+	return await fatchCFjson(url);
+}
+
+// Function
+// get device
+async function getDevice(Version, Token) {
+	$.log('获取设备');
+	const url = { url: `${$.baseURL}/${Version}/reg/${Token}`, headers: $.VAL_headers };
 	return await getCFjson(url);
+}
+
+// Function
+// get account
+async function getAccount(Version, Token) {
+	$.log('获取账户');
+	const url = { url: `${$.baseURL}/${Version}/reg/${Token}/account`, headers: $.VAL_headers };
+	return await getCFjson(url);
+}
+
+// Function
+// get account devices
+async function getAccount(Version, Token) {
+	$.log('获取账户');
+	const url = { url: `${$.baseURL}/${Version}/reg/${Token}/account/devices`, headers: $.VAL_headers };
+	return await getCFjson(url);
+}
+
+// Function
+// set device active"
+async function setDeviceActive(Version, Token) {
+	$.log('获取账户');
+	var body = { "active": true };
+	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${Token}/account/devices`, headers: $.VAL_headers, body};
+	return await fatchCFjson(url);
+}
+
+// Function
+// set device name"
+async function setDeviceName(Version, Token, Name) {
+	$.log('获取账户');
+	var body = { "name": Name };
+	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${Token}/account/devices`, headers: $.VAL_headers, body};
+	return await fatchCFjson(url);
 }
 
 // Function 2A
@@ -330,7 +314,7 @@ async function getPublicIP(type) {
 // https://api.cloudflare.com/#user-api-tokens-verify-token
 async function verifyToken(headers) {
 	$.log('验证令牌');
-	const url = { url: `${$.baseURL}user/tokens/verify`, headers: headers };
+	const url = { url: `${$.baseURL}reg/%s/account/devices`, headers: headers };
 	return await getCFjson(url);
 }
 
