@@ -13,6 +13,7 @@ $.baseURL = 'https://api.cloudflare.com/client/v4/';
 // BoxJs Function Supported
 if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
+	$.Cloudflare = {};
 	$.Cloudflare.DNS = JSON.parse($.getdata("GetSomeFries")).Cloudflare.DNS
 	//$.log(JSON.stringify($.Cloudflare.DNS))
 	if ($.Cloudflare.DNS.Verify.Mode == "Key") {
