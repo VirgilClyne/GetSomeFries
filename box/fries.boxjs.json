@@ -81,15 +81,15 @@
       "settings": [
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.LicenseKey",
-          "name": "许可证密钥",
+          "name": "WARP: 许可证密钥",
           "val": "",
           "type": "text",
-          "placeholder": "",
-          "desc": "许可证密钥"
+          "placeholder": "1A2B3C4D-5E6F7G8H-9I0J1K2L",
+          "desc": "相当于匿名的WARP账号，妥善保管，使用与获取的流量、设备均算在此许可证密钥的使用量当中"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.Mode",
-          "name": "验证方式",
+          "name": "WARP: 验证方式",
           "val": "Token",
           "type": "radios",
           "items": [
@@ -102,7 +102,7 @@
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.Content",
-          "name": "验证内容",
+          "name": "WARP: 验证内容",
           "val": "",
           "type": "text",
           "placeholder": "8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T",
@@ -110,27 +110,56 @@
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.DeviceId",
-          "name": "设备ID",
+          "name": "WARP: 设备ID",
           "val": "",
           "type": "text",
           "placeholder": "",
-          "desc": "设备ID"
+          "desc": "设备ID，"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.WARP.Verify.PrivateKey",
-          "name": "私钥",
+          "id": "@GetSomeFries.Cloudflare.WARP.WireGuard.PrivateKey",
+          "name": "WireGuard: 私钥",
           "val": "",
           "type": "text",
           "placeholder": "",
-          "desc": "私钥"
+          "desc": "先在Wireguard的WIN版本里新建隧道生成个私钥贴在这里"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.WARP.Version",
-          "name": "客户端版本",
+          "id": "@GetSomeFries.Cloudflare.WARP.WireGuard.PublicKey",
+          "name": "WireGuard: 公钥",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": "然后在Wireguard的移动端里新建隧道贴上上面的私钥后，生成个公钥贴在这里"
+        },
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.env.Version",
+          "name": "WARP: 客户端版本",
           "val": "v0a1922",
           "type": "text",
           "placeholder": "v0a1922",
           "desc": "客户端版本，不懂别瞎改"
+        },
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.env.User-Agent",
+          "name": "WARP: 客户端用户代理类型",
+          "val": "1.1.1.1/1909221500.1 CFNetwork/978.0.7 Darwin/18.7.0",
+          "type": "radios",
+          "items": [
+            {
+              "key": "okhttp/3.12.1",
+              "label": "Linux客户端"
+            },
+            {
+              "key": "1.1.1.1/1909221500.1 CFNetwork/978.0.7 Darwin/18.7.0",
+              "label": "iOS客户端"
+            },
+            {
+              "key": "Cloudflare%20WARP/20211210.10 CFNetwork/1327.0.4 Darwin/21.2.0",
+              "label": "macOS客户端"
+            }
+          ],
+          "desc": "要伪装的客户端类型，默认iOS客户端"
         }
       ],
       "author": "@VirgilClyne",
