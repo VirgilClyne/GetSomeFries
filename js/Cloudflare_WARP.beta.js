@@ -3,6 +3,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 */
 
 // refer:https://github.com/ViRb3/wgcf
+// refer:https://github.com/yyuueexxiinngg/some-scripts/blob/master/cloudflare/warp2wireguard.js
 
 const $ = new Env('Cloudflare WARP');
 
@@ -14,6 +15,7 @@ $.baseURL = 'https://api.cloudflareclient.com/';
 if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
 	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
+	$.WireGuard = JSON.parse($.getdata("GetSomeFries")).WireGuard
 	//$.log(JSON.stringify($.Cloudflare.WARP))
 	if ($.Cloudflare.WARP.Verify.Mode == "Key") {
 		$.Cloudflare.WARP.Verify.Content = Array.from($.Cloudflare.WARP.Verify.Content.split("\n"))
@@ -23,17 +25,22 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 } else if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
+	$.Cloudflare.WARP.Verify.LicenseKey = arg.LicenseKey;
 	$.Cloudflare.WARP.Verify.Mode = arg.Mode;
 	$.Cloudflare.WARP.Verify.Content = arg.AccessToken;
 	$.Cloudflare.WARP.Verify.Content = arg.ServiceKey;
 	$.Cloudflare.WARP.Verify.Content[0] = arg.Key;
 	$.Cloudflare.WARP.Verify.Content[1] = arg.Email;
 	$.Cloudflare.WARP.Verify.DeviceId = arg.DeviceId;
-	$.Cloudflare.WARP.Verify.PrivateKey = arg.PrivateKey;
-	$.Cloudflare.WARP.Verify.LicenseKey = arg.LicenseKey;
+	$.WireGuard.PrivateKey = arg.PrivateKey;
+	$.WireGuard.PublicKey = arg.PublicKey;
+	$.Cloudflare.WARP.env.Version = arg.Version;
+	$.Cloudflare.WARP.env.deviceType = arg.deviceType;
+
 } else {
 	$.Cloudflare.WARP = {
 		"Verify":{
+			"LicenseKey":"",
 			"Mode":"Token",
 			// Requests
 			// https://api.cloudflare.com/#getting-started-requests
@@ -41,13 +48,16 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 			// API Tokens
 			// API Tokens provide a new way to authenticate with the Cloudflare API.
 			//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
-			"DeviceId":"",
-			"PrivateKey":"",
-			"LicenseKey":""
+			"DeviceId":""			
 		},
+		"env":{
+			"Version":"v0a1922",
+			"deviceType":"iOS"		
+		}
 	}	
 };
 console.log($.Cloudflare.WARP)
+
 
 !(async () => {
 	//Step 1
@@ -61,6 +71,8 @@ console.log($.Cloudflare.WARP)
 })()
 	.catch((e) => $.logErr(e))
 	.finally(() => $.done())
+
+
 
 /***************** DDNS *****************/
 
@@ -88,8 +100,12 @@ async function DDNS(zone, dns_records) {
 async function Verify(Mode, Content) {
 	$.log('验证授权');
 	$.VAL_headers = {
-		"User-Agent":        "okhttp/3.12.1",
-		"CF-Client-Version": "a-6.3-1922",
+		Host: "api.cloudflareclient.com",
+		//"User-Agent": "okhttp/3.12.1",
+		//"User-Agent": "1.1.1.1/1909221500.1 CFNetwork/978.0.7 Darwin/18.7.0",
+		//"User-Agent": "WARP",
+		//"CF-Client-Version": "a-6.3-1922",
+		//"CF-Client-Version": "m-2021.12.1.0-0",
 		"Debug": false
 	}
 	if (Mode == "Token") {
@@ -112,24 +128,20 @@ async function Verify(Mode, Content) {
 }
 
 //Step 2
-async function checkZoneInfo(zone) {
-	$.log('查询区域信息');
-	if (zone.id && zone.name) {
-		$.log(`有区域ID${zone.id}和区域名称${zone.name}, 继续`, '');
-		newZone = zone;
-	} else if (zone.id) {
-		$.log(`有区域ID${zone.id}, 继续`, '');
-		newZone = await getZone(zone);
-	} else if (zone.name) {
-		$.log(`有区域名称${zone.name}, 继续`, '');
-		newZone = await listZones(zone);	
-	} else {
-		$.logErr('未提供记录ID和名称, 终止', '');
-		$.done();
+async function setupLicenseKey(LicenseKey, oldRecord, dns_records) {
+	$.log('开始更新内容');
+	if (!oldRecord.content) {
+		$.log('无记录');
+		var newRecord = await createDNSRecord(zone, dns_records);
+	} else if (oldRecord.content !== dns_records.content) {
+		$.log('有记录且IP地址不同');
+		var newRecord = await updateDNSRecord(zone, oldRecord, dns_records);
+	} else if (oldRecord.content === dns_records.content) {
+		$.log('有记录且IP地址相同');
+		var newRecord = oldRecord
 	}
-	$.log(`区域查询结果:`, `ID:${newZone.id}`, `名称:${newZone.name}`, `状态:${newZone.status}`, `仅DNS服务:${newZone.paused}`, `类型:${newZone.type}`, `开发者模式:${newZone.development_mode}`, `名称服务器:${newZone.name_servers}`, `原始名称服务器:${newZone.original_name_servers}`, '');
-	const result = await Object.assign(zone, newZone);
-	return result
+	$.log(`记录更新结果:`, `ID:${newRecord.id}`, `名称:${newRecord.name}`, `类型:${newRecord.type}`, `内容:${newRecord.content}`, `可代理:${newRecord.proxiable}`, `代理状态:${newRecord.proxied}`, `TTL:${newRecord.ttl}`, `已锁定:${newRecord.locked}`, '');
+	return newRecord
 }
 
 //Step 3
@@ -252,7 +264,7 @@ function fatchCFjson(url) {
 // Function 1A
 // Get Public IP / External IP address
 // https://www.my-ip.io/api
-async function Register(publicKey, deviceModel) {
+async function Register(publicKey, deviceModel, deviceType) {
 	$.log('注册');
 	var body = {
 		FcmToken:  "", // not empty on actual client
@@ -260,8 +272,8 @@ async function Register(publicKey, deviceModel) {
 		Key:       publicKey.String(),
 		Locale:    "en_US",
 		Model:     deviceModel,
-		Tos:       timestamp,
-		Type:      "Android"
+		Tos:       new Date().toISOString(),
+		Type:      deviceType
 	};
 	const url = { method: 'post', url: `${$.baseURL}/${version}/reg`, headers: $.VAL_headers, body }
 	return await fatchCFjson(url);
