@@ -141,21 +141,29 @@
           "desc": "客户端版本，不懂别瞎改"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.WARP.env.User-Agent",
+          "id": "@GetSomeFries.Cloudflare.WARP.env.deviceType",
           "name": "WARP: 客户端用户代理类型",
-          "val": "1.1.1.1/1909221500.1 CFNetwork/978.0.7 Darwin/18.7.0",
+          "val": "iOS",
           "type": "radios",
           "items": [
             {
-              "key": "okhttp/3.12.1",
+              "key": "Windows",
+              "label": "windows客户端"
+            },
+            {
+              "key": "Linux",
               "label": "Linux客户端"
             },
             {
-              "key": "1.1.1.1/1909221500.1 CFNetwork/978.0.7 Darwin/18.7.0",
+              "key": "Android",
+              "label": "Android客户端"
+            },
+            {
+              "key": "iOS",
               "label": "iOS客户端"
             },
             {
-              "key": "Cloudflare%20WARP/20211210.10 CFNetwork/1327.0.4 Darwin/21.2.0",
+              "key": "macOS",
               "label": "macOS客户端"
             }
           ],
