@@ -117,7 +117,7 @@
           "desc": "设备ID, UUID, 每个设备的唯一身份识别代码，不填写的话视为新设备注册，会自动生成"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.WARP.WireGuard.PrivateKey",
+          "id": "@GetSomeFries.WireGuard.PrivateKey",
           "name": "WireGuard: 私钥",
           "val": "",
           "type": "text",
@@ -125,7 +125,7 @@
           "desc": "在Wireguard的iOS客户端里新建隧道，生成一个密钥对，私钥贴在这里，公钥贴下面"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.WARP.WireGuard.PublicKey",
+          "id": "@GetSomeFries.WireGuard.PublicKey",
           "name": "WireGuard: 公钥",
           "val": "",
           "type": "text",
@@ -173,6 +173,79 @@
       "author": "@VirgilClyne",
       "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/beta/js/Cloudflare_WARP.beta.js",
       "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Cloudflare_WARP.beta.js",
+      "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
+    },
+    {
+      "id": "@GetSomeFries.WireGuard",
+      "name": "WireGuard β",
+      "keys": ["@GetSomeFries.WireGuard"],
+      "settings": [
+        {
+          "id": "@GetSomeFries.WireGuard.PrivateKey",
+          "name": "Interface: 私钥",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": "在Wireguard的iOS客户端里新建隧道，生成一个密钥对，私钥贴在这里，公钥贴下面"
+        },
+        {
+          "id": "@GetSomeFries.WireGuard.PublicKey",
+          "name": "Interface: 公钥",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": "在Wireguard的iOS客户端里新建隧道，生成一个密钥对，公钥贴在这里，私钥贴上面"
+        },
+        {
+          "id": "@GetSomeFries.WireGuard.userData.config.interface.addresses.v4",
+          "name": "Interface: IPV4地址",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": ""
+        },
+        {
+          "id": "@GetSomeFries.WireGuard.userData.config.interface.addresses.v6",
+          "name": "Interface: IPV6地址",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": ""
+        },
+        {
+          "id": "@GetSomeFries.WireGuard.userData.config.peers[0].public_key",
+          "name": "Peer: 公钥",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": ""
+        },
+        {
+          "id": "@GetSomeFries.WireGuard.userData.config.peers[0].endpoint.v4",
+          "name": "Peer: endpoint IPV4地址",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": ""
+        },
+        {
+          "id": "@GetSomeFries.WireGuard.userData.config.peers[0].endpoint.v6",
+          "name": "Peer: endpoint IPV6地址",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": ""
+        },
+        {
+          "id": "@GetSomeFries.WireGuard.userData.config.peers[0].endpoint.host",
+          "name": "Peer: endpoint 主机",
+          "val": "",
+          "type": "text",
+          "placeholder": "",
+          "desc": ""
+        }
+      ],
+      "author": "@VirgilClyne",
       "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
     },
     {
