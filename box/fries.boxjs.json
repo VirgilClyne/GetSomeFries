@@ -106,15 +106,15 @@
           "val": "",
           "type": "text",
           "placeholder": "8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T",
-          "desc": "‘令牌’验证方式的值写一行即可"
+          "desc": "‘令牌’验证方式的值写一行即可，不填写的话视为新设备注册，会自动生成"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.DeviceId",
           "name": "WARP: 设备ID",
           "val": "",
           "type": "text",
-          "placeholder": "",
-          "desc": "设备ID，"
+          "placeholder": "123e4567-e89b-12d3-a456-426614174000",
+          "desc": "设备ID, UUID, 每个设备的唯一身份识别代码，不填写的话视为新设备注册，会自动生成"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.WireGuard.PrivateKey",
@@ -122,7 +122,7 @@
           "val": "",
           "type": "text",
           "placeholder": "",
-          "desc": "先在Wireguard的WIN版本里新建隧道生成个私钥贴在这里"
+          "desc": "在Wireguard的iOS客户端里新建隧道，生成一个密钥对，私钥贴在这里，公钥贴下面"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.WireGuard.PublicKey",
@@ -130,7 +130,7 @@
           "val": "",
           "type": "text",
           "placeholder": "",
-          "desc": "然后在Wireguard的移动端里新建隧道贴上上面的私钥后，生成个公钥贴在这里"
+          "desc": "在Wireguard的iOS客户端里新建隧道，生成一个密钥对，公钥贴在这里，私钥贴上面"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.env.Version",
