@@ -1,6 +1,6 @@
-#!name=🍟 Cloudflare
+#!name=🍟 Cloudflare DNS
 #!desc=Cloudflare DNS Records Management and Auto Update DDNS
 
 [Script]
-Cloudflare = type=event,network-changed,timeout=60,argument=Token=令牌&zone_id=区域ID&zone_name=区域名称&dns_records_id=记录ID&dns_records_name=记录名称&dns_records_type=记录类型&dns_records_ttl=TTL&dns_records_priority=记录优先级&dns_records_proxied=是否代理,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare.js
-Cloudflare = type=cron,cronexp="*/10 * * * *",timeout=60,argument=Token=令牌&zone_id=区域ID&zone_name=区域名称&dns_records_id=记录ID&dns_records_name=记录名称&dns_records_type=记录类型&dns_records_ttl=TTL&dns_records_priority=记录优先级&dns_records_proxied=是否代理,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare.js
+Cloudflare DNS = type=event,network-changed,timeout=60,argument=Token=令牌&zone_id=区域ID&zone_name=区域名称&dns_records_id=记录ID&dns_records_name=记录名称&dns_records_type=记录类型&dns_records_ttl=TTL&dns_records_priority=记录优先级&dns_records_proxied=是否代理,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_DNS.js
+Cloudflare DNS = type=cron,cronexp="*/10 * * * *",timeout=60,argument=Token=令牌&zone_id=区域ID&zone_name=区域名称&dns_records_id=记录ID&dns_records_name=记录名称&dns_records_type=记录类型&dns_records_ttl=TTL&dns_records_priority=记录优先级&dns_records_proxied=是否代理,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_DNS.js

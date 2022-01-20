@@ -7,12 +7,12 @@
   "repo": "https://github.com/VirgilClyne/GetSomeFries",
   "apps": [
     {
-      "id": "@GetSomeFries.Cloudflare",
-      "name": "Cloudflare",
-      "keys": ["@GetSomeFries.Cloudflare"],
+      "id": "@GetSomeFries.Cloudflare.DNS",
+      "name": "Cloudflare DNS",
+      "keys": ["@GetSomeFries.Cloudflare.DNS"],
       "settings": [
         {
-          "id": "@GetSomeFries.Cloudflare.Verify.Mode",
+          "id": "@GetSomeFries.Cloudflare.DNS.Verify.Mode",
           "name": "验证方式",
           "val": "Token",
           "type": "radios",
@@ -33,7 +33,7 @@
           "desc": "验证方式三选一"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.Verify.Content",
+          "id": "@GetSomeFries.Cloudflare.DNS.Verify.Content",
           "name": "验证内容",
           "val": "",
           "type": "textarea",
@@ -43,7 +43,7 @@
           "desc": "‘令牌’与‘用户服务密钥’验证方式的值写一行即可, ‘密钥’验证方式的key与email以换行分隔写两行"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.zone.id",
+          "id": "@GetSomeFries.Cloudflare.DNS.zone.id",
           "name": "区域ID",
           "val": "",
           "type": "text",
@@ -51,7 +51,7 @@
           "desc": "区域ID和区域名称至少提供一个"
         },
                 {
-          "id": "@GetSomeFries.Cloudflare.zone.name",
+          "id": "@GetSomeFries.Cloudflare.DNS.zone.name",
           "name": "区域名称",
           "val": "",
           "type": "text",
@@ -59,7 +59,7 @@
           "desc": "区域ID和区域名称至少提供一个"
         },
         {
-          "id": "@GetSomeFries.Cloudflare.zone.dns_records",
+          "id": "@GetSomeFries.Cloudflare.DNS.zone.dns_records",
           "name": "DNS记录内容",
           "val": "",
           "type": "textarea",
@@ -70,8 +70,76 @@
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_DNS.js",
       "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare.js",
+      "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
+    },
+    {
+      "id": "@GetSomeFries.Cloudflare.WARP",
+      "name": "Cloudflare WARP",
+      "keys": ["@GetSomeFries.Cloudflare.WARP"],
+      "settings": [
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.Verify.Mode",
+          "name": "验证方式",
+          "val": "Token",
+          "type": "radios",
+          "items": [
+            {
+              "key": "Token",
+              "label": "令牌"
+            },
+            {
+              "key": "Key",
+              "label": "密钥"
+            },
+            {
+              "key": "ServiceKey",
+              "label": "用户服务密钥"
+            }
+          ],
+          "desc": "验证方式三选一"
+        },
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.Verify.Content",
+          "name": "验证内容",
+          "val": "",
+          "type": "textarea",
+          "placeholder": "1234567893feefc5f0q5000bfo0c38d90bbeb,\nexample@example.com",
+          "autoGrow": false,
+          "rows": 2,
+          "desc": "‘令牌’与‘用户服务密钥’验证方式的值写一行即可, ‘密钥’验证方式的key与email以换行分隔写两行"
+        },
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.zone.id",
+          "name": "区域ID",
+          "val": "",
+          "type": "text",
+          "placeholder": "023e105f4ecef8ad9ca31a8372d0c353",
+          "desc": "区域ID和区域名称至少提供一个"
+        },
+                {
+          "id": "@GetSomeFries.Cloudflare.WARP.zone.name",
+          "name": "区域名称",
+          "val": "",
+          "type": "text",
+          "placeholder": "example.com",
+          "desc": "区域ID和区域名称至少提供一个"
+        },
+        {
+          "id": "@GetSomeFries.Cloudflare.WARP.zone.dns_records",
+          "name": "DNS记录内容",
+          "val": "",
+          "type": "textarea",
+          "placeholder": "id=记录ID&type=类型&name=名称&content=内容&ttl=TTL&priority=优先级&proxied=是否代理\ntype=A&name=www&proxied=false",
+          "autoGrow": true,
+          "rows": 2,
+          "desc": "一行一个记录内容，以回车分隔多行记录, 名称仅是子域名, 类型与名称是必填项, 没有的项目就删掉别写, 内容为空的A与AAAA记录会自动获取当前外部IP地址"
+        }
+      ],
+      "author": "@VirgilClyne",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_WARP.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_WARP.js",
       "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
     },
     {

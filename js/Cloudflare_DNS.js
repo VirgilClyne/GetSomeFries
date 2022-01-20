@@ -4,7 +4,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 
 // refer:https://github.com/phil-r/node-cloudflare-ddns
 
-const $ = new Env('Cloudflare DDNS');
+const $ = new Env('Cloudflare DNS');
 
 // Endpoints
 // https://api.cloudflare.com/#getting-started-endpoints
@@ -13,38 +13,38 @@ $.baseURL = 'https://api.cloudflare.com/client/v4/';
 // BoxJs Function Supported
 if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
-	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
-	//$.log(JSON.stringify($.Cloudflare))
-	if ($.Cloudflare.Verify.Mode == "Key") {
-		$.Cloudflare.Verify.Content = Array.from($.Cloudflare.Verify.Content.split("\n"))
-		//$.log(JSON.stringify($.Cloudflare.Verify.Content))
+	$.Cloudflare.DNS = JSON.parse($.getdata("GetSomeFries")).Cloudflare.DNS
+	//$.log(JSON.stringify($.Cloudflare.DNS))
+	if ($.Cloudflare.DNS.Verify.Mode == "Key") {
+		$.Cloudflare.DNS.Verify.Content = Array.from($.Cloudflare.DNS.Verify.Content.split("\n"))
+		//$.log(JSON.stringify($.Cloudflare.DNS.Verify.Content))
 	};
-	$.Cloudflare.zone.dns_records = Array.from($.Cloudflare.zone.dns_records.split("\n"))
-	//$.log(JSON.stringify($.Cloudflare.zone.dns_records))
-	$.Cloudflare.zone.dns_records.forEach((item, i) => {
-		$.Cloudflare.zone.dns_records[i] = Object.fromEntries(item.split("&").map((item) => item.split("=")));
-		$.Cloudflare.zone.dns_records[i].proxied = JSON.parse($.Cloudflare.zone.dns_records[i].proxied);
+	$.Cloudflare.DNS.zone.dns_records = Array.from($.Cloudflare.DNS.zone.dns_records.split("\n"))
+	//$.log(JSON.stringify($.Cloudflare.DNS.zone.dns_records))
+	$.Cloudflare.DNS.zone.dns_records.forEach((item, i) => {
+		$.Cloudflare.DNS.zone.dns_records[i] = Object.fromEntries(item.split("&").map((item) => item.split("=")));
+		$.Cloudflare.DNS.zone.dns_records[i].proxied = JSON.parse($.Cloudflare.DNS.zone.dns_records[i].proxied);
 	})
-	//$.log(JSON.stringify($.Cloudflare.zone.dns_records));
+	//$.log(JSON.stringify($.Cloudflare.DNS.zone.dns_records));
 	// Argument Function Supported
 } else if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
-	$.Cloudflare.Verify.Content = arg.Token;
-	$.Cloudflare.Verify.Content = arg.ServiceKey;
-	$.Cloudflare.Verify.Content[0] = arg.Key;
-	$.Cloudflare.Verify.Content[1] = arg.Email;
-	$.Cloudflare.zone.id = arg.zone_id;
-	$.Cloudflare.zone.name = arg.zone_name;
-	$.Cloudflare.dns_records.id = arg.dns_records_id;
-	$.Cloudflare.dns_records.type = arg.dns_records_type;
-	$.Cloudflare.dns_records.name = arg.dns_records_name;
-	$.Cloudflare.dns_records.content = arg.dns_records_content;
-	$.Cloudflare.dns_records.ttl = arg.dns_records_ttl;
-	$.Cloudflare.dns_records.priority = arg.dns_records_priority;
-	$.Cloudflare.dns_records.proxied = JSON.parse(arg.dns_records_proxied);
+	$.Cloudflare.DNS.Verify.Content = arg.Token;
+	$.Cloudflare.DNS.Verify.Content = arg.ServiceKey;
+	$.Cloudflare.DNS.Verify.Content[0] = arg.Key;
+	$.Cloudflare.DNS.Verify.Content[1] = arg.Email;
+	$.Cloudflare.DNS.zone.id = arg.zone_id;
+	$.Cloudflare.DNS.zone.name = arg.zone_name;
+	$.Cloudflare.DNS.dns_records.id = arg.dns_records_id;
+	$.Cloudflare.DNS.dns_records.type = arg.dns_records_type;
+	$.Cloudflare.DNS.dns_records.name = arg.dns_records_name;
+	$.Cloudflare.DNS.dns_records.content = arg.dns_records_content;
+	$.Cloudflare.DNS.dns_records.ttl = arg.dns_records_ttl;
+	$.Cloudflare.DNS.dns_records.priority = arg.dns_records_priority;
+	$.Cloudflare.DNS.dns_records.proxied = JSON.parse(arg.dns_records_proxied);
 } else {
-	$.Cloudflare = {
+	$.Cloudflare.DNS = {
 		"Verify":{
 			"Mode":"Token",
 			// Requests
@@ -114,16 +114,16 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 		}
 	}	
 };
-console.log($.Cloudflare)
+console.log($.Cloudflare.DNS)
 
 !(async () => {
 	//Step 1
-	let status = await Verify($.Cloudflare.Verify.Mode, $.Cloudflare.Verify.Content)
+	let status = await Verify($.Cloudflare.DNS.Verify.Mode, $.Cloudflare.DNS.Verify.Content)
 	if (status == true) {
 		//Step 2
-		$.Cloudflare.zone = await checkZoneInfo($.Cloudflare.zone)
+		$.Cloudflare.DNS.zone = await checkZoneInfo($.Cloudflare.DNS.zone)
 		//Step 3 4 5
-		for (let i in $.Cloudflare.zone.dns_records) { await DDNS($.Cloudflare.zone, $.Cloudflare.zone.dns_records[i]); }
+		for (let i in $.Cloudflare.DNS.zone.dns_records) { await DDNS($.Cloudflare.DNS.zone, $.Cloudflare.DNS.zone.dns_records[i]); }
 	} else throw new Error('验证失败')
 })()
 	.catch((e) => $.logErr(e))
