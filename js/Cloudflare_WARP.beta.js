@@ -36,7 +36,6 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	$.WireGuard.PublicKey = arg.PublicKey;
 	$.Cloudflare.WARP.env.Version = arg.Version;
 	$.Cloudflare.WARP.env.deviceType = arg.deviceType;
-
 } else {
 	$.Cloudflare.WARP = {
 		"Verify": {
@@ -52,7 +51,8 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 		},
 		"env": {
 			"Version": "v0a1922",
-			"deviceType": "iOS"
+			"deviceType": "iOS",
+			"Type": "i"
 		}
 	}
 };
@@ -85,28 +85,33 @@ async function setupEnv(Verify, env) {
 	};
 	//设置设备环境
 	if (env.deviceType == "iOS") {
+		$.Cloudflare.WARP.env.Type = "i";
 		$.Cloudflare.WARP.env.Version = "v0i2109031904";
 		$.VAL_headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
 		$.VAL_headers["CF-Client-Version"] = "i-6.7-2109031904.1";
 	} else if (env.deviceType == "macOS") {
+		$.Cloudflare.WARP.env.Type = "m";
 		$.VAL_headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
 		$.VAL_headers["CF-Client-Version"] = "m-2021.12.1.0-0";
 	} else if (env.deviceType == "Android") {
+		$.Cloudflare.WARP.env.Type = "a";
 		$.Cloudflare.WARP.env.Version = "v0a1922";
 		$.VAL_headers["User-Agent"] = "okhttp/3.12.1";
 		$.VAL_headers["CF-Client-Version"] = "a-6.3-1922";
 	} else if (env.deviceType == "Windows") {
+		$.Cloudflare.WARP.env.Type = "w";
 	} else if (env.deviceType == "Liunx") {
+		$.Cloudflare.WARP.env.Type = "l";
 	} else {
 		$.logErr('无可用设备类型', `deviceType=${env.deviceType}`, '');
 		$.done();
 	};
 	//设置验证方式
-	if (Verify.Mode == "Token") {
+	if (Verify.Mode == "Token" && typeof Verify.Content != "undefined") {
 		$.VAL_headers.Authorization = `Bearer ${Verify.Content}`;
-	} else if (Verify.Mode == "ServiceKey") {
+	} else if (Verify.Mode == "ServiceKey" && typeof Verify.Content != "undefined") {
 		$.VAL_headers['X-Auth-User-Service-Key'] = Verify.Content;
-	} else if (Verify.Mode == "Key") {
+	} else if (Verify.Mode == "Key" && typeof Verify.Content != "undefined") {
 		$.VAL_headers['X-Auth-Key'] = Verify.Content[0];
 		$.VAL_headers['X-Auth-Email'] = Verify.Content[1];
 	} else {
@@ -122,7 +127,7 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 		if (setupMode == "RegisterNewAccount") {
 			if (!Verify.RegistrationId) {
 				$.log('无设备ID(RegistrationId)', '');
-				var result = await regAccount(env.Version, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+				var result = await regAccount(env.Version, null, publicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
 				$.log('生成完成,妥善保管以下四个凭证', `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
 			} else {
 				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
@@ -131,13 +136,13 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 		} else if (setupMode == "RegisterNewAccountwithPublicKey") {
 			if (!Verify.RegistrationId && privateKey && publicKey) {
 				$.log('无设备ID(RegistrationId)', '');
-				var result = await regAccount(env.Version, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+				var result = await regAccount(env.Version, null, publicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
 				$.log('生成完成,妥善保管以下四个凭证', `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
 				if (privateKey && publicKey) {
 					$.log('有自定义私钥(privateKey)', '有自定义公钥(publicKey)', '');
-					env.token = result.token;
+					Verify.Content = result.token;
 					await setupEnv(Verify, env);
-					$.WireGuard.config = await getDevice(env.Version, result.id);
+					$.WireGuard = await getDevice(env.Version, result.id);
 					const wireGuardConf = `
 				[Interface]
 				PrivateKey = ${privateKey}
@@ -162,7 +167,7 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 		} else if (setupMode == "RegisterNewDevice") {
 			if (Verify.RegistrationId) {
 				$.log('有设备ID(RegistrationId)', '');
-				var result = await regDevice(env.Version, Verify.RegistrationId, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+				var result = await regDevice(env.Version, Verify.RegistrationId, publicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
 			} else {
 				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
 				$.done();
@@ -252,19 +257,19 @@ function fatchCFjson(url) {
 
 // Function 1
 // Register New Account
-async function regAccount(Version, referrer, publicKey, Locale = "en_US", deviceModel = "", deviceType = "", warp_enabled = true) {
+async function regAccount(Version, referrer, publicKey, Locale = "en_US", deviceModel = "", Type = "", warp_enabled = true) {
 	$.log('注册账户');
 	const install_id = genString(11);
 	var body = {
-		FcmToken: install_id, // not empty on actual client
-		InstallId: `${install_id}:APA91b${genString(134)}`, // not empty on actual client
+		install_id: install_id, // not empty on actual client
+		fcm_token: `${install_id}:APA91b${genString(134)}`, // not empty on actual client
 		referrer: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(referrer) ? referrer : "",
-		Key: publicKey,
-		Locale: Locale,
-		warp_enabled: warp_enabled,
-		Model: deviceModel,
-		Tos: new Date().toISOString(),
-		Type: deviceType
+		key: publicKey,
+		locale: Locale,
+		//warp_enabled: warp_enabled,
+		//model: deviceModel,
+		tos: new Date().toISOString(),
+		type: Type
 	};
 	const url = { method: 'post', url: `${$.baseURL}/${Version}/reg`, headers: $.VAL_headers, body }
 	return await fatchCFjson(url);
@@ -272,19 +277,19 @@ async function regAccount(Version, referrer, publicKey, Locale = "en_US", device
 
 // Function 2
 // Register New Device
-async function regDevice(Version, RegistrationId, publicKey, Locale = "en_US", deviceModel = "", deviceType = "", warp_enabled = true) {
+async function regDevice(Version, RegistrationId, publicKey, Locale = "en_US", deviceModel = "", Type = "", warp_enabled = true) {
 	$.log('注册设备');
 	const install_id = genString(11);
 	var body = {
-		FcmToken: install_id, // not empty on actual client
-		InstallId: `${install_id}:APA91b${genString(134)}`, // not empty on actual client
+		install_id: install_id, // not empty on actual client
+		fcm_token: `${install_id}:APA91b${genString(134)}`, // not empty on actual client
 		referrer: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(RegistrationId) ? RegistrationId : "",
-		Key: publicKey,
-		Locale: Locale,
-		warp_enabled: warp_enabled,
-		Model: deviceModel,
-		Tos: new Date().toISOString(),
-		Type: deviceType
+		key: publicKey,
+		locale: Locale,
+		//warp_enabled: warp_enabled,
+		//model: deviceModel,
+		tos: new Date().toISOString(),
+		type: Type
 	};
 	const url = { method: 'post', url: `${$.baseURL}/${Version}/reg/${RegistrationId}`, headers: $.VAL_headers, body }
 	return await fatchCFjson(url);
