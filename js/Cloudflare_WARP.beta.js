@@ -123,6 +123,7 @@ async function WARP(setupMode, env, publicKey, Verify) {
 			if (!Verify.RegistrationId) {
 				$.log('无设备ID(RegistrationId)', '');
 				var result = await regAccount(env.Version, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+				$.WireGuard.config = result
 			} else {
 				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
 				$.done();
@@ -220,7 +221,7 @@ function fatchCFjson(url) {
 
 // Function 1
 // Register New Account
-async function regAccount(Version, publicKey, Locale = "en_US", deviceModel = "", deviceType = "", warp_enabled = true) {
+async function regAccount(Version, referrer, publicKey, Locale = "en_US", deviceModel = "", deviceType = "", warp_enabled = true) {
 	$.log('注册账户');
 	const install_id = genString(11);
 	var body = {
@@ -246,7 +247,7 @@ async function regDevice(Version, RegistrationId, publicKey, Locale = "en_US", d
 	var body = {
 		FcmToken: install_id, // not empty on actual client
 		InstallId: `${install_id}:APA91b${genString(134)}`, // not empty on actual client
-		referrer: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(referrer) ? referrer : "",
+		referrer: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(RegistrationId) ? RegistrationId : "",
 		Key: publicKey,
 		Locale: Locale,
 		warp_enabled: warp_enabled,
