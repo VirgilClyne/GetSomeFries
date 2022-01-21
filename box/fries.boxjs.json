@@ -82,12 +82,16 @@
         {
           "id": "@GetSomeFries.Cloudflare.WARP.setupMode",
           "name": "WARP: 运行方式",
-          "val": "RegisterNewAccount",
+          "val": "RegisterNewAccountwithPublicKey",
           "type": "radios",
           "items": [
             {
               "key": "RegisterNewAccount",
-              "label": "注册新账户()/Register New Account()"
+              "label": "注册新账户/Register New Account"
+            },
+            {
+              "key": "RegisterNewAccountwithPublicKey",
+              "label": "注册新账户(用自定义公钥)/Register New Account(with PublicKey)"
             },
             {
               "key": "RegisterNewDevice",
