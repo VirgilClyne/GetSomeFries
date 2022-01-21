@@ -122,7 +122,7 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 		if (setupMode == "RegisterNewAccount") {
 			if (!Verify.RegistrationId) {
 				$.log('无设备ID(RegistrationId)', '');
-				var result = await regAccount(env.Version, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+				var result = await regAccount(env.Version, null, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
 				$.log('生成完成,妥善保管以下四个凭证', `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
 			} else {
 				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
