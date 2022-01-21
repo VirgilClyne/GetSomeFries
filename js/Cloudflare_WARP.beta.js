@@ -9,7 +9,7 @@ const $ = new Env('Cloudflare WARP');
 
 // Endpoints
 // https://api.cloudflare.com/#getting-started-endpoints
-$.baseURL = 'https://api.cloudflareclient.com/';
+$.baseURL = 'https://api.cloudflareclient.com';
 
 // BoxJs Function Supported
 if (typeof $.getdata("GetSomeFries") != "undefined") {
@@ -63,7 +63,7 @@ console.log($.Cloudflare.WARP)
 !(async () => {
 	//Step 1
 	await setupEnv($.Cloudflare.WARP.Verify, $.Cloudflare.WARP.env)
-	await WARP($.Cloudflare.WARP.setupMode, $.Cloudflare.WARP.env, $.WireGuard.PublicKey, $.Cloudflare.WARP.Verify)
+	await WARP($.Cloudflare.WARP.setupMode, $.Cloudflare.WARP.env, $.WireGuard.PrivateKey, $.WireGuard.PublicKey, $.Cloudflare.WARP.Verify)
 })()
 	.catch((e) => $.logErr(e))
 	.finally(() => $.done())
@@ -116,14 +116,45 @@ async function setupEnv(Verify, env) {
 }
 
 //Step 2
-async function WARP(setupMode, env, publicKey, Verify) {
+async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 	try {
 		$.log(`开始运行,模式:${setupMode}`, '');
 		if (setupMode == "RegisterNewAccount") {
 			if (!Verify.RegistrationId) {
 				$.log('无设备ID(RegistrationId)', '');
 				var result = await regAccount(env.Version, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
-				$.WireGuard.config = result
+				$.log('生成完成,妥善保管以下四个凭证', `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+			} else {
+				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
+				$.done();
+			}
+		} else if (setupMode == "RegisterNewAccountwithPublicKey") {
+			if (!Verify.RegistrationId && privateKey && publicKey) {
+				$.log('无设备ID(RegistrationId)', '');
+				var result = await regAccount(env.Version, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+				$.log('生成完成,妥善保管以下四个凭证', `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+				if (privateKey && publicKey) {
+					$.log('有自定义私钥(privateKey)', '有自定义公钥(publicKey)', '');
+					env.token = result.token;
+					await setupEnv(Verify, env);
+					$.WireGuard.config = await getDevice(env.Version, result.id);
+					const wireGuardConf = `
+				[Interface]
+				PrivateKey = ${privateKey}
+				PublicKey = ${publicKey}
+				Address = ${$.WireGuard.config.interface.addresses.v4}
+				Address = ${$.WireGuard.config.interface.addresses.v6}
+				DNS = 1.1.1.1
+				
+				[Peer]
+				PublicKey = ${$.WireGuard.config.peers[0].public_key}
+				Endpoint = ${$.WireGuard.config.peers[0].endpoint.v4}
+				Endpoint = ${$.WireGuard.config.peers[0].endpoint.v6}
+				Endpoint = ${$.WireGuard.config.peers[0].endpoint.host}
+				AllowedIPs = 0.0.0.0/0
+				`;
+					$.log('WireGuard可用配置', wireGuardConf)
+				}
 			} else {
 				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
 				$.done();
@@ -155,7 +186,7 @@ async function WARP(setupMode, env, publicKey, Verify) {
 	} catch (e) {
 		$.logErr(e);
 	} finally {
-		return $.log(`${WARP.name}完成`, `result = ${result}`, '');
+		return $.log(`${WARP.name}完成`, `result = ${JSON.stringify(result)}`, '');
 		//return $.log(`${WARP.name}完成`, `名称:${dns_records.name}`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
 	}
 };
