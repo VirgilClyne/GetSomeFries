@@ -25,13 +25,13 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 } else if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
-	$.Cloudflare.WARP.Verify.LicenseKey = arg.LicenseKey;
+	$.Cloudflare.WARP.Verify.License = arg.License;
 	$.Cloudflare.WARP.Verify.Mode = arg.Mode;
 	$.Cloudflare.WARP.Verify.Content = arg.AccessToken;
 	$.Cloudflare.WARP.Verify.Content = arg.ServiceKey;
 	$.Cloudflare.WARP.Verify.Content[0] = arg.Key;
 	$.Cloudflare.WARP.Verify.Content[1] = arg.Email;
-	$.Cloudflare.WARP.Verify.DeviceId = arg.DeviceId;
+	$.Cloudflare.WARP.Verify.RegistrationId = arg.RegistrationId;
 	$.WireGuard.PrivateKey = arg.PrivateKey;
 	$.WireGuard.PublicKey = arg.PublicKey;
 	$.Cloudflare.WARP.env.Version = arg.Version;
@@ -39,66 +39,41 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 
 } else {
 	$.Cloudflare.WARP = {
-		"Verify":{
-			"LicenseKey":"",
-			"Mode":"Token",
+		"Verify": {
+			"License": null,
+			"Mode": "Token",
 			// Requests
 			// https://api.cloudflare.com/#getting-started-requests
-			"Content":"",
+			"Content": null,
 			// API Tokens
 			// API Tokens provide a new way to authenticate with the Cloudflare API.
 			//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
-			"DeviceId":""			
+			"RegistrationId": null
 		},
-		"env":{
-			"Version":"v0a1922",
-			"deviceType":"iOS"		
+		"env": {
+			"Version": "v0a1922",
+			"deviceType": "iOS"
 		}
-	}	
+	}
 };
 console.log($.Cloudflare.WARP)
 
+/***************** async *****************/
 
 !(async () => {
 	//Step 1
-	let status = await Verify($.Cloudflare.WARP.Verify.Mode, $.Cloudflare.WARP.Verify.Content)
-	if (status == true) {
-		//Step 2
-		$.Cloudflare.WARP.zone = await checkZoneInfo($.Cloudflare.WARP.zone)
-		//Step 3 4 5
-		for (let i in $.Cloudflare.WARP.zone.dns_records) { await DDNS($.Cloudflare.WARP.zone, $.Cloudflare.WARP.zone.dns_records[i]); }
-	} else throw new Error('验证失败')
+	await setupEnv($.Cloudflare.WARP.Verify, $.Cloudflare.WARP.env)
+	await WARP($.Cloudflare.WARP.setupMode, $.Cloudflare.WARP.env, $.WireGuard.PublicKey, $.Cloudflare.WARP.Verify)
 })()
 	.catch((e) => $.logErr(e))
 	.finally(() => $.done())
 
-
-
-/***************** DDNS *****************/
-
-//Update DDNS
-async function DDNS(zone, dns_records) {
-	try {
-		$.log(`开始更新${dns_records.type}类型记录`);
-		//Step 3
-		dns_records = await checkRecordContent(dns_records);
-		//Step 4
-		var oldRecord = await checkRecordInfo(zone, dns_records);
-		//Step 5
-		var newRecord = await setupRecord(zone, oldRecord, dns_records)
-		$.log(`${newRecord.name}上的${newRecord.type}记录${newRecord.content}更新完成`, '');
-	} catch (e) {
-		$.logErr(e);
-	} finally {
-		return $.log(`${DDNS.name}完成`, `名称:${dns_records.name}`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
-	}
-};
-
 /***************** async *****************/
+
 //Step 1
-//Verify API Token/Key
-async function Verify(Mode, Content) {
-	$.log('验证授权');
+//Setup Environment
+async function setupEnv(Verify, env) {
+	$.log('设置运行环境');
 	$.VAL_headers = {
 		Host: "api.cloudflareclient.com",
 		//"User-Agent": "okhttp/3.12.1",
@@ -106,102 +81,84 @@ async function Verify(Mode, Content) {
 		//"User-Agent": "WARP",
 		//"CF-Client-Version": "a-6.3-1922",
 		//"CF-Client-Version": "m-2021.12.1.0-0",
-		"Debug": false
-	}
-	if (Mode == "Token") {
-		$.VAL_headers.Authorization = `Bearer ${Content}`;
-		const result = await verifyToken($.VAL_headers);
-		if (result.status == 'active') return true
-	} else if (Mode == "ServiceKey") {
-		$.VAL_headers['X-Auth-User-Service-Key'] =  Content;
-		const result = await getUser($.VAL_headers);
-		return result.suspended
-	} else if (Mode == "Key") {
-		$.VAL_headers['X-Auth-Key'] = Content[0];
-		$.VAL_headers['X-Auth-Email'] = Content[1];
-		const result = await getUser($.VAL_headers);
-		return result.suspended
+		//"Debug": false
+	};
+	//设置设备环境
+	if (env.deviceType == "iOS") {
+		$.Cloudflare.WARP.env.Version = "v0i2109031904";
+		$.VAL_headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
+		$.VAL_headers["CF-Client-Version"] = "i-6.7-2109031904.1";
+	} else if (env.deviceType == "macOS") {
+		$.VAL_headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
+		$.VAL_headers["CF-Client-Version"] = "m-2021.12.1.0-0";
+	} else if (env.deviceType == "Android") {
+		$.Cloudflare.WARP.env.Version = "v0a1922";
+		$.VAL_headers["User-Agent"] = "okhttp/3.12.1";
+		$.VAL_headers["CF-Client-Version"] = "a-6.3-1922";
+	} else if (env.deviceType == "Windows") {
+	} else if (env.deviceType == "Liunx") {
 	} else {
-		$.logErr('无可用授权方式', `Mode=${Mode}`, `Content=${Content}`, '');
+		$.logErr('无可用设备类型', `deviceType=${env.deviceType}`, '');
 		$.done();
-	}
+	};
+	//设置验证方式
+	if (Verify.Mode == "Token") {
+		$.VAL_headers.Authorization = `Bearer ${Verify.Content}`;
+	} else if (Verify.Mode == "ServiceKey") {
+		$.VAL_headers['X-Auth-User-Service-Key'] = Verify.Content;
+	} else if (Verify.Mode == "Key") {
+		$.VAL_headers['X-Auth-Key'] = Verify.Content[0];
+		$.VAL_headers['X-Auth-Email'] = Verify.Content[1];
+	} else {
+		$.logErr('无可用授权方式', `Mode=${Verify.Mode}`, `Content=${Verify.Content}`, '');
+		$.done();
+	};
 }
 
 //Step 2
-async function setupLicenseKey(LicenseKey, oldRecord, dns_records) {
-	$.log('开始更新内容');
-	if (!oldRecord.content) {
-		$.log('无记录');
-		var newRecord = await createDNSRecord(zone, dns_records);
-	} else if (oldRecord.content !== dns_records.content) {
-		$.log('有记录且IP地址不同');
-		var newRecord = await updateDNSRecord(zone, oldRecord, dns_records);
-	} else if (oldRecord.content === dns_records.content) {
-		$.log('有记录且IP地址相同');
-		var newRecord = oldRecord
-	}
-	$.log(`记录更新结果:`, `ID:${newRecord.id}`, `名称:${newRecord.name}`, `类型:${newRecord.type}`, `内容:${newRecord.content}`, `可代理:${newRecord.proxiable}`, `代理状态:${newRecord.proxied}`, `TTL:${newRecord.ttl}`, `已锁定:${newRecord.locked}`, '');
-	return newRecord
-}
-
-//Step 3
-async function checkRecordContent(dns_records) {
-	if (dns_records.type) {
-		$.log(`有类型${dns_records.type}, 继续`, '');
-		dns_records.type = dns_records.type;
-		if (dns_records.content) {
-			$.log(`有内容${dns_records.content}, 跳过`, '');
-			dns_records.content = dns_records.content;
-		} else {
-			$.log(`无内容, 获取`, '');
-			if (dns_records.type == 'A') dns_records.content = await getPublicIP(4);
-			else if (dns_records.type == 'AAAA') dns_records.content = await getPublicIP(6);
-			else {
-				$.log(`类型${dns_records.type}, 无内容，也不需要获取外部IP,中止`, '');
+async function WARP(setupMode, env, publicKey, Verify) {
+	try {
+		$.log(`开始运行,模式:${setupMode}`, '');
+		if (setupMode == "RegisterNewAccount") {
+			if (!Verify.RegistrationId) {
+				$.log('无设备ID(RegistrationId)', '');
+				var result = await regAccount(env.Version, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+			} else {
+				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
 				$.done();
 			}
-		}
-	} else {
-		$.log(`无类型${dns_records.type},中止`, '');
-		$.done();
+		} else if (setupMode == "RegisterNewDevice") {
+			if (Verify.RegistrationId) {
+				$.log('有设备ID(RegistrationId)', '');
+				var result = await regDevice(env.Version, Verify.RegistrationId, publicKey, env.Locale, env.deviceModel, env.deviceType, env.warp_enabled);
+			} else {
+				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
+				$.done();
+			}
+		} else if (setupMode == "RebindingLicense") {
+			if (Verify.License && Verify.RegistrationId) {
+				$.log('有账户/许可证(License),有设备ID(RegistrationId)', '');
+				var result = await setAccountLicense(env.Version, Verify.RegistrationId, Verify.License);
+			} else {
+				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
+				$.done();
+			}
+		} else if (setupMode == "AccountDetail") {
+			result = await getAccount(env.Version, Verify.RegistrationId);
+		} else if (setupMode == "DeviceDetail") {
+			result = await getDevices(env.Version, Verify.RegistrationId);
+		} else if (setupMode == "AutoAffWARP") {
+			$.log('没写', '');
+			//result = await autoAFF(License, AffID);
+		} else $.log(`未选择运行模式或不符合模式:${setupMode}运行要求，退出`, `setupMode = ${setupMode}`, `License = ${Verify.License}`, `RegistrationId = ${Verify.RegistrationId}`, '');
+	} catch (e) {
+		$.logErr(e);
+	} finally {
+		return $.log(`${WARP.name}完成`, `result = ${result}`, '');
+		//return $.log(`${WARP.name}完成`, `名称:${dns_records.name}`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
 	}
-	$.log(`${dns_records.type}类型内容:${dns_records.content}`, '');
-	return dns_records
-}
+};
 
-//Step 4
-async function checkRecordInfo(zone, dns_records) {
-	$.log('查询记录信息');
-	if (dns_records.id) {
-		$.log(`有记录ID${dns_records.id}, 继续`, '');
-		var oldRecord = await getDNSRecord(zone, dns_records);
-	} else if (dns_records.name) {
-		$.log(`有记录名称${dns_records.name}, 继续`, '');
-		var oldRecord = await listDNSRecords(zone, dns_records);
-	} else {
-		$.log('未提供记录ID和名称, 终止', '');
-		$.done();
-	}
-	$.log(`记录查询结果:`, `ID:${oldRecord.id}`, `名称:${oldRecord.name}`, `类型:${oldRecord.type}`, `内容:${oldRecord.content}`, `代理状态:${oldRecord.proxied}`, `TTL:${oldRecord.ttl}`, '');
-	return oldRecord
-}
-
-//Step 5
-async function setupRecord(zone, oldRecord, dns_records) {
-	$.log('开始更新内容');
-	if (!oldRecord.content) {
-		$.log('无记录');
-		var newRecord = await createDNSRecord(zone, dns_records);
-	} else if (oldRecord.content !== dns_records.content) {
-		$.log('有记录且IP地址不同');
-		var newRecord = await updateDNSRecord(zone, oldRecord, dns_records);
-	} else if (oldRecord.content === dns_records.content) {
-		$.log('有记录且IP地址相同');
-		var newRecord = oldRecord
-	}
-	$.log(`记录更新结果:`, `ID:${newRecord.id}`, `名称:${newRecord.name}`, `类型:${newRecord.type}`, `内容:${newRecord.content}`, `可代理:${newRecord.proxiable}`, `代理状态:${newRecord.proxied}`, `TTL:${newRecord.ttl}`, `已锁定:${newRecord.locked}`, '');
-	return newRecord
-}
 
 /***************** function *****************/
 // Function 0A
@@ -261,137 +218,106 @@ function fatchCFjson(url) {
 	})
 }
 
-// Function 1A
-// Get Public IP / External IP address
-// https://www.my-ip.io/api
-async function Register(publicKey, deviceModel, deviceType) {
-	$.log('注册');
+// Function 1
+// Register New Account
+async function regAccount(Version, publicKey, Locale = "en_US", deviceModel = "", deviceType = "", warp_enabled = true) {
+	$.log('注册账户');
+	const install_id = genString(11);
 	var body = {
-		FcmToken:  "", // not empty on actual client
-		InstallId: "", // not empty on actual client
-		Key:       publicKey.String(),
-		Locale:    "en_US",
-		Model:     deviceModel,
-		Tos:       new Date().toISOString(),
-		Type:      deviceType
+		FcmToken: install_id, // not empty on actual client
+		InstallId: `${install_id}:APA91b${genString(134)}`, // not empty on actual client
+		referrer: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(referrer) ? referrer : "",
+		Key: publicKey,
+		Locale: Locale,
+		warp_enabled: warp_enabled,
+		Model: deviceModel,
+		Tos: new Date().toISOString(),
+		Type: deviceType
 	};
-	const url = { method: 'post', url: `${$.baseURL}/${version}/reg`, headers: $.VAL_headers, body }
+	const url = { method: 'post', url: `${$.baseURL}/${Version}/reg`, headers: $.VAL_headers, body }
 	return await fatchCFjson(url);
 }
 
-// Function
-// get device
-async function getDevice(Version, Token) {
-	$.log('获取设备');
-	const url = { url: `${$.baseURL}/${Version}/reg/${Token}`, headers: $.VAL_headers };
-	return await getCFjson(url);
-}
-
-// Function
-// get account
-async function getAccount(Version, Token) {
-	$.log('获取账户');
-	const url = { url: `${$.baseURL}/${Version}/reg/${Token}/account`, headers: $.VAL_headers };
-	return await getCFjson(url);
-}
-
-// Function
-// get account devices
-async function getAccount(Version, Token) {
-	$.log('获取账户');
-	const url = { url: `${$.baseURL}/${Version}/reg/${Token}/account/devices`, headers: $.VAL_headers };
-	return await getCFjson(url);
-}
-
-// Function
-// set device active"
-async function setDeviceActive(Version, Token) {
-	$.log('获取账户');
-	var body = { "active": true };
-	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${Token}/account/devices`, headers: $.VAL_headers, body};
+// Function 2
+// Register New Device
+async function regDevice(Version, RegistrationId, publicKey, Locale = "en_US", deviceModel = "", deviceType = "", warp_enabled = true) {
+	$.log('注册设备');
+	const install_id = genString(11);
+	var body = {
+		FcmToken: install_id, // not empty on actual client
+		InstallId: `${install_id}:APA91b${genString(134)}`, // not empty on actual client
+		referrer: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(referrer) ? referrer : "",
+		Key: publicKey,
+		Locale: Locale,
+		warp_enabled: warp_enabled,
+		Model: deviceModel,
+		Tos: new Date().toISOString(),
+		Type: deviceType
+	};
+	const url = { method: 'post', url: `${$.baseURL}/${Version}/reg/${RegistrationId}`, headers: $.VAL_headers, body }
 	return await fatchCFjson(url);
 }
 
-// Function
-// set device name"
-async function setDeviceName(Version, Token, Name) {
-	$.log('获取账户');
-	var body = { "name": Name };
-	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${Token}/account/devices`, headers: $.VAL_headers, body};
-	return await fatchCFjson(url);
-}
-
-// Function 2A
-// Verify Token
-// https://api.cloudflare.com/#user-api-tokens-verify-token
-async function verifyToken(headers) {
-	$.log('验证令牌');
-	const url = { url: `${$.baseURL}reg/%s/account/devices`, headers: headers };
+// Function 2
+// Get the Device Detail
+async function getDevice(Version, RegistrationId) {
+	$.log('获取当前设备配置');
+	const url = { url: `${$.baseURL}/${Version}/reg/${RegistrationId}`, headers: $.VAL_headers };
 	return await getCFjson(url);
 }
 
-// Function 2B
-// User Details
-// https://api.cloudflare.com/#user-user-details
-async function getUser(headers) {
-	$.log('获取用户详情');
-	const url = { url: `${$.baseURL}user`, headers: headers }
-	return await getCFjson(url);
-}
-
-// Function 3A
-// Zone Details
-// https://api.cloudflare.com/#zone-zone-details
-async function getZone(zone) {
-	$.log('获取区域详情');
-	const url = { url: `${$.baseURL}zones/${zone.id}`, headers: $.VAL_headers };
-	return await getCFjson(url);
-}
-
-// Function 3B
-// List Zones
-// https://api.cloudflare.com/#zone-list-zones
-async function listZones(zone) {
-	$.log('列出区域');
-	const url = { url: `${$.baseURL}zones?name=${zone.name}`, headers: $.VAL_headers }
+// Function 3
+// Get the Account Detail
+async function getAccount(Version, RegistrationId) {
+	$.log('获取账户信息');
+	const url = { url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL_headers };
 	return await getCFjson(url);
 }
 
 // Function 4
-// Create DNS Record
-// https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
-async function createDNSRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = true }) {
-	$.log('创建新记录');
-	const url = { method: 'post', url: `${$.baseURL}zones/${zone.id}/dns_records`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
+// Get Account Devices Details
+async function getDevices(Version, RegistrationId) {
+	$.log('获取设备信息');
+	const url = { url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL_headers };
+	return await getCFjson(url);
+}
+
+// Function 5
+// Set Account License
+async function setAccountLicense(Version, RegistrationId, License) {
+	$.log('设置账户许可证');
+	var body = { "license": License };
+	const url = { method: 'put',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL_headers, body };
 	return await fatchCFjson(url);
-}
-
-// Function 5A
-// DNS Record Details
-// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
-async function getDNSRecord(zone, record) {
-	$.log('获取记录详情');
-	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers }
-	return await getCFjson(url);
-}
-
-// Function 5B
-// List DNS Records
-// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
-async function listDNSRecords(zone, record) {
-	$.log('列出记录');
-	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records?type=${record.type}&name=${record.name}.${zone.name}&order=type`, headers: $.VAL_headers }	
-	return await getCFjson(url);
 }
 
 // Function 6
-// Update DNS Record
-// https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
-async function updateDNSRecord(zone, record, { type, name, content, ttl = 1, priority = 10, proxied = true }) {
-	$.log('更新记录');
-	const url = { method: 'put', url: `${$.baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
+// Set Device Active
+async function setDeviceActive(Version, RegistrationId, active = true) {
+	$.log('设置设备激活状态');
+	var body = { "active": active };
+	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL_headers, body };
 	return await fatchCFjson(url);
 }
+
+// Function 7
+// Set Device Name
+async function setDeviceName(Version, RegistrationId, Name) {
+	$.log('设置设备名称');
+	var body = { "name": Name };
+	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL_headers, body };
+	return await fatchCFjson(url);
+}
+
+// Function 8
+// Generate Random String
+// https://gist.github.com/6174/6062387#gistcomment-2651745
+function genString(length) {
+	$.log('生成随机字符串');
+	return [...Array(length)]
+	  .map(i => (~~(Math.random() * 36)).toString(36))
+	  .join("");
+  }
 
 /***************** Env *****************/
 // prettier-ignore
