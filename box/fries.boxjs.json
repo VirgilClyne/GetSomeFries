@@ -91,7 +91,7 @@
             },
             {
               "key": "RegisterNewAccountwithPublicKey",
-              "label": "注册新账户(用自定义公钥)/Register New Account(with PublicKey)"
+              "label": "注册新账户(用自定义密钥对)/Register New Account(with custom Keypair)"
             },
             {
               "key": "RegisterNewDevice",
