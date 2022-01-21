@@ -91,7 +91,7 @@
             },
             {
               "key": "RegisterNewAccountwithPublicKey",
-              "label": "注册新账户(用自定义密钥对)/Register New Account(with custom Keypair)"
+              "label": "注册新账户(用自定义密钥对)并生成WireGuard配置文件/Register New Account(with custom Keypair)and output WireGuard Config"
             },
             {
               "key": "RegisterNewDevice",
