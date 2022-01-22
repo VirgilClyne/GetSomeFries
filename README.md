@@ -16,18 +16,25 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [安装链接](#安装链接)
     - [正式版](#正式版)
     - [🧪测试版](#测试版)
-- [🍟 Disney Plus](#-disney-plus)
+- [🍟 Cloudflare WARP](#-cloudflare-warp)
   - [简介](#简介-1)
   - [功能列表](#功能列表-1)
   - [todo](#todo-1)
+  - [使用方式](#使用方式-1)
   - [安装链接](#安装链接-1)
     - [🧪测试版](#测试版-1)
-- [🍟 Netflix](#-netflix)
+- [🍟 Disney Plus](#-disney-plus)
   - [简介](#简介-2)
   - [功能列表](#功能列表-2)
   - [todo](#todo-2)
-  - [使用方式](#使用方式-1)
   - [安装链接](#安装链接-2)
+    - [🧪测试版](#测试版-2)
+- [🍟 Netflix](#-netflix)
+  - [简介](#简介-3)
+  - [功能列表](#功能列表-3)
+  - [todo](#todo-3)
+  - [使用方式](#使用方式-2)
+  - [安装链接](#安装链接-3)
     - [🧪试验版，随时可能修改/删除](#试验版随时可能修改删除)
 - [鸣谢](#鸣谢)
 
@@ -113,6 +120,67 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 ### 🧪测试版
   * Surge:
     * [Cloudflare_DNS.beta.sgmodule](./sgmodule/Cloudflare_DNS.beta.sgmodule?raw=true "🍟 Cloudflare DNS")
+
+---
+
+# 🍟 Cloudflare WARP
+## 简介
+  * Cloudflare WARP 注册管理及转换WireGuard配置
+
+  * 注:
+    * 自动邀请新用户刷WARP+流量”功能还没写
+
+## 功能列表
+  * BoxJs集成
+  * 持久化储存(有，但不是完全有，没有做反写功能)
+  * 通知(有，但不是完全有，有来自Cloudflare的错误和信息通知)
+  * 注册新账户
+  * 注册新账户(用自定义密钥对)并生成WireGuard配置文件
+  * 注册新设备(注册ID)
+  * 重绑定许可证(许可证 & 注册ID)
+  * 查询账户信息(创建日期/剩余流量/邀请人数等)
+  * 查询设备配置(设备名称/设备类型/创建日期/活动状态等)
+  * 自定义客户端设备类型
+
+
+## todo
+  * 自动邀请新用户刷WARP+流量”功能还没写
+
+## 使用方式
+* 配合`BoxJs`及订阅使用
+  * 安装`BoxJs`插件:
+    * Loon: [boxjs.rewrite.loon.plugin](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.loon.plugin "BoxJs")
+    * Quantumult X: [boxjs.rewrite.quanx.conf](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.quanx.conf "BoxJs")
+    * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
+  * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
+  * 在`应用`-`整点薯条`-`Cloudflare`中填写您的Cloudflare WARP信息
+      1. BoxJs要先填写Loon\quanX\Surge的API地址 不然看不到日志输出
+      2. 打开Cloudflare WARP模块
+    * 注册新账户(用自定义密钥对)并生成WireGuard配置文件
+      1. 运行方式选择`注册新账户(用自定义密钥对)并生成WireGuard配置文件`
+      2. 在WireGuard客户端中`新建隧道`-`生成密钥对`
+      3. 将WireGuard生成的私钥和公钥填写到BoxJs中的`WireGuard: 私钥`和`WireGuard: 公钥`
+      4. 页面最下方点`保存`
+      5. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
+      6. 记录下日志中提供的信息，导入或填入WireGuard
+    * 重绑定许可证(许可证 & 注册ID)
+      1. 运行方式选择`重绑定许可证(许可证 & 注册ID)`
+      2. 填写你要换绑的`WARP: 许可证(账户)/License(Account)`
+      3. 填写你要绑定到此许可证的`WARP: 注册ID(设备ID/客户端ID/配置文件ID)`
+      4. 填写此注册ID对应的token到`WARP: 验证内容/Verify Content`
+      5. 点击页面下方的`保存`
+      6. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
+      7. 记录下日志中提供的信息
+
+## 安装链接
+### 🧪测试版
+  * BoxJs:
+    * [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
+
+  * Surge:
+    * [Cloudflare_1.1.1.1_with_WARP.beta.sgmodule](./sgmodule/Cloudflare_1.1.1.1_with_WARP.beta.sgmodule?raw=true "🍟 Cloudflare 1.1.1.1 APP with WARP Client Info")
+    * 此模块仅查询1.1.1.1 APP的配置信息,增删改请用上方BoxJs订阅或APP客户端
+      * Surge安装后，重新打开一次1.1.1.1的APP，即可在通知中看到配置信息，在Surge的日志中也会输出完整配置文件内容
 
 ---
 
