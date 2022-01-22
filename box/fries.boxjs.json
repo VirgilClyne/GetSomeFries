@@ -81,7 +81,7 @@
       "settings": [
         {
           "id": "@GetSomeFries.Cloudflare.WARP.setupMode",
-          "name": "WARP: 运行方式",
+          "name": "WARP: 运行方式/setupMode",
           "val": "RegisterNewAccountwithPublicKey",
           "type": "radios",
           "items": [
@@ -91,7 +91,7 @@
             },
             {
               "key": "RegisterNewAccountwithPublicKey",
-              "label": "注册新账户(用自定义密钥对)/Register New Account(with custom Keypair)"
+              "label": "注册新账户(用自定义密钥对)并生成WireGuard配置文件/Register New Account(with custom Keypair)and output WireGuard Config"
             },
             {
               "key": "RegisterNewDevice",
@@ -99,7 +99,7 @@
             },
             {
               "key": "RebindingLicense",
-              "label": "重绑定账户(许可证密钥/账户 & 注册ID)/Rebinding License(license & Registration Id/id)"
+              "label": "重绑定许可证(许可证 & 注册ID)/Rebinding License(license & Registration Id/id)"
             },
             {
               "key": "AccountDetail",
@@ -118,7 +118,7 @@
         },
         {
           "id": "@GetSomeFries.WireGuard.PrivateKey",
-          "name": "WireGuard: 私钥",
+          "name": "WireGuard: 私钥/Private Key",
           "val": "",
           "type": "text",
           "placeholder": "",
@@ -126,7 +126,7 @@
         },
         {
           "id": "@GetSomeFries.WireGuard.PublicKey",
-          "name": "WireGuard: 公钥",
+          "name": "WireGuard: 公钥/Public Key",
           "val": "",
           "type": "text",
           "placeholder": "",
@@ -134,7 +134,7 @@
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.License",
-          "name": "WARP: 许可证密钥(账户/license)",
+          "name": "WARP: 许可证(账户)/License(Account)",
           "val": "",
           "type": "text",
           "placeholder": "1A2B3C4D-5E6F7G8H-9I0J1K2L",
@@ -142,7 +142,7 @@
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.RegistrationId",
-          "name": "WARP: 设备ID(配置文件ID)",
+          "name": "WARP: 注册ID(设备ID/客户端ID/配置文件ID)/Registration Id(Device ID/Client ID/Config ID)",
           "val": "",
           "type": "text",
           "placeholder": "123e4567-e89b-12d3-a456-426614174000",
@@ -150,20 +150,20 @@
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.Mode",
-          "name": "WARP: 验证方式",
+          "name": "WARP: 验证方式/Verify Mode",
           "val": "Token",
           "type": "radios",
           "items": [
             {
               "key": "Token",
-              "label": "令牌"
+              "label": "令牌/Token"
             }
           ],
           "desc": "个人版的WARP的验证方式默认只有Token，Team版的不知道"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.Verify.Content",
-          "name": "WARP: 验证内容",
+          "name": "WARP: 验证内容/Verify Content",
           "val": "",
           "type": "text",
           "placeholder": "8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T",
@@ -171,36 +171,36 @@
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.env.deviceType",
-          "name": "WARP: 客户端用户代理类型",
+          "name": "WARP: 客户端用户代理类型/Client Device Type",
           "val": "iOS",
           "type": "radios",
           "items": [
             {
               "key": "Windows",
-              "label": "windows客户端"
+              "label": "Windows"
             },
             {
               "key": "Linux",
-              "label": "Linux客户端"
+              "label": "Linux"
             },
             {
               "key": "Android",
-              "label": "Android客户端"
+              "label": "Android"
             },
             {
               "key": "iOS",
-              "label": "iOS客户端"
+              "label": "iOS"
             },
             {
               "key": "macOS",
-              "label": "macOS客户端"
+              "label": "macOS"
             }
           ],
           "desc": "要伪装的客户端类型，默认iOS客户端"
         },
         {
           "id": "@GetSomeFries.Cloudflare.WARP.env.Version",
-          "name": "WARP: 客户端版本",
+          "name": "WARP: 客户端API版本/Client API Version",
           "val": "",
           "type": "text",
           "placeholder": "",
