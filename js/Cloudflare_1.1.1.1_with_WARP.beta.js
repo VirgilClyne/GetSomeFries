@@ -20,7 +20,7 @@ if (url.search(path1) != -1) {
 		if (_data.ip) resolve(_data.ip);
 		else if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
 		else if (_data.result) {
-			$.msg($.name, "检测到WARP配置文件", `设备注册ID: ${_data.result.id}\n账户ID: ${_data.result.account.id}\n许可证: ${_data.result.account.license}\n账户类型: ${_data.result.account.account_type}\nwarp_plus: ${_data.result.account.warp_plus}\nWARP+流量: ${_data.result.account.premium_data}\n邀请人数: ${_data.result.account.referral_count}`, JSON.stringify(_data.result));
+			$.msg($.name, "检测到WARP配置文件", `设备注册ID/id: ${_data.result.id}\nWARP启用状态/warp_enabled: ${_data.result.warp_enabled}\n账户ID/account.id:\n${_data.result.account.id}\n许可证/account.license:\n${_data.result.account.license}\n账户类型/account.account_type: ${_data.result.account.account_type}\nWARP+/account.warp_plus: ${_data.result.account.warp_plus}\nWARP+流量/account.premium_data: ${_data.result.account.premium_data}\n邀请人数/account.referral_count: ${_data.result.account.referral_count}\n私钥/key: ${_data.result.key}\n节点公钥/config.peers[0].public_key:\n${_data.result.config.peers[0].public_key}`, { 'open-url': 'mobilenotes://', 'media-url': `${JSON.stringify(_data.result)}` });
 		}
 	} else if (_data.success === false) {
 		if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
