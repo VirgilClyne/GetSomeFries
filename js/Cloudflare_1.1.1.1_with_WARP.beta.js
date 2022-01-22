@@ -2,7 +2,7 @@
 README:https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env('Cloudflare WARP');
+const $ = new Env('Cloudflare 1.1.1.1 with WARP');
 
 const url = $request.url;
 var body = $response.body;
@@ -19,7 +19,9 @@ if (url.search(path1) != -1) {
 	if (_data.success === true) {
 		if (_data.ip) resolve(_data.ip);
 		else if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
-		else if (_data.result) $.msg($.name, "检测到WARP配置", `设备注册ID: ${_data.result.id}, 账户ID: ${_data.result.account.id}, 许可证: ${_data.result.account.license}, 账户类型: ${_data.result.account.account_type}, warp_plus: ${_data.result.account.warp_plus}, premium_data: ${_data.result.account.premium_data}, referral_count: ${_data.result.account.referral_count}`)
+		else if (_data.result) {
+			$.msg($.name, "检测到WARP配置文件", `设备注册ID: ${_data.result.id}\n账户ID: ${_data.result.account.id}\n许可证: ${_data.result.account.license}\n账户类型: ${_data.result.account.account_type}\nwarp_plus: ${_data.result.account.warp_plus}\nWARP+流量: ${_data.result.account.premium_data}\n邀请人数: ${_data.result.account.referral_count}`, JSON.stringify(_data.result));
+		}
 	} else if (_data.success === false) {
 		if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
 	}
