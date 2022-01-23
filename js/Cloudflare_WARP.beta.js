@@ -50,7 +50,7 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 			"RegistrationId": null
 		},
 		"env": {
-			"Version": "v0a1922",
+			"Version": "v0i2109031904",
 			"deviceType": "iOS",
 			"Type": "i"
 		}
@@ -143,21 +143,36 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 					Verify.Content = result.token;
 					await setupEnv(Verify, env);
 					$.WireGuard = await getDevice(env.Version, result.id);
+					const SurgeConf = `
+					[Proxy]
+					WARP = wireguard, section-name = Cloudflare
+
+					[Group]
+					你的策略组 = 节点1, 节点2, 节点3, WARP
+
+					[WireGuard Cloudflare]
+					private-key = ${privateKey}
+					self-ip = 172.16.0.254
+					dns-server = 1.1.1.1
+					mtu = 1280
+					peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = 0.0.0.0/0, endpoint = ${$.WireGuard.config.peers[0].endpoint.v4})
+					`;
+					$.log('Surge可用配置', wireGuardConf)
 					const wireGuardConf = `
-				[Interface]
-				PrivateKey = ${privateKey}
-				PublicKey = ${publicKey}
-				Address = ${$.WireGuard.config.interface.addresses.v4}
-				Address = ${$.WireGuard.config.interface.addresses.v6}
-				DNS = 1.1.1.1
+					[Interface]
+					PrivateKey = ${privateKey}
+					PublicKey = ${publicKey}
+					Address = ${$.WireGuard.config.interface.addresses.v4}
+					Address = ${$.WireGuard.config.interface.addresses.v6}
+					DNS = 1.1.1.1
 				
-				[Peer]
-				PublicKey = ${$.WireGuard.config.peers[0].public_key}
-				Endpoint = ${$.WireGuard.config.peers[0].endpoint.v4}
-				Endpoint = ${$.WireGuard.config.peers[0].endpoint.v6}
-				Endpoint = ${$.WireGuard.config.peers[0].endpoint.host}
-				AllowedIPs = 0.0.0.0/0
-				`;
+					[Peer]
+					PublicKey = ${$.WireGuard.config.peers[0].public_key}
+					Endpoint = ${$.WireGuard.config.peers[0].endpoint.v4}
+					Endpoint = ${$.WireGuard.config.peers[0].endpoint.v6}
+					Endpoint = ${$.WireGuard.config.peers[0].endpoint.host}
+					AllowedIPs = 0.0.0.0/0
+					`;
 					$.log('WireGuard可用配置', wireGuardConf)
 				}
 			} else {
@@ -173,9 +188,17 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 				$.done();
 			}
 		} else if (setupMode == "RebindingLicense") {
-			if (Verify.License && Verify.RegistrationId) {
-				$.log('有账户/许可证(License),有设备ID(RegistrationId)', '');
+			if (Verify.License && Verify.RegistrationId && Verify.Content) {
+				$.log('有账户/许可证(License),有设备ID(RegistrationId),有验证内容(Content)', '');
 				var result = await setAccountLicense(env.Version, Verify.RegistrationId, Verify.License);
+			} else {
+				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
+				$.done();
+			}
+		} else if (setupMode == "ChangeKeypair") {
+			if (Verify.RegistrationId && Verify.Content && privateKey) {
+				$.log('有设备ID(RegistrationId),有验证内容(Content),有自定义公钥(publicKey)', '');
+				var result = await setKeypair(env.Version, Verify.RegistrationId, privateKey);
 			} else {
 				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
 				$.done();
@@ -329,6 +352,15 @@ async function setAccountLicense(Version, RegistrationId, License) {
 }
 
 // Function 6
+// Set Keypair
+async function setKeypair(Version, RegistrationId, publicKey) {
+	$.log('设置账户许可证');
+	var body = { "key": publicKey };
+	const url = { method: 'put',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL_headers, body };
+	return await fatchCFjson(url);
+}
+
+// Function 7
 // Set Device Active
 async function setDeviceActive(Version, RegistrationId, active = true) {
 	$.log('设置设备激活状态');
@@ -337,7 +369,7 @@ async function setDeviceActive(Version, RegistrationId, active = true) {
 	return await fatchCFjson(url);
 }
 
-// Function 7
+// Function 8
 // Set Device Name
 async function setDeviceName(Version, RegistrationId, Name) {
 	$.log('设置设备名称');
@@ -346,7 +378,7 @@ async function setDeviceName(Version, RegistrationId, Name) {
 	return await fatchCFjson(url);
 }
 
-// Function 8
+// Function 9
 // Generate Random String
 // https://gist.github.com/6174/6062387#gistcomment-2651745
 function genString(length) {
