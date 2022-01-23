@@ -21,9 +21,13 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [功能列表](#功能列表-1)
   - [todo](#todo-1)
   - [使用方式](#使用方式-1)
+    - [注册新账户(用自定义密钥对)并生成WireGuard配置文件](#注册新账户用自定义密钥对并生成wireguard配置文件)
+    - [重绑定许可证(许可证 & 注册ID)](#重绑定许可证许可证--注册id)
+    - [更换密钥对(用自定义密钥对)(注册ID & 令牌)](#更换密钥对用自定义密钥对注册id--令牌)
+  - [Surge配置文件示例](#surge配置文件示例)
   - [可用IP](#可用ip)
-    - [Personal](#personal)
-    - [Teams](#teams)
+    - [Personal & WARP](#personal--warp)
+    - [Teams & WARP+](#teams--warp)
   - [安装链接](#安装链接-1)
     - [🧪测试版](#测试版-1)
 - [🍟 Disney Plus](#-disney-plus)
@@ -141,13 +145,13 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * 注册新账户(用自定义密钥对)并生成WireGuard配置文件
   * 注册新设备(注册ID)
   * 重绑定许可证(许可证 & 注册ID)
+  * 更换密钥对(用自定义密钥对)(注册ID & 令牌)
   * 查询账户信息(创建日期/剩余流量/邀请人数等)
   * 查询设备配置(设备名称/设备类型/创建日期/活动状态等)
   * 自定义客户端设备类型
 
-
 ## todo
-  * 自动邀请新用户刷WARP+流量”功能还没写
+  * 自动邀请新用户刷WARP+流量(鸽了，team版无限流量，你应该也整一个)
 
 ## 使用方式
 * 配合`BoxJs`及订阅使用
@@ -159,26 +163,71 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * 在`应用`-`整点薯条`-`Cloudflare`中填写您的Cloudflare WARP信息
       1. BoxJs要先填写Loon\quanX\Surge的API地址 不然看不到日志输出
       2. 打开Cloudflare WARP模块
-    * 注册新账户(用自定义密钥对)并生成WireGuard配置文件
+### 注册新账户(用自定义密钥对)并生成WireGuard配置文件
+  * 操作方法(使用BoxJs)：
       1. 运行方式选择`注册新账户(用自定义密钥对)并生成WireGuard配置文件`
       2. 在WireGuard客户端中`新建隧道`-`生成密钥对`
       3. 将WireGuard生成的私钥和公钥填写到BoxJs中的`WireGuard: 私钥`和`WireGuard: 公钥`
       4. 页面最下方点`保存`
       5. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
       6. 记录下日志中提供的信息，导入或填入WireGuard
-    * 重绑定许可证(许可证 & 注册ID)
+### 重绑定许可证(许可证 & 注册ID)
+  * 使用此功能可以将任意`注册ID(设备ID/客户端ID/配置文件ID)`绑定至你指定的`许可证(账户)/License(Account)`
+  * 操作方法(使用BoxJs)：
       1. 运行方式选择`重绑定许可证(许可证 & 注册ID)`
-      2. 填写你要换绑的`WARP: 许可证(账户)/License(Account)`
-      3. 填写你要绑定到此许可证的`WARP: 注册ID(设备ID/客户端ID/配置文件ID)`
-      4. 填写此注册ID对应的token到`WARP: 验证内容/Verify Content`
+      2. 填写你要换绑的`WARP: 许可证(账户)/License(Account)`(可通过模块读取，或查看iOS`1.1.1.1`APP选项-账户-按键)
+      3. 填写你要绑定到此许可证的`WARP: 注册ID(设备ID/客户端ID/配置文件ID)`(可通过模块读取，或查看iOS`1.1.1.1`APP选项-高级-诊断-客户端配置-ID)
+      4. 填写此注册ID对应的token到`WARP: 验证内容/Verify Content`(可通过模块读取)
       5. 点击页面下方的`保存`
       6. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
       7. 记录下日志中提供的信息
+### 更换密钥对(用自定义密钥对)(注册ID & 令牌)
+  * 使用此功能可以将任意`注册ID(设备ID/客户端ID/配置文件ID)`的密钥更换为你指定的`密钥对`
+  * 操作方法1(使用BoxJs)：
+      1. 运行方式选择`更换密钥对(用自定义密钥对)(注册ID & 令牌)`
+      2. 在WireGuard客户端中`新建隧道`-`生成密钥对`
+      3. 将`WireGuard生成的私钥和公钥`或`你要换绑的私钥和公钥`填写到`WireGuard: 私钥`和`WireGuard: 公钥`
+      4. 填写你要绑定到此密钥对的`WARP: 注册ID(设备ID/客户端ID/配置文件ID)`(可通过模块读取，或查看iOS`1.1.1.1`APP选项-高级-诊断-客户端配置-ID)
+      5. 填写此注册ID对应的token到`WARP: 验证内容/Verify Content`(可通过模块读取)
+      6. 点击页面下方的`保存`
+      7. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
+      8. 查看执行结果(`通知`或`日志`)
+        * 注：如果此`注册ID`为某个`1.1.1.1`APP的`注册ID`，则启用此`1.1.1.1`APP会自动将您`自定义的密钥对`换回`APP生成的密钥对`
+        * 注2：如想正常打开`1.1.1.1`APP并使用APP的其他功能如账户信息，流量查看，邀请等功能，请使用Surge模块锁定`密钥对`始终为`自定义的密钥对`，但APP因密钥对不符，自身的VPN功能将无法使用。
+  * 操作方法2(使用BoxJs+Surge模块)：
+      1. 在WireGuard客户端中`新建隧道`-`生成密钥对`
+      2. 将`WireGuard生成的私钥和公钥`或`你要换绑的私钥和公钥`填写到`WireGuard: 私钥`和`WireGuard: 公钥`
+      3. 填写你要绑定到此密钥对的`WARP: 注册ID(设备ID/客户端ID/配置文件ID)`(可通过模块读取，或查看iOS`1.1.1.1`APP选项-高级-诊断-客户端配置-ID)
+      4. 点击页面下方的`保存`
+      5. 打开`1.1.1.1`APP
+      6. 执行`重置加密密钥`操作(iOS客户端位于:选项-`高级`-`连接选项`-`重置加密密钥`)
+      7. 查看执行结果(`通知`或`日志`)
+        * 注：保持模块开启情况下，可正常打开`1.1.1.1`APP并使用APP的其他功能如账户信息，流量查看，邀请等功能，单`1.1.1.1`APP因密钥对不符，自身的VPN功能将无法使用。
+
+
+## Surge配置文件示例
+  * 客户端私钥：private-key，由Wireguard客户端生成
+  * 节点公钥：public-key，Cloudflare WARP的公钥始终为`bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=`
+  * 可用IP：endpoint，目前Surge仅支持单节点(peer)，所以需要选择一个可用IP，详见[可用IP](#可用IP)
+```
+[Proxy]
+WARP = wireguard, section-name = Cloudflare
+
+[Group]
+你的策略组 = 节点1, 节点2, 节点3, WARP
+
+[WireGuard Cloudflare]
+private-key = 客户端私钥
+self-ip = 172.16.0.254
+dns-server = 1.1.1.1
+mtu = 1280
+peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = 0.0.0.0/0, endpoint = 可用IP:2408)
+```
 
 ## 可用IP
   * host主机名均为: `engage.cloudflareclient.com:2408`
 
-### Personal 
+### Personal & WARP
 | 162.159.192.0 | [2606:4700:d0::a29f:c000] |
 | :---: | :---: |
 | 162.159.192.1:2408 | [2606:4700:d0::a29f:c001]:2408
@@ -191,7 +240,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 | 162.159.192.8:2408 | [2606:4700:d0::a29f:c008]:2408
 | 162.159.192.9:2408 | [2606:4700:d0::a29f:c009]:2408
 
-### Teams 
+### Teams & WARP+
 | 162.159.193.0 | [2606:4700:d0::a29f:c100] |
 | :---: | :---: |
 | 162.159.193.1:2408 | [2606:4700:d0::a29f:c101]:2408
@@ -211,7 +260,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
   * Surge:
     * [Cloudflare_1.1.1.1_with_WARP.beta.sgmodule](./sgmodule/Cloudflare_1.1.1.1_with_WARP.beta.sgmodule?raw=true "🍟 Cloudflare 1.1.1.1 APP with WARP Client Info")
-    * 此模块仅查询1.1.1.1 APP的配置信息,增删改请用上方BoxJs订阅或APP客户端
+    * 此模块可查询1.1.1.1 APP的配置信息,也可重写密钥为`自定义密钥`,其他增删改请用上方BoxJs订阅或APP客户端
       * Surge安装后，重新打开一次1.1.1.1的APP，即可在通知中看到配置信息，在Surge的日志中也会输出完整配置文件内容
 
 ---
