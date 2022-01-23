@@ -161,7 +161,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
     * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
   * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
   * 在`应用`-`整点薯条`-`Cloudflare`中填写您的Cloudflare WARP信息
-      1. BoxJs要先填写Loon\quanX\Surge的API地址 不然看不到日志输出
+      1. BoxJs要先填写Loon\quanX\Surge的HTTP-api地址,不然看不到日志输出
+      * iOS版Surge位于`首页`-`更多设置`-`HTTP API & Web控制器`
       2. 打开Cloudflare WARP模块
 ### 注册新账户(用自定义密钥对)并生成WireGuard配置文件
   * 操作方法(使用BoxJs)：
