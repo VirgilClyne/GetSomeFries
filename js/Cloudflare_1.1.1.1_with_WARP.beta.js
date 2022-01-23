@@ -4,15 +4,84 @@ README:https://github.com/VirgilClyne/GetSomeFries
 
 const $ = new Env('Cloudflare 1.1.1.1 with WARP');
 
-const url = $request.url;
-var body = $response.body;
 
-const path1 = "/reg/";
+// BoxJs Function Supported
+if (typeof $.getdata("GetSomeFries") != "undefined") {
+	// load user prefs from BoxJs
+	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
+	$.WireGuard = JSON.parse($.getdata("GetSomeFries")).WireGuard
+	//$.log(JSON.stringify($.Cloudflare.WARP))
+	if ($.Cloudflare.WARP.Verify.Mode == "Key") {
+		$.Cloudflare.WARP.Verify.Content = Array.from($.Cloudflare.WARP.Verify.Content.split("\n"))
+		//$.log(JSON.stringify($.Cloudflare.WARP.Verify.Content))
+	};
+	// Argument Function Supported
+} else if (typeof $argument != "undefined") {
+	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
+	$.log(JSON.stringify(arg));
+	$.Cloudflare.WARP.Verify.License = arg.License;
+	$.Cloudflare.WARP.Verify.Mode = arg.Mode;
+	$.Cloudflare.WARP.Verify.Content = arg.AccessToken;
+	$.Cloudflare.WARP.Verify.Content = arg.ServiceKey;
+	$.Cloudflare.WARP.Verify.Content[0] = arg.Key;
+	$.Cloudflare.WARP.Verify.Content[1] = arg.Email;
+	$.Cloudflare.WARP.Verify.RegistrationId = arg.RegistrationId;
+	$.WireGuard.PrivateKey = arg.PrivateKey;
+	$.WireGuard.PublicKey = arg.PublicKey;
+	$.Cloudflare.WARP.env.Version = arg.Version;
+	$.Cloudflare.WARP.env.deviceType = arg.deviceType;
+} else {
+	$.Cloudflare.WARP = {
+		"Verify": {
+			"License": null,
+			"Mode": "Token",
+			// Requests
+			// https://api.cloudflare.com/#getting-started-requests
+			"Content": null,
+			// API Tokens
+			// API Tokens provide a new way to authenticate with the Cloudflare API.
+			//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
+			"RegistrationId": null
+		},
+		"env": {
+			"Version": "v0i2109031904",
+			"deviceType": "iOS",
+			"Type": "i"
+		}
+	}
+};
+console.log($.Cloudflare.WARP)
+
+const url = $request.url;
+const headers = $request.headers;
+//if (typeof $request.body != "undefined") var body = $request.body
+//if (typeof $response.body != "undefined") var body = $response.body
+
+const path1 = `/reg/${$.Cloudflare.WARP.Verify.RegistrationId}`;
+const path2 = "/reg/";
+
+
+//Check Key and Rewrite
+if (url.search(path1) != -1 && $request.method == "PUT") {
+	$.log(path1);
+	if (typeof $request?.body != "undefined") {
+		var body = $request.body
+		_data = JSON.parse(body)
+		if (_data.key) {
+			_data.key = $.WireGuard.PublicKey;
+			$.msg($.name, "客户端公钥已替换", `当前公钥为:\n${$.WireGuard.PublicKey}`);
+			//$.log($.name, "客户端公钥已替换", `当前公钥为: ${$.WireGuard.PublicKey}`, '');
+		}
+		body = JSON.stringify(_data);
+		$.done({ body });
+	}
+} 
 
 //Check Config
-if (url.search(path1) != -1) {
-	$.log(path1);
-	if (typeof body != "undefined") {
+else if (url.search(path2) != -1 && $request.method == "GET") {
+	$.log(path2);
+	if (typeof $response?.body != "undefined") {
+		var body = $response.body
 		_data = JSON.parse(body)
 		if (Array.isArray(_data.messages) && _data.messages.length != 0) _data.messages.forEach(element => {
 			if (element.code !== 10000) $.msg($.name, `code: ${element.code}`, `message: ${element.message}`);
@@ -21,21 +90,27 @@ if (url.search(path1) != -1) {
 			if (_data.ip) resolve(_data.ip);
 			else if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
 			else if (_data.result) {
-				if (_data.result.id.startsWith('t.')) {
-					$.msg($.name, "检测到WARP Teams配置文件", `设备注册ID:\n${_data.result.id}\n账户类型:${_data.result.account.account_type}\n账户组织:${_data.result.account.organization}\n私钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
-					$.log($.name, "检测到WARP Teams配置文件", `设备注册ID/id: ${_data.result.id}`, `账户ID/account.id: ${_data.result.account.id}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `账户组织/account.organization: ${_data.result.account.organization}`, `私钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+				var matchTokenReg = /Bearer (\S*)/
+				let Token = headers['Authorization'].match(matchTokenReg)[1]
+				if (_data.result.id.startsWith('t.')) {					
+					$.msg($.name, "检测到WARP Teams配置文件", `设备注册ID:\n${_data.result.id}\n设备令牌Token:\n${Token}\n账户类型:${_data.result.account.account_type}\n账户组织:${_data.result.account.organization}\n客户端公钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
+					//$.log($.name, "检测到WARP Teams配置文件", `设备注册ID/id: ${_data.result.id}`, `设备令牌Token: ${Token}`, `账户ID/account.id: ${_data.result.account.id}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `账户组织/account.organization: ${_data.result.account.organization}`, `客户端公钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+					$.log($.name, "检测到WARP Teams配置文件", `原始配置文件:\n注意！文本内容未转义！字符串中可能包含额外字符！\n${JSON.stringify(_data.result)}`, '');
+
 				} else {
-					$.msg($.name, "检测到WARP Personal配置文件", `设备注册ID:\n${_data.result.id}\nWARP启用状态: ${_data.result.warp_enabled},账户类型:${_data.result.account.account_type},WARP+:${_data.result.account.warp_plus},WARP+流量:${_data.result.account.premium_data},邀请人数:${_data.result.account.referral_count}\n许可证/account.license:\n${_data.result.account.license}\n私钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
-					//$.msg($.name, "检测到WARP配置文件", `设备注册ID:\n${_data.result.id}\nWARP启用状态: ${_data.result.warp_enabled},账户类型:${_data.result.account.account_type},WARP+:${_data.result.account.warp_plus},WARP+流量:${_data.result.account.premium_data},邀请人数:${_data.result.account.referral_count}\n账户ID:\n${_data.result.account.id}\n许可证/account.license:\n${_data.result.account.license}\n私钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
-					$.log($.name, "检测到WARP Personal配置文件", `设备注册ID/id: ${_data.result.id}`, `WARP启用状态/warp_enabled: ${_data.result.warp_enabled}`, `账户ID/account.id: ${_data.result.account.id}`, `许可证/account.license: ${_data.result.account.license}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `WARP+/account.warp_plus: ${_data.result.account.warp_plus}`, `WARP+流量/account.premium_data: ${_data.result.account.premium_data}`, `邀请人数/account.referral_count: ${_data.result.account.referral_count}`, `私钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+					$.msg($.name, "检测到WARP Personal配置文件", `设备注册ID:\n${_data.result.id}\n设备令牌Token:\n${Token}\nWARP启用状态: ${_data.result.warp_enabled},账户类型:${_data.result.account.account_type},WARP+:${_data.result.account.warp_plus},WARP+流量:${_data.result.account.premium_data},邀请人数:${_data.result.account.referral_count}\n许可证/account.license:\n${_data.result.account.license}\n客户端公钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
+					//$.log($.name, "检测到WARP Personal配置文件", `设备注册ID/id: ${_data.result.id}`, `设备令牌Token: ${Token}`, `WARP启用状态/warp_enabled: ${_data.result.warp_enabled}`, `账户ID/account.id: ${_data.result.account.id}`, `许可证/account.license: ${_data.result.account.license}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `WARP+/account.warp_plus: ${_data.result.account.warp_plus}`, `WARP+流量/account.premium_data: ${_data.result.account.premium_data}`, `邀请人数/account.referral_count: ${_data.result.account.referral_count}`, `客户端公钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+					$.log($.name, "检测到WARP Personal配置文件", `原始配置文件:\n注意！文本内容未转义！字符串中可能包含额外字符！\n${JSON.stringify(_data.result)}`, '');
+
 				}
 			}
 		} else if (_data.success === false) {
 			if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
 		}
 	}
-} 
-$.done();
+	$.done();
+}
+else $.done();
 
 /***************** Env *****************/
 // prettier-ignore
