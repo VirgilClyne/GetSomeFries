@@ -161,7 +161,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
     * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
   * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
   * 在`应用`-`整点薯条`-`Cloudflare`中填写您的Cloudflare WARP信息
-      1. BoxJs要先填写Loon\quanX\Surge的API地址 不然看不到日志输出
+      1. BoxJs要先填写Loon\quanX\Surge的HTTP-api地址,不然看不到日志输出
+      * iOS版Surge位于`首页`-`更多设置`-`HTTP API & Web控制器`
       2. 打开Cloudflare WARP模块
 ### 注册新账户(用自定义密钥对)并生成WireGuard配置文件
   * 操作方法(使用BoxJs)：
@@ -192,8 +193,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
       6. 点击页面下方的`保存`
       7. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
       8. 查看执行结果(`通知`或`日志`)
-        * 注：如果此`注册ID`为某个`1.1.1.1`APP的`注册ID`，则启用此`1.1.1.1`APP会自动将您`自定义的密钥对`换回`APP生成的密钥对`
-        * 注2：如想正常打开`1.1.1.1`APP并使用APP的其他功能如账户信息，流量查看，邀请等功能，请使用Surge模块锁定`密钥对`始终为`自定义的密钥对`，但APP因密钥对不符，自身的VPN功能将无法使用。
+      * 注：如果此`注册ID`为某个`1.1.1.1`APP的`注册ID`，则启用此`1.1.1.1`APP会自动将您`自定义的密钥对`换回`APP生成的密钥对`
+      * 注2：如想正常打开`1.1.1.1`APP并使用APP的其他功能如账户信息，流量查看，邀请等功能，请使用Surge模块锁定`密钥对`始终为`自定义的密钥对`，但APP因密钥对不符，自身的VPN功能将无法使用。
   * 操作方法2(使用BoxJs+Surge模块)：
       1. 在WireGuard客户端中`新建隧道`-`生成密钥对`
       2. 将`WireGuard生成的私钥和公钥`或`你要换绑的私钥和公钥`填写到`WireGuard: 私钥`和`WireGuard: 公钥`
@@ -201,8 +202,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
       4. 点击页面下方的`保存`
       5. 打开`1.1.1.1`APP
       6. 执行`重置加密密钥`操作(iOS客户端位于:选项-`高级`-`连接选项`-`重置加密密钥`)
-      7. 查看执行结果(`通知`或`日志`)
-        * 注：保持模块开启情况下，可正常打开`1.1.1.1`APP并使用APP的其他功能如账户信息，流量查看，邀请等功能，单`1.1.1.1`APP因密钥对不符，自身的VPN功能将无法使用。
+      7. 查看执行结果(`通知`或`日志`) 
+      * 注：保持模块开启情况下，可正常打开`1.1.1.1`APP并使用APP的其他功能如账户信息，流量查看，邀请等功能，单`1.1.1.1`APP因密钥对不符，自身的VPN功能将无法使用。
 
 
 ## Surge配置文件示例
