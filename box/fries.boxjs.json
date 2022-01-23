@@ -112,7 +112,7 @@
             },
             {
               "key": "ChangeKeypair",
-              "label": "更换密钥对(用自定义密钥对)(注册ID & 令牌)/Rebinding License(with custom Keypair)(license & Registration Id/id & Token)"
+              "label": "更换公钥(用自定义密钥对)(公钥 & 注册ID & 令牌)/Change Public Key(with custom Keypair)(Public Key & Registration Id/id & Token)"
             },
             {
               "key": "AccountDetail",
