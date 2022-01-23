@@ -196,9 +196,9 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 				$.done();
 			}
 		} else if (setupMode == "ChangeKeypair") {
-			if (Verify.RegistrationId && Verify.Content && privateKey) {
+			if (Verify.RegistrationId && Verify.Content && publicKey) {
 				$.log('有设备ID(RegistrationId),有验证内容(Content),有自定义公钥(publicKey)', '');
-				var result = await setKeypair(env.Version, Verify.RegistrationId, privateKey);
+				var result = await setKeypair(env.Version, Verify.RegistrationId, publicKey);
 			} else {
 				$.log(`不符合模式:${setupMode}运行要求，退出`, '');
 				$.done();
