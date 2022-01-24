@@ -1,0 +1,13 @@
+#!name=🍟 Cloudflare 1.1.1.1 APP与WARP客户端配置管理
+#!desc=Cloudflare 1.1.1.1 APP with WARP Client Config Management
+
+[Script]
+# WARP Personal
+WARP Personal Config Input = type=http-request,pattern=^https?:\/\/api\.cloudflareclient\.com\/(.*)(\/reg\/)([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})$, requires-body=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_1.1.1.1_with_WARP.js
+WARP Personal Config Output = type=http-response,pattern=^https?:\/\/api\.cloudflareclient\.com\/(.*)(\/reg\/)([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})$, requires-body=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_1.1.1.1_with_WARP.js
+# Cloudflare for Teams
+WARP Teams Config Input = type=http-request,pattern=^https?:\/\/api\.cloudflareclient\.com\/(.*)(\/reg\/)(t\.[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})$, requires-body=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_1.1.1.1_with_WARP.js
+WARP Teams Config Output = type=http-response,pattern=^https?:\/\/api\.cloudflareclient\.com\/(.*)(\/reg\/)(t\.[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12})$, requires-body=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_1.1.1.1_with_WARP.js
+
+[MITM]
+hostname = %APPEND% api.cloudflareclient.com
