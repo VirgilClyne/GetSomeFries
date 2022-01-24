@@ -4,7 +4,6 @@ README:https://github.com/VirgilClyne/GetSomeFries
 
 const $ = new Env('Cloudflare 1.1.1.1 with WARP');
 
-
 // BoxJs Function Supported
 if (typeof $.getdata("GetSomeFries") != "undefined") {
 	// load user prefs from BoxJs
@@ -54,11 +53,122 @@ console.log($.Cloudflare.WARP)
 
 const url = $request.url;
 const headers = $request.headers;
-//if (typeof $request.body != "undefined") var body = $request.body
-//if (typeof $response.body != "undefined") var body = $response.body
 
-const path1 = `/reg/${$.Cloudflare.WARP.Verify.RegistrationId}`;
-const path2 = "/reg/";
+const path1 = "/reg/";
+const path2 = `/reg/${$.Cloudflare.WARP.Verify.RegistrationId}`;
+
+if (typeof $request != "undefined") { // 是请求
+	if (url.search(path2) != -1) { // 是指定链接
+		$.log(path2);
+		if (typeof $request.body != "undefined") { // 有请求体
+			var body = $request.body
+			if ($request.method == "PUT") { // 是PUT方法
+				$.log($request.method);
+				_data = JSON.parse(body)
+				if (_data.key) {
+					_data.key = $.WireGuard.PublicKey;
+					$.msg($.name, "客户端公钥已替换", `当前公钥为:\n${$.WireGuard.PublicKey}`);
+					//$.log($.name, "客户端公钥已替换", `当前公钥为: ${$.WireGuard.PublicKey}`, '');
+				}
+				body = JSON.stringify(_data);
+				$.done({ body });
+			} else {
+				$.log($request.method);
+				$.done();
+			}
+		}
+	}
+}
+
+if (typeof $response != "undefined") { // 是回复
+	if (url.search(path1) != -1) { // 是链接
+		$.log(path1);
+		if (typeof $response?.body != "undefined") { // 有回复体
+			var body = $response.body
+			if ($request.method == "PUT" || $request.method == "GET") { // 是PUT或GET方法
+				$.log($request.method);
+				_data = JSON.parse(body)
+				if (Array.isArray(_data.messages) && _data.messages.length != 0) _data.messages.forEach(element => {
+					if (element.code !== 10000) $.msg($.name, `code: ${element.code}`, `message: ${element.message}`);
+				})
+				if (_data.success === true) {
+					if (_data.ip) resolve(_data.ip);
+					else if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
+					else if (_data.result) {
+						var matchTokenReg = /Bearer (\S*)/
+						let Token = headers['Authorization'].match(matchTokenReg)[1]
+						if (_data.result.id.startsWith('t.')) {
+							$.msg($.name, "检测到WARP Teams配置文件", `设备注册ID:\n${_data.result.id}\n设备令牌Token:\n${Token}\n账户类型:${_data.result.account.account_type}\n账户组织:${_data.result.account.organization}\n客户端公钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
+							//$.log($.name, "检测到WARP Teams配置文件", `设备注册ID/id: ${_data.result.id}`, `设备令牌Token: ${Token}`, `账户ID/account.id: ${_data.result.account.id}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `账户组织/account.organization: ${_data.result.account.organization}`, `客户端公钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+							$.log($.name, "检测到WARP Teams配置文件", `原始配置文件:\n注意！文本内容未转义！字符串中可能包含额外字符！\n${JSON.stringify(_data.result)}`, '');
+						} else {
+							$.msg($.name, "检测到WARP Personal配置文件", `设备注册ID:\n${_data.result.id}\n设备令牌Token:\n${Token}\nWARP启用状态: ${_data.result.warp_enabled},账户类型:${_data.result.account.account_type},WARP+:${_data.result.account.warp_plus},WARP+流量:${_data.result.account.premium_data},邀请人数:${_data.result.account.referral_count}\n许可证/account.license:\n${_data.result.account.license}\n客户端公钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
+							//$.log($.name, "检测到WARP Personal配置文件", `设备注册ID/id: ${_data.result.id}`, `设备令牌Token: ${Token}`, `WARP启用状态/warp_enabled: ${_data.result.warp_enabled}`, `账户ID/account.id: ${_data.result.account.id}`, `许可证/account.license: ${_data.result.account.license}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `WARP+/account.warp_plus: ${_data.result.account.warp_plus}`, `WARP+流量/account.premium_data: ${_data.result.account.premium_data}`, `邀请人数/account.referral_count: ${_data.result.account.referral_count}`, `客户端公钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+							$.log($.name, "检测到WARP Personal配置文件", `原始配置文件:\n注意！文本内容未转义！字符串中可能包含额外字符！\n${JSON.stringify(_data.result)}`, '');
+						}
+					}
+				} else if (_data.success === false) {
+					if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
+				}
+			} else {
+				$.log($request.method);
+				$.done();
+			}
+		}
+	}
+}
+
+$.done();
+
+/*
+if (url.search(path1) != -1) {
+	$.log(path1);
+	if ($request.method == "GET") {
+
+		var body = $response.body
+		_data = JSON.parse(body)
+		if (Array.isArray(_data.messages) && _data.messages.length != 0) _data.messages.forEach(element => {
+			if (element.code !== 10000) $.msg($.name, `code: ${element.code}`, `message: ${element.message}`);
+		})
+		if (_data.success === true) {
+			if (_data.ip) resolve(_data.ip);
+			else if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
+			else if (_data.result) {
+				var matchTokenReg = /Bearer (\S*)/
+				let Token = headers['Authorization'].match(matchTokenReg)[1]
+				if (_data.result.id.startsWith('t.')) {
+					$.msg($.name, "检测到WARP Teams配置文件", `设备注册ID:\n${_data.result.id}\n设备令牌Token:\n${Token}\n账户类型:${_data.result.account.account_type}\n账户组织:${_data.result.account.organization}\n客户端公钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
+					//$.log($.name, "检测到WARP Teams配置文件", `设备注册ID/id: ${_data.result.id}`, `设备令牌Token: ${Token}`, `账户ID/account.id: ${_data.result.account.id}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `账户组织/account.organization: ${_data.result.account.organization}`, `客户端公钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+					$.log($.name, "检测到WARP Teams配置文件", `原始配置文件:\n注意！文本内容未转义！字符串中可能包含额外字符！\n${JSON.stringify(_data.result)}`, '');
+				} else {
+					$.msg($.name, "检测到WARP Personal配置文件", `设备注册ID:\n${_data.result.id}\n设备令牌Token:\n${Token}\nWARP启用状态: ${_data.result.warp_enabled},账户类型:${_data.result.account.account_type},WARP+:${_data.result.account.warp_plus},WARP+流量:${_data.result.account.premium_data},邀请人数:${_data.result.account.referral_count}\n许可证/account.license:\n${_data.result.account.license}\n客户端公钥:\n${_data.result.key}\n节点公钥:\n${_data.result.config.peers[0].public_key}`);
+					//$.log($.name, "检测到WARP Personal配置文件", `设备注册ID/id: ${_data.result.id}`, `设备令牌Token: ${Token}`, `WARP启用状态/warp_enabled: ${_data.result.warp_enabled}`, `账户ID/account.id: ${_data.result.account.id}`, `许可证/account.license: ${_data.result.account.license}`, `账户类型/account.account_type: ${_data.result.account.account_type}`, `WARP+/account.warp_plus: ${_data.result.account.warp_plus}`, `WARP+流量/account.premium_data: ${_data.result.account.premium_data}`, `邀请人数/account.referral_count: ${_data.result.account.referral_count}`, `客户端公钥/key: ${_data.result.key}`, `节点公钥/config.peers[0].public_key: ${_data.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(_data.result)}`);
+					$.log($.name, "检测到WARP Personal配置文件", `原始配置文件:\n注意！文本内容未转义！字符串中可能包含额外字符！\n${JSON.stringify(_data.result)}`, '');
+				}
+			}
+		} else if (_data.success === false) {
+			if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
+		}
+
+	} else if ($request.method == "PUT") {
+		if (url.search(path2) != -1) {
+			$.log(path2);
+			if (typeof $request?.body != "undefined") {
+				var body = $request.body
+				_data = JSON.parse(body)
+				if (_data.key) {
+					_data.key = $.WireGuard.PublicKey;
+					$.msg($.name, "客户端公钥已替换", `当前公钥为:\n${$.WireGuard.PublicKey}`);
+					//$.log($.name, "客户端公钥已替换", `当前公钥为: ${$.WireGuard.PublicKey}`, '');
+				}
+				body = JSON.stringify(_data);
+				$.done({ body });
+			}
+			$.done();
+		}
+	}
+}
+$.done();
 
 
 //Check Key and Rewrite
@@ -75,6 +185,7 @@ if (url.search(path1) != -1 && $request.method == "PUT") {
 		body = JSON.stringify(_data);
 		$.done({ body });
 	}
+	$.done();
 } 
 
 //Check Config
@@ -111,6 +222,7 @@ else if (url.search(path2) != -1 && $request.method == "GET") {
 	$.done();
 }
 else $.done();
+*/
 
 /***************** Env *****************/
 // prettier-ignore
