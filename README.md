@@ -29,6 +29,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
     - [Personal & WARP](#personal--warp)
     - [Teams & WARP+](#teams--warp)
   - [安装链接](#安装链接-1)
+    - [正式版](#正式版-1)
     - [🧪测试版](#测试版-1)
 - [🍟 Disney Plus](#-disney-plus)
   - [简介](#简介-2)
@@ -255,14 +256,26 @@ peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips =
 | 162.159.193.9:2408 | [2606:4700:d0::a29f:c109]:2408
 
 ## 安装链接
+### 正式版
+  * Surge:
+    * [Cloudflare_1.1.1.1_with_WARP.sgmodule](./sgmodule/Cloudflare_1.1.1.1_with_WARP.sgmodule?raw=true "🍟 Cloudflare 1.1.1.1 APP与WARP客户端配置管理")
+    * 此模块功能:
+      * 可查询1.1.1.1 APP的配置信息,其他增删改功能请用上方BoxJs订阅或APP客户端
+        * 安装模块后，重新打开一次1.1.1.1的APP，即可在通知中看到配置信息，在Surge的日志中也会输出完整配置文件内容
+      * 配合BoxJs或Surge Argument参数可重写并锁定密钥为`自定义密钥`
+        * 安装模块后，打开`1.1.1.1`APP，执行`重置加密密钥`操作(iOS客户端位于:选项-`高级`-`连接选项`-`重置加密密钥`)，即可在通知中看到密钥重置信息
+
 ### 🧪测试版
   * BoxJs:
     * [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
 
   * Surge:
-    * [Cloudflare_1.1.1.1_with_WARP.beta.sgmodule](./sgmodule/Cloudflare_1.1.1.1_with_WARP.beta.sgmodule?raw=true "🍟 Cloudflare 1.1.1.1 APP with WARP Client Info")
-    * 此模块可查询1.1.1.1 APP的配置信息,也可重写密钥为`自定义密钥`,其他增删改请用上方BoxJs订阅或APP客户端
-      * Surge安装后，重新打开一次1.1.1.1的APP，即可在通知中看到配置信息，在Surge的日志中也会输出完整配置文件内容
+    * [Cloudflare_1.1.1.1_with_WARP.beta.sgmodule](./sgmodule/Cloudflare_1.1.1.1_with_WARP.beta.sgmodule?raw=true "🍟 Cloudflare 1.1.1.1 APP与WARP客户端配置管理")
+    * 此模块功能:
+      * 可查询1.1.1.1 APP的配置信息,其他增删改功能请用上方BoxJs订阅或APP客户端
+        * 安装模块后，重新打开一次1.1.1.1的APP，即可在通知中看到配置信息，在Surge的日志中也会输出完整配置文件内容
+      * 配合BoxJs或Surge Argument参数可重写并锁定密钥为`自定义密钥`
+        * 安装模块后，打开`1.1.1.1`APP，执行`重置加密密钥`操作(iOS客户端位于:选项-`高级`-`连接选项`-`重置加密密钥`)，即可在通知中看到密钥重置信息
 
 ---
 
