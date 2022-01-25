@@ -1,0 +1,5 @@
+#!name=🍟 Cloudflare WARP
+#!desc=Cloudflare WARP Client Register & Management
+
+[Script]
+Cloudflare WARP = type=cron,cronexp="*/5 * * * *",timeout=60,argument=DeviceId=设备ID&AccessToken=访问令牌&PrivateKey=私钥&LicenseKey=许可证密钥,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_WARP.js
