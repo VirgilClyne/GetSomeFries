@@ -6,11 +6,27 @@ README:https://github.com/VirgilClyne/GetSomeFries
 // refer:https://github.com/yyuueexxiinngg/some-scripts/blob/master/cloudflare/warp2wireguard.js
 
 const $ = new Env('Cloudflare WARP');
+$.VAL = {
+	// Endpoints
+	// https://api.cloudflare.com/#getting-started-endpoints
+	"url": "https://api.cloudflareclient.com",
+	"headers": {
+		"Host": "api.cloudflareclient.com",
+		"Authorization": null,
+		"Content-Type": "application/json",
+		"User-Agent": "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0",
+		//"User-Agent": "1.1.1.1/1909221500.1 CFNetwork/978.0.7 Darwin/18.7.0",
+		//"User-Agent": "okhttp/3.12.1",
+		//"User-Agent": "WARP",
+		"CF-Client-Version": "i-6.7-2109031904.1"
+		//"CF-Client-Version": "m-2021.12.1.0-0",
+		//"CF-Client-Version": "a-6.3-1922",
+		//"Debug": false
+	}
+};
 
-// Endpoints
-// https://api.cloudflare.com/#getting-started-endpoints
-$.baseURL = 'https://api.cloudflareclient.com';
-
+// Default Settings
+$.Cloudflare = { "WARP": { "Verify": { "License": null, "Mode": "Token", "Content": null, "RegistrationId": null }, "env": { "Version": "v0i2109031904", "deviceType": "iOS", "Type": "i" } } };
 // BoxJs Function Supported
 if ($.getdata("GetSomeFries") !== null) {
 	// load user prefs from BoxJs
@@ -21,8 +37,9 @@ if ($.getdata("GetSomeFries") !== null) {
 		$.Cloudflare.WARP.Verify.Content = Array.from($.Cloudflare.WARP.Verify.Content.split("\n"))
 		//$.log(JSON.stringify($.Cloudflare.WARP.Verify.Content))
 	};
-	// Argument Function Supported
-} else if (typeof $argument != "undefined") {
+}
+// Argument Function Supported
+else if (typeof $argument != "undefined") {
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
 	$.Cloudflare.WARP.Verify.License = arg.License;
@@ -36,35 +53,15 @@ if ($.getdata("GetSomeFries") !== null) {
 	$.WireGuard.PublicKey = arg.PublicKey;
 	$.Cloudflare.WARP.env.Version = arg.Version;
 	$.Cloudflare.WARP.env.deviceType = arg.deviceType;
-} else {
-	$.Cloudflare = {
-		"WARP": {
-			"Verify": {
-				"License": null,
-				"Mode": "Token",
-				// Requests
-				// https://api.cloudflare.com/#getting-started-requests
-				"Content": null,
-				// API Tokens
-				// API Tokens provide a new way to authenticate with the Cloudflare API.
-				//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
-				"RegistrationId": null
-			},
-			"env": {
-				"Version": "v0i2109031904",
-				"deviceType": "iOS",
-				"Type": "i"
-			}
-		}
-	}
-};
+}
 console.log($.Cloudflare.WARP)
 
 /***************** async *****************/
 
 !(async () => {
 	//Step 1
-	await setupEnv($.Cloudflare.WARP.Verify, $.Cloudflare.WARP.env)
+	await setupVAL($.Cloudflare.WARP.Verify, $.Cloudflare.WARP.env)
+	//Step 2
 	await WARP($.Cloudflare.WARP.setupMode, $.Cloudflare.WARP.env, $.WireGuard.PrivateKey, $.WireGuard.PublicKey, $.Cloudflare.WARP.Verify)
 })()
 	.catch((e) => $.logErr(e))
@@ -74,32 +71,23 @@ console.log($.Cloudflare.WARP)
 
 //Step 1
 //Setup Environment
-async function setupEnv(Verify, env) {
+async function setupVAL(Verify, env) {
 	$.log('设置运行环境');
-	$.VAL_headers = {
-		Host: "api.cloudflareclient.com",
-		//"User-Agent": "okhttp/3.12.1",
-		//"User-Agent": "1.1.1.1/1909221500.1 CFNetwork/978.0.7 Darwin/18.7.0",
-		//"User-Agent": "WARP",
-		//"CF-Client-Version": "a-6.3-1922",
-		//"CF-Client-Version": "m-2021.12.1.0-0",
-		//"Debug": false
-	};
 	//设置设备环境
 	if (env.deviceType == "iOS") {
 		$.Cloudflare.WARP.env.Type = "i";
 		$.Cloudflare.WARP.env.Version = "v0i2109031904";
-		$.VAL_headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
-		$.VAL_headers["CF-Client-Version"] = "i-6.7-2109031904.1";
+		$.VAL.headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
+		$.VAL.headers["CF-Client-Version"] = "i-6.7-2109031904.1";
 	} else if (env.deviceType == "macOS") {
 		$.Cloudflare.WARP.env.Type = "m";
-		$.VAL_headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
-		$.VAL_headers["CF-Client-Version"] = "m-2021.12.1.0-0";
+		$.VAL.headers["User-Agent"] = "1.1.1.1/2109031904.1 CFNetwork/1327.0.4 Darwin/21.2.0";
+		$.VAL.headers["CF-Client-Version"] = "m-2021.12.1.0-0";
 	} else if (env.deviceType == "Android") {
 		$.Cloudflare.WARP.env.Type = "a";
 		$.Cloudflare.WARP.env.Version = "v0a1922";
-		$.VAL_headers["User-Agent"] = "okhttp/3.12.1";
-		$.VAL_headers["CF-Client-Version"] = "a-6.3-1922";
+		$.VAL.headers["User-Agent"] = "okhttp/3.12.1";
+		$.VAL.headers["CF-Client-Version"] = "a-6.3-1922";
 	} else if (env.deviceType == "Windows") {
 		$.Cloudflare.WARP.env.Type = "w";
 	} else if (env.deviceType == "Liunx") {
@@ -110,12 +98,12 @@ async function setupEnv(Verify, env) {
 	};
 	//设置验证方式
 	if (Verify.Mode == "Token" && typeof Verify.Content != "undefined") {
-		$.VAL_headers.Authorization = `Bearer ${Verify.Content}`;
+		$.VAL.headers.Authorization = `Bearer ${Verify.Content}`;
 	} else if (Verify.Mode == "ServiceKey" && typeof Verify.Content != "undefined") {
-		$.VAL_headers['X-Auth-User-Service-Key'] = Verify.Content;
+		$.VAL.headers['X-Auth-User-Service-Key'] = Verify.Content;
 	} else if (Verify.Mode == "Key" && typeof Verify.Content != "undefined") {
-		$.VAL_headers['X-Auth-Key'] = Verify.Content[0];
-		$.VAL_headers['X-Auth-Email'] = Verify.Content[1];
+		$.VAL.headers['X-Auth-Key'] = Verify.Content[0];
+		$.VAL.headers['X-Auth-Email'] = Verify.Content[1];
 	} else {
 		$.logErr('无可用授权方式', `Mode=${Verify.Mode}`, `Content=${Verify.Content}`, '');
 		$.done();
@@ -143,7 +131,7 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 				if (privateKey && publicKey) {
 					$.log('有自定义私钥(privateKey)', '有自定义公钥(publicKey)', '');
 					Verify.Content = result.token;
-					await setupEnv(Verify, env);
+					await setupVAL(Verify, env);
 					$.WireGuard = await getDevice(env.Version, result.id);
 					const SurgeConf = `
 					[Proxy]
@@ -236,8 +224,7 @@ function getCFjson(url) {
 						if (element.code !== 10000) $.msg($.name, `code: ${element.code}`, `message: ${element.message}`);
 					})
 					if (_data.success === true) {
-						if (_data.ip) resolve(_data.ip);
-						else if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
+						if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
 						else resolve(_data.result);
 					} else if (_data.success === false) {
 						if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
@@ -296,7 +283,7 @@ async function regAccount(Version, referrer, publicKey, Locale = "en_US", device
 		tos: new Date().toISOString(),
 		type: Type
 	};
-	const url = { method: 'post', url: `${$.baseURL}/${Version}/reg`, headers: $.VAL_headers, body }
+	const url = { method: 'post', url: `${$.VAL.url}/${Version}/reg`, headers: $.VAL.headers, body }
 	return await fatchCFjson(url);
 }
 
@@ -316,7 +303,7 @@ async function regDevice(Version, RegistrationId, publicKey, Locale = "en_US", d
 		tos: new Date().toISOString(),
 		type: Type
 	};
-	const url = { method: 'post', url: `${$.baseURL}/${Version}/reg/${RegistrationId}`, headers: $.VAL_headers, body }
+	const url = { method: 'post', url: `${$.VAL.url}/${Version}/reg/${RegistrationId}`, headers: $.VAL.headers, body }
 	return await fatchCFjson(url);
 }
 
@@ -324,7 +311,7 @@ async function regDevice(Version, RegistrationId, publicKey, Locale = "en_US", d
 // Get the Device Detail
 async function getDevice(Version, RegistrationId) {
 	$.log('获取当前设备配置');
-	const url = { url: `${$.baseURL}/${Version}/reg/${RegistrationId}`, headers: $.VAL_headers };
+	const url = { url: `${$.VAL.url}/${Version}/reg/${RegistrationId}`, headers: $.VAL.headers };
 	return await getCFjson(url);
 }
 
@@ -332,7 +319,7 @@ async function getDevice(Version, RegistrationId) {
 // Get the Account Detail
 async function getAccount(Version, RegistrationId) {
 	$.log('获取账户信息');
-	const url = { url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL_headers };
+	const url = { url: `${$.VAL.url}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL.headers };
 	return await getCFjson(url);
 }
 
@@ -340,7 +327,7 @@ async function getAccount(Version, RegistrationId) {
 // Get Account Devices Details
 async function getDevices(Version, RegistrationId) {
 	$.log('获取设备信息');
-	const url = { url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL_headers };
+	const url = { url: `${$.VAL.url}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL.headers };
 	return await getCFjson(url);
 }
 
@@ -349,7 +336,7 @@ async function getDevices(Version, RegistrationId) {
 async function setAccountLicense(Version, RegistrationId, License) {
 	$.log('设置账户许可证');
 	var body = { "license": License };
-	const url = { method: 'put',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL_headers, body };
+	const url = { method: 'put',  url: `${$.VAL.url}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL.headers, body };
 	return await fatchCFjson(url);
 }
 
@@ -358,7 +345,7 @@ async function setAccountLicense(Version, RegistrationId, License) {
 async function setKeypair(Version, RegistrationId, publicKey) {
 	$.log('设置账户许可证');
 	var body = { "key": publicKey };
-	const url = { method: 'put',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL_headers, body };
+	const url = { method: 'put',  url: `${$.VAL.url}/${Version}/reg/${RegistrationId}/account`, headers: $.VAL.headers, body };
 	return await fatchCFjson(url);
 }
 
@@ -367,7 +354,7 @@ async function setKeypair(Version, RegistrationId, publicKey) {
 async function setDeviceActive(Version, RegistrationId, active = true) {
 	$.log('设置设备激活状态');
 	var body = { "active": active };
-	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL_headers, body };
+	const url = { method: 'patch',  url: `${$.VAL.url}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL.headers, body };
 	return await fatchCFjson(url);
 }
 
@@ -376,7 +363,7 @@ async function setDeviceActive(Version, RegistrationId, active = true) {
 async function setDeviceName(Version, RegistrationId, Name) {
 	$.log('设置设备名称');
 	var body = { "name": Name };
-	const url = { method: 'patch',  url: `${$.baseURL}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL_headers, body };
+	const url = { method: 'patch',  url: `${$.VAL.url}/${Version}/reg/${RegistrationId}/account/devices`, headers: $.VAL.headers, body };
 	return await fatchCFjson(url);
 }
 
