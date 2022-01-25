@@ -155,16 +155,16 @@ async function Verify(Mode, Content) {
 	$.log('验证授权');
 	if (Mode == "Token") {
 		$.VAL.headers['Authorization'] = `Bearer ${Content}`;
-		const result = await verifyToken($.VAL.headers);
+		const result = await verifyToken();
 		if (result.status == 'active') return true
 	} else if (Mode == "ServiceKey") {
 		$.VAL.headers['X-Auth-User-Service-Key'] = Content;
-		const result = await getUser($.VAL.headers);
+		const result = await getUser();
 		return result.suspended
 	} else if (Mode == "Key") {
 		$.VAL.headers['X-Auth-Key'] = Content[0];
 		$.VAL.headers['X-Auth-Email'] = Content[1];
-		const result = await getUser($.VAL.headers);
+		const result = await getUser();
 		return result.suspended
 	} else {
 		$.logErr('无可用授权方式', `Mode=${Mode}`, `Content=${Content}`, '');
@@ -322,7 +322,7 @@ async function getPublicIP(type) {
 // Function 2A
 // Verify Token
 // https://api.cloudflare.com/#user-api-tokens-verify-token
-async function verifyToken(headers) {
+async function verifyToken() {
 	$.log('验证令牌');
 	const url = { url: `${$.VAL.url}/user/tokens/verify`, headers: $.VAL.headers };
 	return await getCFjson(url);
@@ -331,7 +331,7 @@ async function verifyToken(headers) {
 // Function 2B
 // User Details
 // https://api.cloudflare.com/#user-user-details
-async function getUser(headers) {
+async function getUser() {
 	$.log('获取用户详情');
 	const url = { url: `${$.VAL.url}/user`, headers: $.VAL.headers };
 	return await getCFjson(url);
