@@ -106,76 +106,77 @@ if ($.getdata("GetSomeFries") !== null) {
 	$.Cloudflare.DNS.dns_records.priority = arg.dns_records_priority;
 	$.Cloudflare.DNS.dns_records.proxied = JSON.parse(arg.dns_records_proxied);
 } else {
-	$.Cloudflare = {};
-	$.Cloudflare.DNS = {
-		"Verify":{
-			"Mode":"Token",
-			// Requests
-			// https://api.cloudflare.com/#getting-started-requests
-			"Content":""
-			// API Tokens
-			// API Tokens provide a new way to authenticate with the Cloudflare API.
-			//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
-			// API Keys
-			// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate.
-			// Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
-			/*
-			//Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
-			"Content":["1234567893feefc5f0q5000bfo0c38d90bbeb",
-			//Your contact email address
-			"example@example.com" ]
-			//User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
-			"Content": "v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a"
-			*/
-		},
-		// Zone
-		// https://api.cloudflare.com/#zone-properties
-		"zone":{
-			// Zone Details
-			// https://api.cloudflare.com/#zone-zone-details
-			"id":"",
-			// List Zones
-			// https://api.cloudflare.com/#zone-list-zones
-			"name":"", //The domain/website name you want to run updates for (e.g. example.com)
-			// DNS Records for a Zone
-			// https://api.cloudflare.com/#dns-records-for-a-zone-properties
-			"dns_records":[
-				{
-					// DNS Record Details
-					// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
-					"id":"",
-					// List DNS Records
-					// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
-					// type
-					// DNS record type
-					"type":"A",
-					// name
-					// DNS record name
-					"name":"",
-					// content
-					// DNS record content
-					"content":"",
-					// ttl
-					// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
-					"ttl":1,
-					// priority
-					// Required for MX, SRV and URI records; unused by other record types.
-					//"priority":10,
-					// proxied
-					// Whether the record is receiving the performance and security benefits of Cloudflare
-					"proxied":false //Whether the record is receiving the performance and security benefits of Cloudflare
-				},
-				{
-					"id":"",
-					"type":"AAAA",
-					"name":"",
-					"content":"",
-					"ttl":1,
-					"proxied":false
-				}
-			]
+	$.Cloudflare = {
+		"DNS": {
+			"Verify": {
+				"Mode": "Token",
+				// Requests
+				// https://api.cloudflare.com/#getting-started-requests
+				"Content": ""
+				// API Tokens
+				// API Tokens provide a new way to authenticate with the Cloudflare API.
+				//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
+				// API Keys
+				// All requests must include both X-AUTH-KEY and X-AUTH-EMAIL headers to authenticate.
+				// Requests that use X-AUTH-USER-SERVICE-KEY can use that instead of the Auth-Key and Auth-Email headers.
+				/*
+				//Set your account email address and API key. The API key can be found on the My Profile -> API Tokens page in the Cloudflare dashboard.
+				"Content":["1234567893feefc5f0q5000bfo0c38d90bbeb",
+				//Your contact email address
+				"example@example.com" ]
+				//User Service Key, A special Cloudflare API key good for a restricted set of endpoints. Always begins with "v1.0-", may vary in length.
+				"Content": "v1.0-e24fd090c02efcfecb4de8f4ff246fd5c75b48946fdf0ce26c59f91d0d90797b-cfa33fe60e8e34073c149323454383fc9005d25c9b4c502c2f063457ef65322eade065975001a0b4b4c591c5e1bd36a6e8f7e2d4fa8a9ec01c64c041e99530c2-07b9efe0acd78c82c8d9c690aacb8656d81c369246d7f996a205fe3c18e9254a"
+				*/
+			},
+			// Zone
+			// https://api.cloudflare.com/#zone-properties
+			"zone": {
+				// Zone Details
+				// https://api.cloudflare.com/#zone-zone-details
+				"id": "",
+				// List Zones
+				// https://api.cloudflare.com/#zone-list-zones
+				"name": "", //The domain/website name you want to run updates for (e.g. example.com)
+				// DNS Records for a Zone
+				// https://api.cloudflare.com/#dns-records-for-a-zone-properties
+				"dns_records": [
+					{
+						// DNS Record Details
+						// https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
+						"id": "",
+						// List DNS Records
+						// https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
+						// type
+						// DNS record type
+						"type": "A",
+						// name
+						// DNS record name
+						"name": "",
+						// content
+						// DNS record content
+						"content": "",
+						// ttl
+						// Time to live, in seconds, of the DNS record. Must be between 60 and 86400, or 1 for 'automatic'
+						"ttl": 1,
+						// priority
+						// Required for MX, SRV and URI records; unused by other record types.
+						//"priority":10,
+						// proxied
+						// Whether the record is receiving the performance and security benefits of Cloudflare
+						"proxied": false //Whether the record is receiving the performance and security benefits of Cloudflare
+					},
+					{
+						"id": "",
+						"type": "AAAA",
+						"name": "",
+						"content": "",
+						"ttl": 1,
+						"proxied": false
+					}
+				]
+			}
 		}
-	}	
+	}
 };
 console.log($.Cloudflare.DNS)
 

@@ -4,7 +4,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 
 const $ = new Env('Netflix');
 
-if (typeof $.getdata("GetSomeFries") != "undefined") {
+if ($.getdata("GetSomeFries") !== null) {
 	// BoxJs Function Supported
 	// load user prefs from BoxJs
 	$.Netflix = JSON.parse($.getdata("GetSomeFries")).Netflix
@@ -42,11 +42,11 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 } else {
 	// Default Settings
 	$.Netflix = {
-		"geolocation":{
-			"policy":"ALLOW", //策略
-			"country":"" // 国家
+		"geolocation": {
+			"policy": "ALLOW", //策略
+			"country": "" // 国家
 		},
-		"config":{
+		"config": {
 			"allowWidevinePlayback": true, // 允许Widevine DRM回放
 			"airPlayDisabledEnabledOnBuild": "50.0.0", // 开始禁用airPlay的版本
 			"preferRichWebVTTOverImageBasedSubtitle": true, // 偏好使用RichWebVTT字幕多于图片字幕
@@ -54,7 +54,7 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 			"reuseAVPlayerEnabledOnBuild": "0", // 重新开始启用AVPlayer的版本
 			"nfplayerReduxEnabledOnBuild": "50.0.0", // 开始启用nfplayerRedux的版本
 		},
-		"ctx":{
+		"ctx": {
 			"region": "", // 当前IP所属地区
 			//"monotonic": true, // 函数？
 			"device": "", // 当前使用设备
@@ -65,7 +65,7 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 			"ip": "",
 			"hasUser": false // 当前IP是否有用户
 		}
-	}	
+	}
 };
 
 const url = $request.url;
