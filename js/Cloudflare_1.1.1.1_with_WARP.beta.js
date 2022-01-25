@@ -5,7 +5,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 const $ = new Env('Cloudflare 1.1.1.1 with WARP');
 
 // BoxJs Function Supported
-if (typeof $.getdata("GetSomeFries") != "undefined") {
+if ($.getdata("GetSomeFries") !== null) {
 	// load user prefs from BoxJs
 	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
 	$.WireGuard = JSON.parse($.getdata("GetSomeFries")).WireGuard
@@ -30,22 +30,24 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	$.Cloudflare.WARP.env.Version = arg.Version;
 	$.Cloudflare.WARP.env.deviceType = arg.deviceType;
 } else {
-	$.Cloudflare.WARP = {
-		"Verify": {
-			"License": null,
-			"Mode": "Token",
-			// Requests
-			// https://api.cloudflare.com/#getting-started-requests
-			"Content": null,
-			// API Tokens
-			// API Tokens provide a new way to authenticate with the Cloudflare API.
-			//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
-			"RegistrationId": null
-		},
-		"env": {
-			"Version": "v0i2109031904",
-			"deviceType": "iOS",
-			"Type": "i"
+	$.Cloudflare = {
+		"WARP": {
+			"Verify": {
+				"License": null,
+				"Mode": "Token",
+				// Requests
+				// https://api.cloudflare.com/#getting-started-requests
+				"Content": null,
+				// API Tokens
+				// API Tokens provide a new way to authenticate with the Cloudflare API.
+				//"Content":"8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T"
+				"RegistrationId": null
+			},
+			"env": {
+				"Version": "v0i2109031904",
+				"deviceType": "iOS",
+				"Type": "i"
+			}
 		}
 	}
 };
