@@ -103,11 +103,11 @@ async function setupVAL(env) {
 async function setupVerify(Mode, Content) {
 	$.log('设置验证方式');
 	//设置验证方式
-	if (Mode == "Token" && typeof Content != "undefined") {
-		$.VAL.headers.Authorization = `Bearer ${Content}`;
-	} else if (Mode == "ServiceKey" && typeof Content != "undefined") {
+	if (Mode == "Token") {
+		$.VAL.headers['Authorization'] = `Bearer ${Content}`;
+	} else if (Mode == "ServiceKey") {
 		$.VAL.headers['X-Auth-User-Service-Key'] = Content;
-	} else if (Mode == "Key" && typeof Content != "undefined") {
+	} else if (Mode == "Key") {
 		$.VAL.headers['X-Auth-Key'] = Content[0];
 		$.VAL.headers['X-Auth-Email'] = Content[1];
 	} else {
