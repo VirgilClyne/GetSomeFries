@@ -1,6 +1,6 @@
 {
-  "id": "getSomeFries.app.sub",
-  "name": "整点薯条",
+  "id": "getSomeFries.beta.app.sub",
+  "name": "整点薯条 β",
   "author": "@VirgilClyne",
   "description": "待会去码头整点薯条",
   "icon": "https://avatars.githubusercontent.com/u/2111377?s=100&v=4",
@@ -8,7 +8,7 @@
   "apps": [
     {
       "id": "@GetSomeFries.Cloudflare.DNS",
-      "name": "Cloudflare DNS",
+      "name": "Cloudflare DNS β",
       "descs_html": [
         "使用说明请见<a href=\"https://github.com/VirgilClyne/GetSomeFries#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F\">使用说明</a>进行配置",
         "填写完成后请先点击此页面底端右下角的\"保存\"后，再点击此页面右上角的圆箭头按钮\"运行\"。"
@@ -74,13 +74,13 @@
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_DNS.js",
-      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/beta/js/Cloudflare_DNS.beta.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Cloudflare.beta.js",
       "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
     },
     {
       "id": "@GetSomeFries.Cloudflare.WARP",
-      "name": "Cloudflare WARP",
+      "name": "Cloudflare WARP β",
       "descs_html": [
         "不同运行方式所要填写的内容也不相同",
         "使用说明请见<a href=\"https://github.com/VirgilClyne/GetSomeFries#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-1\">使用说明</a>",
@@ -221,8 +221,8 @@
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Cloudflare_WARP.js",
-      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Cloudflare_WARP.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/beta/js/Cloudflare_WARP.beta.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Cloudflare_WARP.beta.js",
       "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Cloudflare.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Cloudflare.png"]
     },
     {
@@ -301,7 +301,7 @@
     },
     {
       "id": "@GetSomeFries.Netflix",
-      "name": "Netflix",
+      "name": "Netflix β",
       "keys": ["@GetSomeFries.Netflix"],
       "settings": [
         {
@@ -411,8 +411,8 @@
         }
       ],
       "author": "@VirgilClyne",
-      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/main/js/Netflix.js",
-      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Netflix.js",
+      "repo": "https://github.com/VirgilClyne/GetSomeFries/blob/beta/js/Netflix.beta.js",
+      "script": "https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js",
       "icons": ["https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Netflix.png", "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png"]
     }
   ]
