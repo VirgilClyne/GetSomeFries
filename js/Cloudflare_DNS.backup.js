@@ -8,7 +8,7 @@ const $ = new Env('Cloudflare DNS');
 
 // Endpoints
 // https://api.cloudflare.com/#getting-started-endpoints
-$.baseURL = 'https://api.cloudflare.com/client/v4/';
+$.baseURL = 'https://api.cloudflare.com/client/v4';
 
 /*
 // Requests
@@ -73,7 +73,7 @@ var zone = {
 */
 
 // BoxJs Function Supported
-if (typeof $.getdata("GetSomeFries") != "undefined") {
+if ($.getdata("GetSomeFries") !== null) {
 	// load user prefs from BoxJs
 	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
 	//$.log(JSON.stringify($.Cloudflare.DNS))
@@ -106,6 +106,7 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	$.Cloudflare.DNS.dns_records.priority = arg.dns_records_priority;
 	$.Cloudflare.DNS.dns_records.proxied = JSON.parse(arg.dns_records_proxied);
 } else {
+	$.Cloudflare = {};
 	$.Cloudflare.DNS = {
 		"Verify":{
 			"Mode":"Token",
@@ -395,7 +396,7 @@ function getCFjson(url) {
 			try {
 				if (error) throw new Error(error)
 				else if (data) {
-					_data = JSON.parse(data)
+					const _data = JSON.parse(data)
 					if (Array.isArray(_data.messages) && _data.messages.length != 0) _data.messages.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
 					if (_data.success === true) {
 						if (_data.ip) resolve(_data.ip);
@@ -423,7 +424,7 @@ function fatchCFjson(url) {
 			try {
 				if (error) throw new Error(error)
 				else if (data) {
-					_data = JSON.parse(data)
+					const _data = JSON.parse(data)
 					if (Array.isArray(_data.messages) && _data.messages.length != 0) _data.messages.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
 					if (_data.success === true) {
 						if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
@@ -515,7 +516,7 @@ async function networkInfo(type) {
 // https://api.cloudflare.com/#user-api-tokens-verify-token
 async function verifyToken(headers) {
 	$.log('验证令牌');
-	const url = { url: `${$.baseURL}user/tokens/verify`, headers: headers };
+	const url = { url: `${$.baseURL}/user/tokens/verify`, headers: headers };
 	return await getCFjson(url);
 	/*
 	const url = { url: `${$.baseURL}user/tokens/verify`, headers: $.VAL_headers };
@@ -588,7 +589,7 @@ async function verifyToken(headers) {
 // https://api.cloudflare.com/#user-user-details
 async function getUser(headers) {
 	$.log('获取用户详情');
-	const url = { url: `${$.baseURL}user`, headers: headers }
+	const url = { url: `${$.baseURL}/user`, headers: headers };
 	return await getCFjson(url);
 	/*
 	const url = { url: `${$.baseURL}user`, headers: $.VAL_headers }
@@ -629,7 +630,7 @@ async function getUser(headers) {
 // https://api.cloudflare.com/#zone-zone-details
 async function getZone(zone) {
 	$.log('获取区域详情');
-	const url = { url: `${$.baseURL}zones/${zone.id}`, headers: $.VAL_headers };
+	const url = { url: `${$.baseURL}/zones/${zone.id}`, headers: $.VAL_headers };
 	return await getCFjson(url);
 	/*
 	const url = { url: `${$.baseURL}zones/${zone.id}`, headers: $.VAL_headers }
@@ -670,7 +671,7 @@ async function getZone(zone) {
 // https://api.cloudflare.com/#zone-list-zones
 async function listZones(zone) {
 	$.log('列出区域');
-	const url = { url: `${$.baseURL}zones?name=${zone.name}`, headers: $.VAL_headers }
+	const url = { url: `${$.baseURL}/zones?name=${zone.name}`, headers: $.VAL_headers }
 	return await getCFjson(url);
 	/*
 	const url = { url: `${$.baseURL}zones?type=${record.type}&name=${zone.name}`, headers: $.VAL_headers }
@@ -711,7 +712,7 @@ async function listZones(zone) {
 // https://api.cloudflare.com/#dns-records-for-a-zone-create-dns-record
 async function createDNSRecord(zone, { type, name, content, ttl = 1, priority = 10, proxied = true }) {
 	$.log('创建新记录');
-	const url = { method: 'post', url: `${$.baseURL}zones/${zone.id}/dns_records`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
+	const url = { method: 'post', url: `${$.baseURL}/zones/${zone.id}/dns_records`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
 	return await fatchCFjson(url);
 	/*
 	return new Promise((resolve) => {
@@ -780,7 +781,7 @@ async function createDNSRecord(zone, { type, name, content, ttl = 1, priority = 
 // https://api.cloudflare.com/#dns-records-for-a-zone-dns-record-details
 async function getDNSRecord(zone, record) {
 	$.log('获取记录详情');
-	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers }
+	const url = { url: `${$.baseURL}/zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers }
 	return await getCFjson(url);
 	/*
 	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers }
@@ -821,7 +822,7 @@ async function getDNSRecord(zone, record) {
 // https://api.cloudflare.com/#dns-records-for-a-zone-list-dns-records
 async function listDNSRecords(zone, record) {
 	$.log('列出记录');
-	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records?type=${record.type}&name=${record.name}.${zone.name}&order=type`, headers: $.VAL_headers }	
+	const url = { url: `${$.baseURL}/zones/${zone.id}/dns_records?type=${record.type}&name=${record.name}.${zone.name}&order=type`, headers: $.VAL_headers }	
 	return await getCFjson(url);
 	/*
 	const url = { url: `${$.baseURL}zones/${zone.id}/dns_records?type=${record.type}&name=${record.name}.${zone.name}&order=type`, headers: $.VAL_headers }	
@@ -862,7 +863,7 @@ async function listDNSRecords(zone, record) {
 // https://api.cloudflare.com/#dns-records-for-a-zone-update-dns-record
 async function updateDNSRecord(zone, record, { type, name, content, ttl = 1, priority = 10, proxied = true }) {
 	$.log('更新记录');
-	const url = { method: 'put', url: `${$.baseURL}zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
+	const url = { method: 'put', url: `${$.baseURL}/zones/${zone.id}/dns_records/${record.id}`, headers: $.VAL_headers, body: { type, name, content, ttl, priority, proxied } }
 	return await fatchCFjson(url);
 	/*
 	return new Promise((resolve) => {

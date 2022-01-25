@@ -11,7 +11,7 @@ const $ = new Env('Cloudflare DNS');
 $.baseURL = 'https://api.cloudflare.com/client/v4';
 
 // BoxJs Function Supported
-if (typeof $.getdata("GetSomeFries") != "undefined") {
+if ($.getdata("GetSomeFries") !== null) {
 	// load user prefs from BoxJs
 	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
 	//$.log(JSON.stringify($.Cloudflare.DNS))
@@ -44,6 +44,7 @@ if (typeof $.getdata("GetSomeFries") != "undefined") {
 	$.Cloudflare.DNS.dns_records.priority = arg.dns_records_priority;
 	$.Cloudflare.DNS.dns_records.proxied = JSON.parse(arg.dns_records_proxied);
 } else {
+	$.Cloudflare = {};
 	$.Cloudflare.DNS = {
 		"Verify":{
 			"Mode":"Token",
