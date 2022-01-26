@@ -12,6 +12,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [功能列表](#功能列表)
   - [todo](#todo)
   - [使用方式](#使用方式)
+    - [配合`BoxJs`及订阅使用](#配合boxjs及订阅使用)
+    - [配合Surge模块的`argument`字段使用:](#配合surge模块的argument字段使用)
   - [图片说明](#图片说明)
   - [安装链接](#安装链接)
     - [正式版](#正式版)
@@ -21,9 +23,10 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   - [功能列表](#功能列表-1)
   - [todo](#todo-1)
   - [使用方式](#使用方式-1)
-    - [注册新账户(用自定义密钥对)并生成WireGuard配置文件](#注册新账户用自定义密钥对并生成wireguard配置文件)
-    - [重绑定许可证(许可证 & 注册ID)](#重绑定许可证许可证--注册id)
-    - [更换密钥对(用自定义密钥对)(注册ID & 令牌)](#更换密钥对用自定义密钥对注册id--令牌)
+    - [配合`BoxJs`及订阅使用](#配合boxjs及订阅使用-1)
+      - [注册新账户(用自定义密钥对)并生成WireGuard配置文件](#注册新账户用自定义密钥对并生成wireguard配置文件)
+      - [重绑定许可证(许可证 & 注册ID)](#重绑定许可证许可证--注册id)
+      - [更换密钥对(用自定义密钥对)(注册ID & 令牌)](#更换密钥对用自定义密钥对注册id--令牌)
   - [Surge配置文件示例](#surge配置文件示例)
   - [可用IP](#可用ip)
     - [Personal & WARP](#personal--warp)
@@ -68,7 +71,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * web面板(暂不开工)
 
 ## 使用方式
-* 配合`BoxJs`及订阅使用
+### 配合`BoxJs`及订阅使用
   * 安装`BoxJs`插件:
     * Loon: [boxjs.rewrite.loon.plugin](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.loon.plugin "BoxJs")
     * Quantumult X: [boxjs.rewrite.quanx.conf](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.quanx.conf "BoxJs")
@@ -88,7 +91,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
       type=A&name=www&proxied=false
       type=AAAA&name=ipv6&proxied=false
       ```
-* 配合Surge模块的`argument`字段使用:
+### 配合Surge模块的`argument`字段使用:
   * 使用[@baranwang](https://github.com/baranwang)的[Surge模块Argument代理](https://sgmodule-argument-proxy.vercel.app/)直接生成带配置的专属模块[使用说明](https://github.com/baranwang/sgmodule-argument-proxy#readme)
   * 暂不支持多记录，推荐使用BoxJs设置
   * 格式如下:
@@ -155,17 +158,18 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
   * 自动邀请新用户刷WARP+流量(鸽了，team版无限流量，你应该也整一个)
 
 ## 使用方式
-* 配合`BoxJs`及订阅使用
+### 配合`BoxJs`及订阅使用
   * 安装`BoxJs`插件:
     * Loon: [boxjs.rewrite.loon.plugin](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.loon.plugin "BoxJs")
     * Quantumult X: [boxjs.rewrite.quanx.conf](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.quanx.conf "BoxJs")
     * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
   * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
   * 在`应用`-`整点薯条`-`Cloudflare`中填写您的Cloudflare WARP信息
-      1. BoxJs要先填写Loon\quanX\Surge的HTTP-api地址,不然看不到日志输出
-      * iOS版Surge位于`首页`-`更多设置`-`HTTP API & Web控制器`
-      2. 打开Cloudflare WARP模块
-### 注册新账户(用自定义密钥对)并生成WireGuard配置文件
+      1. BoxJs要先填写Loon\quanX\Surge的`HTTP-API`地址,不然看不到日志输出
+      * BoxJs的`HTTP-API`填写位置位于左上角`菜单键`内，或底端标签栏`应用`-`内置应用`-`偏好设置`-`应用设置`内
+      * iOS版Surge的`HTTP-API`设置项位于`首页`-`更多设置`-`HTTP API & Web控制器`
+      1. 打开Cloudflare WARP模块
+#### 注册新账户(用自定义密钥对)并生成WireGuard配置文件
   * 操作方法(使用BoxJs)：
       1. 运行方式选择`注册新账户(用自定义密钥对)并生成WireGuard配置文件`
       2. 在WireGuard客户端中`新建隧道`-`生成密钥对`
@@ -173,7 +177,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
       4. 页面最下方点`保存`
       5. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
       6. 记录下日志中提供的信息，导入或填入WireGuard
-### 重绑定许可证(许可证 & 注册ID)
+#### 重绑定许可证(许可证 & 注册ID)
   * 使用此功能可以将任意`注册ID(设备ID/客户端ID/配置文件ID)`绑定至你指定的`许可证(账户)/License(Account)`
   * 操作方法(使用BoxJs)：
       1. 运行方式选择`重绑定许可证(许可证 & 注册ID)`
@@ -183,7 +187,7 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
       5. 点击页面下方的`保存`
       6. 点击Cloudflare WARP页面右上角的`圆箭头按钮`运行
       7. 记录下日志中提供的信息
-### 更换密钥对(用自定义密钥对)(注册ID & 令牌)
+#### 更换密钥对(用自定义密钥对)(注册ID & 令牌)
   * 使用此功能可以将任意`注册ID(设备ID/客户端ID/配置文件ID)`的密钥更换为你指定的`密钥对`
   * 操作方法1(使用BoxJs)：
       1. 运行方式选择`更换密钥对(用自定义密钥对)(注册ID & 令牌)`
