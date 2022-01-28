@@ -36,7 +36,7 @@ $.GetSomeFries = {
 if ($.getdata("GetSomeFries") !== null) {
 	// load user prefs from BoxJs
 	$.GetSomeFries = JSON.parse($.getdata("GetSomeFries"))
-	$.log('before, Netflix:' + JSON.stringify($.Netflix))
+	$.log('before, Netflix:' + JSON.stringify($.GetSomeFries.Netflix))
 	if ($.GetSomeFries.Netflix.config) {
 		//$.log('before, Netflix.config:' + JSON.stringify($.GetSomeFries.Netflix.config))
 		$.GetSomeFries.Netflix.config = Object.fromEntries($.GetSomeFries.Netflix.config.split("\n").map((item) => item.split("=")));
@@ -44,8 +44,8 @@ if ($.getdata("GetSomeFries") !== null) {
 		for (var item in $.GetSomeFries.Netflix.config) $.GetSomeFries.Netflix.config[item] = ($.GetSomeFries.Netflix.config[item] == "true") ? true : ($.GetSomeFries.Netflix.config[item] == "false") ? false : $.GetSomeFries.Netflix.config[item];
 		//$.log('after, Netflix.config:' + JSON.stringify($.GetSomeFries.Netflix.config))
 	};
-	if ($.Netflix.ctx.hasUser != "AUTO") $.Netflix.ctx.hasUser = JSON.parse($.Netflix.ctx.hasUser);
-	$.log('after, Netflix:' + JSON.stringify($.Netflix));
+	if ($.GetSomeFries.Netflix.ctx.hasUser != "AUTO") $.GetSomeFries.Netflix.ctx.hasUser = JSON.parse($.GetSomeFries.Netflix.ctx.hasUser);
+	$.log('after, Netflix:' + JSON.stringify($.GetSomeFries.Netflix));
 }
 // Argument Function Supported
 else if (typeof $argument != "undefined") {
