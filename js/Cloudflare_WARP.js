@@ -28,18 +28,22 @@ $.VAL = {
 // Default Settings
 $.Cloudflare = { "WARP": { "Verify": { "License": null, "Mode": "Token", "Content": null, "RegistrationId": null }, "env": { "Version": "v0i2109031904", "deviceType": "iOS", "Type": "i" } } };
 // BoxJs Function Supported
-if ($.getdata("GetSomeFries") !== null) {
+if ($.getdata("GetSomeFries")) {
+	$.log(`🎉 ${$.name}, BoxJs`);
 	// load user prefs from BoxJs
-	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
-	$.WireGuard = JSON.parse($.getdata("GetSomeFries")).WireGuard
+	const GetSomeFries = $.getdata("GetSomeFries")
+	$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");
+	$.Cloudflare = JSON.parse(GetSomeFries).Cloudflare
+	$.WireGuard = JSON.parse(GetSomeFries).WireGuard
 	//$.log(JSON.stringify($.Cloudflare.WARP))
-	if ($.Cloudflare.WARP.Verify.Mode == "Key") {
+	if ($.Cloudflare?.WARP?.Verify?.Mode == "Key") {
 		$.Cloudflare.WARP.Verify.Content = Array.from($.Cloudflare.WARP.Verify.Content.split("\n"))
 		//$.log(JSON.stringify($.Cloudflare.WARP.Verify.Content))
 	};
 }
 // Argument Function Supported
 else if (typeof $argument != "undefined") {
+	$.log(`🎉 ${$.name}, $Argument`);
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
 	$.Cloudflare.WARP.Verify.License = arg.License;
@@ -54,9 +58,9 @@ else if (typeof $argument != "undefined") {
 	$.Cloudflare.WARP.env.Version = arg.Version;
 	$.Cloudflare.WARP.env.deviceType = arg.deviceType;
 }
-console.log($.Cloudflare.WARP)
+//$.log(`🚧 ${$.name}, 调试信息, $.Cloudflare.WARP类型: ${typeof $.Cloudflare.WARP}`, `$.Cloudflare.WARP内容: ${JSON.stringify($.Cloudflare.WARP)}`, "");
 
-/***************** async *****************/
+/***************** Async *****************/
 
 !(async () => {
 	//Step 1
@@ -67,8 +71,7 @@ console.log($.Cloudflare.WARP)
 	.catch((e) => $.logErr(e))
 	.finally(() => $.done())
 
-/***************** async *****************/
-
+/***************** Async Function *****************/
 //Step 1
 //Setup Environment
 async function setupVAL(Verify, env) {
@@ -210,7 +213,7 @@ async function WARP(setupMode, env, privateKey, publicKey, Verify) {
 };
 
 
-/***************** function *****************/
+/***************** Function *****************/
 // Function 0A
 // Get Cloudflare JSON
 function getCFjson(url) {

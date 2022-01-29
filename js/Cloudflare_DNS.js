@@ -80,11 +80,13 @@ $.Cloudflare = {
 	}
 };
 // BoxJs Function Supported
-if ($.getdata("GetSomeFries") !== null) {
+if ($.getdata("GetSomeFries")) {
 	// load user prefs from BoxJs
-	$.Cloudflare = JSON.parse($.getdata("GetSomeFries")).Cloudflare
+	const GetSomeFries = $.getdata("GetSomeFries")
+	$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");
+	$.Cloudflare = JSON.parse(GetSomeFries).Cloudflare
 	//$.log(JSON.stringify($.Cloudflare.DNS))
-	if ($.Cloudflare.DNS.Verify.Mode == "Key") {
+	if ($.Cloudflare?.DNS?.Verify?.Mode == "Key") {
 		$.Cloudflare.DNS.Verify.Content = Array.from($.Cloudflare.DNS.Verify.Content.split("\n"))
 		//$.log(JSON.stringify($.Cloudflare.DNS.Verify.Content))
 	};
@@ -97,6 +99,7 @@ if ($.getdata("GetSomeFries") !== null) {
 	//$.log(JSON.stringify($.Cloudflare.DNS.zone.dns_records));
 	// Argument Function Supported
 } else if (typeof $argument != "undefined") {
+	$.log(`🎉 ${$.name}, $Argument`);
 	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
 	$.log(JSON.stringify(arg));
 	$.Cloudflare.DNS.Verify.Content = arg.Token;
@@ -112,8 +115,10 @@ if ($.getdata("GetSomeFries") !== null) {
 	$.Cloudflare.DNS.dns_records.ttl = arg.dns_records_ttl;
 	$.Cloudflare.DNS.dns_records.priority = arg.dns_records_priority;
 	$.Cloudflare.DNS.dns_records.proxied = JSON.parse(arg.dns_records_proxied);
-}
-console.log($.Cloudflare.DNS)
+};
+//$.log(`🚧 ${$.name}, 调试信息, $.Cloudflare.DNS类型: ${typeof $.Cloudflare.DNS}`, `$.Cloudflare.DNS内容: ${JSON.stringify($.Cloudflare.DNS)}`, "");
+
+/***************** Async *****************/
 
 !(async () => {
 	//Step 1
@@ -148,7 +153,7 @@ async function DDNS(zone, dns_records) {
 	}
 };
 
-/***************** async *****************/
+/***************** Async Function *****************/
 //Step 1
 //Verify API Token/Key
 async function Verify(Mode, Content) {
@@ -252,7 +257,7 @@ async function setupRecord(zone, oldRecord, dns_records) {
 	return newRecord
 }
 
-/***************** function *****************/
+/***************** Function *****************/
 // Function 0A
 // Get Cloudflare JSON
 function getCFjson(url) {
@@ -324,7 +329,7 @@ async function getPublicIP(type) {
 // https://api.cloudflare.com/#user-api-tokens-verify-token
 async function verifyToken(headers) {
 	$.log('验证令牌');
-	const url = { url: `${$.VAL.url}/user/tokens/verify`, headers: $.VAL.headers };
+	const url = { url: `${$.VAL.url}/user/tokens/verify`, headers: headers };
 	return await getCFjson(url);
 }
 
@@ -333,7 +338,7 @@ async function verifyToken(headers) {
 // https://api.cloudflare.com/#user-user-details
 async function getUser(headers) {
 	$.log('获取用户详情');
-	const url = { url: `${$.VAL.url}/user`, headers: $.VAL.headers };
+	const url = { url: `${$.VAL.url}/user`, headers: headers };
 	return await getCFjson(url);
 }
 
