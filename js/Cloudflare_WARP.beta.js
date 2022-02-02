@@ -136,7 +136,8 @@ async function WARP(setupMode, env, Verify, WireGuard) {
 	} catch (e) {
 		$.logErr(e);
 	} finally {
-		return $.log(`${WARP.name}完成, 模式:${setupMode}`, `result = ${JSON.stringify(result)}`, '');
+		return $.log(`${WARP.name}完成, 模式:${setupMode}执行完成, 当前账户信息:`, `帐户类型:${result?.account?.account_type}`, `帐户ID:${result?.account?.id}`, '账户ID:等同于匿名账号', `许可证:${result?.account?.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，仅个人版有许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result?.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result?.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '', `完整输出结果: ${JSON.stringify(result)}`, '');
+		//return $.log(`${WARP.name}完成, 模式:${setupMode}`, `result = ${JSON.stringify(result)}`, '');
 		//return $.log(`${WARP.name}完成`, `名称:${dns_records.name}`, `type:${dns_records.type}`, `content:${dns_records.content}`, '');
 	}
 };
@@ -145,13 +146,13 @@ async function WARP(setupMode, env, Verify, WireGuard) {
 // Setup Mode 1
 // Register New Account
 async function RegisterNewAccount(env, Verify, WireGuard) {
-	if (!Verify.RegistrationId && !WireGuard.publicKey) {
+	if (!Verify.RegistrationId && !WireGuard.PublicKey) {
 		$.log('无设备ID(RegistrationId), 无自定义公钥(publicKey)', '');
-		var result = await regAccount(env.Version, null, null, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
-		$.log(`🎉 ${$.name}, ${RegisterNewAccount.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+		var result = await regAccount(env.Version, Verify.RegistrationId, WireGuard.PublicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
+		//$.log(`🎉 ${$.name}, ${RegisterNewAccount.name}执行完成, 当前账户信息:`, `帐户类型:${result.account.account_type}`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
 		return result;
 	} else {
-		$.log(`不符合运行要求，退出`, '');
+		$.log(`不符合运行要求，退出，此模式要求为:`, '无设备ID(RegistrationId), 无自定义公钥(publicKey)', '');
 		$.done();
 	}
 }
@@ -159,14 +160,14 @@ async function RegisterNewAccount(env, Verify, WireGuard) {
 // Setup Mode 2
 // Register New Account with Public Key
 async function RegisterNewAccountwithPublicKey(env, Verify, WireGuard) {
-	if (!Verify.RegistrationId && privateKey && publicKey) {
-		$.log('无设备ID(RegistrationId)', '');
-		var result = await regAccount(env.Version, null, WireGuard.publicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
-		$.log(`🎉 ${$.name}, ${RegisterNewAccountwithPublicKey.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
-		if (WireGuard.privateKey && WireGuard.publicKey) {
-			$.log('有自定义私钥(privateKey)', '有自定义公钥(publicKey)', '');
+	if (!Verify.RegistrationId && WireGuard.PrivateKey && WireGuard.PublicKey) {
+		$.log('无设备ID(RegistrationId)', '有自定义私钥(PrivateKey)', '有自定义公钥(PublicKey)', '');
+		var result = await regAccount(env.Version, Verify.RegistrationId, WireGuard.PublicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
+		//$.log(`🎉 ${$.name}, ${RegisterNewAccountwithPublicKey.name}执行完成, 当前账户信息:`, `帐户类型:${result.account.account_type}`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+		if (WireGuard.PrivateKey && WireGuard.PublicKey) {
+			$.log('有自定义私钥(PrivateKey)', '有自定义公钥(PublicKey)', '');
 			Verify.Content = result.token;
-			await setupVerify(Mode, Content);
+			await setupVerify(Verify.Mode, Verify.Content);
 			$.WireGuard = await getDevice(env.Version, result.id);
 			const SurgeConf = `
 		[Proxy]
@@ -176,33 +177,33 @@ async function RegisterNewAccountwithPublicKey(env, Verify, WireGuard) {
 		你的策略组 = 节点1, 节点2, 节点3, WARP
 
 		[WireGuard Cloudflare]
-		private-key = ${privateKey}
-		self-ip = 172.16.0.254
+		private-key = ${WireGuard.PrivateKey}
+		self-ip = ${$.WireGuard?.config?.interface?.addresses?.v4}
 		dns-server = 1.1.1.1
 		mtu = 1280
-		peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips = 0.0.0.0/0, endpoint = ${$.WireGuard.config.peers[0].endpoint.v4})
+		peer = (public-key = ${$.WireGuard?.config?.peers?.[0]?.public_key}, allowed-ips = 0.0.0.0/0, endpoint = ${$.WireGuard?.config?.peers?.[0]?.endpoint?.v4})
 		`;
 			$.log('Surge可用配置', SurgeConf)
 			const wireGuardConf = `
 		[Interface]
-		PrivateKey = ${WireGuard.privateKey}
-		PublicKey = ${WireGuard.publicKey}
-		Address = ${$.WireGuard.config.interface.addresses.v4}
-		Address = ${$.WireGuard.config.interface.addresses.v6}
+		PrivateKey = ${WireGuard.PrivateKey}
+		PublicKey = ${$.WireGuard?.key}
+		Address = ${$.WireGuard?.config?.interface?.addresses?.v4}
+		Address = ${$.WireGuard?.config?.interface?.addresses?.v6}
 		DNS = 1.1.1.1
 	
 		[Peer]
-		PublicKey = ${$.WireGuard.config.peers[0].public_key}
-		Endpoint = ${$.WireGuard.config.peers[0].endpoint.v4}
-		Endpoint = ${$.WireGuard.config.peers[0].endpoint.v6}
-		Endpoint = ${$.WireGuard.config.peers[0].endpoint.host}
+		PublicKey = ${$.WireGuard?.config?.peers?.[0]?.public_key}
+		Endpoint = ${$.WireGuard?.config?.peers?.[0]?.endpoint?.v4}
+		Endpoint = ${$.WireGuard?.config?.peers?.[0]?.endpoint?.v6}
+		Endpoint = ${$.WireGuard?.config?.peers?.[0]?.endpoint?.host}
 		AllowedIPs = 0.0.0.0/0
 		`;
 			$.log('WireGuard可用配置', wireGuardConf)
 		}
 		return result;
 	} else {
-		$.log(`不符合运行要求，退出`, '');
+		$.log(`不符合运行要求，退出，此模式要求为:`, '无设备ID(RegistrationId)', '有自定义私钥(PrivateKey)', '有自定义公钥(PublicKey)', '');
 		$.done();
 	}
 }
@@ -212,11 +213,11 @@ async function RegisterNewAccountwithPublicKey(env, Verify, WireGuard) {
 async function RegisterNewDevice(env, Verify, WireGuard) {
 	if (Verify.RegistrationId) {
 		$.log('有设备ID(RegistrationId)', '');
-		var result = await regDevice(env.Version, Verify.RegistrationId, WireGuard.publicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
-		$.log(`🎉 ${$.name}, ${RegisterNewDevice.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+		var result = await regDevice(env.Version, Verify.RegistrationId, WireGuard.PublicKey, env.Locale, env.deviceModel, env.Type, env.warp_enabled);
+		//$.log(`🎉 ${$.name}, ${RegisterNewDevice.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
 		return result;
 	} else {
-		$.log(`不符合运行要求，退出`, '');
+		$.log(`不符合运行要求，退出，此模式要求为:`, '有设备ID(RegistrationId)', '');
 		$.done();
 	}
 }
@@ -227,10 +228,10 @@ async function RebindingLicense(env, Verify) {
 	if (Verify.RegistrationId && Verify.Content && Verify.License) {
 		$.log('有设备ID(RegistrationId), 有验证内容(Content), 有许可证(License)', '');
 		var result = await setAccountLicense(env.Version, Verify.RegistrationId, Verify.License);
-		$.log(`🎉 ${$.name}, ${RebindingLicense.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+		//$.log(`🎉 ${$.name}, ${RebindingLicense.name}执行完成, 当前配置文件信息为:`, `帐户ID:${result?.account?.id}`, '账户ID:等同于匿名账号', `许可证:${result?.account?.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result?.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', '');
 		return result;
 	} else {
-		$.log(`不符合运行要求，退出`, '');
+		$.log(`不符合运行要求，退出，此模式要求为:`, '有设备ID(RegistrationId), 有验证内容(Content), 有许可证(License)', '');
 		$.done();
 	}
 }
@@ -238,13 +239,14 @@ async function RebindingLicense(env, Verify) {
 // Setup Mode 5
 // Rebinding License
 async function ChangeKeypair(env, Verify, WireGuard) {
-	if (Verify.RegistrationId && Verify.Content && WireGuard.publicKey) {
+	if (Verify.RegistrationId && Verify.Content && WireGuard.PublicKey) {
 		$.log('有设备ID(RegistrationId), 有验证内容(Content), 有自定义公钥(publicKey)', '');
-		var result = await setKeypair(env.Version, Verify.RegistrationId, WireGuard.publicKey);
-		$.log(`🎉 ${$.name}, ${ChangeKeypair.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+		var result = await setKeypair(env.Version, Verify.RegistrationId, WireGuard.PublicKey);
+		$.log(`🎉 ${$.name}, ${ChangeKeypair.name}执行完成, 当前配置文件信息为:`);
+		$.log(`此配置文件公钥:${result?.key}`, '');
 		return result;
 	} else {
-		$.log(`不符合运行要求，退出`, '');
+		$.log(`不符合运行要求，退出，此模式要求为:`, '有设备ID(RegistrationId), 有验证内容(Content), 有自定义公钥(publicKey)', '');
 		$.done();
 	}
 }
@@ -255,10 +257,11 @@ async function AccountDetail(env, Verify) {
 	if (Verify.RegistrationId && Verify.Content) {
 		$.log('有设备ID(RegistrationId), 有验证内容(Content)', '');
 		var result = await getAccount(env.Version, Verify.RegistrationId);
-		$.log(`🎉 ${$.name}, ${AccountDetail.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+		$.log(`🎉 ${$.name}, ${AccountDetail.name}执行完成, 当前配置文件对应的账户信息为:`);
+		$.log(`WARP+:${result?.warp_plus}`, 'WARP+:是否已启用WARP+', `Premium流量:${result?.premium_data}`, 'Premium流量:付费订阅WARP+的流量或者来自邀请等奖励的高级流量', `邀请人数:${result?.referral_count}`, '邀请人数:邀请新用户计数', `账户类型:${result?.account_type}`, '账户类型:付费或免费账户', '');
 		return result;
 	} else {
-		$.log(`不符合运行要求，退出`, '');
+		$.log(`不符合运行要求，退出，此模式要求为:`, '有设备ID(RegistrationId), 有验证内容(Content)', '');
 		$.done();
 	}
 }
@@ -269,10 +272,17 @@ async function DeviceDetail(env, Verify) {
 	if (Verify.RegistrationId && Verify.Content) {
 		$.log('有设备ID(RegistrationId), 有验证内容(Content)', '');
 		var result = await getDevices(env.Version, Verify.RegistrationId);
-		$.log(`🎉 ${$.name}, ${DeviceDetail.name}执行完成, 当前账户信息:`, `帐户ID:${result.account.id}`, '账户ID:等同于匿名账号', `许可证:${result.account.license}`, '许可证:可付费购买的订阅，流量，邀请奖励均绑定于许可证，一个许可证可以绑定5个设备(注册ID)', `注册ID:${result.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `令牌:${result.token}`, '令牌:相当于密码，更新读取对应账号所需，如果要更新注册ID的配置或者更改关联的许可证，需要此令牌验证收发数据', '');
+		$.log(`🎉 ${$.name}, ${DeviceDetail.name}执行完成, 当前配置文件对应的账户下的全部设备信息为:`);
+		if (Array.isArray(result) && result.length != 0) {
+			result.forEach((result, i) => {
+				$.log(`设备${i}`, `激活状态:${result?.active}`, '激活状态:此配置(设备)是否已停用', `激活时间:${result?.activated}`, '激活时间:此设备上次激活的日期和时间', `注册ID:${result?.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `设备角色:${result?.role}`, '设备角色:parent母设备(创建此账户或许可证的设备)，child子设备(加入此账户或许可证的设备)', `设备型号:${result?.model}`, '设备型号:顾名思义', `创建时间:${result?.created}`, '创建时间:创建此设备及对应配置文件的日期及时间', `设备类型:${result?.type}`, '设备类型:设备的平台或操作系统', `设备名称:${result?.name}`, '设备名称:顾名思义', '');
+			})
+		} else {
+			$.log(`设备${0}`, `激活状态:${result?.active}`, '激活状态:此配置(设备)是否已停用', `激活时间:${result?.activated}`, '激活时间:此设备上次激活的日期和时间', `注册ID:${result?.id}`, '注册ID:相当于WARP的客户端或设备ID，配置信息均关联到此注册ID', `设备角色:${result?.role}`, '设备角色:parent母设备(创建此账户或许可证的设备)，child子设备(加入此账户或许可证的设备)', `设备型号:${result?.model}`, '设备型号:顾名思义', `创建时间:${result?.created}`, '创建时间:创建此设备及对应配置文件的日期及时间', `设备类型:${result?.type}`, '设备类型:设备的平台或操作系统', `设备名称:${result?.name}`, '设备名称:顾名思义', '');
+		};
 		return result;
 	} else {
-		$.log(`不符合运行要求，退出`, '');
+		$.log(`不符合运行要求，退出，此模式要求为:`, '有设备ID(RegistrationId), 有验证内容(Content)', '');
 		$.done();
 	}
 }
@@ -294,7 +304,8 @@ function getCFjson(url) {
 						if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
 						else resolve(_data.result);
 					} else if (_data.success === false) {
-						if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
+						if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); });
+						throw new Error(_data);
 					}
 				} else throw new Error(response);
 			} catch (e) {
@@ -321,7 +332,8 @@ function fatchCFjson(url) {
 						if (Array.isArray(_data.result) && _data.result.length != 0) resolve(_data.result[0]);
 						else resolve(_data.result); // _data.result, _data.meta
 					} else if (_data.success === false) {
-						if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); })
+						if (Array.isArray(_data.errors) && _data.errors.length != 0) _data.errors.forEach(element => { $.msg($.name, `code: ${element.code}`, `message: ${element.message}`); });
+						throw new Error(_data);
 					}
 				} else throw new Error(response);
 			} catch (e) {
