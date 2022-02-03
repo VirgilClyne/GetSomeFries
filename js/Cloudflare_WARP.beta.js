@@ -62,7 +62,7 @@ $.log(`🚧 ${$.name}, 调试信息, $.Cloudflare.WARP类型: ${typeof $.Cloudfl
 
 !(async () => {
 	//Step 1
-	await setupVAL($.Cloudflare.WARP.env.deviceType )
+	await setupVAL($.Cloudflare.WARP.env.deviceType)
 	//Step 2
 	await setupVerify($.Cloudflare.WARP.Verify.Mode, $.Cloudflare.WARP.Verify.Content)
 	//Step 3
@@ -118,7 +118,6 @@ async function setupVerify(Mode, Content) {
 		$.done();
 	};
 }
-
 
 //Step 3
 async function WARP(setupMode, env, Verify, WireGuard) {
