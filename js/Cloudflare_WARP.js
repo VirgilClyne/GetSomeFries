@@ -30,7 +30,7 @@ if ($.getdata("GetSomeFries")) {
 	$.log(`🎉 ${$.name}, BoxJs`);
 	// load user prefs from BoxJs
 	const GetSomeFries = $.getdata("GetSomeFries")
-	$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");
+	//$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");
 	$.Cloudflare = JSON.parse(GetSomeFries).Cloudflare
 	$.WireGuard = JSON.parse(GetSomeFries).WireGuard
 	//$.log(JSON.stringify($.Cloudflare.WARP))
