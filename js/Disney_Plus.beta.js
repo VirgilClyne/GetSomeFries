@@ -197,6 +197,8 @@ if (status == 200) {
 		graphql.extensions.sdk.session.location = location ?? graphql.extensions?.sdk?.session?.location;
 		graphql.extensions.sdk.session.homeLocation = home_location ?? graphql.extensions?.sdk?.session?.homeLocation;
 		*/
+		if (graphql?.data?.login?.account?.attributes?.locations?.manual?.country) graphql.data.login.account.attributes.locations.manual.country = "SG";
+		if (graphql?.data?.login?.account?.attributes?.locations?.purchase?.country) graphql.data.login.account.attributes.locations.purchase.country = "SG";
 		for (var item in graphql?.data?.login?.account?.profiles) {
 			graphql.data.login.account.profiles[item].maturityRating = {
 				"ratingSystem": "MDA",
