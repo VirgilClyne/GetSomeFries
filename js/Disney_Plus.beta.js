@@ -197,6 +197,28 @@ if (status == 200) {
 		graphql.extensions.sdk.session.location = location ?? graphql.extensions?.sdk?.session?.location;
 		graphql.extensions.sdk.session.homeLocation = home_location ?? graphql.extensions?.sdk?.session?.homeLocation;
 		*/
+		for (var item in graphql?.data?.login?.account?.profiles) {
+			graphql.data.login.account.profiles[item].maturityRating = {
+				"ratingSystem": "MDA",
+				"ratingSystemValues": [
+					"G",
+					"PG",
+					"PG13",
+					"NC16",
+					"M18",
+					"R21"
+				],
+				"contentMaturityRating": "PG13",
+				"maxRatingSystemValue": "R21",
+				"isMaxContentMaturityRating": false
+			};
+			graphql.data.me.account.profiles[item].flows = {
+				"star": {
+					"eligibleForOnboarding": true,
+					"isOnboarded": false
+				}
+			};
+		};
 		for (var item in graphql?.data?.me?.account?.profiles) {
 			graphql.data.me.account.profiles[item].maturityRating = {
 				"ratingSystem": "MDA",
