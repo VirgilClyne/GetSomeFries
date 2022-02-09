@@ -17,7 +17,7 @@ const $ = new Env('Disney+');
 	"city_name": "",
 	"connection_type": "",
 	"dma": 0
-  };
+};
 // 🇭🇰HongKong 2
 "location": {
 	"regionName": "",
@@ -37,6 +37,19 @@ const $ = new Env('Disney+');
   	"dma": 0,
   	"connectionType": "tx",
   	"zipCode": ""
+},
+// 🇭🇰HongKong 4
+"location": {
+	"region_name": "",
+	"type": "COUNTRY_CODE",
+	"asn": 9304,
+	"zip_code": "",
+	"state_name": "",
+	"country_code": "HK",
+	"carrier": "hgc global communications limited",
+	"city_name": "",
+	"connection_type": "mobile wireless",
+	"dma": 0
 },
 // 🇸🇬Singapore
 "maturityRating": {
@@ -77,7 +90,7 @@ const $ = new Env('Disney+');
     "zipCode": ""
 },
 // 🇹🇼TaiWan 1
-  "location": {
+"location": {
 	"region_name": "",
 	"type": "ZIP_CODE",
 	"asn": 3462,
@@ -89,21 +102,8 @@ const $ = new Env('Disney+');
 	"connection_type": "dsl",
 	"dma": 0
 },
-// 🇹🇼TaiWan 2
-	"location": {
-	"region_name": "",
-	"type": "COUNTRY_CODE",
-	"asn": 9304,
-	"zip_code": "",
-	"state_name": "",
-	"country_code": "HK",
-	"carrier": "hgc global communications limited",
-	"city_name": "",
-	"connection_type": "mobile wireless",
-	"dma": 0
-  },
-// 🇺🇸UnitedStates
-  "location": {
+// 🇺🇸UnitedStates 1
+"location": {
 	"region_name": "northeast",
 	"type": "ZIP_CODE",
 	"asn": 46997,
@@ -120,7 +120,7 @@ const $ = new Env('Disney+');
 // Default Settings
 $.Disney_Plus = {
 	"maturityRating": {
-		"ratingSystem": "MDA",
+		"ratingSystem": "MDA", // 分级系统
 		"ratingSystemValues": [
 			"G",
 			"PG",
@@ -129,9 +129,9 @@ $.Disney_Plus = {
 			"M18",
 			"R21"
 		],
-		"contentMaturityRating": "PG13",
+		"contentMaturityRating": "PG13", // 心理成熟分级
 		"maxRatingSystemValue": "R21",
-		"isMaxContentMaturityRating": false
+		"isMaxContentMaturityRating": false // 最高分级是否是心理成熟分级
 	},
 	"flows": {
 		"star": {
@@ -182,7 +182,7 @@ else if (typeof $argument != "undefined") {
 	$.Disney_Plus.location.dma = arg.dma ?? 0;
 	$.Disney_Plus.home_location.country_code = arg?.country_code ?? "SG";
 };
-$.log(JSON.stringify($.Disney_Plus));
+$.log(`🚧 ${$.name}, BoxJs调试信息, $.Disney_Plus内容: ${JSON.stringify($.Disney_Plus)}`);
 
 const url = $request.url;
 const status = $response.status;
@@ -250,7 +250,7 @@ if (status == 200) {
 		if (graphql?.extensions?.sdk?.session?.inSupportedLocation) graphql.extensions.sdk.session.inSupportedLocation = true ?? graphql.extensions?.sdk?.session?.inSupportedLocation;
 		if (graphql?.extensions?.sdk?.session?.location) graphql.extensions.sdk.session.location = $.Disney_Plus?.location ?? graphql.extensions?.sdk?.session?.location;
 		if (graphql?.extensions?.sdk?.session?.homeLocation) graphql.extensions.sdk.session.homeLocation = $.Disney_Plus?.home_location ?? graphql.extensions?.sdk?.session?.homeLocation;
-		// Rated
+		// Rated & STAR
 		if (graphql?.data?.login?.account?.activeProfile) {
 			graphql.data.login.account.activeProfile.maturityRating = $.Disney_Plus?.maturityRating;
 			graphql.data.me.account.activeProfile.flows = $.Disney_Plus?.flows;
