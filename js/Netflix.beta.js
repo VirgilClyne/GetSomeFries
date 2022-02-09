@@ -38,7 +38,7 @@ if ($.getdata("GetSomeFries")) {
 	$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");
 	if (JSON.parse($.getdata("GetSomeFries"))?.Netflix) {
 		$.Netflix = JSON.parse($.getdata("GetSomeFries")).Netflix
-		$.log('before, Netflix:' + JSON.stringify($.GetSomeFries.Netflix))
+		$.log('before, Netflix:' + JSON.stringify($.Netflix))
 		if ($.Netflix.config) {
 			//$.log('before, Netflix.config:' + JSON.stringify($.Netflix.config))
 			$.Netflix.config = Object.fromEntries($.Netflix.config.split("\n").map((item) => item.split("=")));
@@ -72,7 +72,7 @@ else if (typeof $argument != "undefined") {
 	$.Netflix.ctx.ip = arg.ctx_ip;
 	$.Netflix.ctx.hasUser = (arg.ctx_hasUser == "AUTO") ? $.Netflix.ctx.hasUser : JSON.parse(arg.ctx_hasUser);
 };
-$.log(JSON.stringify($.Netflix));
+$.log(`🚧 ${$.name}, BoxJs调试信息, $.Netflix内容: ${JSON.stringify($.Netflix)}`);
 
 const url = $request.url;
 var body = $response.body;
