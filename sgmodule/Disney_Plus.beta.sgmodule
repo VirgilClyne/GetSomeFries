@@ -1,9 +1,9 @@
 #!name=🍟 Redirect Disney Plus Region to 🇸🇬SG
-#!desc=(BETA) 无视当前线路，重定向Disney+至指定地区
+#!desc=(BETA) 无视当前线路，重定向Disney+至🇸🇬新加坡
 
 [URL Rewrite]
 # Redirect Disney+ content to US
-(^https?:\/\/disney\.content\.edge\.bamgrid\.com)(\/svc\/content\/)((?:Curated|BecauseYou|Trending|Recommendation)Set|RelatedItems|UpNext|PersonalizedBundle\/Series|Collection\/(?:Standard|Personalized)Collection|ContinueWatching\/(?:Set|Season)|Dmc(?:SeriesBundle|Episodes|Video))(\/version\/)([\d.]{1,})(\/region\/)([A-Z]{2})(\/.*) $1$2$3$4$5$6SG$8 header
+(^https?:\/\/disney\.content\.edge\.bamgrid\.com)(\/svc)(\/content\/.*)(\/version\/[\d.]{1,})(\/region\/[A-Z]{2})(\/.*) $1$2$3$4/region/SG$6 header
 
 [Script]
 # Redirect Disney Plus Region Check Result to 🇸🇬SG
