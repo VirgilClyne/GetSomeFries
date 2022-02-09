@@ -5,31 +5,29 @@ README:https://github.com/VirgilClyne/GetSomeFries
 const $ = new Env('Netflix');
 
 // Default Settings
-$.GetSomeFries = {
-	"Netflix": {
-		"geolocation": {
-			"policy": "ALLOW", //策略
-			"country": "" // 国家
-		},
-		"config": {
-			"allowWidevinePlayback": true, // 允许Widevine DRM回放
-			"airPlayDisabledEnabledOnBuild": "50.0.0", // 开始禁用airPlay的版本
-			"preferRichWebVTTOverImageBasedSubtitle": true, // 偏好使用RichWebVTT字幕多于图片字幕
-			"requestRichWebVTTAsExperimental": true, //试验性请求RichWebVTT字幕
-			"reuseAVPlayerEnabledOnBuild": "0", // 重新开始启用AVPlayer的版本
-			"nfplayerReduxEnabledOnBuild": "50.0.0", // 开始启用nfplayerRedux的版本
-		},
-		"ctx": {
-			"region": "", // 当前IP所属地区
-			//"monotonic": true, // 函数？
-			"device": "", // 当前使用设备
-			//"isolate_pool": true, // 隔离池？
-			//"iter": 0,
-			//"abtests":55, // AB测试
-			//"ts":1642392069933, // timestamp？
-			"ip": "",
-			"hasUser": false // 当前IP是否有用户
-		}
+$.Netflix = {
+	"geolocation": {
+		"policy": "ALLOW", //策略
+		"country": "" // 国家
+	},
+	"config": {
+		"allowWidevinePlayback": true, // 允许Widevine DRM回放
+		"airPlayDisabledEnabledOnBuild": "50.0.0", // 开始禁用airPlay的版本
+		"preferRichWebVTTOverImageBasedSubtitle": true, // 偏好使用RichWebVTT字幕多于图片字幕
+		"requestRichWebVTTAsExperimental": true, //试验性请求RichWebVTT字幕
+		"reuseAVPlayerEnabledOnBuild": "0", // 重新开始启用AVPlayer的版本
+		"nfplayerReduxEnabledOnBuild": "50.0.0", // 开始启用nfplayerRedux的版本
+	},
+	"ctx": {
+		"region": "", // 当前IP所属地区
+		//"monotonic": true, // 函数？
+		"device": "", // 当前使用设备
+		//"isolate_pool": true, // 隔离池？
+		//"iter": 0,
+		//"abtests":55, // AB测试
+		//"ts":1642392069933, // timestamp？
+		"ip": "",
+		"hasUser": false // 当前IP是否有用户
 	}
 };
 // BoxJs Function Supported
@@ -38,17 +36,19 @@ if ($.getdata("GetSomeFries")) {
 	// load user prefs from BoxJs
 	const GetSomeFries = $.getdata("GetSomeFries")
 	$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");
-	$.Netflix = JSON.parse($.getdata("GetSomeFries")).Netflix
-	$.log('before, Netflix:' + JSON.stringify($.GetSomeFries.Netflix))
-	if ($.Netflix.config) {
-		//$.log('before, Netflix.config:' + JSON.stringify($.Netflix.config))
-		$.Netflix.config = Object.fromEntries($.Netflix.config.split("\n").map((item) => item.split("=")));
-		//$.log('middle, Netflix.config:' + JSON.stringify($.Netflix.config))
-		for (var item in $.Netflix.config) $.Netflix.config[item] = ($.Netflix.config[item] == "true") ? true : ($.Netflix.config[item] == "false") ? false : $.Netflix.config[item];
-		//$.log('after, Netflix.config:' + JSON.stringify($.Netflix.config))
-	};
-	if ($.Netflix.ctx.hasUser != "AUTO") $.Netflix.ctx.hasUser = JSON.parse($.Netflix.ctx.hasUser);
-	$.log('after, Netflix:' + JSON.stringify($.Netflix));
+	if (JSON.parse($.getdata("GetSomeFries"))?.Netflix) {
+		$.Netflix = JSON.parse($.getdata("GetSomeFries")).Netflix
+		$.log('before, Netflix:' + JSON.stringify($.GetSomeFries.Netflix))
+		if ($.Netflix.config) {
+			//$.log('before, Netflix.config:' + JSON.stringify($.Netflix.config))
+			$.Netflix.config = Object.fromEntries($.Netflix.config.split("\n").map((item) => item.split("=")));
+			//$.log('middle, Netflix.config:' + JSON.stringify($.Netflix.config))
+			for (var item in $.Netflix.config) $.Netflix.config[item] = ($.Netflix.config[item] == "true") ? true : ($.Netflix.config[item] == "false") ? false : $.Netflix.config[item];
+			//$.log('after, Netflix.config:' + JSON.stringify($.Netflix.config))
+		};
+		if ($.Netflix.ctx.hasUser != "AUTO") $.Netflix.ctx.hasUser = JSON.parse($.Netflix.ctx.hasUser);
+		$.log('after, Netflix:' + JSON.stringify($.Netflix));
+	}
 }
 // Argument Function Supported
 else if (typeof $argument != "undefined") {
@@ -124,7 +124,6 @@ else if (url.search(path2) != -1) {
 }
 
 else $.done();
-
 
 /***************** Env *****************/
 // prettier-ignore
