@@ -197,6 +197,7 @@ if (status == 200) {
 		let body = $response.body;
 		console.log(path3);
 		let graphql = JSON.parse(body);
+		// graphql.extensions?.operation?.operations[0].operation
 		// Country
 		if (graphql?.data?.login?.account?.attributes?.locations?.manual?.country) graphql.data.login.account.attributes.locations.manual.country = location?.country_code ?? graphql.data.login.account.attributes.locations.manual.country;
 		if (graphql?.data?.login?.account?.attributes?.locations?.purchase?.country) graphql.data.login.account.attributes.locations.purchase.country = location?.country_code ?? graphql.data.login.account.attributes.locations.purchase.country;
@@ -227,7 +228,7 @@ if (status == 200) {
 				"maxRatingSystemValue": "R21",
 				"isMaxContentMaturityRating": false
 			};
-			graphql.data.me.account.profiles[item].flows = {
+			graphql.data.me.account.activeProfile.flows = {
 				"star": {
 					"eligibleForOnboarding": true,
 					"isOnboarded": false
