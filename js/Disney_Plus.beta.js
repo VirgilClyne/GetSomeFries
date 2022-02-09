@@ -18,7 +18,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 */
 
 /* 
-//🇭🇰HongKong 1
+// 🇭🇰HongKong 1
 "location": {
 	"region_name": "",
 	"type": "COUNTRY_CODE",
@@ -31,7 +31,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 	"connection_type": "",
 	"dma": 0
   };
-//🇭🇰HongKong 2
+// 🇭🇰HongKong 2
 "location": {
 	"regionName": "",
 	"countryCode": "HK",
@@ -41,6 +41,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 	"connectionType": "mobile wireless",
 	"zipCode": ""
 },
+// 🇭🇰HongKong 3
 "location": {
     "regionName": "",
     "countryCode": "HK",
@@ -50,7 +51,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
   	"connectionType": "tx",
   	"zipCode": ""
 },
-//🇸🇬Singapore
+// 🇸🇬Singapore 1
 "location": {
 	"region_name": "",
 	"type": "COUNTRY_CODE",
@@ -63,7 +64,17 @@ README:https://github.com/VirgilClyne/GetSomeFries
 	"connection_type": "",
 	"dma": 0
 },
-//🇹🇼TaiWan 1
+// 🇸🇬Singapore 2
+"location": {
+    "type": "COUNTRY_CODE",
+    "countryCode": "SG",
+    "dma": 0,
+    "asn": 41378,
+    "regionName": "",
+    "connectionType": "",
+    "zipCode": ""
+},
+// 🇹🇼TaiWan 1
   "location": {
 	"region_name": "",
 	"type": "ZIP_CODE",
@@ -76,7 +87,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 	"connection_type": "dsl",
 	"dma": 0
 },
-//🇹🇼TaiWan 2
+// 🇹🇼TaiWan 2
 	"location": {
 	"region_name": "",
 	"type": "COUNTRY_CODE",
@@ -89,7 +100,7 @@ README:https://github.com/VirgilClyne/GetSomeFries
 	"connection_type": "mobile wireless",
 	"dma": 0
   },
-//🇹🇼🇺🇸UnitedStates
+// 🇺🇸UnitedStates
   "location": {
 	"region_name": "northeast",
 	"type": "ZIP_CODE",
@@ -186,19 +197,43 @@ if (status == 200) {
 		let body = $response.body;
 		console.log(path3);
 		let graphql = JSON.parse(body);
-		/*
-		graphql.data.login.activeSession.location = location ?? graphql.data?.login?.activeSession?.location;
-		graphql.data.login.activeSession.homeLocation = home_location ?? graphql.data?.login?.activeSession?.homeLocation;
-		graphql.data.me.activeSession.location = location ?? graphql.data?.me?.activeSession?.location;
-		graphql.data.me.activeSession.homeLocation = home_location ?? graphql.data?.me?.activeSession?.homeLocation;
-		graphql.data.activeSession.location = location ?? graphql.data?.activeSession?.location;
-		graphql.data.activeSession.homeLocation = home_location ?? graphql.data?.activeSession?.homeLocation;
-		graphql.extensions.sdk.session.inSupportedLocation = true ?? graphql.extensions?.sdk?.session?.inSupportedLocation;
-		graphql.extensions.sdk.session.location = location ?? graphql.extensions?.sdk?.session?.location;
-		graphql.extensions.sdk.session.homeLocation = home_location ?? graphql.extensions?.sdk?.session?.homeLocation;
-		*/
-		if (graphql?.data?.login?.account?.attributes?.locations?.manual?.country) graphql.data.login.account.attributes.locations.manual.country = "SG";
-		if (graphql?.data?.login?.account?.attributes?.locations?.purchase?.country) graphql.data.login.account.attributes.locations.purchase.country = "SG";
+		// Country
+		if (graphql?.data?.login?.account?.attributes?.locations?.manual?.country) graphql.data.login.account.attributes.locations.manual.country = location?.country_code ?? graphql.data.login.account.attributes.locations.manual.country;
+		if (graphql?.data?.login?.account?.attributes?.locations?.purchase?.country) graphql.data.login.account.attributes.locations.purchase.country = location?.country_code ?? graphql.data.login.account.attributes.locations.purchase.country;
+		if (graphql?.data?.login?.activeSession?.location) graphql.data.login.activeSession.location = location ?? graphql.data?.login?.activeSession?.location;
+		if (graphql?.data?.login?.activeSession?.homeLocation) graphql.data.login.activeSession.homeLocation = home_location ?? graphql.data?.login?.activeSession?.homeLocation;
+		if (graphql?.data?.me?.account?.attributes?.locations?.manual?.country) graphql.data.me.account.attributes.locations.manual.country = location?.country_code ?? graphql.data.me.account.attributes.locations.manual.country;
+		if (graphql?.data?.me?.account?.attributes?.locations?.purchase?.country) graphql.data.me.account.attributes.locations.purchase.country = location?.country_code ?? graphql.data.me.account.attributes.locations.purchase.country;
+		if (graphql?.data?.me?.activeSession?.location) graphql.data.me.activeSession.location = location ?? graphql.data?.me?.activeSession?.location;
+		if (graphql?.data?.me?.activeSession?.homeLocation) graphql.data.me.activeSession.homeLocation = home_location ?? graphql.data?.me?.activeSession?.homeLocation;
+		if (graphql?.data?.activeSession?.location) graphql.data.activeSession.location = location ?? graphql.data?.activeSession?.location;
+		if (graphql?.data?.activeSession?.homeLocation) graphql.data.activeSession.homeLocation = home_location ?? graphql.data?.activeSession?.homeLocation;
+		if (graphql?.extensions?.sdk?.session?.inSupportedLocation) graphql.extensions.sdk.session.inSupportedLocation = true ?? graphql.extensions?.sdk?.session?.inSupportedLocation;
+		if (graphql?.extensions?.sdk?.session?.location) graphql.extensions.sdk.session.location = location ?? graphql.extensions?.sdk?.session?.location;
+		if (graphql?.extensions?.sdk?.session?.homeLocation) graphql.extensions.sdk.session.homeLocation = home_location ?? graphql.extensions?.sdk?.session?.homeLocation;
+		// Rated
+		if (graphql?.data?.login?.account?.activeProfile) {
+			graphql.data.login.account.activeProfile.maturityRating = {
+				"ratingSystem": "MDA",
+				"ratingSystemValues": [
+					"G",
+					"PG",
+					"PG13",
+					"NC16",
+					"M18",
+					"R21"
+				],
+				"contentMaturityRating": "PG13",
+				"maxRatingSystemValue": "R21",
+				"isMaxContentMaturityRating": false
+			};
+			graphql.data.me.account.profiles[item].flows = {
+				"star": {
+					"eligibleForOnboarding": true,
+					"isOnboarded": false
+				}
+			};
+		};
 		for (var item in graphql?.data?.login?.account?.profiles) {
 			graphql.data.login.account.profiles[item].maturityRating = {
 				"ratingSystem": "MDA",
