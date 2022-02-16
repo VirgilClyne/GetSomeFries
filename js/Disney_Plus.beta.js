@@ -4,121 +4,434 @@ README:https://github.com/VirgilClyne/GetSomeFries
 
 const $ = new Env('Disney+');
 
-/* 
-// 🇭🇰HongKong 1
-"location": {
-	"region_name": "",
-	"type": "COUNTRY_CODE",
-	"asn": 141677,
-	"zip_code": "",
-	"state_name": "",
-	"country_code": "HK",
-	"carrier": "nathosts limited",
-	"city_name": "",
-	"connection_type": "",
-	"dma": 0
+/***************** database *****************/
+const database = {
+	"flows": { // 覆盖层
+		"star": { // STAR
+			"eligibleForOnboarding": true, // 允许登陆
+			//"isOnboarded": false // 已登陆
+		}, // 未知
+		"marketingPreferences": {
+			"eligibleForOnboarding": false, // 允许登陆
+			//"isOnboarded": true // 已登陆
+		}
+	},
+	"location": {
+		// 🇭🇰HongKong 1
+		"HK1": {
+			"region_name": "",
+			"type": "COUNTRY_CODE",
+			"asn": 141677,
+			"zip_code": "",
+			"state_name": "",
+			"country_code": "HK",
+			"carrier": "nathosts limited",
+			"city_name": "",
+			"connection_type": "",
+			"dma": 0
+		},
+		// 🇭🇰HongKong 2
+		"HK2": {
+			"regionName": "",
+			"countryCode": "HK",
+			"asn": 9304,
+			"type": "COUNTRY_CODE",
+			"dma": 0,
+			"connectionType": "mobile wireless",
+			"zipCode": ""
+		},
+		// 🇭🇰HongKong 3
+		"HK3": {
+			"regionName": "",
+			"countryCode": "HK",
+			"asn": 4760,
+			"type": "COUNTRY_CODE",
+			"dma": 0,
+			"connectionType": "tx",
+			"zipCode": ""
+		},
+		// 🇭🇰HongKong 4
+		"HK4": {
+			"region_name": "",
+			"type": "COUNTRY_CODE",
+			"asn": 9304,
+			"zip_code": "",
+			"state_name": "",
+			"country_code": "HK",
+			"carrier": "hgc global communications limited",
+			"city_name": "",
+			"connection_type": "mobile wireless",
+			"dma": 0
+		},
+		// 🇹🇼TaiWan 1
+		"TW1": {
+			"region_name": "",
+			"type": "ZIP_CODE",
+			"asn": 3462,
+			"zip_code": "100",
+			"state_name": "taipei",
+			"country_code": "TW",
+			"carrier": "data communication business group",
+			"city_name": "zhongzheng district",
+			"connection_type": "dsl",
+			"dma": 0
+		},
+		// 🇹🇼TaiWan 2
+		"TW2": {
+			"regionName": "unknown",
+			"countryCode": "TW",
+			"asn": 3462,
+			"type": "ZIP_CODE",
+			"dma": 0,
+			"connectionType": "dsl",
+			"zipCode": "104"
+		},
+		// 🇸🇬Singapore 1
+		"SG1": {
+			"city_name": "",
+			"connection_type": "",
+			"zip_code": "",
+			"dma": 0,
+			"state_name": "",
+			"asn": 41378,
+			"region_name": "",
+			"type": "COUNTRY_CODE",
+			"country_code": "SG",
+			"carrier": "kirino llc"
+		},
+		// 🇸🇬Singapore 2
+		"SG2": {
+			"type": "COUNTRY_CODE",
+			"countryCode": "SG",
+			"dma": 0,
+			"asn": 41378,
+			"regionName": "",
+			"connectionType": "",
+			"zipCode": ""
+		},
+		// 🇺🇸UnitedStates 1
+		"US1": {
+			"region_name": "northeast",
+			"type": "ZIP_CODE",
+			"asn": 46997,
+			"zip_code": "13235",
+			"state_name": "new york",
+			"country_code": "US",
+			"carrier": "black mesa corporation",
+			"city_name": "syracuse",
+			"connection_type": "",
+			"dma": 555
+		},
+		// 🇺🇸UnitedStates 2
+		"US2": {
+			"regionName": "northeast",
+			"countryCode": "US",
+			"asn": 396948,
+			"type": "ZIP_CODE",
+			"dma": 501,
+			"connectionType": "tx",
+			"zipCode": "10017"
+		},
+		// 🇺🇸UnitedStates 3
+		"US3": {
+			"region_name": "southwest",
+			"type": "ZIP_CODE",
+			"asn": 3356,
+			"zip_code": "95122",
+			"state_name": "california",
+			"country_code": "US",
+			"carrier": "level 3 parent  llc",
+			"city_name": "san jose",
+			"connection_type": "tx",
+			"dma": 807
+		},
+	},
+	"maturityRating": {
+		// 🇭🇰HongKong & 🇹🇼TaiWan
+		"DisneyPlusAPAC": {
+			"ratingSystem": "DisneyPlusAPAC",
+		},
+		// 🇸🇬Singapore
+		"MDA": {
+			"ratingSystem": "MDA",
+			"ratingSystemValues": [
+				"G",
+				"PG",
+				"PG13",
+				"NC16",
+				"M18",
+				"R21"
+			],
+			"contentMaturityRating": "PG13",
+			"maxRatingSystemValue": "R21",
+			"isMaxContentMaturityRating": false
+		},
+		// 🇺🇸UnitedStates
+		"MPAAAndTVPG": {
+			"ratingSystem": "MPAAAndTVPG",
+		},
+		// EU
+		"AI": {
+			"ratingSystem": "AI",
+			"isMaxContentMaturityRating": true,
+			"contentMaturityRating": "18+",
+			"maxRatingSystemValue": "18+",
+			"ratingSystemValues": [
+				"GA",
+				"7+",
+				"13+",
+				"18+"
+			]
+		}
+	},
+	"home_location": { // 主页定义
+		"country_code": "" // 国家
+	},
+	"extensions": {
+		"sdk": {
+			"session": {
+				"entitlements": [
+					"DISNEY_HULU_ADS",
+					"DISNEY_PLUS",
+					"ESPN_PLUS"
+				],
+				"inSupportedLocation": true,
+				//"isSubscriber": true,
+				"preferredMaturityRating": {
+					"DisneyPlusAPAC": {
+						"impliedMaturityRating": 1450,
+						"ratingSystem": "DisneyPlusAPAC"
+					},
+					"MDA": {
+						"impliedMaturityRating": 1499,
+						"ratingSystem": "MDA"
+					},
+					"MPAAAndTVPG": {
+						"impliedMaturityRating": 1899,
+						"ratingSystem": "MPAAAndTVPG"
+					}
+				}
+			}
+		}
+	}
 };
-// 🇭🇰HongKong 2
-"location": {
-	"regionName": "",
-	"countryCode": "HK",
-	"asn": 9304,
-	"type": "COUNTRY_CODE",
-	"dma": 0,
-	"connectionType": "mobile wireless",
-	"zipCode": ""
-},
-// 🇭🇰HongKong 3
-"location": {
-    "regionName": "",
-    "countryCode": "HK",
-	 "asn": 4760,
-    "type": "COUNTRY_CODE",
-  	"dma": 0,
-  	"connectionType": "tx",
-  	"zipCode": ""
-},
-// 🇭🇰HongKong 4
-"location": {
-	"region_name": "",
-	"type": "COUNTRY_CODE",
-	"asn": 9304,
-	"zip_code": "",
-	"state_name": "",
-	"country_code": "HK",
-	"carrier": "hgc global communications limited",
-	"city_name": "",
-	"connection_type": "mobile wireless",
-	"dma": 0
-},
-// 🇸🇬Singapore
-"maturityRating": {
-	"ratingSystem": "MDA",
-	"ratingSystemValues": [
-		"G",
-		"PG",
-		"PG13",
-		"NC16",
-		"M18",
-		"R21"
-	],
-	"contentMaturityRating": "PG13",
-	"maxRatingSystemValue": "R21",
-	"isMaxContentMaturityRating": false
-}
-// 🇸🇬Singapore 1
-"location": {
-	"region_name": "",
-	"type": "COUNTRY_CODE",
-	"asn": 41378,
-	"zip_code": "",
-	"state_name": "",
-	"country_code": "SG",
-	"carrier": "kirino llc",
-	"city_name": "",
-	"connection_type": "",
-	"dma": 0
-},
-// 🇸🇬Singapore 2
-"location": {
-    "type": "COUNTRY_CODE",
-    "countryCode": "SG",
-    "dma": 0,
-    "asn": 41378,
-    "regionName": "",
-    "connectionType": "",
-    "zipCode": ""
-},
-// 🇹🇼TaiWan 1
-"location": {
-	"region_name": "",
-	"type": "ZIP_CODE",
-	"asn": 3462,
-	"zip_code": "100",
-	"state_name": "taipei",
-	"country_code": "TW",
-	"carrier": "data communication business group",
-	"city_name": "zhongzheng district",
-	"connection_type": "dsl",
-	"dma": 0
-},
-// 🇺🇸UnitedStates 1
-"location": {
-	"region_name": "northeast",
-	"type": "ZIP_CODE",
-	"asn": 46997,
-	"zip_code": "13235",
-	"state_name": "new york",
-	"country_code": "US",
-	"carrier": "black mesa corporation",
-	"city_name": "syracuse",
-	"connection_type": "",
-	"dma": 555
-},
-*/
 
 // Default Settings
 $.Disney_Plus = {
+	"settings": {
+		"region": "SG", // 内容区域代码
+		"maturityRating": "MDA", // 分级系统
+		"location": "SG1", // 地理位置信息
+		"entitlements": "", // 账户权益
+		"flows": "star", // 内容目录
+	},
+	"flows": {},
+	"location": {},
+	"maturityRating": {},
+	"extensions": {
+		"sdk": {
+			"session": {}
+		}
+	}
+};
+// BoxJs Function Supported
+if ($.getdata("GetSomeFries")) {
+	$.log(`🎉 ${$.name}, BoxJs`);
+	// load user prefs from BoxJs
+	const GetSomeFries = $.getdata("GetSomeFries")
+	$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");
+	if (JSON.parse($.getdata("GetSomeFries"))?.Disney_Plus) {
+		$.Disney_Plus = JSON.parse($.getdata("GetSomeFries")).Disney_Plus
+		$.log('Disney_Plus:' + JSON.stringify($.Disney_Plus))
+	}
+}
+// Argument Function Supported
+else if (typeof $argument != "undefined") {
+	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
+	console.log(JSON.stringify(arg));
+	$.Disney_Plus.settings.region = arg?.region ?? "SG";
+	$.Disney_Plus.settings.maturityRating = arg?.maturityRating ?? "MDA";
+	$.Disney_Plus.settings.location = arg?.location ?? "SG";
+	$.Disney_Plus.settings.flows = arg?.flows ?? "star";
+};
+$.log(`🚧 ${$.name}, BoxJs调试信息, $.Disney_Plus内容: ${JSON.stringify($.Disney_Plus)}`);
+
+var url = $request.url;
+
+const url0 = "disney.content.edge.bamgrid.com/svc";
+const path1 = "/token";
+const path2 = "/session";
+const path3 = "/v1/public/graphql";
+const path4 = "/graph/v1/device/graphql";
+const path5 = "/svc/content/DmcVideo";
+
+if (url.search(url0) != -1) {
+	$.log(url0);
+	$.log($.Disney_Plus.settings.region);
+	$.log('before, url:' + url);
+	const Regular = /(?<baseurl>.*)\/content\/(?<content>.*)\/version\/(?<version>\d\.\d)\/region\/(?<region>[A-Z]{2}|undefined)\/(?<other>.*)/i;
+	url = url.replace(Regular, `$<baseurl>/content/$<content>/version/$<version>/region/${$.Disney_Plus.settings.region}/$<other>`);
+	$.log('after, url:' + url);
+	$.done({ url });
+};
+
+if ($response?.status == 200) {
+	// 构建数据
+	if ($.Disney_Plus.settings.location != "default") $.Disney_Plus.location = database.location[`${$.Disney_Plus.settings.location}`];
+	if ($.Disney_Plus.settings.maturityRating != "default") $.Disney_Plus.maturityRating = database.maturityRating[`${$.Disney_Plus.settings.maturityRating}`];
+	$.Disney_Plus.extensions = database.extensions;
+	if ($.Disney_Plus.settings.maturityRating != "default") $.Disney_Plus.extensions.sdk.session.preferredMaturityRating = database.extensions.sdk.session.preferredMaturityRating[`${$.Disney_Plus.settings.maturityRating}`];
+	//if($.Disney_Plus.settings.flows == "star") $.Disney_Plus.flows.star = database.flows.star;
+	//if($.Disney_Plus.settings.flows == "hulu") $.Disney_Plus.flows.hulu = database.flows.hulu;
+	$.Disney_Plus.flows = database.flows;
+	$.log(`🚧 ${$.name}, 调试信息, $.Disney_Plus构建内容: ${JSON.stringify($.Disney_Plus)}`);
+	/*
+	if (url.search(path1) != -1) {
+		let status = $response.status;
+		let body = $response.body;
+		let token = JSON.parse(body);
+		console.log(path1);
+		if (isLoon && (status = 400)){
+			if (token.error) console.log(token.error);
+			if (token.error_description) console.log(token.error_description);
+			$done({})
+		} else if (isQuanX && (status = "HTTP/1.1 400 Bad Request")){
+			if (token.error) console.log(token.error);
+			if (token.error_description) console.log(token.error_description);
+			$done({})
+		} else if (isSurge && (status = 400)){
+			if (token.error) console.log(token.error);
+			if (token.error_description) console.log(token.error_description);
+			$done({})
+		} else {
+			if (token.refresh_token) console.log(token.refresh_token);
+			if (token.token_type) console.log(token.token_type);
+			if (token.access_token) console.log(token.access_token);
+			if (token.expires_in) console.log(token.expires_in);
+			$done({})
+		}
+	};
+	*/
+
+	if (url.search(path2) != -1) {
+		let body = $response.body;
+		$.log(path2);
+		let session = JSON.parse(body);
+		// location
+		if ($.Disney_Plus.settings.location != "default") {
+			// location
+			if (session?.location) session.location = $.Disney_Plus?.location ?? session.location;
+			// homeLocation
+			//if (session?.home_location) session.home_location = $.Disney_Plus?.home_location ?? session.home_location;
+		};
+		body = JSON.stringify(session);
+		$.done({ body });
+	};
+
+	if (url.search(path3) != -1) {
+		let body = $response.body;
+		$.log(path3);
+		let graphql = JSON.parse(body);
+		// location
+		if ($.Disney_Plus.settings.location != "default") {
+			// country
+			if (graphql?.data?.me?.account?.attributes?.locations?.manual?.country) graphql.data.me.account.attributes.locations.manual.country = $.Disney_Plus?.location?.country_code ?? graphql.data.me.account.attributes.locations.manual.country;
+			if (graphql?.data?.login?.account?.attributes?.locations?.manual?.country) graphql.data.login.account.attributes.locations.manual.country = $.Disney_Plus?.location?.country_code ?? graphql.data.login.account.attributes.locations.manual.country;
+			if (graphql?.data?.me?.account?.attributes?.locations?.purchase?.country) graphql.data.me.account.attributes.locations.purchase.country = $.Disney_Plus?.location?.country_code ?? graphql.data.me.account.attributes.locations.purchase.country;
+			if (graphql?.data?.login?.account?.attributes?.locations?.purchase?.country) graphql.data.login.account.attributes.locations.purchase.country = $.Disney_Plus?.location?.country_code ?? graphql.data.login.account.attributes.locations.purchase.country;
+			// location
+			if (graphql?.data?.activeSession?.location) graphql.data.activeSession.location = $.Disney_Plus?.location ?? graphql.data.activeSession.location;
+			if (graphql?.data?.me?.activeSession?.location) graphql.data.me.activeSession.location = $.Disney_Plus?.location ?? graphql.data.me.activeSession.location;
+			if (graphql?.extensions?.sdk?.session?.location) graphql.extensions.sdk.session.location = $.Disney_Plus?.location ?? graphql.extensions.sdk.session.location;
+			if (graphql?.data?.login?.activeSession?.location) graphql.data.login.activeSession.location = $.Disney_Plus?.location ?? graphql.data.login.activeSession.location;
+			// homeLocation
+			//if (graphql?.data?.activeSession?.homeLocation) graphql.data.activeSession.homeLocation = $.Disney_Plus?.home_location ?? graphql.data.activeSession.homeLocation;
+			//if (graphql?.data?.me?.activeSession?.homeLocation) graphql.data.me.activeSession.homeLocation = $.Disney_Plus?.home_location ?? graphql.data.me.activeSession.homeLocation;
+			//if (graphql?.extensions?.sdk?.session?.homeLocation) graphql.extensions.sdk.session.homeLocation = $.Disney_Plus?.home_location ?? graphql.extensions.sdk.session.homeLocation;
+			//if (graphql?.data?.login?.activeSession?.homeLocation) graphql.data.login.activeSession.homeLocation = $.Disney_Plus?.home_location ?? graphql.data.login.activeSession.homeLocation;
+		};
+		// entitlements
+		if ($.Disney_Plus.settings.entitlements != "default") {
+			if (graphql?.data?.activeSession?.entitlements) graphql.data.activeSession.entitlements = $.Disney_Plus?.extensions.sdk.session.entitlements ?? graphql.data.activeSession.entitlements;
+			if (graphql?.data?.me?.activeSession?.entitlements) graphql.data.me.activeSession.entitlements = $.Disney_Plus?.extensions.sdk.session.entitlements ?? graphql.data.me.activeSession.entitlements;
+			if (graphql?.extensions?.sdk?.session?.entitlements) graphql.extensions.sdk.session.entitlements = $.Disney_Plus?.extensions.sdk.session.entitlements ?? graphql.extensions.sdk.session.entitlements;
+			if (graphql?.data?.login?.activeSession?.entitlements) graphql.data.login.activeSession.entitlements = $.Disney_Plus?.extensions.sdk.session.entitlements ?? graphql.data.login.activeSession.entitlements;
+		};
+		// inSupportedLocation
+		if (graphql?.data?.activeSession?.inSupportedLocation) graphql.data.activeSession.inSupportedLocation = $.Disney_Plus?.extensions.sdk.session.inSupportedLocation ?? graphql.data.activeSession.inSupportedLocation;
+		if (graphql?.data?.me?.activeSession?.inSupportedLocation) graphql.data.me.activeSession.inSupportedLocation = $.Disney_Plus?.extensions.sdk.session.inSupportedLocation ?? graphql.data.me.activeSession.inSupportedLocation;
+		if (graphql?.data?.login?.activeSession?.inSupportedLocation) graphql.data.login.activeSession.entitlements = $.Disney_Plus?.extensions.sdk.session.inSupportedLocation ?? graphql.data.login.activeSession.inSupportedLocation;
+		if (graphql?.extensions?.sdk?.session?.inSupportedLocation) graphql.extensions.sdk.session.inSupportedLocation = $.Disney_Plus?.extensions.sdk.session.inSupportedLocation ?? graphql.extensions.sdk.session.inSupportedLocation;
+		// MaturityRating
+		if ($.Disney_Plus.settings.maturityRating != "default") {
+			// preferredMaturityRating
+			if (graphql?.data?.activeSession?.preferredMaturityRating) graphql.data.activeSession.preferredMaturityRating = $.Disney_Plus?.extensions.sdk.session.preferredMaturityRating ?? graphql.data.activeSession.preferredMaturityRating;
+			if (graphql?.data?.me?.activeSession?.preferredMaturityRating) graphql.data.me.activeSession.preferredMaturityRating = $.Disney_Plus?.extensions.sdk.session.preferredMaturityRating ?? graphql.data.me.activeSession.preferredMaturityRating;
+			if (graphql?.data?.login?.activeSession?.preferredMaturityRating) graphql.data.login.activeSession.preferredMaturityRating = $.Disney_Plus?.extensions.sdk.session.preferredMaturityRating ?? graphql.data.login.activeSession.preferredMaturityRating;
+			if (graphql?.extensions?.sdk?.session?.preferredMaturityRating) graphql.extensions.sdk.session.preferredMaturityRating = $.Disney_Plus?.extensions.sdk.session.preferredMaturityRating ?? graphql.extensions.sdk.session.preferredMaturityRating;
+			// maturityRating
+			if (graphql?.data?.login?.account?.activeProfile) graphql.data.login.account.activeProfile.maturityRating = $.Disney_Plus?.maturityRating ?? graphql.data.login.account.activeProfile.maturityRating;
+			for (var item in graphql?.data?.me?.account?.profiles) graphql.data.me.account.profiles[item].maturityRating = $.Disney_Plus?.maturityRating ?? graphql.data.me.account.profiles[item].maturityRating;
+			for (var item in graphql?.data?.login?.account?.profiles) graphql.data.login.account.profiles[item].maturityRating = $.Disney_Plus?.maturityRating ?? graphql.data.login.account.profiles[item].maturityRating;
+		};
+		// flows
+		if ($.Disney_Plus.settings.flows != "default") {
+			if (graphql?.data?.me?.account?.activeProfile?.flows) graphql.data.me.account.activeProfile.flows = $.Disney_Plus?.flows ?? graphql.data.me.account.activeProfile.flows;
+			for (var item in graphql?.data?.me?.account?.profiles) graphql.data.me.account.profiles[item].flows = $.Disney_Plus?.flows ?? graphql.data.me.account.activeProfile[item].flows;
+			for (var item in graphql?.data?.login?.account?.profiles) graphql.data.login.account.profiles[item].flows = $.Disney_Plus?.flows ?? graphql.data.login.account.profiles[item].flows;
+		};
+		body = JSON.stringify(graphql);
+		$.done({ body });
+	};
+
+	if (url.search(path4) != -1) {
+		let body = $response.body;
+		$.log(path4);
+		let graphql = JSON.parse(body);
+		// location
+		if ($.Disney_Plus.settings.location != "default") {
+			// location
+			if (graphql?.extensions?.sdk?.session?.location) graphql.extensions.sdk.session.location = $.Disney_Plus?.location ?? graphql.extensions.sdk.session.location;
+			// homeLocation
+			//if (graphql?.extensions?.sdk?.session?.homeLocation) graphql.extensions.sdk.session.homeLocation = $.Disney_Plus?.home_location ?? graphql.extensions.sdk.session.homeLocation;
+		};
+		// entitlements
+		if ($.Disney_Plus.settings.entitlements != "default") {
+			if (graphql?.extensions?.sdk?.session?.entitlements) graphql.extensions.sdk.session.entitlements = $.Disney_Plus?.extensions.sdk.session.entitlements ?? graphql.extensions.sdk.session.entitlements;
+		};
+		// inSupportedLocation
+		if (graphql?.extensions?.sdk?.session?.inSupportedLocation) graphql.extensions.sdk.session.inSupportedLocation = $.Disney_Plus?.extensions.sdk.session.inSupportedLocation ?? graphql.extensions.sdk.session.inSupportedLocation;
+		// MaturityRating
+		if ($.Disney_Plus.settings.maturityRating != "default") {
+			// preferredMaturityRating
+			if (graphql?.extensions?.sdk?.session?.preferredMaturityRating) graphql.extensions.sdk.session.preferredMaturityRating = $.Disney_Plus?.extensions.sdk.session.preferredMaturityRating ?? graphql.extensions.sdk.session.preferredMaturityRating;
+		};
+		body = JSON.stringify(graphql);
+		$.done({ body });
+	};
+
+	if (url.search(path5) != -1) {
+		let body = $response.body;
+		$.log(path4);
+		let content = JSON.parse(body);
+		// region
+		if (content?.data?.DmcVideo?.video?.currentAvailability?.region) content.data.DmcVideo.video.currentAvailability.region = $.Disney_Plus.settings.region ?? content.data.DmcVideo.video.currentAvailability.region;
+		body = JSON.stringify(content);
+		$.done({ body });
+	};
+}
+
+$.done();
+
+/***************** dev config *****************/
+/*
+$.Disney_Plus = {
+	"settings": {
+		"flows": "SG",
+		"location": "SG",
+		"region": "SG",
+		"maturityRating": "SG"
+	},
 	"maturityRating": {
 		"ratingSystem": "MDA", // 分级系统
 		"ratingSystemValues": [
@@ -154,128 +467,8 @@ $.Disney_Plus = {
 		"connection_type": "",
 		"dma": 0
 	}
-
 };
-// BoxJs Function Supported
-if ($.getdata("GetSomeFries")) {
-	$.log(`🎉 ${$.name}, BoxJs`);
-	// load user prefs from BoxJs
-	const GetSomeFries = $.getdata("GetSomeFries")
-	$.log(`🚧 ${$.name}, BoxJs调试信息, GetSomeFries类型: ${typeof GetSomeFries}`, `GetSomeFries内容: ${GetSomeFries}`, "");	
-	if (JSON.parse($.getdata("GetSomeFries"))?.Disney_Plus) {
-		$.Disney_Plus = JSON.parse($.getdata("GetSomeFries")).Disney_Plus
-		$.log('Disney_Plus:' + JSON.stringify($.GetSomeFries.Disney_Plus))
-	}
-}
-// Argument Function Supported
-else if (typeof $argument != "undefined") {
-	let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
-	console.log(JSON.stringify(arg));
-	$.Disney_Plus.location.region_name = arg?.region_name ?? "";
-	$.Disney_Plus.location.type = arg?.type ?? "COUNTRY_CODE";
-	$.Disney_Plus.location.zip_code = arg?.zip_code ?? "";
-	$.Disney_Plus.location.asn = arg?.asn ?? 41378;
-	$.Disney_Plus.location.country_code = arg?.country_code ?? "SG";
-	$.Disney_Plus.location.carrier = arg?.carrier ?? "kirino llc";
-	$.Disney_Plus.location.city_name = arg?.city_name ?? "";
-	$.Disney_Plus.location.connection_type = arg?.connection_type ?? "";
-	$.Disney_Plus.location.dma = arg.dma ?? 0;
-	$.Disney_Plus.home_location.country_code = arg?.country_code ?? "SG";
-};
-$.log(`🚧 ${$.name}, BoxJs调试信息, $.Disney_Plus内容: ${JSON.stringify($.Disney_Plus)}`);
-
-const url = $request.url;
-const status = $response.status;
-
-const path1 = "/token";
-const path2 = "/session";
-const path3 = "/v1/public/graphql";
-const path4 = "/svc/content/DmcVideo";
-
-if (status == 200) {
-	/*
-	if (url.search(path1) != -1) {
-		let status = $response.status;
-		let body = $response.body;
-		let token = JSON.parse(body);
-		$.log(path1);
-		if (isLoon && (status = 400)){
-			if (token.error) console.log(token.error);
-			if (token.error_description) console.log(token.error_description);
-			$.done({})
-		} else if (isQuanX && (status = "HTTP/1.1 400 Bad Request")){
-			if (token.error) console.log(token.error);
-			if (token.error_description) console.log(token.error_description);
-			$.done({})
-		} else if (isSurge && (status = 400)){
-			if (token.error) console.log(token.error);
-			if (token.error_description) console.log(token.error_description);
-			$.done({})
-		} else {
-			if (token.refresh_token) console.log(token.refresh_token);
-			if (token.token_type) console.log(token.token_type);
-			if (token.access_token) console.log(token.access_token);
-			if (token.expires_in) console.log(token.expires_in);
-			$.done({})
-		}
-	};
-	*/
-
-	if (url.search(path2) != -1) {
-		let body = $response.body;
-		$.log(path2);
-		let session = JSON.parse(body);
-		if (session?.location) session.location = $.Disney_Plus?.location ?? session.location;
-		if (session?.home_location) session.home_location = $.Disney_Plus?.home_location ?? session.home_location;
-		body = JSON.stringify(session);
-		$.done({ body });
-	};
-
-	if (url.search(path3) != -1) {
-		let body = $response.body;
-		$.log(path3);
-		let graphql = JSON.parse(body);
-		// graphql.extensions?.operation?.operations[0].operation
-		// Country
-		if (graphql?.data?.login?.account?.attributes?.locations?.manual?.country) graphql.data.login.account.attributes.locations.manual.country = $.Disney_Plus?.location?.country_code ?? graphql.data.login.account.attributes.locations.manual.country;
-		if (graphql?.data?.login?.account?.attributes?.locations?.purchase?.country) graphql.data.login.account.attributes.locations.purchase.country = $.Disney_Plus?.location?.country_code ?? graphql.data.login.account.attributes.locations.purchase.country;
-		if (graphql?.data?.login?.activeSession?.location) graphql.data.login.activeSession.location = $.Disney_Plus?.location ?? graphql.data?.login?.activeSession?.location;
-		if (graphql?.data?.login?.activeSession?.homeLocation) graphql.data.login.activeSession.homeLocation = $.Disney_Plus?.home_location ?? graphql.data?.login?.activeSession?.homeLocation;
-		if (graphql?.data?.me?.account?.attributes?.locations?.manual?.country) graphql.data.me.account.attributes.locations.manual.country = $.Disney_Plus?.location?.country_code ?? graphql.data.me.account.attributes.locations.manual.country;
-		if (graphql?.data?.me?.account?.attributes?.locations?.purchase?.country) graphql.data.me.account.attributes.locations.purchase.country = $.Disney_Plus?.location?.country_code ?? graphql.data.me.account.attributes.locations.purchase.country;
-		if (graphql?.data?.me?.activeSession?.location) graphql.data.me.activeSession.location = $.Disney_Plus?.location ?? graphql.data?.me?.activeSession?.location;
-		if (graphql?.data?.me?.activeSession?.homeLocation) graphql.data.me.activeSession.homeLocation = $.Disney_Plus?.home_location ?? graphql.data?.me?.activeSession?.homeLocation;
-		if (graphql?.data?.activeSession?.location) graphql.data.activeSession.location = $.Disney_Plus?.location ?? graphql.data?.activeSession?.location;
-		if (graphql?.data?.activeSession?.homeLocation) graphql.data.activeSession.homeLocation = $.Disney_Plus?.home_location ?? graphql.data?.activeSession?.homeLocation;
-		if (graphql?.extensions?.sdk?.session?.inSupportedLocation) graphql.extensions.sdk.session.inSupportedLocation = true ?? graphql.extensions?.sdk?.session?.inSupportedLocation;
-		if (graphql?.extensions?.sdk?.session?.location) graphql.extensions.sdk.session.location = $.Disney_Plus?.location ?? graphql.extensions?.sdk?.session?.location;
-		if (graphql?.extensions?.sdk?.session?.homeLocation) graphql.extensions.sdk.session.homeLocation = $.Disney_Plus?.home_location ?? graphql.extensions?.sdk?.session?.homeLocation;
-		// Rated & STAR
-		if (graphql?.data?.login?.account?.activeProfile) {
-			graphql.data.login.account.activeProfile.maturityRating = $.Disney_Plus?.maturityRating;
-			graphql.data.me.account.activeProfile.flows = $.Disney_Plus?.flows;
-		};
-		for (var item in graphql?.data?.login?.account?.profiles) {
-			graphql.data.login.account.profiles[item].maturityRating = $.Disney_Plus?.maturityRating;
-			graphql.data.me.account.profiles[item].flows = $.Disney_Plus?.flows;
-		};
-		for (var item in graphql?.data?.me?.account?.profiles) {
-			graphql.data.me.account.profiles[item].maturityRating = $.Disney_Plus?.maturityRating;
-			graphql.data.me.account.profiles[item].flows = $.Disney_Plus?.flows;
-		};
-		body = JSON.stringify(graphql);
-		$.done({ body });
-	};
-
-	if (url.search(path4) != -1) {
-		let body = $response.body;
-		$.log(path4);
-		let content = JSON.parse(body);
-		if (content?.data?.DmcVideo?.video?.currentAvailability?.region) content.data.DmcVideo.video.currentAvailability.region = $.Disney_Plus?.location?.country_code ?? content.data.DmcVideo.video.currentAvailability.region;
-		body = JSON.stringify(content);
-		$.done({ body });
-	};
-} else $.done();
+*/
 
 /***************** Env *****************/
 // prettier-ignore
