@@ -1,13 +1,10 @@
-#!name=🍟 Redirect Disney Plus Region to 🇸🇬SG
-#!desc=(BETA) 无视当前线路，重定向Disney+至🇸🇬新加坡
-
-[URL Rewrite]
-# Redirect Disney+ content to US
-(^https?:\/\/disney\.content\.edge\.bamgrid\.com)(\/svc)(\/content\/.*)(\/version\/[\d.]{1,})(\/region\/[A-Z]{2})(\/.*) $1$2$3$4/region/SG$6 header
+#!name=🍟 Disney Plus
+#!desc=(BETA) Disney Plus Mod
 
 [Script]
 # Redirect Disney Plus Region Check Result to 🇸🇬SG
-Disney Plus = type=http-response,pattern=^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(session|(graph\/)?v1\/public\/graphql), requires-body=1, binary-body-mode=0, max-size=0 ,script-update-interval=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Disney_Plus.beta.js
+Disney Plus = type=http-response,pattern=^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(session|(graph\/)?v1\/(public|device)\/graphql), requires-body=1, binary-body-mode=0, max-size=0 ,script-update-interval=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Disney_Plus.beta.js
+Disney Plus = type=http-request,pattern=^https?:\/\/disney\.content\.edge\.bamgrid\.com\/svc, requires-body=0, binary-body-mode=0, max-size=0 ,script-update-interval=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Disney_Plus.beta.js
 # Disney Plus = type=http-response,pattern=^https?:\/\/disney\.content\.edge\.bamgrid\.com\/(svc\/content\/DmcVideo), requires-body=1, binary-body-mode=0, max-size=0 ,script-update-interval=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Disney_Plus.beta.js
 
 [MITM]
