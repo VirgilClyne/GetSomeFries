@@ -1,0 +1,8 @@
+#!name=🍟 Disney Plus
+#!desc=Disney Plus Mod
+
+^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(session|(graph\/)?v1\/(public|device)\/graphql) url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney_Plus.js
+^https?:\/\/disney\.content\.edge\.bamgrid\.com\/svc url script-request-header https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney_Plus.js
+# ^https?:\/\/disney\.content\.edge\.bamgrid\.com\/(svc\/content\/DmcVideo) url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney_Plus.js
+
+hostname = disney.api.edge.bamgrid.com, disney.content.edge.bamgrid.com
