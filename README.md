@@ -37,14 +37,18 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 - [🍟 Disney Plus](#-disney-plus)
   - [简介](#简介-2)
   - [功能列表](#功能列表-2)
-  - [todo](#todo-2)
+  - [使用方式](#使用方式-2)
+    - [配合`BoxJs`及订阅使用](#配合boxjs及订阅使用-2)
+    - [配合Surge模块的`argument`字段使用:](#配合surge模块的argument字段使用-1)
+    - [直接安装使用](#直接安装使用)
   - [安装链接](#安装链接-2)
+    - [正式版](#正式版-2)
     - [🧪测试版](#测试版-2)
 - [🍟 Netflix](#-netflix)
   - [简介](#简介-3)
   - [功能列表](#功能列表-3)
-  - [todo](#todo-3)
-  - [使用方式](#使用方式-2)
+  - [todo](#todo-2)
+  - [使用方式](#使用方式-3)
   - [安装链接](#安装链接-3)
     - [🧪试验版，随时可能修改/删除](#试验版随时可能修改删除)
 - [鸣谢](#鸣谢)
@@ -285,24 +289,49 @@ peer = (public-key = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=, allowed-ips =
 
 # 🍟 Disney Plus
 ## 简介
-  * 无视地区线路限制，强制加载特定地区内容
+  * 无视支付地区与网络线路限制，强制加载指定地区与分级内容
 
   * 注:
     * 凑合用,翻车别找我
     * 至少相关线路属于任意可用地区，不会被直接拒绝连接
 
 ## 功能列表
-  * 修改部分地区检测
-  * 显示指定地区内容
+  * BoxJs集成
+  * 持久化储存
+  * 修改地区检测
+  * 指定内容地区
+  * 指定分级标准
+  * 显示地区限定分区
   * 修改内容可用状态
 
-## todo
-  * 我咋知道
+## 使用方式
+### 配合`BoxJs`及订阅使用
+  * 安装`BoxJs`插件:
+    * Loon: [boxjs.rewrite.loon.plugin](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.loon.plugin "BoxJs")
+    * Quantumult X: [boxjs.rewrite.quanx.conf](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.quanx.conf "BoxJs")
+    * Surge: [boxjs.rewrite.surge.sgmodule](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.surge.sgmodule "BoxJs")
+  * 导入本项目订阅: [fries.boxjs.json](./box/fries.boxjs.json?raw=true "整点薯条")
+  * 在`应用`-`整点薯条`-`Disney Plus`中填写您的设置信息
+### 配合Surge模块的`argument`字段使用:
+  * 使用[@baranwang](https://github.com/baranwang)的[Surge模块Argument代理](https://sgmodule-argument-proxy.vercel.app/)直接生成带配置的专属模块[使用说明](https://github.com/baranwang/sgmodule-argument-proxy#readme)
+  * 格式如下:
+      ```
+      argument=region=重定向地区代码&maturityRating=分级标准&location=地区检测代码&flows=覆盖层
+      ```
+### 直接安装使用
+  * 直接安装使用，默认为新加坡区，网络为新加坡kirino llc，分级为MDA的R21，显示STAR分区
 
 ## 安装链接
+### 正式版
+  * Loon:
+    * [Disney_Plus.plugin](./plugins/Disney_Plus.plugin?raw=true "🍟 Disney Plus")
+  * Quantumult X:
+    * [Disney_Plus.qxrewrite](./qxrewrite/Disney_Plus.qxrewrite?raw=true "🍟 Disney Plus")
+  * Surge:
+    * [Disney_Plus.sgmodule](./sgmodule/Disney_Plus.sgmodule?raw=true "🍟 Disney Plus")
 ### 🧪测试版
   * Surge:
-    * [Disney_Plus.beta.sgmodule](./sgmodule/Disney_Plus.beta.sgmodule?raw=true "🍟 Redirect Disney Plus Region to 🇸🇬SG")
+    * [Disney_Plus.beta.sgmodule](./sgmodule/Disney_Plus.beta.sgmodule?raw=true "🍟 Disney Plus")
       * 此测试模块强制指定为新加坡区
 
 ---
