@@ -1,0 +1,544 @@
+{
+    "id": "Neurogram.app.sub",
+    "name": "Neurogram",
+    "author": "@Neurogram-R",
+    "description": "Powered by Neurogram",
+    "icon": "https://avatars.githubusercontent.com/u/26738259?v=4",
+    "repo": "https://github.com/Neurogram-R/Surge",
+    "apps": [
+        {
+            "id": "@Neurogram.Dualsub.Disney",
+            "name": "Dualsub.Disney+",
+            "descs_html": [
+                "请参照<a href=\"https://t.me/Z_Turns/1188\">Dualsub for Surge by Neurogram</a>的使用说明进行配置",
+                "填写完成后别忘点击此页面底端右下角的\"保存\"。"
+            ],
+            "keys": [
+                "@Neurogram.Dualsub.Disney"
+            ],
+            "settings": [
+                {
+                    "id": "@Neurogram.Dualsub.Disney.type",
+                    "name": "双语字幕类型：",
+                    "val": "Official",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Official",
+                            "label": "官方"
+                        },
+                        {
+                            "key": "Google",
+                            "label": "Google"
+                        },
+                        {
+                            "key": "DeepL",
+                            "label": "DeepL"
+                        },
+                        {
+                            "key": "Disable",
+                            "label": "禁用"
+                        }
+                    ],
+                    "desc": "请选择双语字幕类型"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Disney.lang",
+                    "name": "官方字幕语言：",
+                    "val": "English [CC]",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English",
+                            "label": "English"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        },
+                        {
+                            "key": "Japanese",
+                            "label": "Japanese"
+                        },
+                        {
+                            "key": "Korean",
+                            "label": "Korean"
+                        }
+                    ],
+                    "desc": ""
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Disney.sl",
+                    "name": "源语言：",
+                    "val": "auto",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "auto",
+                            "label": "自动识别"
+                        },
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": "请选择第二字幕源语言"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Disney.tl",
+                    "name": "目标语言：",
+                    "val": "English [CC]",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": "请选择官方或机翻字幕目标语言"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Disney.line",
+                    "name": "第二字幕位置",
+                    "val": "s",
+                    "type": "radios",
+                    "items": [
+                        {
+                            "key": "s",
+                            "label": "第二行"
+                        },
+                        {
+                            "key": "f",
+                            "label": "第一行"
+                        }
+                    ],
+                    "desc": ""
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Disney.dkey",
+                    "name": "DeepL API key",
+                    "val": "",
+                    "type": "text",
+                    "placeholder": "023e105f4ecef8ad9ca31a8372d0c353",
+                    "desc": "DeepL API key"
+                }
+            ],
+            "author": "@Neurogram-R",
+            "repo": "https://github.com/Neurogram-R/Surge/blob/master/Dualsub.js",
+            "icons": [
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Disney+.png",
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney+.png"
+            ]
+        },
+        {
+            "id": "@Neurogram.Dualsub.HBOMax",
+            "name": "Dualsub.HBOMax+",
+            "descs_html": [
+                "请参照<a href=\"https://t.me/Z_Turns/1188\">Dualsub for Surge by Neurogram</a>的使用说明进行配置",
+                "填写完成后别忘点击此页面底端右下角的\"保存\"。"
+            ],
+            "keys": [
+                "@Neurogram.Dualsub.HBOMax"
+            ],
+            "settings": [
+                {
+                    "id": "@Neurogram.Dualsub.HBOMax.type",
+                    "name": "双语字幕类型：",
+                    "val": "Official",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Official",
+                            "label": "官方"
+                        },
+                        {
+                            "key": "Google",
+                            "label": "Google"
+                        },
+                        {
+                            "key": "DeepL",
+                            "label": "DeepL"
+                        },
+                        {
+                            "key": "Disable",
+                            "label": "禁用"
+                        }
+                    ],
+                    "desc": "请选择双语字幕类型"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.HBOMax.lang",
+                    "name": "官方字幕语言：",
+                    "val": "en-US",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "en-US",
+                            "label": "English"
+                        },
+                        {
+                            "key": "en-US SDH",
+                            "label": "English CC"
+                        }
+                    ],
+                    "desc": "请选择官方字幕语言"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.HBOMax.sl",
+                    "name": "源语言：",
+                    "val": "auto",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "auto",
+                            "label": "自动识别"
+                        },
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": "请选择第二字幕源语言"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.HBOMax.tl",
+                    "name": "目标语言：",
+                    "val": "English [CC]",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": "请选择官方或机翻字幕目标语言"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.HBOMax.line",
+                    "name": "第二字幕位置",
+                    "val": "s",
+                    "type": "radios",
+                    "items": [
+                        {
+                            "key": "s",
+                            "label": "第二行"
+                        },
+                        {
+                            "key": "f",
+                            "label": "第一行"
+                        }
+                    ],
+                    "desc": "请选择第二字幕位置"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.HBOMax.dkey",
+                    "name": "DeepL API key",
+                    "val": "",
+                    "type": "text",
+                    "placeholder": "023e105f4ecef8ad9ca31a8372d0c353",
+                    "desc": "DeepL API key"
+                }
+            ],
+            "author": "@Neurogram-R",
+            "repo": "https://github.com/Neurogram-R/Surge/blob/master/Dualsub.js",
+            "icons": [
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/HBO_Max.png",
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/HBO_Max.png"
+            ]
+        },
+        {
+            "id": "@Neurogram.Dualsub.Netflix",
+            "name": "Dualsub.Netflix",
+            "descs_html": [
+                "请参照<a href=\"https://t.me/Z_Turns/1188\">Dualsub for Surge by Neurogram</a>的使用说明进行配置",
+                "填写完成后别忘点击此页面底端右下角的\"保存\"。"
+            ],
+            "keys": [
+                "@Neurogram.Dualsub.Netflix"
+            ],
+            "settings": [
+                {
+                    "id": "@Neurogram.Dualsub.Netflix.type",
+                    "name": "双语字幕类型：",
+                    "val": "Google",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Google",
+                            "label": "Google"
+                        },
+                        {
+                            "key": "DeepL",
+                            "label": "DeepL"
+                        },
+                        {
+                            "key": "Disable",
+                            "label": "禁用"
+                        }
+                    ],
+                    "desc": "请选择双语字幕类型"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Netflix.lang",
+                    "name": "官方字幕语言：",
+                    "val": "English [CC]",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": ""
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Netflix.sl",
+                    "name": "源语言：",
+                    "val": "auto",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "auto",
+                            "label": "自动识别"
+                        },
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": "请选择第二字幕源语言"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Netflix.tl",
+                    "name": "目标语言：",
+                    "val": "English [CC]",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": "请选择官方或机翻字幕目标语言"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Netflix.line",
+                    "name": "第二字幕位置",
+                    "val": "s",
+                    "type": "radios",
+                    "items": [
+                        {
+                            "key": "s",
+                            "label": "第二行"
+                        },
+                        {
+                            "key": "f",
+                            "label": "第一行"
+                        }
+                    ],
+                    "desc": ""
+                },
+                {
+                    "id": "@Neurogram.Dualsub.Netflix.dkey",
+                    "name": "DeepL API key",
+                    "val": "",
+                    "type": "text",
+                    "placeholder": "023e105f4ecef8ad9ca31a8372d0c353",
+                    "desc": "DeepL API key"
+                }
+            ],
+            "author": "@Neurogram-R",
+            "repo": "https://github.com/Neurogram-R/Surge/blob/master/Dualsub.js",
+            "icons": [
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Netflix.png",
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png"
+            ]
+        },
+        {
+            "id": "@Neurogram.Dualsub.YouTube",
+            "name": "Dualsub.YouTube",
+            "descs_html": [
+                "请参照<a href=\"https://t.me/Z_Turns/1188\">Dualsub for Surge by Neurogram</a>的使用说明进行配置",
+                "填写完成后别忘点击此页面底端右下角的\"保存\"。"
+            ],
+            "keys": [
+                "@Neurogram.Dualsub.YouTube"
+            ],
+            "settings": [
+                {
+                    "id": "@Neurogram.Dualsub.YouTube.type",
+                    "name": "双语字幕类型：",
+                    "val": "Enable",
+                    "type": "radios",
+                    "items": [
+                        {
+                            "key": "Enable",
+                            "label": "启用"
+                        },
+                        {
+                            "key": "Disable",
+                            "label": "禁用"
+                        }
+                    ],
+                    "desc": "请选择双语字幕类型"
+                },
+                {
+                    "id": "@Neurogram.Dualsub.YouTube.lang",
+                    "name": "官方字幕语言：",
+                    "val": "English",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English",
+                            "label": "English"
+                        }
+                    ],
+                    "desc": ""
+                },
+                {
+                    "id": "@Neurogram.Dualsub.YouTube.sl",
+                    "name": "源语言：",
+                    "val": "auto",
+                    "type": "selects",
+                    "items": [
+                        {
+                            "key": "auto",
+                            "label": "自动识别"
+                        },
+                        {
+                            "key": "Chinese (Simplified)",
+                            "label": "中文（简体）"
+                        },
+                        {
+                            "key": "Chinese (Hong Kong)",
+                            "label": "中文（香港）"
+                        },
+                        {
+                            "key": "Chinese (Traditional)",
+                            "label": "中文（繁体）"
+                        },
+                        {
+                            "key": "English [CC]",
+                            "label": "English [CC]"
+                        }
+                    ],
+                    "desc": "请选择第二字幕源语言"
+                }
+            ],
+            "author": "@Neurogram-R",
+            "repo": "https://github.com/Neurogram-R/Surge/blob/master/Dualsub.js",
+            "icons": [
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/YouTube.png",
+                "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/YouTube.png"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+#!name=Dualsub
+#!desc=(BETA) Disney+, Star+, HBO Max, Netflix, YouTube subtitles add-ons
+
+[Script]
+Dualsub = type=http-response,pattern=https:\/\/(.+media.(dss|star)ott|manifests.v2.api.hbo|.+hbomaxcdn|.+nflxvideo).(com|net)\/((.+(.vtt|-all-.+.m3u8.*))|hls.m3u8.+|\?o=\d+&v=\d+&e=.+),requires-body=1,max-size=0,timeout=30,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Dualsub.beta.js
+Dualsub-setting = type=http-request,pattern=https:\/\/(setting|www).(media.(dss|star)ott|hbomaxcdn|nflxvideo|youtube).(com|net)\/(\?action=(g|s)et|api\/timedtext.+),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Dualsub.beta.js
+
+[MITM]
+hostname = %APPEND% *.media.dssott.com, *.media.starott.com, *.api.hbo.com, *.hbomaxcdn.com, *.nflxvideo.net, *.youtube.com
