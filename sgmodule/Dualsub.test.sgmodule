@@ -1,0 +1,11 @@
+#!name=Dualsub
+#!desc=(TEST) Disney+, Star+, HBO Max, Netflix, YouTube subtitles add-ons
+
+[Script]
+Dualsub.Disney_Plus = type=http-response,pattern=^https?:\/\/(.*)\.media\.(dssott|starott)\.com\/ps01\/disney\/([0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12})\/(.*)(-all-(.*)\.m3u8(.*)|\.vtt$),requires-body=1,max-size=0,timeout=30,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Dualsub.Disney_Plus.beta.js
+Dualsub.HBO_Max = type=http-response,pattern=^https?:\/\/(manifests\.v2\.api\.hbo|(.*)\.hbomaxcdn)\.com\/(hls\.m3u8(.*)|video(.*)\.vtt$),requires-body=1,max-size=0,timeout=30,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Dualsub.HBO_Max.beta.js
+Dualsub.Netflix = type=http-response,pattern=^https?:\/\/(.*)\.nflxvideo\.net\/\?o=(\d+)&v=(\d+)&e=(.+),requires-body=1,max-size=0,timeout=30,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Dualsub.Netflix.beta.js
+Dualsub.YouTube = type=http-request,pattern=^https?:\/\/www\.youtube\.com\/api\/timedtext(.*),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Dualsub.YouTube.beta.js
+
+[MITM]
+hostname = %APPEND% *.media.dssott.com, *.media.starott.com, *.api.hbo.com, *.hbomaxcdn.com, *.nflxvideo.net, www.youtube.com
