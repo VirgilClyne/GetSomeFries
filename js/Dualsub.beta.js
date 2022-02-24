@@ -107,7 +107,7 @@ if (url.match(/(dss|star)ott.com/)) service = "Disney"
 else if (url.match(/hbo(maxcdn)*.com/)) service = "HBOMax"
 else if (url.match(/nflxvideo.net/)) service = "Netflix"
 else if (url.match(/youtube.com/)) service = "YouTube"
-else $.done()
+//else $.done()
 
 if (!service) $done({})
 
