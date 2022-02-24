@@ -104,20 +104,19 @@ if (typeof (settings) == "string") settings = JSON.parse(settings)
 /***************** Platform *****************/
 let service = ""
 if (url.match(/(dss|star)ott.com/)) service = "Disney"
-else if (url.match(/hbo(maxcdn)*.com/)) service = "HBOMax"
-else if (url.match(/nflxvideo.net/)) service = "Netflix"
-else if (url.match(/youtube.com/)) service = "YouTube"
-else $.done()
+if (url.match(/hbo(maxcdn)*.com/)) service = "HBOMax"
+if (url.match(/nflxvideo.net/)) service = "Netflix"
+if (url.match(/youtube.com/)) service = "YouTube"
 
 if (!service) $done({})
 
 let setting = settings[service]
 
 if (url.match(/action=get/)) {
-    settings[service].version = 5;
+    settings[service].version = 6;
     delete setting.t_subtitles_url
     delete setting.subtitles
-    $.done({ response: { body: JSON.stringify(setting) } });
+    $done({ response: { body: JSON.stringify(setting) } })
 }
 
 if (url.match(/action=set/)) {
@@ -138,7 +137,7 @@ if (url.match(/action=set/)) {
     $persistentStore.write(JSON.stringify(settings))
     delete settings[service].t_subtitles_url
     delete settings[service].subtitles
-    $.done({ response: { body: JSON.stringify(settings[service]) } });
+    $done({ response: { body: JSON.stringify(settings[service]) } })
 }
 
 if (setting.type == "Disable") $done({})
