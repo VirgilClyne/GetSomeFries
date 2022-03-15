@@ -161,6 +161,11 @@ falogin.cn = server:syslib // FAST Router
 *.passcloud.xyz = server:https://a.passcloud.xyz/dns-query // iQDNS
 *.uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
 *.uuuglass.co = server:https://a.passcloud.xyz/dns-query // iQZone
+*.leoddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
+*.gov-ddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
+*.daliddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
+uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
+*.xn--mes98khzje07c.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
 
 # > 🇨🇳 CN
 # CNNIC SDNS
