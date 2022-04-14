@@ -13,7 +13,7 @@ $.log(`🚧 ${$.name}`, `url: ${url}`, `method: ${method}`, "");
 
 /***************** Processing *****************/
 !(async () => {
-	const { Type, WARP, WireGuard } = await setENV(url, DataBase);
+	const { Type, WARP, WireGuard } = await setENV("GetSomeFries", url, DataBase);
 	if (typeof $request != "undefined") { // 是请求
 		if (Type == "RegistrationId") { // 是指定链接
 			if (typeof $request.body != "undefined") { // 有请求体
@@ -173,12 +173,12 @@ else $.done();
 
 /***************** Function *****************/
 // Set Environment Variables
-async function setENV(url, database) {
+async function setENV(name, url, database) {
 	$.log(`⚠ ${$.name}, Set Environment Variables`, "");
 	/***************** BoxJs *****************/
 	// 包装为局部变量，用完释放内存
 	// BoxJs的清空操作返回假值空字符串, 逻辑或操作符会在左侧操作数为假值时返回右侧操作数。
-	let BoxJs = $.getjson("GetSomeFries", database) // BoxJs
+	let BoxJs = $.getjson(name, database) // BoxJs
 	//$.log(`🚧 ${$.name}, Set Environment Variables`, `$.BoxJs类型: ${typeof $.BoxJs}`, `$.BoxJs内容: ${JSON.stringify($.BoxJs)}`, "");
 	/***************** Cloudflare *****************/
 	let WARP = BoxJs?.Cloudflare?.WARP || database.Cloudflare.WARP;
