@@ -1,5 +1,5 @@
-#!name=🍟 Cloudflare 1.1.1.1 APP与WARP客户端配置管理
-#!desc=Cloudflare 1.1.1.1 APP with WARP Client Config Management
+#!name= 🍟 Cloudflare 1.1.1.1 APP与WARP客户端配置管理
+#!desc= (1.5.0) Cloudflare 1.1.1.1 APP with WARP Client Config Management
 
 [Script]
 # WARP Personal
