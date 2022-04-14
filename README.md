@@ -1,6 +1,6 @@
 # 🍟 GetSomeFries
 整点薯条  
-又不是不能用  
+又不是不能用。 
 Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 
 ---
