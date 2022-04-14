@@ -68,7 +68,14 @@ $.log(`🚧 ${$.name}`, `url: ${url}`, `method: ${method}`, "");
 	.finally(() => $.done({ headers, body }))
 
 /***************** Function *****************/
-// Set Environment Variables
+/**
+ * Set Environment Variables
+ * @author VirgilClyne
+ * @param {String} name - Persistent Store Key
+ * @param {String} url - Request URL
+ * @param {Object} database - Default DataBase
+ * @return {Promise<*>}
+ */
 async function setENV(name, url, database) {
 	$.log(`⚠ ${$.name}, Set Environment Variables`, "");
 	/***************** BoxJs *****************/
