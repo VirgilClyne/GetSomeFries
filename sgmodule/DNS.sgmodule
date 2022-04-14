@@ -3,6 +3,8 @@
 
 [Host]
 # > Router Admin Panel
+# unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
+# networks.unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
 amplifi.lan = server:syslib // Ubiquiti Amplifi Router
 router.synology.com = server:syslib // Synology Router
 sila.razer.com = server:syslib // Razer Sila Router
@@ -19,6 +21,7 @@ tplogin.cn = server:syslib // TP-Link Router
 tplinklogin.net = server:syslib // TP-Link Router
 melogin.cn = server:syslib // MERCURY Router
 falogin.cn = server:syslib // FAST Router
+
 # > Alphabet
 *.google = server:https://dns.google/dns-query // Google
 *.goog = server:https://dns.google/dns-query // Google sites
@@ -35,7 +38,7 @@ falogin.cn = server:syslib // FAST Router
 *.ytimg.com = server:https://dns.google/dns-query // Youtube 图片
 *.googlevideo.com = server:https://dns.google/dns-query // Youtube Video
 *.gvt?.com = server:https://dns.google/dns-query // Google Video Thumbnails
-*.recaptcha.net = server:https://dns.google/dns-query // Google reCaptcha
+*.recaptcha.net = server:https://dns.google/dns-query // reCaptcha
 *.gmail.com = server:https://dns.google/dns-query // Gmail
 *.googlesource.com = server:https://dns.google/dns-query // Google Source
 *.googleadservices.com = server:https://dns.google/dns-query // Google AD Services
@@ -43,13 +46,16 @@ falogin.cn = server:syslib // FAST Router
 *.adsense.com = server:https://dns.google/dns-query // AdSense
 *.adsensecustomsearchads.com = server:https://dns.google/dns-query // AdSense Custom Search Ads
 *.adsenseformobileapps.com = server:https://dns.google/dns-query // AdSense for mobile apps
+
 # > Cloudflare
 *.cloudflare.com = server:https://cloudflare-dns.com/dns-query // Cloudflare
 *.cloudflarestream.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Stream
 *.cloudflareclient.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Client
 *.cloudflareinsights.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Web Analytics
 *.every1dns.net = server:https://cloudflare-dns.com/dns-query // Cloudflare 1.1.1.1
+# *.cloudflaressl.com = server:https://cloudflare-dns.com/dns-query // Cloudflare SSL Certificate
 *.cloudflare-dns.com = server:https://cloudflare-dns.com/dns-query // Cloudflare DNS
+
 # > 阿里巴巴
 *.alibaba.cn = server:https://dns.alidns.com/dns-query // 阿里巴巴
 *.alibaba.com.cn = server:https://dns.alidns.com/dns-query // 阿里巴巴
@@ -69,12 +75,15 @@ falogin.cn = server:syslib // FAST Router
 *.aliapp.org = server:https://dns.alidns.com/dns-query // 上云平台
 *.alibabausercontent.com = server:https://dns.alidns.com/dns-query // 阿里用户上传资料
 *.mmstat.com = server:https://dns.alidns.com/dns-query // mmstat 数据统计 广告追踪
+
 # > 蚂蚁集团
 *.alipay.com = server:https://dns.alidns.com/dns-query // 支付宝
 *.alipaydns.com = server:https://dns.alidns.com/dns-query // 支付宝 DNS
 *.alipayeshop.com = server:https://dns.alidns.com/dns-query // 支付宝 商家资源
 *.alipaylog.com = server:https://dns.alidns.com/dns-query // 支付宝 Mdap
 *.alipayobjects.com = server:https://dns.alidns.com/dns-query // 支付宝 静态资源
+*.alipay-eco.com = server:https://dns.alidns.com/dns-query // 支付宝 开放技术生态体系
+
 # > 腾讯
 *.tencent.com = server:https://doh.pub/dns-query // 腾讯
 *.qcloud.com = server:https://doh.pub/dns-query // 腾讯云
@@ -106,6 +115,7 @@ falogin.cn = server:syslib // FAST Router
 *.cdn-go.cn = server:https://doh.pub/dns-query // 腾讯 静态资源 CDN
 *.smtcdns.com = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
 *.smtcdns.net = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
+
 # > 百度
 *.baidu = server:180.76.76.76 // 百度
 *.baidu.com = server:180.76.76.76 // 百度
@@ -125,6 +135,25 @@ falogin.cn = server:syslib // FAST Router
 *.bceimg.com = server:180.76.76.76 // 百度智能云 图片服务
 *.bcehost.com = server:180.76.76.76 // 百度智能云 主机
 *.bcehosts.com = server:180.76.76.76 // 百度智能云 主机
+
+# > BiliBili
+*.bilibili.com = server:syslib // BiliBili
+*.biliapi.com = server:syslib // BiliBili API
+*.biliapi.net = server:syslib // BiliBili API
+*.hdslb.com = server:syslib // BiliBili 静态资源
+*.hdslb.net = server:syslib // BiliBili 静态资源
+*.bilivideo.com = server:syslib // BiliBili 视频
+*.bilivideo.cn = server:syslib // BiliBili 视频
+*.acg.tv = server:syslib // BiliBili
+
+# > 京东
+*.jd.com = server:syslib // 京东
+*.360buyimg.com = server:syslib // 京东 静态资源
+*.jdcloud.com = server:syslib // 京东云
+*.jcloudstatic.com = server:syslib // 京东云 缓存和存储
+*.jcloudstatic.net = server:syslib // 京东云 静态资源
+*.jdgslb.com = server:syslib // 京东云 全局负载均衡
+
 # > iQDNS
 *.iqdns.xyz = server:https://a.passcloud.xyz/dns-query // iQDNS
 *.iqdnsio.co = server:https://a.passcloud.xyz/dns-query // iQDNS
@@ -132,10 +161,17 @@ falogin.cn = server:syslib // FAST Router
 *.passcloud.xyz = server:https://a.passcloud.xyz/dns-query // iQDNS
 *.uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
 *.uuuglass.co = server:https://a.passcloud.xyz/dns-query // iQZone
+*.leoddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
+*.gov-ddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
+*.daliddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
+uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
+*.xn--mes98khzje07c.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
+
 # > 🇨🇳 CN
 # CNNIC SDNS
-*.gov.cn = server:1.2.4.8 // 中国政府网
-*.政务 = server:1.2.4.8 // 中国政府网
+# *.gov.cn = server:1.2.4.8 // 中国政府网
+# *.政务 = server:1.2.4.8 // 中国政府网
+
 # > 🇭🇰 HK
 # PCCW Enterprises Limited
 # *.pccw.com = server:dns1.pccw.com // 电讯盈科
@@ -154,6 +190,7 @@ falogin.cn = server:syslib // FAST Router
 # *.cabletv.com.hk = server:dns2.hkcable.com.hk // CABLE TV Service
 # KDDI Hong Kong Limited
 # *.hk.kddi.com = server:apple.kdd.net.hk // KDDI Hong Kong
+
 # > 🇹🇼 TW
 # 中华电信
 *.cht.com.tw  = server:https://dns.hinet.net/dns-query // 中华电信
@@ -165,6 +202,7 @@ falogin.cn = server:syslib // FAST Router
 # Taiwan Network Information Center
 *.tw = server:https://dns.twnic.tw/dns-query // TWNIC DNS
 *.taipei = server:https://dns.twnic.tw/dns-query // TWNIC DNS
+
 # > 🇺🇸 US
 # Hurricane Electric
 *.he.net = server:https://ordns.he.net/dns-query // HE.net
