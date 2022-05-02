@@ -78,6 +78,7 @@ falogin.cn = server:syslib // FAST Router
 
 # > 蚂蚁集团
 *.alipay.com = server:https://dns.alidns.com/dns-query // 支付宝
+*.alipay.com.cn = server:https://dns.alidns.com/dns-query // 支付宝
 *.alipaydns.com = server:https://dns.alidns.com/dns-query // 支付宝 DNS
 *.alipayeshop.com = server:https://dns.alidns.com/dns-query // 支付宝 商家资源
 *.alipaylog.com = server:https://dns.alidns.com/dns-query // 支付宝 Mdap
