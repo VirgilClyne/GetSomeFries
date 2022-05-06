@@ -1,6 +1,10 @@
 #!name=🍟 Domains/Websites with them-Company-selves Public DNS
 #!desc=Redirect Domains/Websites to them-Company-selves Public DNS
 
+[General]
+# 使 DoH 请求通过代理策略执行
+doh-follow-outbound-mode = true
+
 [Host]
 # > Router Admin Panel
 # unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
