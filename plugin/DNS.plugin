@@ -1,0 +1,221 @@
+#!name=🌐 DNS for Router and Companys
+#!desc=1.按企业/公司分流使用所属DNS进行解析 2.路由器地址使用系统DNS进行解析
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/VirgilClyne/blob/main/modules/DNS/README.md
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+
+[Host]
+# > Router Admin Panel
+# unifi.ui.com = server:system
+# networks.unifi.ui.com = server:system
+amplifi.lan = server:system
+router.synology.com = server:system
+sila.razer.com = server:system
+router.asus.com = server:system
+routerlogin.net = server:system
+orbilogin.com = server:system
+www.LinksysSmartWiFi.com = server:system
+LinksysSmartWiFi.com = server:system
+myrouter.local = server:system
+www.miwifi.com = server:system
+miwifi.com = server:system
+mediarouter.home = server:system
+tplogin.cn = server:system
+tplinklogin.net = server:system
+melogin.cn = server:system
+falogin.cn = server:system
+
+# > Apple
+networking.apple = server:https://doh.dns.apple.com/dns-query
+*.apple.com = server:https://doh.dns.apple.com/dns-query
+*.icloud.com = server:https://doh.dns.apple.com/dns-query
+
+# > Alphabet
+*.google = server:https://dns.google/dns-query
+*.goog = server:https://dns.google/dns-query
+*.gle = server:https://dns.google/dns-query
+*.google.com = server:https://dns.google/dns-query
+*.google.com.?? = server:https://dns.google/dns-query
+*.gstatic.com = server:https://dns.google/dns-query
+*.ggpht.com = server:https://dns.google/dns-query
+*.googleusercontent.com = server:https://dns.google/dns-query
+*.googleapis.com = server:https://dns.google/dns-query
+*.1e100.net = server:https://dns.google/dns-query
+*.youtube = server:https://dns.google/dns-query
+*.youtube.com = server:https://dns.google/dns-query
+*.ytimg.com = server:https://dns.google/dns-query
+*.googlevideo.com = server:https://dns.google/dns-query
+*.gvt?.com = server:https://dns.google/dns-query
+*.recaptcha.net = server:https://dns.google/dns-query
+*.gmail.com = server:https://dns.google/dns-query
+*.googlesource.com = server:https://dns.google/dns-query
+*.googleadservices.com = server:https://dns.google/dns-query
+*.doubleclick.net = server:https://dns.google/dns-query
+*.adsense.com = server:https://dns.google/dns-query
+*.adsensecustomsearchads.com = server:https://dns.google/dns-query
+*.adsenseformobileapps.com = server:https://dns.google/dns-query
+
+# > Cloudflare
+*.cloudflare.com = server:https://cloudflare-dns.com/dns-query
+*.cloudflarestream.com = server:https://cloudflare-dns.com/dns-query
+*.cloudflareclient.com = server:https://cloudflare-dns.com/dns-query
+*.cloudflareinsights.com = server:https://cloudflare-dns.com/dns-query
+*.every1dns.net = server:https://cloudflare-dns.com/dns-query
+# *.cloudflaressl.com = server:https://cloudflare-dns.com/dns-query
+*.cloudflare-dns.com = server:https://cloudflare-dns.com/dns-query
+
+# > 阿里巴巴
+*.alibaba.cn = server:https://dns.alidns.com/dns-query
+*.alibaba.com.cn = server:https://dns.alidns.com/dns-query
+*.china.alibaba.com = server:https://dns.alidns.com/dns-query
+*.1688.com = server:https://dns.alidns.com/dns-query
+*.taobao.com = server:https://dns.alidns.com/dns-query
+*.tbcache.com = server:https://dns.alidns.com/dns-query
+*.tmall.com = server:https://dns.alidns.com/dns-query
+*.alicdn.com = server:https://dns.alidns.com/dns-query
+*.aliyundrive.com = server:https://dns.alidns.com/dns-query
+*.aliyun.* = server:https://dns.alidns.com/dns-query
+*.aliyuncdn.* = server:https://dns.alidns.com/dns-query
+*.aliyunddos????.com = server:https://dns.alidns.com/dns-query
+*.aliyuncs.com = server:https://dns.alidns.com/dns-query
+*.aliyundunwaf.com = server:https://dns.alidns.com/dns-query
+*.aliapp.com = server:https://dns.alidns.com/dns-query
+*.aliapp.org = server:https://dns.alidns.com/dns-query
+*.alibabausercontent.com = server:https://dns.alidns.com/dns-query
+*.mmstat.com = server:https://dns.alidns.com/dns-query
+
+# > 蚂蚁集团
+*.alipay.com = server:https://dns.alidns.com/dns-query
+*.alipay.com.cn = server:https://dns.alidns.com/dns-query
+*.alipaydns.com = server:https://dns.alidns.com/dns-query
+*.alipayeshop.com = server:https://dns.alidns.com/dns-query
+*.alipaylog.com = server:https://dns.alidns.com/dns-query
+*.alipayobjects.com = server:https://dns.alidns.com/dns-query
+*.alipay-eco.com = server:https://dns.alidns.com/dns-query
+
+# > 腾讯
+*.tencent.com = server:https://doh.pub/dns-query
+*.qcloud.com = server:https://doh.pub/dns-query
+*.qcloudcdn.cn = server:https://doh.pub/dns-query
+*.qcloudcdn.com = server:https://doh.pub/dns-query
+*.qcloudcos.com = server:https://doh.pub/dns-query
+*.qcloudimg.com = server:https://doh.pub/dns-query
+*.qcloudcjgj.com = server:https://doh.pub/dns-query
+*.qcloudwzgj.com = server:https://doh.pub/dns-query
+*.qcloudzygj.com = server:https://doh.pub/dns-query
+*.myqcloud.com = server:https://doh.pub/dns-query
+*.tencent-cloud.net = server:https://doh.pub/dns-query
+*.tencentcloud-aiot.com = server:https://doh.pub/dns-query
+*.tencentcloudapi.com = server:https://doh.pub/dns-query
+*.tencentcloudcr.com = server:https://doh.pub/dns-query
+*.tencentcloudmarket.com = server:https://doh.pub/dns-query
+*.qq.com = server:https://doh.pub/dns-query
+*.qlogo.cn = server:https://doh.pub/dns-query
+*.qpic.cn = server:https://doh.pub/dns-query
+*.weixin.qq.com = server:https://doh.pub/dns-query
+*.wx.qq.com = server:https://doh.pub/dns-query
+*.weixin.com = server:https://doh.pub/dns-query
+*.weixinbridge.com = server:https://doh.pub/dns-query
+*.wechat.com = server:https://doh.pub/dns-query
+*.servicewechat.com = server:https://doh.pub/dns-query
+*.weiyun.com = server:https://doh.pub/dns-query
+*.gtimg.cn = server:https://doh.pub/dns-query
+*.idqqimg.com = server:https://doh.pub/dns-query
+*.cdn-go.cn = server:https://doh.pub/dns-query
+*.smtcdns.com = server:https://doh.pub/dns-query
+*.smtcdns.net = server:https://doh.pub/dns-query
+
+# > 百度
+*.baidu = server:180.76.76.76
+*.baidu.com = server:180.76.76.76
+*.bdimg.com = server:180.76.76.76
+*.bdstatic.com = server:180.76.76.76
+*.baidupcs.* = server:180.76.76.76
+*.baiduyuncdn.* = server:180.76.76.76
+*.baiduyundns.* = server:180.76.76.76
+*.bdydns.* = server:180.76.76.76
+*.bdycdn.* = server:180.76.76.76
+*.bdysite.com = server:180.76.76.76
+*.bdysites.com = server:180.76.76.76
+*.baidubce.* = server:180.76.76.76
+*.bcedns.* = server:180.76.76.76
+*.bcebos.com = server:180.76.76.76
+*.bcevod.com = server:180.76.76.76
+*.bceimg.com = server:180.76.76.76
+*.bcehost.com = server:180.76.76.76
+*.bcehosts.com = server:180.76.76.76
+
+# > BiliBili
+*.bilibili.com = server:syslib
+*.biliapi.com = server:syslib
+*.biliapi.net = server:syslib
+*.hdslb.com = server:syslib
+*.hdslb.net = server:syslib
+*.bilivideo.com = server:syslib
+*.bilivideo.cn = server:syslib
+*.acg.tv = server:syslib
+
+# > 京东
+*.jd.com = server:syslib
+*.360buyimg.com = server:syslib
+*.jdcloud.com = server:syslib
+*.jcloudstatic.com = server:syslib
+*.jcloudstatic.net = server:syslib
+*.jdgslb.com = server:syslib
+
+# > iQDNS
+*.iqdns.xyz = server:https://a.passcloud.xyz/dns-query
+*.iqdnsio.co = server:https://a.passcloud.xyz/dns-query
+*.iqiq.io = server:https://a.passcloud.xyz/dns-query
+*.passcloud.xyz = server:https://a.passcloud.xyz/dns-query
+uuu.glass = server:https://a.passcloud.xyz/dns-query
+*.uuu.glass = server:https://a.passcloud.xyz/dns-query
+*.uuuglass.co = server:https://a.passcloud.xyz/dns-query
+*.leoddns.cn = server:https://a.passcloud.xyz/dns-query
+*.gov-ddns.cn = server:https://a.passcloud.xyz/dns-query
+*.daliddns.cn = server:https://a.passcloud.xyz/dns-query
+*.xn--mes98khzje07c.xyz = server:https://a.passcloud.xyz/dns-query
+*.9218561.xyz = server:https://a.passcloud.xyz/dns-query
+*.211129.xyz = server:https://a.passcloud.xyz/dns-query
+*.gia.wiki = server:https://a.passcloud.xyz/dns-query
+*.checkmails.xyz = server:https://a.passcloud.xyz/dns-query
+
+# > 🇨🇳 CN
+# CNNIC SDNS
+# *.gov.cn = server:1.2.4.8
+# *.政务 = server:1.2.4.8
+
+# > 🇭🇰 HK
+# PCCW Enterprises Limited
+# *.pccw.com = server:dns1.pccw.com
+# *.1010.com.hk = server:dns1.pccw.com
+# *.hkcsl.com = server:dns1.pccw.com
+# *.theclub.com.hk = server:dns1.pccw.com
+# *.now.com = server:dns2.pccw.com
+# *.nowe.com = server:dns2.pccw.com
+# *.now-tv.com = server:dns2.pccw.com
+# *.moov.hk = server:dns3.pccw.com
+# *.viu.com = server:dns3.pccw.com
+# *.viu.tv = server:dns3.pccw.com
+# Hong Kong Cable Television Limited
+# *.hkcable.com.hk = server:dns1.hkcable.com.hk
+# *.i-cable.com = server:dns2.hkcable.com.hk
+# *.cabletv.com.hk = server:dns2.hkcable.com.hk
+# KDDI Hong Kong Limited
+# *.hk.kddi.com = server:apple.kdd.net.hk
+
+# > 🇹🇼 TW
+# 中华电信
+*.cht.com.tw  = server:https://dns.hinet.net/dns-query
+*.hinet.net = server:https://dns.hinet.net/dns-query
+*.emome.net = server:https://dns.hinet.net/dns-query
+# So-net
+# so-net.net.tw = server:ns1.so-net.net.tw
+# so-net.tw = server:ns1.so-net.net.tw
+# Taiwan Network Information Center
+*.tw = server:https://dns.twnic.tw/dns-query
+*.taipei = server:https://dns.twnic.tw/dns-query
+
+# > 🇺🇸 US
+# Hurricane Electric
+*.he.net = server:https://ordns.he.net/dns-query
