@@ -26,6 +26,22 @@ tplinklogin.net = server:syslib // TP-Link Router
 melogin.cn = server:syslib // MERCURY Router
 falogin.cn = server:syslib // FAST Router
 
+# > UnBreak
+appleid.apple.com = server:syslib
+support.apple.com = server:syslib
+getsupport.apple.com = server:syslib
+discussionschinese.apple.com = server:syslib
+mesu.apple.com = server:syslib
+gsa.apple.com = server:syslib
+blog.google = server:system
+googletraveladservices.com = server:syslib
+clientservices.googleapis.com = server:syslib
+dl.google.com = server:syslib
+dl.l.google.com = server:syslib
+update.googleapis.com = server:syslib
+translate.googleapis.com = server:syslib
+*-mtalk.google.com = server:syslib
+
 # > Apple
 networking.apple = server:https://doh.dns.apple.com/dns-query
 *.apple.com = server:https://doh.dns.apple.com/dns-query
