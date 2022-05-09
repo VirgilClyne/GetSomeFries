@@ -1,4 +1,4 @@
-#!name=DNS for Router and Companys
+#!name=🌐 DNS for Router and Companys
 #!desc=1.按企业/公司分流使用所属DNS进行解析 2.路由器地址使用系统DNS进行解析
 
 [General]
@@ -25,6 +25,11 @@ tplogin.cn = server:syslib // TP-Link Router
 tplinklogin.net = server:syslib // TP-Link Router
 melogin.cn = server:syslib // MERCURY Router
 falogin.cn = server:syslib // FAST Router
+
+# > Apple
+networking.apple = server:https://doh.dns.apple.com/dns-query
+*.apple.com = server:https://doh.dns.apple.com/dns-query
+*.icloud.com = server:https://doh.dns.apple.com/dns-query
 
 # > Alphabet
 *.google = server:https://dns.google/dns-query // Google
@@ -164,12 +169,12 @@ falogin.cn = server:syslib // FAST Router
 *.iqdnsio.co = server:https://a.passcloud.xyz/dns-query // iQDNS
 *.iqiq.io = server:https://a.passcloud.xyz/dns-query // iQDNS
 *.passcloud.xyz = server:https://a.passcloud.xyz/dns-query // iQDNS
+uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
 *.uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
 *.uuuglass.co = server:https://a.passcloud.xyz/dns-query // iQZone
 *.leoddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
 *.gov-ddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
 *.daliddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
-uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
 *.xn--mes98khzje07c.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
 *.9218561.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
 *.211129.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
