@@ -87,6 +87,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 *.every1dns.net = server:https://cloudflare-dns.com/dns-query // Cloudflare 1.1.1.1
 # *.cloudflaressl.com = server:https://cloudflare-dns.com/dns-query // Cloudflare SSL Certificate
 *.cloudflare-dns.com = server:https://cloudflare-dns.com/dns-query // Cloudflare DNS
+*.workers.dev = server:https://cloudflare-dns.com/dns-query // CloudFlare Workers
 
 # > 阿里巴巴
 *.alibaba.cn = server:https://dns.alidns.com/dns-query // 阿里巴巴
