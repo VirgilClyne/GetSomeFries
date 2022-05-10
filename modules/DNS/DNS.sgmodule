@@ -27,12 +27,6 @@ melogin.cn = server:syslib // MERCURY Router
 falogin.cn = server:syslib // FAST Router
 
 # > UnBreak
-appleid.apple.com = server:syslib
-support.apple.com = server:syslib
-getsupport.apple.com = server:syslib
-discussionschinese.apple.com = server:syslib
-mesu.apple.com = server:syslib
-gsa.apple.com = server:syslib
 blog.google = server:system
 googletraveladservices.com = server:syslib
 clientservices.googleapis.com = server:syslib

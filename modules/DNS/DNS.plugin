@@ -26,12 +26,6 @@ melogin.cn = server:system
 falogin.cn = server:system
 
 # > UnBreak
-appleid.apple.com = server:system
-support.apple.com = server:system
-getsupport.apple.com = server:system
-discussionschinese.apple.com = server:system
-mesu.apple.com = server:system
-gsa.apple.com = server:system
 blog.google = server:system
 googletraveladservices.com = server:system
 clientservices.googleapis.com = server:system
