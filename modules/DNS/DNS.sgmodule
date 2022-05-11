@@ -1,5 +1,8 @@
 #!name=🌐 DNS for Router and Companys
 #!desc=1.按企业/公司分流使用所属DNS进行解析 2.路由器地址使用系统DNS进行解析
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/VirgilClyne/blob/main/modules/DNS/README.md
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 [General]
 # 使 DoH 请求通过代理策略执行
@@ -21,8 +24,8 @@ alt8-mtalk.google.com = 3.3.3.3 // Firebase Cloud Messaging
 # Google CDN
 blog.google = server:119.29.29.29 // Google Blog
 googletraveladservices.com = server:119.29.29.29 // Google Flights
-dl.google.com = server:119.29.29.29 // Google Dl
-dl.l.google.com = server:119.29.29.29 // Google Dl
+dl.google.com = server:119.29.29.29 // Google Download
+dl.l.google.com = server:119.29.29.29 // Google Download
 clientservices.googleapis.com = server:119.29.29.29 // Google Chrome
 update.googleapis.com = server:119.29.29.29 // Google Update
 translate.googleapis.com = server:119.29.29.29 // Google Translate
@@ -50,9 +53,9 @@ melogin.cn = server:syslib // MERCURY Router
 falogin.cn = server:syslib // FAST Router
 
 # > Apple
-networking.apple = server:https://doh.dns.apple.com/dns-query
-*.apple.com = server:https://doh.dns.apple.com/dns-query
-*.icloud.com = server:https://doh.dns.apple.com/dns-query
+networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
+*.apple.com = server:https://doh.dns.apple.com/dns-query // Apple.com
+*.icloud.com = server:https://doh.dns.apple.com/dns-query // iCloud.com
 
 # > Alphabet
 *.google = server:https://dns.google/dns-query // Google
@@ -112,7 +115,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 # > 蚂蚁集团
 *.alipay.com = server:https://dns.alidns.com/dns-query // 支付宝
 *.alipay.com.cn = server:https://dns.alidns.com/dns-query // 支付宝
-*.alipaydns.com = server:https://dns.alidns.com/dns-query // 支付宝 DNS
+*.alipaydns.com = server:https://dns.alidns.com/dns-query // 支付宝 HTTP DNS
 *.alipayeshop.com = server:https://dns.alidns.com/dns-query // 支付宝 商家资源
 *.alipaylog.com = server:https://dns.alidns.com/dns-query // 支付宝 Mdap
 *.alipayobjects.com = server:https://dns.alidns.com/dns-query // 支付宝 静态资源
