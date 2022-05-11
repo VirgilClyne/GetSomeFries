@@ -40,5 +40,8 @@ Telegram讨论组:[🍟 整点薯条](https://t.me/GetSomeFries)
 ## 安装链接
   * Loon:
     * [DNS.plugin](./DNS.plugin?raw=true "🌐 DNS for Router and Companys")
+  * Quantumult X:
+    * [DNS.qxrewrite](./DNS.qxrewrite?raw=true "🌐 DNS for Router and Companys")
+    * Quantumult X不支持直接引用片段中包含Host和DNS内容，需要手动复制粘贴此内容至配置文件Host段落
   * Surge:
     * [DNS.sgmodule](./DNS.sgmodule?raw=true "🌐 DNS for Router and Companys")
