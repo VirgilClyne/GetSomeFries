@@ -30,36 +30,36 @@ doh-server = /fonts.gstatic.com/https://doh.pub/dns-query
 
 # > Router Admin Panel
 # Ubiquiti Unifi Controller
-doh-server = /unifi.ui.com/system
-doh-server = /networks.unifi.ui.com/system
+server = /unifi.ui.com/system
+server = /networks.unifi.ui.com/system
 # Ubiquiti Amplifi Router
-doh-server = /amplifi.lan/system
+server = /amplifi.lan/system
 # Synology Router
-doh-server = /router.synology.com/system
+server = /router.synology.com/system
 # Razer Sila Router
-doh-server = /sila.razer.com/system
+server = /sila.razer.com/system
 # Asus Router
-doh-server = /router.asus.com/system
+server = /router.asus.com/system
 # Netgear Router
-doh-server = /routerlogin.net/system
+server = /routerlogin.net/system
 # Netgear Obri Router
-doh-server = /orbilogin.com/system
+server = /orbilogin.com/system
 # Linksys Router
-doh-server = /www.LinksysSmartWiFi.com/system
-doh-server = /LinksysSmartWiFi.com/system
-doh-server = /*.myrouter.local/system
+server = /www.LinksysSmartWiFi.com/system
+server = /LinksysSmartWiFi.com/system
+server = /*.myrouter.local/system
 # Xiaomi Mi WiFi Router
-doh-server = /www.miwifi.com/system
-doh-server = /miwifi.com/system
+server = /www.miwifi.com/system
+server = /miwifi.com/system
 # Huawei Router
-doh-server = /mediarouter.home/system
+server = /mediarouter.home/system
 # TP-Link Router
-doh-server = /tplogin.cn/system
-doh-server = /tplinklogin.net/system
+server = /tplogin.cn/system
+server = /tplinklogin.net/system
 # MERCURY Router
-doh-server = /melogin.cn/system
+server = /melogin.cn/system
 # FAST Router
-doh-server = /falogin.cn/system
+server = /falogin.cn/system
 
 # > Apple
 doh-server = /networking.apple/https://doh.dns.apple.com/dns-query
@@ -237,64 +237,64 @@ doh-server = /*.smtcdns.com/https://doh.pub/dns-query
 doh-server = /*.smtcdns.net/https://doh.pub/dns-query
 
 # > 百度
-doh-server = /*.baidu/180.76.76.76
-doh-server = /*.baidu.com/180.76.76.76
+server = /*.baidu/180.76.76.76
+server = /*.baidu.com/180.76.76.76
 # 百度 静态资源
-doh-server = /*.bdimg.com/180.76.76.76
-doh-server = /*.bdstatic.com/180.76.76.76
+server = /*.bdimg.com/180.76.76.76
+server = /*.bdstatic.com/180.76.76.76
 # 百度网盘
-doh-server = /*.baidupcs.*/180.76.76.76
+server = /*.baidupcs.*/180.76.76.76
 # 百度云CDN
-doh-server = /*.baiduyuncdn.*/180.76.76.76
+server = /*.baiduyuncdn.*/180.76.76.76
 # 百度云DNS
-doh-server = /*.baiduyundns.*/180.76.76.76
+server = /*.baiduyundns.*/180.76.76.76
 # 百度云 DNS
-doh-server = /*.bdydns.*/180.76.76.76
+server = /*.bdydns.*/180.76.76.76
 # 百度云 CDN
-doh-server = /*.bdycdn.*/180.76.76.76
+server = /*.bdycdn.*/180.76.76.76
 # 百度云 域名
-doh-server = /*.bdysite.com/180.76.76.76
-doh-server = /*.bdysites.com/180.76.76.76
+server = /*.bdysite.com/180.76.76.76
+server = /*.bdysites.com/180.76.76.76
 # 百度智能云
-doh-server = /*.baidubce.*/180.76.76.76
+server = /*.baidubce.*/180.76.76.76
 # 百度智能云 DNS
-doh-server = /*.bcedns.*/180.76.76.76
+server = /*.bcedns.*/180.76.76.76
 # 百度智能云 对象存储BOS
-doh-server = /*.bcebos.com/180.76.76.76
+server = /*.bcebos.com/180.76.76.76
 # 百度智能云 播放器服务
-doh-server = /*.bcevod.com/180.76.76.76
+server = /*.bcevod.com/180.76.76.76
 # 百度智能云 图片服务
-doh-server = /*.bceimg.com/180.76.76.76
+server = /*.bceimg.com/180.76.76.76
 # 百度智能云 主机
-doh-server = /*.bcehost.com/180.76.76.76
-doh-server = /*.bcehosts.com/180.76.76.76
+server = /*.bcehost.com/180.76.76.76
+server = /*.bcehosts.com/180.76.76.76
 
 # > BiliBili
-doh-server = /*.bilibili.com/system
+server = /*.bilibili.com/system
 # BiliBili API
-doh-server = /*.biliapi.com/system
-doh-server = /*.biliapi.net/system
+server = /*.biliapi.com/system
+server = /*.biliapi.net/system
 # BiliBili 静态资源
-doh-server = /*.hdslb.com/system
-doh-server = /*.hdslb.net/system
+server = /*.hdslb.com/system
+server = /*.hdslb.net/system
 # BiliBili 视频
-doh-server = /*.bilivideo.com/system
-doh-server = /*.bilivideo.cn/system
+server = /*.bilivideo.com/system
+server = /*.bilivideo.cn/system
 # BiliBili
-doh-server = /*.acg.tv/system
+server = /*.acg.tv/system
 
 # > 京东
-doh-server = /*.jd.com/system
+server = /*.jd.com/system
 # 京东 静态资源
-doh-server = /*.360buyimg.com/system
+server = /*.360buyimg.com/system
 # 京东云
-doh-server = /*.jdcloud.com/system
+server = /*.jdcloud.com/system
 # 京东云 缓存和存储
-doh-server = /*.jcloudstatic.com/system
+server = /*.jcloudstatic.com/system
 # 京东云 静态资源
-doh-server = /*.jcloudstatic.net/system
+server = /*.jcloudstatic.net/system
 # 京东云 全局负载均衡
-doh-server = /*.jdgslb.com/system
+server = /*.jdgslb.com/system
 
 # > iQDNS
 doh-server = /*.iqdns.xyz/https://a.passcloud.xyz/dns-query
@@ -302,17 +302,17 @@ doh-server = /*.iqdnsio.co/https://a.passcloud.xyz/dns-query
 doh-server = /*.iqiq.io/https://a.passcloud.xyz/dns-query
 doh-server = /*.passcloud.xyz/https://a.passcloud.xyz/dns-query
 # iQZone
-doh-server = /uuu.glass = server:https://a.passcloud.xyz/dns-query // iQZone
+doh-server = /uuu.glass/https://a.passcloud.xyz/dns-query
 doh-server = /*.uuu.glass/https://a.passcloud.xyz/dns-query
 doh-server = /*.uuuglass.co/https://a.passcloud.xyz/dns-query
-*.leoddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
-*.gov-ddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
-*.daliddns.cn = server:https://a.passcloud.xyz/dns-query // iQZone
-*.xn--mes98khzje07c.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
-*.9218561.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
-*.211129.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
-*.gia.wiki = server:https://a.passcloud.xyz/dns-query // iQZone
-*.checkmails.xyz = server:https://a.passcloud.xyz/dns-query // iQZone
+doh-server = /*.leoddns.cn/https://a.passcloud.xyz/dns-query
+doh-server = /*.gov-ddns.cn/https://a.passcloud.xyz/dns-query
+doh-server = /*.daliddns.cn/https://a.passcloud.xyz/dns-query
+doh-server = /*.xn--mes98khzje07c.xyz/https://a.passcloud.xyz/dns-query
+doh-server = /*.9218561.xyz/https://a.passcloud.xyz/dns-query
+doh-server = /*.211129.xyz/https://a.passcloud.xyz/dns-query
+doh-server = /*.gia.wiki/https://a.passcloud.xyz/dns-query
+doh-server = /*.checkmails.xyz/https://a.passcloud.xyz/dns-query
 
 # > 🇨🇳 CN
 # CNNIC SDNS
