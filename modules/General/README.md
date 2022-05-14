@@ -27,6 +27,11 @@
       * Apple Web Authentication Modern 跨设备验证本地连接: cable.auth.com
       * 网上国网、多看阅读、顺丰金融、广东农信、丰云行 系统代理检测: www.baidu.com
       * 建行生活 系统代理检测: yunbusiness.ccb.com
+      * 移动认证登录: *.cmpassport.com
+      * 电信天翼账号免密登录: id6.me, open.e.189.cn
+      * 联通沃账号一键登录: mdn.open.wo.cn, auth.wosms.cn
+      * 无忧行: *.jegotrip.com.cn
+      * 誉隆信息 (?): *.icitymobile.mobi
       * IPv4私有地址
         * 本地环回地址: 127.0.0.1/32
         * 专用网络地址: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
