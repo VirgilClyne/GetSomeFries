@@ -74,8 +74,6 @@ doh-server = /*.google.com/https://dns.google/dns-query
 doh-server = /*.google.com.??/https://dns.google/dns-query
 # Google sites
 doh-server = /*.goog/https://dns.google/dns-query
-# Google shortened URLs
-doh-server = /*.gle/https://dns.google/dns-query
 # Google 静态资源
 doh-server = /*.gstatic.com/https://dns.google/dns-query
 # Google Photos
@@ -112,6 +110,10 @@ doh-server = /*.adsense.com/https://dns.google/dns-query
 doh-server = /*.adsensecustomsearchads.com/https://dns.google/dns-query
 # AdSense for mobile apps
 doh-server = /*.adsenseformobileapps.com/https://dns.google/dns-query
+# Google shortened URLs
+doh-server = /*.gle/https://dns.google/dns-query
+# Google URL Shortener
+doh-server = /*.goo.gl/https://dns.google/dns-query
 
 # > Cloudflare
 doh-server = /*.cloudflare.com/https://cloudflare-dns.com/dns-query
@@ -165,6 +167,8 @@ doh-server = /*.aliapp.org/https://dns.alidns.com/dns-query
 doh-server = /*.alibabausercontent.com/https://dns.alidns.com/dns-query
 # mmstat 数据统计 广告追踪
 doh-server = /*.mmstat.com/https://dns.alidns.com/dns-query
+# 淘宝短网址
+doh-server = /*.tb.cn/https://dns.alidns.com/dns-query
 
 # > 蚂蚁集团
 doh-server = /*.alipay.com/https://dns.alidns.com/dns-query
@@ -235,6 +239,8 @@ doh-server = /*.cdn-go.cn/https://doh.pub/dns-query
 # 腾讯云 智能云解析DNS
 doh-server = /*.smtcdns.com/https://doh.pub/dns-query
 doh-server = /*.smtcdns.net/https://doh.pub/dns-query
+# 腾讯短网址
+doh-server = /*.url.cn/https://doh.pub/dns-query
 
 # > 百度
 server = /*.baidu/180.76.76.76
@@ -268,6 +274,8 @@ server = /*.bceimg.com/180.76.76.76
 # 百度智能云 主机
 server = /*.bcehost.com/180.76.76.76
 server = /*.bcehosts.com/180.76.76.76
+# 百度短网址
+server = /*.dwz.cn/180.76.76.76
 
 # > BiliBili
 server = /*.bilibili.com/system

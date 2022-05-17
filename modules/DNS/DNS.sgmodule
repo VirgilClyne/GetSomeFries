@@ -60,7 +60,6 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 # > Alphabet
 *.google = server:https://dns.google/dns-query // Google
 *.goog = server:https://dns.google/dns-query // Google sites
-*.gle = server:https://dns.google/dns-query // Google shortened URLs
 *.google.com = server:https://dns.google/dns-query // Google
 *.google.com.?? = server:https://dns.google/dns-query // Google
 *.gstatic.com = server:https://dns.google/dns-query // Google 静态资源
@@ -81,6 +80,8 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.adsense.com = server:https://dns.google/dns-query // AdSense
 *.adsensecustomsearchads.com = server:https://dns.google/dns-query // AdSense Custom Search Ads
 *.adsenseformobileapps.com = server:https://dns.google/dns-query // AdSense for mobile apps
+*.gle = server:https://dns.google/dns-query // Google shortened URLs
+*.goo.gl = server:https://dns.google/dns-query // Google URL Shortener
 
 # > Cloudflare
 *.cloudflare.com = server:https://cloudflare-dns.com/dns-query // Cloudflare
@@ -111,6 +112,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.aliapp.org = server:https://dns.alidns.com/dns-query // 上云平台
 *.alibabausercontent.com = server:https://dns.alidns.com/dns-query // 阿里用户上传资料
 *.mmstat.com = server:https://dns.alidns.com/dns-query // mmstat 数据统计 广告追踪
+*.tb.cn = server:https://dns.alidns.com/dns-query // 淘宝短网址
 
 # > 蚂蚁集团
 *.alipay.com = server:https://dns.alidns.com/dns-query // 支付宝
@@ -152,6 +154,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.cdn-go.cn = server:https://doh.pub/dns-query // 腾讯 静态资源 CDN
 *.smtcdns.com = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
 *.smtcdns.net = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
+*.url.cn = server:https://doh.pub/dns-query // 腾讯短网址
 
 # > 百度
 *.baidu = server:180.76.76.76 // 百度
@@ -172,6 +175,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.bceimg.com = server:180.76.76.76 // 百度智能云 图片服务
 *.bcehost.com = server:180.76.76.76 // 百度智能云 主机
 *.bcehosts.com = server:180.76.76.76 // 百度智能云 主机
+*.dwz.cn = server:180.76.76.76 // 百度短网址
 
 # > BiliBili
 *.bilibili.com = server:syslib // BiliBili
