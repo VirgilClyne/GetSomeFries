@@ -17,8 +17,8 @@ async function getENV(key, name, database) {
 	let Settings = BoxJs?.Settings?.[name] || database.Settings[name];
 	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
 	let Config = BoxJs?.Config?.[name] || database?.Config?.[name];
-	let Caches = BoxJs?.Caches?.[name];
-	if (typeof Caches == "string") Caches = JSON.parse(Caches)
+	let Caches = BoxJs?.Caches?.[name] || undefined;
+	if (typeof Caches === "string") Caches = JSON.parse(Caches)
 	/***************** Argument *****************/
 	if (typeof $argument != "undefined") {
 		if ($argument) {
