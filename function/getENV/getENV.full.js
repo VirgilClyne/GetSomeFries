@@ -14,9 +14,9 @@ async function getENV(key, name, database) {
 	let BoxJs = $.getjson(key, database);
 	$.log(`🚧 ${$.name}, Get Environment Variables`, `BoxJs类型: ${typeof BoxJs}`, `BoxJs内容: ${JSON.stringify(BoxJs)}`, "");
 	/***************** Settings *****************/
-	let Settings = BoxJs?.[name]?.Settings || database[name].Settings;
+	let Settings = BoxJs?.[name]?.Settings || database?.[name]?.Settings || database?.Default?.Settings;
 	$.log(`🎉 ${$.name}, Get Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
-	let Config = BoxJs?.[name]?.Config || database?.[name]?.Config;
+	let Configs = BoxJs?.[name]?.Configs || database?.[name]?.Configs || database?.Default?.Configs;
 	$.log(`🎉 ${$.name}, Get Environment Variables`, `Config: ${typeof Config}`, `Config内容: ${JSON.stringify(Config)}`, "");
 	let Caches = BoxJs?.[name]?.Caches || undefined;
 	$.log(`🎉 ${$.name}, Get Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
@@ -35,5 +35,5 @@ async function getENV(key, name, database) {
 		function setPath(object, path, value) {path.split(".").reduce((o, p, i) => o[p] = path.split(".").length === ++i ? value : o[p] || {}, object)}
 	};
 	$.log(`🎉 ${$.name}, Get Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
-	return { Settings, Caches, Config }
+	return { Settings, Caches, Configs }
 };
