@@ -14,10 +14,10 @@ async function getENV(key, name, database) {
 	let BoxJs = $.getjson(key, database);
 	//$.log(`🚧 ${$.name}, Get Environment Variables`, `BoxJs类型: ${typeof BoxJs}`, `BoxJs内容: ${JSON.stringify(BoxJs)}`, "");
 	/***************** Settings *****************/
-	let Settings = BoxJs?.Settings?.[name] || database.Settings[name];
+	let Settings = BoxJs?.[name]?.Settings || database[name].Settings;
 	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
-	let Config = BoxJs?.Config?.[name] || database?.Config?.[name];
-	let Caches = BoxJs?.Caches?.[name] || undefined;
+	let Config = BoxJs?.[name]?.Config || database?.[name]?.Config;
+	let Caches = BoxJs?.[name]?.Caches || undefined;
 	if (typeof Caches === "string") Caches = JSON.parse(Caches)
 	/***************** Argument *****************/
 	if (typeof $argument != "undefined") {
