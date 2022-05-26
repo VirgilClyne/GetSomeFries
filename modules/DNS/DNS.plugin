@@ -276,6 +276,7 @@ url.cn = server:https://doh.pub/dns-query
 *.bcehosts.com = server:180.76.76.76
 # 百度短网址
 dwz.cn = server:180.76.76.76
+
 # > 360
 # 360安全中心
 *.360.cn = server:https://doh.360.cn/dns-query
@@ -310,31 +311,33 @@ dwz.cn = server:180.76.76.76
 urlqh.cn = server:https://doh.360.cn/dns-query
 
 # > BiliBili
-*.bilibili.com = server:syslib
+*.bilibili.com = server:system
 # BiliBili API
-*.biliapi.com = server:syslib
-*.biliapi.net = server:syslib
+*.biliapi.com = server:system
+*.biliapi.net = server:system
 # BiliBili 静态资源
-*.hdslb.com = server:syslib
-*.hdslb.net = server:syslib
+*.hdslb.com = server:system
+*.hdslb.net = server:system
 # BiliBili 视频
-*.bilivideo.com = server:syslib
-*.bilivideo.cn = server:syslib
-# BiliBili
-*.acg.tv = server:syslib
+*.bilivideo.com = server:system
+*.bilivideo.cn = server:system
+# BiliBili短网址
+acg.tv = server:system
 
 # > 京东
-*.jd.com = server:syslib
+*.jd.com = server:system
 # 京东 静态资源
-*.360buyimg.com = server:syslib
+*.360buyimg.com = server:system
 # 京东云
-*.jdcloud.com = server:syslib
+*.jdcloud.com = server:system
 # 京东云 缓存和存储
-*.jcloudstatic.com = server:syslib
+*.jcloudstatic.com = server:system
 # 京东云 静态资源
-*.jcloudstatic.net = server:syslib
+*.jcloudstatic.net = server:system
 # 京东云 全局负载均衡
-*.jdgslb.com = server:syslib
+*.jdgslb.com = server:system
+# 京东短网址
+3.cn = server:system
 
 # > iQDNS
 *.iqdns.xyz = server:https://a.passcloud.xyz/dns-query
