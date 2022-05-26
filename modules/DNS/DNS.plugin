@@ -73,7 +73,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 *.google.com = server:https://dns.google/dns-query
 *.google.com.?? = server:https://dns.google/dns-query
 # Google sites
-*.goog = server:https://dns.google/dns-query
+# *.goog = server:https://dns.google/dns-query
 # Google 静态资源
 *.gstatic.com = server:https://dns.google/dns-query
 # Google Photos
@@ -113,7 +113,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 # Google shortened URLs
 *.gle = server:https://dns.google/dns-query
 # Google URL Shortener
-*.goo.gl = server:https://dns.google/dns-query
+goo.gl = server:https://dns.google/dns-query
 
 # > Cloudflare
 *.cloudflare.com = server:https://cloudflare-dns.com/dns-query
@@ -168,7 +168,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 # mmstat 数据统计 广告追踪
 *.mmstat.com = server:https://dns.alidns.com/dns-query
 # 淘宝短网址
-*.tb.cn = server:https://dns.alidns.com/dns-query
+tb.cn = server:https://dns.alidns.com/dns-query
 
 # > 蚂蚁集团
 *.alipay.com = server:https://dns.alidns.com/dns-query
@@ -240,7 +240,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 *.smtcdns.com = server:https://doh.pub/dns-query
 *.smtcdns.net = server:https://doh.pub/dns-query
 # 腾讯短网址
-*.url.cn = server:https://doh.pub/dns-query
+url.cn = server:https://doh.pub/dns-query
 
 # > 百度
 *.baidu = server:180.76.76.76
@@ -275,7 +275,39 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 *.bcehost.com = server:180.76.76.76
 *.bcehosts.com = server:180.76.76.76
 # 百度短网址
-*.dwz.cn = server:180.76.76.76
+dwz.cn = server:180.76.76.76
+# > 360
+# 360安全中心
+*.360.cn = server:https://doh.360.cn/dns-query
+# 360安全卫士
+*.360safe.com = server:https://doh.360.cn/dns-query
+# 360快资讯
+*.360kuai.com = server:https://doh.360.cn/dns-query
+# 360搜索
+*.so.com = server:https://doh.360.cn/dns-query
+# 360网页快照服务
+*.360webcache.com = server:https://doh.360.cn/dns-query
+# 奇虎api
+*.qihuapi.com = server:https://doh.360.cn/dns-query
+# 360图床
+*.qhimg.com = server:https://doh.360.cn/dns-query
+*.qhimgs.com = server:https://doh.360.cn/dns-query
+*.qhimgs?.com = server:https://doh.360.cn/dns-query
+# 360
+*.qhmsg.com = server:https://doh.360.cn/dns-query
+# 奇虎静态资源
+*.qhres.com = server:https://doh.360.cn/dns-query
+*.qhres?.com = server:https://doh.360.cn/dns-query
+# 导航静态文件
+*.dhrest.com = server:https://doh.360.cn/dns-query
+# 360
+*.qhupdate.com = server:https://doh.360.cn/dns-query
+# 360安全云盘
+*.yunpan.cn = server:https://doh.360.cn/dns-query
+*.yunpan.com.cn = server:https://doh.360.cn/dns-query
+*.yunpan.com = server:https://doh.360.cn/dns-query
+# 360短网址
+urlqh.cn = server:https://doh.360.cn/dns-query
 
 # > BiliBili
 *.bilibili.com = server:syslib

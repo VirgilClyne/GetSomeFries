@@ -47,7 +47,7 @@ server = /orbilogin.com/system
 # Linksys Router
 server = /www.LinksysSmartWiFi.com/system
 server = /LinksysSmartWiFi.com/system
-server = /*.myrouter.local/system
+server = /myrouter.local/system
 # Xiaomi Mi WiFi Router
 server = /www.miwifi.com/system
 server = /miwifi.com/system
@@ -73,7 +73,7 @@ doh-server = /*.google/https://dns.google/dns-query
 doh-server = /*.google.com/https://dns.google/dns-query
 doh-server = /*.google.com.??/https://dns.google/dns-query
 # Google sites
-doh-server = /*.goog/https://dns.google/dns-query
+# doh-server = /*.goog/https://dns.google/dns-query
 # Google 静态资源
 doh-server = /*.gstatic.com/https://dns.google/dns-query
 # Google Photos
@@ -113,7 +113,7 @@ doh-server = /*.adsenseformobileapps.com/https://dns.google/dns-query
 # Google shortened URLs
 doh-server = /*.gle/https://dns.google/dns-query
 # Google URL Shortener
-doh-server = /*.goo.gl/https://dns.google/dns-query
+doh-server = /goo.gl/https://dns.google/dns-query
 
 # > Cloudflare
 doh-server = /*.cloudflare.com/https://cloudflare-dns.com/dns-query
@@ -168,7 +168,7 @@ doh-server = /*.alibabausercontent.com/https://dns.alidns.com/dns-query
 # mmstat 数据统计 广告追踪
 doh-server = /*.mmstat.com/https://dns.alidns.com/dns-query
 # 淘宝短网址
-doh-server = /*.tb.cn/https://dns.alidns.com/dns-query
+doh-server = /tb.cn/https://dns.alidns.com/dns-query
 
 # > 蚂蚁集团
 doh-server = /*.alipay.com/https://dns.alidns.com/dns-query
@@ -240,7 +240,7 @@ doh-server = /*.cdn-go.cn/https://doh.pub/dns-query
 doh-server = /*.smtcdns.com/https://doh.pub/dns-query
 doh-server = /*.smtcdns.net/https://doh.pub/dns-query
 # 腾讯短网址
-doh-server = /*.url.cn/https://doh.pub/dns-query
+doh-server = /url.cn/https://doh.pub/dns-query
 
 # > 百度
 server = /*.baidu/180.76.76.76
@@ -275,7 +275,40 @@ server = /*.bceimg.com/180.76.76.76
 server = /*.bcehost.com/180.76.76.76
 server = /*.bcehosts.com/180.76.76.76
 # 百度短网址
-server = /*.dwz.cn/180.76.76.76
+server = /dwz.cn/180.76.76.76
+
+# > 360
+# 360安全中心
+doh-server = /*.360.cn/https://doh.360.cn/dns-query
+# 360安全卫士
+doh-server = /*.360safe.com/https://doh.360.cn/dns-query
+# 360快资讯
+doh-server = /*.360kuai.com/https://doh.360.cn/dns-query
+# 360搜索
+doh-server = /*.so.com/https://doh.360.cn/dns-query
+# 360网页快照服务
+doh-server = /*.360webcache.com/https://doh.360.cn/dns-query
+# 奇虎api
+doh-server = /*.qihuapi.com/https://doh.360.cn/dns-query
+# 360图床
+doh-server = /*.qhimg.com/https://doh.360.cn/dns-query
+doh-server = /*.qhimgs.com/https://doh.360.cn/dns-query
+doh-server = /*.qhimgs?.com/https://doh.360.cn/dns-query
+# 360
+doh-server = /*.qhmsg.com/https://doh.360.cn/dns-query
+# 奇虎静态资源
+doh-server = /*.qhres.com/https://doh.360.cn/dns-query
+doh-server = /*.qhres?.com/https://doh.360.cn/dns-query
+# 导航静态文件
+doh-server = /*.dhrest.com/https://doh.360.cn/dns-query
+# 360
+doh-server = /*.qhupdate.com/https://doh.360.cn/dns-query
+# 360安全云盘
+doh-server = /*.yunpan.cn/https://doh.360.cn/dns-query
+doh-server = /*.yunpan.com.cn/https://doh.360.cn/dns-query
+doh-server = /*.yunpan.com/https://doh.360.cn/dns-query
+# 360短网址
+doh-server = /urlqh.cn/https://doh.360.cn/dns-query
 
 # > BiliBili
 server = /*.bilibili.com/system
@@ -288,8 +321,8 @@ server = /*.hdslb.net/system
 # BiliBili 视频
 server = /*.bilivideo.com/system
 server = /*.bilivideo.cn/system
-# BiliBili
-server = /*.acg.tv/system
+# BiliBili短网址
+server = /acg.tv/system
 
 # > 京东
 server = /*.jd.com/system
@@ -303,6 +336,8 @@ server = /*.jcloudstatic.com/system
 server = /*.jcloudstatic.net/system
 # 京东云 全局负载均衡
 server = /*.jdgslb.com/system
+# 京东短网址
+server = /3.cn/system
 
 # > iQDNS
 doh-server = /*.iqdns.xyz/https://a.passcloud.xyz/dns-query

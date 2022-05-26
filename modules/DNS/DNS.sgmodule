@@ -59,9 +59,9 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 
 # > Alphabet
 *.google = server:https://dns.google/dns-query // Google
-*.goog = server:https://dns.google/dns-query // Google sites
 *.google.com = server:https://dns.google/dns-query // Google
 *.google.com.?? = server:https://dns.google/dns-query // Google
+# *.goog = server:https://dns.google/dns-query // Google sites
 *.gstatic.com = server:https://dns.google/dns-query // Google 静态资源
 *.ggpht.com = server:https://dns.google/dns-query // Google Photos
 *.googleusercontent.com = server:https://dns.google/dns-query // Google 用户上传数据
@@ -81,7 +81,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.adsensecustomsearchads.com = server:https://dns.google/dns-query // AdSense Custom Search Ads
 *.adsenseformobileapps.com = server:https://dns.google/dns-query // AdSense for mobile apps
 *.gle = server:https://dns.google/dns-query // Google shortened URLs
-*.goo.gl = server:https://dns.google/dns-query // Google URL Shortener
+goo.gl = server:https://dns.google/dns-query // Google URL Shortener
 
 # > Cloudflare
 *.cloudflare.com = server:https://cloudflare-dns.com/dns-query // Cloudflare
@@ -112,7 +112,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.aliapp.org = server:https://dns.alidns.com/dns-query // 上云平台
 *.alibabausercontent.com = server:https://dns.alidns.com/dns-query // 阿里用户上传资料
 *.mmstat.com = server:https://dns.alidns.com/dns-query // mmstat 数据统计 广告追踪
-*.tb.cn = server:https://dns.alidns.com/dns-query // 淘宝短网址
+tb.cn = server:https://dns.alidns.com/dns-query // 淘宝短网址
 
 # > 蚂蚁集团
 *.alipay.com = server:https://dns.alidns.com/dns-query // 支付宝
@@ -154,7 +154,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.cdn-go.cn = server:https://doh.pub/dns-query // 腾讯 静态资源 CDN
 *.smtcdns.com = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
 *.smtcdns.net = server:https://doh.pub/dns-query // 腾讯云 智能云解析DNS
-*.url.cn = server:https://doh.pub/dns-query // 腾讯短网址
+url.cn = server:https://doh.pub/dns-query // 腾讯短网址
 
 # > 百度
 *.baidu = server:180.76.76.76 // 百度
@@ -175,7 +175,27 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.bceimg.com = server:180.76.76.76 // 百度智能云 图片服务
 *.bcehost.com = server:180.76.76.76 // 百度智能云 主机
 *.bcehosts.com = server:180.76.76.76 // 百度智能云 主机
-*.dwz.cn = server:180.76.76.76 // 百度短网址
+dwz.cn = server:180.76.76.76 // 百度短网址
+
+# > 360
+*.360.cn = server:https://doh.360.cn/dns-query // 360安全中心
+*.360safe.com = server:https://doh.360.cn/dns-query // 360安全卫士
+*.360kuai.com = server:https://doh.360.cn/dns-query // 360快资讯
+*.so.com = server:https://doh.360.cn/dns-query // 360搜索
+*.360webcache.com = server:https://doh.360.cn/dns-query // 360网页快照服务
+*.qihuapi.com = server:https://doh.360.cn/dns-query // 奇虎api
+*.qhimg.com = server:https://doh.360.cn/dns-query // 360图床
+*.qhimgs.com = server:https://doh.360.cn/dns-query // 360图床
+*.qhimgs?.com = server:https://doh.360.cn/dns-query // 360图床
+*.qhmsg.com = server:https://doh.360.cn/dns-query // 360
+*.qhres.com = server:https://doh.360.cn/dns-query // 奇虎静态资源
+*.qhres?.com = server:https://doh.360.cn/dns-query // 奇虎静态资源
+*.dhrest.com = server:https://doh.360.cn/dns-query // 导航静态文件
+*.qhupdate.com = server:https://doh.360.cn/dns-query // 360
+*.yunpan.cn = server:https://doh.360.cn/dns-query // 360安全云盘
+*.yunpan.com.cn = server:https://doh.360.cn/dns-query // 360安全云盘
+*.yunpan.com = server:https://doh.360.cn/dns-query // 360安全云盘
+urlqh.cn = server:https://doh.360.cn/dns-query // 360短网址
 
 # > BiliBili
 *.bilibili.com = server:syslib // BiliBili
@@ -185,7 +205,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.hdslb.net = server:syslib // BiliBili 静态资源
 *.bilivideo.com = server:syslib // BiliBili 视频
 *.bilivideo.cn = server:syslib // BiliBili 视频
-*.acg.tv = server:syslib // BiliBili
+acg.tv = server:syslib // BiliBili短网址
 
 # > 京东
 *.jd.com = server:syslib // 京东
@@ -194,6 +214,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.jcloudstatic.com = server:syslib // 京东云 缓存和存储
 *.jcloudstatic.net = server:syslib // 京东云 静态资源
 *.jdgslb.com = server:syslib // 京东云 全局负载均衡
+3.cn = server:syslib // 京东短网址
 
 # > iQDNS
 *.iqdns.xyz = server:https://a.passcloud.xyz/dns-query // iQDNS
