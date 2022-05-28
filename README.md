@@ -6,7 +6,7 @@
 </a>
 
 <a href="https://github.com/VirgilClyne#gh-dark-mode-only">
-  <img src="https://github-readme-stats.vercel.app/api?username=VirgilClyne&show_icons=true&hide_border=true&icon_color=60696f&title_color=8d939d&include_all_commits=true&hide_title=true&bg_color=1f2228&text_color=8d939d" align="right" alt="Virgil Clyne's GitHub stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=VirgilClyne&show_icons=true&hide_border=true&icon_color=60696f&title_color=8d939d&include_all_commits=true&hide_title=true&bg_color=21262d&text_color=8d939d" align="right" alt="Virgil Clyne's GitHub stats" />
 </a>
 
 ---
