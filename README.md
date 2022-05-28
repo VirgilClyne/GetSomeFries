@@ -1,5 +1,14 @@
-### Hi there 👋
-[![Virgil Clyne's GitHub stats](https://github-readme-stats.vercel.app/api?username=VirgilClyne&show_icons=true)](https://github.com/anuraghazra/github-readme-stats)
+### Hi there 👋, I am [Virgil Clyne](https://github.com/VirgilClyne)
+
+
+<a href="https://github.com/VirgilClyne#gh-light-mode-only">
+  <img src="https://github-readme-stats.vercel.app/api?username=VirgilClyne&show_icons=true&hide_border=true&icon_color=586069&title_color=60696f&include_all_commits=true&hide_title=true" align="right" alt="Virgil Clyne's GitHub stats" />
+</a>
+
+<a href="https://github.com/VirgilClyne#gh-dark-mode-only">
+  <img src="https://github-readme-stats.vercel.app/api?username=VirgilClyne&show_icons=true&hide_border=true&icon_color=60696f&title_color=8d939d&include_all_commits=true&hide_title=true&bg_color=1f2228&text_color=8d939d" align="right" alt="Virgil Clyne's GitHub stats" />
+</a>
+
 ---
 ### 独立作品:
 * [通用设置增强插件/模块](https://github.com/VirgilClyne/VirgilClyne/tree/main/modules/General)
@@ -28,6 +37,7 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 
 https://github.githubassets.com/images/mona-whisper.gif
+[![Virgil Clyne's GitHub stats](https://github-readme-stats.vercel.app/api?username=VirgilClyne&show_icons=true)](https://github.com/anuraghazra/github-readme-stats)
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=VirgilClyne&layout=compact)](https://github.com/anuraghazra/github-readme-stats)
 [![iRingo](https://github-readme-stats.vercel.app/api/pin/?username=VirgilClyne&repo=iRingo)](https://github.com/VirgilClyne/iRingo)
 [![iRingo](https://github-readme-stats.vercel.app/api/pin/?username=VirgilClyne&repo=GetSomeFries)](https://github.com/VirgilClyne/GetSomeFries)
