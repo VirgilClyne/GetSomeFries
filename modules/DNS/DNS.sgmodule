@@ -9,6 +9,25 @@
 doh-follow-outbound-mode = true
 
 [Host]
+
+# > 备用 DoH 节点 便于故障切换
+# > 平台 | 国内请求均速
+# IBM
+# https://dns.quad9.net/dns-query 182ms
+# https://dns9.quad9.net/dns-query 203ms
+
+# iQDNS
+# https://worldwide.passcloud.xyz/dns-query (全球随机) 255ms
+# https://a.passcloud.xyz/dns-query (Anycast 默认地址) 56ms
+
+# AdGuard
+# https://dns.adguard.com/dns-query 202ms
+# https://dns-family.adguard.com/dns-query 230ms
+# https://dns-unfiltered.adguard.com/dns-query 262ms
+
+# DNS.SB
+# https://doh.dns.sb/dns-query 92ms
+
 # > Modify Contents
 # Firebase Cloud Messaging
 talk.google.com = 108.177.125.188 // Firebase Cloud Messaging
