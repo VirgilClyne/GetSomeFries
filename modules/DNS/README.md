@@ -1,5 +1,5 @@
 # DNS
-  * DNS分流插件/模块
+  * DNS 分流插件/模块
   * 有问题请至 [Issue 页面](https://github.com/VirgilClyne/iRingo/issues) 反馈
   * 如需及时了解更新说明，请订阅 Telegram 频道:[🍟 整点薯条](https://t.me/GetSomeFriesChannel)
   * Telegram 讨论组:[🍟 整点薯条 - 群组](https://t.me/GetSomeFries)
@@ -27,7 +27,7 @@
 
 ## 工作逻辑
   * 路由器内网域名由系统 DNS 进行解析
-  * 拥有自己DNS的企业/公司/法人团体/机关单位，所属域名由自己的DNS进行解析(拥有DoH DNS 的，使用 DoH DNS)
+  * 拥有自己 DNS 的企业/公司/法人团体/机关单位，所属域名由自己的DNS进行解析(拥有DoH DNS 的，使用 DoH DNS)
     * 国际：Apple, Alphabet, Cloudflare, Hurricane Electric, iQZone
     * 中国大陆：阿里巴巴，蚂蚁集团，腾讯，百度
     * 港澳台：中华电信，TWNIC
