@@ -220,6 +220,7 @@ urlqh.cn = server:https://doh.360.cn/dns-query // 360短网址
 *.bilibili.com = server:syslib // BiliBili
 *.biliapi.com = server:syslib // BiliBili API
 *.biliapi.net = server:syslib // BiliBili API
+*.bilicdn?.com = server:syslib // BiliBili CDN
 *.hdslb.com = server:syslib // BiliBili 静态资源
 *.hdslb.net = server:syslib // BiliBili 静态资源
 *.bilivideo.com = server:syslib // BiliBili 视频

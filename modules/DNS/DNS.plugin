@@ -334,6 +334,8 @@ urlqh.cn = server:https://doh.360.cn/dns-query
 # BiliBili API
 *.biliapi.com = server:system
 *.biliapi.net = server:system
+# BiliBili CDN
+*.bilicdn?.com = server:system
 # BiliBili 静态资源
 *.hdslb.com = server:system
 *.hdslb.net = server:system

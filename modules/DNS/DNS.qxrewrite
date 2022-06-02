@@ -334,6 +334,8 @@ server = /*.bilibili.com/system
 # BiliBili API
 server = /*.biliapi.com/system
 server = /*.biliapi.net/system
+# BiliBili CDN
+server = /*.bilicdn?.com/system
 # BiliBili 静态资源
 server = /*.hdslb.com/system
 server = /*.hdslb.net/system
