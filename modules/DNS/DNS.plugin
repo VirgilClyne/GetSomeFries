@@ -377,6 +377,8 @@ uuu.glass = server:https://a.passcloud.xyz/dns-query
 *.211129.xyz = server:https://a.passcloud.xyz/dns-query
 *.gia.wiki = server:https://a.passcloud.xyz/dns-query
 *.checkmails.xyz = server:https://a.passcloud.xyz/dns-query
+*.iqyun.zone = server:https://a.passcloud.xyz/dns-query
+*.ddns-pop.cyou = server:https://a.passcloud.xyz/dns-query
 
 # > 🇨🇳 CN
 # CNNIC SDNS

@@ -377,6 +377,8 @@ doh-server = /*.9218561.xyz/https://a.passcloud.xyz/dns-query
 doh-server = /*.211129.xyz/https://a.passcloud.xyz/dns-query
 doh-server = /*.gia.wiki/https://a.passcloud.xyz/dns-query
 doh-server = /*.checkmails.xyz/https://a.passcloud.xyz/dns-query
+doh-server = /*.iqyun.zone/https://a.passcloud.xyz/dns-query
+doh-server = /*.ddns-pop.cyou/https://a.passcloud.xyz/dns-query
 
 # > 🇨🇳 CN
 # CNNIC SDNS
