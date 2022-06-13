@@ -1,8 +1,8 @@
 # General
   * 通用设置增强插件/模块
-  * 有问题请至[Issue页面](https://github.com/VirgilClyne/iRingo/issues)反馈
-  * 如需及时了解更新说明，请订阅Telegram频道:[🍟 整点薯条](https://t.me/GetSomeFriesChannel)
-  * Telegram讨论组:[🍟 整点薯条 - 群组](https://t.me/GetSomeFries)
+  * 有问题请至 [Issue 页面](https://github.com/VirgilClyne/VirgilClyne/issues)反馈
+  * 如需及时了解更新说明，请订阅 Telegram 频道:[🍟 整点薯条](https://t.me/GetSomeFriesChannel)
+  * Telegram 讨论组:[🍟 整点薯条 - 群组](https://t.me/GetSomeFries)
 
 ---
 
