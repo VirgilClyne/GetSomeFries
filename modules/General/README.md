@@ -57,9 +57,15 @@
       * Firebase Crashlytics: e.crashlytics.com
       * Windows NCSI (Network Connectivity Status Indicator)
         * *.msftconnecttest.com, *.msftncsi.com
+      * Other network availability detect
+        * Firefox / Some linux system depends on the DNS resolution result to determine the network availability.
+        * Refer: https://github.com/SukkaW/Surge/blob/master/Modules/sukka_fix_network_alert.sgmodule
+        * network-test.debian.org, detectportal.firefox.com, resolver1.opendns.com
       * Session Traversal Utilities for NAT / Simple Traversal of UDP Through NAT (STUN)
-        * *.*.*.srv.nintendo.net, *.*.stun.playstation.net, xbox.*.*.microsoft.com, *.*.xboxlive.com, stun.*
-      * QQ快速登录 本地连接: localhost.ptlogin2.qq.com
+        * *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, stun.*
+      * QQ快速登录 本地连接
+        * localhost.ptlogin2.qq.com
+        * localhost.sec.qq.com
       * NTP (Network Time Protocol) 网络时间协议服务
         * pool.ntp.org, *.pool.ntp.org, ntp.*.com, time.*.com, ntp?.*.com, time?.*.com, time.*.gov, time.*.edu.cn, *.ntp.org.cn
       * AD DS
