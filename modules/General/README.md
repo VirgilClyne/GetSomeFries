@@ -82,9 +82,8 @@
 
 ## 安装链接
   * Loon:
+    * 需要 [2.1.10 (275)](https://t.me/LoonNews/445) 及以上版本
     * [General.plugin](./General.plugin?raw=true "🌐 General Settings Enhanced")
-    * Loon暂不支持直接使用此模块，请等待作者更新
-    * Loon不支持直接引用此模块中的`真实IP`部分，需要手动复制粘贴此内容至Loon-`配置`-`其他`-`高级设置`-`真实IP`
   * Quantumult X:
     * [General.qxrewrite](./General.qxrewrite?raw=true "🌐 General Settings Enhanced")
     * Quantumult X不支持直接此引用片段，需要手动复制粘贴此内容至配置文件中对应字段
