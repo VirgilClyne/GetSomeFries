@@ -42,6 +42,7 @@
 
 ## 安装链接
   * Loon:
+    * 需要 [2.1.13 (331)](https://t.me/LoonNews/535) 及以上版本
     * [DNS.plugin](./DNS.plugin?raw=true "🌐 DNS for Router and Companys")
   * Quantumult X:
     * [DNS.qxrewrite](./DNS.qxrewrite?raw=true "🌐 DNS for Router and Companys")
