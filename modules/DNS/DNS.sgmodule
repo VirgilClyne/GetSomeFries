@@ -73,7 +73,7 @@ falogin.cn = server:syslib // FAST Router
 
 # > Apple
 networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
-*.apple.com = server:https://doh.dns.apple.com/dns-query // Apple.com
+# *.apple.com = server:https://doh.dns.apple.com/dns-query // Apple.com
 *.icloud.com = server:https://doh.dns.apple.com/dns-query // iCloud.com
 
 # > Alphabet

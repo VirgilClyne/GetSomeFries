@@ -83,7 +83,7 @@ falogin.cn = server:system
 # > Apple
 networking.apple = server:https://doh.dns.apple.com/dns-query
 # Apple.com
-*.apple.com = server:https://doh.dns.apple.com/dns-query
+# *.apple.com = server:https://doh.dns.apple.com/dns-query
 # iCloud.com
 *.icloud.com = server:https://doh.dns.apple.com/dns-query
 
