@@ -72,7 +72,7 @@
         * PDC._msDCS.*.*, DC._msDCS.*.*, GC._msDCS.*.*
       * 移动认证登录: *.cmpassport.com
       * 电信天翼账号免密登录: id6.me, open.e.189.cn
-      * 联通沃账号一键登录: mdn.open.wo.cn, auth.wosms.cn
+      * 联通沃账号一键登录: mdn.open.wo.cn, opencloud.wostore.cn, auth.wosms.cn
       * 无忧行: *.jegotrip.com.cn
       * 誉隆信息 (?): *.icitymobile.mobi
 
