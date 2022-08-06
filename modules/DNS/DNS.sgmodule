@@ -52,8 +52,9 @@ fonts.googleapis.com = server:119.29.29.29 // Google Fonts
 fonts.gstatic.com = server:119.29.29.29 // Google Fonts
 
 # > Router Admin Panel
-# unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
-# networks.unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
+*.id.ui.direct = server:syslib // Ubiquiti Unifi Network App
+# unifi.ui.com = server:syslib // Ubiquiti Unifi Portal
+# network.unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
 amplifi.lan = server:syslib // Ubiquiti Amplifi Router
 router.synology.com = server:syslib // Synology Router
 sila.razer.com = server:syslib // Razer Sila Router

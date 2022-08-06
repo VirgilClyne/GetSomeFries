@@ -48,9 +48,12 @@ fonts.googleapis.com = server:119.29.29.29
 fonts.gstatic.com = server:119.29.29.29
 
 # > Router Admin Panel
-# Ubiquiti Unifi Controller
+# Ubiquiti Unifi Network App
+*.id.ui.direct = server:system
+# Ubiquiti Unifi Portal
 # unifi.ui.com = server:system
-# networks.unifi.ui.com = server:system
+# Ubiquiti Unifi Controller
+# network.unifi.ui.com = server:system
 # Ubiquiti Amplifi Router
 amplifi.lan = server:system
 # Synology Router

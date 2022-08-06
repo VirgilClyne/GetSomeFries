@@ -48,9 +48,12 @@ doh-server = /fonts.googleapis.com/https://doh.pub/dns-query
 doh-server = /fonts.gstatic.com/https://doh.pub/dns-query
 
 # > Router Admin Panel
+# Ubiquiti Unifi Network App
+server = /*.id.ui.direct/system
+# Ubiquiti Unifi Portal
+# server = /unifi.ui.com/system
 # Ubiquiti Unifi Controller
-server = /unifi.ui.com/system
-server = /networks.unifi.ui.com/system
+# server = /network.unifi.ui.com/system
 # Ubiquiti Amplifi Router
 server = /amplifi.lan/system
 # Synology Router
