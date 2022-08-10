@@ -64,6 +64,8 @@
         * network-test.debian.org, detectportal.firefox.com, resolver1.opendns.com
       * Session Traversal Utilities for NAT / Simple Traversal of UDP Through NAT (STUN)
         * *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, stun.*
+      * Twilio's Global Network Traversal Service, reliable STUN and TURN capabilities for WebRTC
+        * global.turn.twilio.com, global.stun.twilio.com
       * QQ快速登录 本地连接
         * localhost.ptlogin2.qq.com
         * localhost.sec.qq.com
