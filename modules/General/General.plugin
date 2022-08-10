@@ -8,7 +8,7 @@
 # > 跳过代理
 # 跳过某个域名或者 IP 段，这些目标主机将不会由 Surge Proxy 处理。
 # (macOS 版本中，如果启用了 Set as System Proxy, 这些值会被写入到系统网络代理设置.)
-skip-proxy = localhost, *.local, passenger.t3go.cn, e.crashlytics.com, captive.apple.com, app.yinxiang.com, injections.adguard.org, local.adguard.org, cable.auth.com, www.baidu.com, yunbusiness.ccb.com, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.1/32, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 224.0.0.0/4, 240.0.0.0/4, ::1/128, fc00::/7, fd00::/8, fe80::/10, ff00::/8, 2001::/32, 2001:db8::/32, 2002::/16, ::ffff:0:0:0:0/1, ::ffff:128:0:0:0/1
+skip-proxy = localhost, *.local, passenger.t3go.cn, e.crashlytics.com, captive.apple.com, app.yinxiang.com, injections.adguard.org, local.adguard.org, cable.auth.com, www.baidu.com, yunbusiness.ccb.com, 10.0.0.0/8, 100.64.0.0/10, 127.0.0.1/32, 169.254.0.0/16, 172.16.0.0/12, 192.168.0.0/16, 193.168.0.1/32, 224.0.0.0/4, 240.0.0.0/4, ::1/128, fc00::/7, fd00::/8, fe80::/10, ff00::/8, 2001::/32, 2001:db8::/32, 2002::/16, ::ffff:0:0:0:0/1, ::ffff:128:0:0:0/1
 
 # > Always Real IP Hosts
 # 当 Surge VIF 处理 DNS 问题时，此选项要求 Surge 返回一个真正的 IP 地址，而不是一个假 IP 地址。
