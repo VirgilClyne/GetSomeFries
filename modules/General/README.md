@@ -32,6 +32,7 @@
         * AdGuard 本地资源加载: local.adguard.org
         * Apple Web Authentication Modern 跨设备验证 本地连接: cable.auth.com
         * 盯盯拍 (DDPai) 行车记录仪: 193.168.0.1/32
+        * Unifi Network Direct Connection: *.id.ui.direct
       * IPv4私有地址
         * 本地环回地址: 127.0.0.1/32
         * 专用网络地址: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
