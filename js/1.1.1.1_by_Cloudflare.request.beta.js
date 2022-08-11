@@ -2,21 +2,27 @@
 README:https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("1.1.1.1 by Cloudflare v2.0.0-request-beta");
+const $ = new Env("1.1.1.1 by Cloudflare v2.1.0-request-beta");
 const DataBase = {
-	Cloudflare: {"WARP":{"Verify":{"License":null,"Mode":"Token","Content":null,"RegistrationId":null},"env":{"Version":"v0i2109031904","deviceType":"iOS","Type":"i"}}},
-	WireGuard: {"config":{"interface":{"addresses":{"v4":"","v6":""}},"peers":[{"public_key":"","endpoint":{"host":"","v4":"","v6":""}}]},"PrivateKey":"","PublicKey":""}
+	"WARP": {
+		"Settings":{"Switch":true,"Verify":{"License":null,"Mode":"Token","Content":null,"RegistrationId":null},"env":{"Version":"v0i2109031904","deviceType":"iOS","Type":"i"}}
+	},
+	"WireGuard": {
+		"Settings":{"Switch":true,"interface":{"addresses":{"v4":"","v6":""}},"peers":[{"public_key":"","endpoint":{"host":"","v4":"","v6":""}}]},"PrivateKey":"","PublicKey":""
+	}
 };
-const { url, method, headers } = $request
-$.log(`🚧 ${$.name}`, `url: ${url}`, `method: ${method}`, "");
 
 /***************** Processing *****************/
 !(async () => {
-	const { Type, WARP, WireGuard } = await setENV("GetSomeFries", url, DataBase);
+	const { Settings, Caches } = await setENV("GetSomeFries", "WireGuard", DataBase);
+	const Type = RegExp(`/reg/${Settings.Verify.RegistrationId}`, "i").test($request.url) ? "RegistrationId"
+		: /reg/i.test($request.url) ? "Registration"
+			: undefined
+	$.log(`🚧 ${$.name}, Set Environment Variables`, `Type: ${Type}`, "");
 	if (Type == "RegistrationId") { // 是指定链接
 		if (typeof $request.body !== "undefined") { // 有请求体
-			if (method === "PUT") { // 是PUT方法
-				$.log(method);
+			if ($request.method === "PUT") { // 是PUT方法
+				$.log($request.method);
 				body = JSON.parse($request.body)
 				if (body.key) {
 					body.key = WireGuard.PublicKey;
@@ -140,14 +146,36 @@ else $.done();
 
 /***************** Function *****************/
 /**
+ * Get Environment Variables
+ * @link https://github.com/VirgilClyne/VirgilClyne/blob/main/function/getENV/getENV.min.js
+ * @author VirgilClyne
+ * @param {String} t - Persistent Store Key
+ * @param {String} e - Platform Name
+ * @param {Object} n - Default Database
+ * @return {Promise<*>}
+ */
+async function getENV(t,e,n){let i=$.getjson(t,n),s={};if("undefined"!=typeof $argument&&Boolean($argument)){let t=Object.fromEntries($argument.split("&").map((t=>t.split("="))));for(let e in t)f(s,e,t[e])}let g={...n?.Default?.Settings,...n?.[e]?.Settings,...i?.[e]?.Settings,...s},o={...n?.Default?.Configs,...n?.[e]?.Configs,...i?.[e]?.Configs},a=i?.[e]?.Caches||void 0;return"string"==typeof a&&(a=JSON.parse(a)),{Settings:g,Caches:a,Configs:o};function f(t,e,n){e.split(".").reduce(((t,i,s)=>t[i]=e.split(".").length===++s?n:t[i]||{}),t)}}
+
+/**
  * Set Environment Variables
  * @author VirgilClyne
  * @param {String} name - Persistent Store Key
- * @param {String} url - Request URL
+ * @param {String} platform - Platform Name
  * @param {Object} database - Default DataBase
  * @return {Promise<*>}
  */
-async function setENV(e,i,t){let r=$.getjson(e,t),n=r?.Cloudflare?.WARP||t.Cloudflare.WARP;"Key"==n?.Verify?.Mode&&(n.Verify.Content=Array.from(n.Verify.Content.split("\n")));let o=r?.WireGuard||t?.WireGuard;if("undefined"!=typeof $argument){let e=Object.fromEntries($argument.split("&").map((e=>e.split("="))));n.Verify.License=e.License,n.Verify.Mode=e.Mode,n.Verify.Content=e.AccessToken,n.Verify.Content=e.ServiceKey,n.Verify.Content[0]=e.Key,n.Verify.Content[1]=e.Email,n.Verify.RegistrationId=e.RegistrationId,o.PrivateKey=e.PrivateKey,o.PublicKey=e.PublicKey,n.env.Version=e.Version,n.env.deviceType=e.deviceType}return{Type:RegExp(`/reg/${n.Verify.RegistrationId}`,"i").test(i)?"RegistrationId":/reg/i.test(i)?"Registration":void 0,WARP:n,WireGuard:o}}
+async function setENV(name, platform, database) {
+	$.log(`⚠ ${$.name}, Set Environment Variables`, "");
+	let { Settings, Caches = {} } = await getENV(name, platform, database);
+	/***************** Prase *****************/
+	Settings.Switch = JSON.parse(Settings.Switch) // BoxJs字符串转Boolean
+	if (Settings?.Verify?.Mode === "Key") {
+		Settings.Verify.Content = Array.from(Settings.Verify.Content.split("\n"))
+		//$.log(JSON.stringify(Settings.Verify.Content))
+	};
+	$.log(`🎉 ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
+	return { Settings, Caches }
+};
 
 /***************** Env *****************/
 // prettier-ignore

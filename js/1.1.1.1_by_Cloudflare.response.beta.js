@@ -2,20 +2,26 @@
 README:https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("1.1.1.1 by Cloudflare v2.0.0-response-beta");
+const $ = new Env("1.1.1.1 by Cloudflare v2.1.0-response-beta");
 const DataBase = {
-	Cloudflare: {"WARP":{"Verify":{"License":null,"Mode":"Token","Content":null,"RegistrationId":null},"env":{"Version":"v0i2109031904","deviceType":"iOS","Type":"i"}}},
-	WireGuard: {"config":{"interface":{"addresses":{"v4":"","v6":""}},"peers":[{"public_key":"","endpoint":{"host":"","v4":"","v6":""}}]},"PrivateKey":"","PublicKey":""}
+	"WARP": {
+		"Settings":{"Switch":true,"Verify":{"License":null,"Mode":"Token","Content":null,"RegistrationId":null},"env":{"Version":"v0i2109031904","deviceType":"iOS","Type":"i"}}
+	},
+	"WireGuard": {
+		"Settings":{"Switch":true,"interface":{"addresses":{"v4":"","v6":""}},"peers":[{"public_key":"","endpoint":{"host":"","v4":"","v6":""}}]},"PrivateKey":"","PublicKey":""
+	}
 };
-const { url, method, headers } = $request
-$.log(`🚧 ${$.name}`, `url: ${url}`, `method: ${method}`, "");
 
 /***************** Processing *****************/
 !(async () => {
-	const { Type, WARP, WireGuard } = await setENV("GetSomeFries", url, DataBase);
+	const { Settings, Caches } = await setENV("GetSomeFries", "WARP", DataBase);
+	const Type = RegExp(`/reg/${Settings.Verify.RegistrationId}`, "i").test($request.url) ? "RegistrationId"
+		: /reg/i.test($request.url) ? "Registration"
+			: undefined
+	$.log(`🚧 ${$.name}, Set Environment Variables`, `Type: ${Type}`, "");
 	if (Type === "Registration") { // 是链接
 		if (typeof $response?.body != "undefined") { // 有回复体
-			if (method === "PUT" || method === "GET") { // 是PUT或GET方法
+			if ($request.method === "PUT" || $request.method === "GET") { // 是PUT或GET方法
 				body = JSON.parse($response.body);
 				if (Array.isArray(body.messages) && body.messages.length != 0) body.messages.forEach(element => {
 					if (element.code !== 10000) $.msg($.name, `code: ${element.code}`, `message: ${element.message}`);
@@ -25,7 +31,7 @@ $.log(`🚧 ${$.name}`, `url: ${url}`, `method: ${method}`, "");
 					else if (Array.isArray(body.result) && body.result.length != 0) resolve(body.result[0]);
 					else if (body.result) {
 						var matchTokenReg = /Bearer (\S*)/
-						let Token = headers?.authorization?.match(matchTokenReg)?.[1] ?? headers?.Authorization?.match(matchTokenReg)?.[1]
+						let Token = $request?.headers?.authorization?.match(matchTokenReg)?.[1] ?? $request?.headers?.Authorization?.match(matchTokenReg)?.[1]
 						if (body.result.id.startsWith('t.')) {
 							$.msg($.name, "检测到WARP Teams配置文件", `设备注册ID:\n${body.result.id}\n设备令牌Token:\n${Token}\n账户类型:${body.result.account.account_type}\n账户组织:${body.result.account.organization}\n客户端公钥:\n${body.result.key}\n节点公钥:\n${body.result.config.peers[0].public_key}`);
 							//$.log($.name, "检测到WARP Teams配置文件", `设备注册ID/id: ${body.result.id}`, `设备令牌Token: ${Token}`, `账户ID/account.id: ${body.result.account.id}`, `账户类型/account.account_type: ${body.result.account.account_type}`, `账户组织/account.organization: ${body.result.account.organization}`, `客户端公钥/key: ${body.result.key}`, `节点公钥/config.peers[0].public_key: ${body.result.config.peers[0].public_key}`, '', `原始配置文件:\n${JSON.stringify(body.result)}`);
@@ -156,14 +162,36 @@ else $.done();
 
 /***************** Function *****************/
 /**
+ * Get Environment Variables
+ * @link https://github.com/VirgilClyne/VirgilClyne/blob/main/function/getENV/getENV.min.js
+ * @author VirgilClyne
+ * @param {String} t - Persistent Store Key
+ * @param {String} e - Platform Name
+ * @param {Object} n - Default Database
+ * @return {Promise<*>}
+ */
+async function getENV(t,e,n){let i=$.getjson(t,n),s={};if("undefined"!=typeof $argument&&Boolean($argument)){let t=Object.fromEntries($argument.split("&").map((t=>t.split("="))));for(let e in t)f(s,e,t[e])}let g={...n?.Default?.Settings,...n?.[e]?.Settings,...i?.[e]?.Settings,...s},o={...n?.Default?.Configs,...n?.[e]?.Configs,...i?.[e]?.Configs},a=i?.[e]?.Caches||void 0;return"string"==typeof a&&(a=JSON.parse(a)),{Settings:g,Caches:a,Configs:o};function f(t,e,n){e.split(".").reduce(((t,i,s)=>t[i]=e.split(".").length===++s?n:t[i]||{}),t)}}
+
+/**
  * Set Environment Variables
  * @author VirgilClyne
  * @param {String} name - Persistent Store Key
- * @param {String} url - Request URL
+ * @param {String} platform - Platform Name
  * @param {Object} database - Default DataBase
  * @return {Promise<*>}
  */
-async function setENV(e,i,t){let r=$.getjson(e,t),n=r?.Cloudflare?.WARP||t.Cloudflare.WARP;"Key"==n?.Verify?.Mode&&(n.Verify.Content=Array.from(n.Verify.Content.split("\n")));let o=r?.WireGuard||t?.WireGuard;if("undefined"!=typeof $argument){let e=Object.fromEntries($argument.split("&").map((e=>e.split("="))));n.Verify.License=e.License,n.Verify.Mode=e.Mode,n.Verify.Content=e.AccessToken,n.Verify.Content=e.ServiceKey,n.Verify.Content[0]=e.Key,n.Verify.Content[1]=e.Email,n.Verify.RegistrationId=e.RegistrationId,o.PrivateKey=e.PrivateKey,o.PublicKey=e.PublicKey,n.env.Version=e.Version,n.env.deviceType=e.deviceType}return{Type:RegExp(`/reg/${n.Verify.RegistrationId}`,"i").test(i)?"RegistrationId":/reg/i.test(i)?"Registration":void 0,WARP:n,WireGuard:o}}
+async function setENV(name, platform, database) {
+	$.log(`⚠ ${$.name}, Set Environment Variables`, "");
+	 let { Settings, Caches = {} } = await getENV(name, platform, database);
+	/***************** Prase *****************/
+	Settings.Switch = JSON.parse(Settings.Switch) // BoxJs字符串转Boolean
+	if (Settings?.Verify?.Mode === "Key") {
+		Settings.Verify.Content = Array.from(Settings.Verify.Content.split("\n"))
+		//$.log(JSON.stringify(Settings.Verify.Content))
+	};
+	$.log(`🎉 ${$.name}, Set Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
+	return { Settings, Caches }
+};
 
 /***************** Env *****************/
 // prettier-ignore
