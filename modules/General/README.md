@@ -32,6 +32,7 @@
         * AdGuard 本地拦截劫持: injections.adguard.org
         * AdGuard 本地资源加载: local.adguard.org
         * Apple Web Authentication Modern 跨设备验证 本地连接: cable.auth.com
+        * Imaging Edge: 192.168.122.1/32
         * 盯盯拍 (DDPai) 行车记录仪: 193.168.0.1/32
         * Unifi Network Direct Connection: *.id.ui.direct
       * IPv4私有地址
