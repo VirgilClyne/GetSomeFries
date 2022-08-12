@@ -35,9 +35,13 @@
 
 ## 安装链接
   * Surge:
-    * [ASN.sgmodule](./ASN.sgmodule?raw=true "🌐 ASN for Mainland China")
-    * [ASN.list](./ASN.list?raw=true "🌐 ASN for Mainland China")
-      * 在配置文件中代替`GEOIP,CN,DIRECT`，引用此规则组，并设置策略为`直连`。
-  ```
-  RULE-SET,https://raw.githubusercontent.com/VirgilClyne/VirgilClyne/main/modules/ASN/ASN.list,DIRECT
-  ```
+    * 中国大陆 ASN
+      * [ASN.China.sgmodule](./ASN.China.sgmodule?raw=true "🌐 ASN for Mainland China")
+      * [ASN.China.list](./ASN.China.list?raw=true "🌐 ASN for Mainland China")
+        * 在配置文件中代替`GEOIP,CN,DIRECT`，引用此规则组，并设置策略为`直连`。
+        * ```
+          RULE-SET,https://raw.githubusercontent.com/VirgilClyne/VirgilClyne/main/modules/ASN/ASN.list,DIRECT
+          ```
+    * Telegram ASN
+      * [ASN.Telegram.list](./ASN.Telegram.list?raw=true "🌐 ASN for Telegram Messenger Inc")
+
