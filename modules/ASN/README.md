@@ -44,4 +44,6 @@
           ```
     * Telegram ASN
       * [ASN.Telegram.list](./ASN.Telegram.list?raw=true "🌐 ASN for Telegram Messenger Inc")
-
+  * Stash:
+    * 中国大陆 ASN
+      * [ASN.China.stoverride](./ASN.China.stoverride?raw=true "🌐 ASN for Mainland China")
