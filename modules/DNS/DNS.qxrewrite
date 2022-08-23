@@ -34,6 +34,8 @@ doh-server = /fonts.gstatic.com/https://doh.pub/dns-query
 server = /*.id.ui.direct/system
 # Ubiquiti Unifi Portal
 # server = /unifi.ui.com/system
+# Ubiquiti Unifi OS
+server = /unifi.local/system
 # Ubiquiti Unifi Controller
 # server = /network.unifi.ui.com/system
 # Ubiquiti Amplifi Router

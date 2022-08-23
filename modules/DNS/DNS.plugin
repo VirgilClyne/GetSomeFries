@@ -33,6 +33,8 @@ fonts.gstatic.com = server:119.29.29.29
 *.id.ui.direct = server:system
 # Ubiquiti Unifi Portal
 # unifi.ui.com = server:system
+# Ubiquiti Unifi OS
+unifi.local = server:system
 # Ubiquiti Unifi Controller
 # network.unifi.ui.com = server:system
 # Ubiquiti Amplifi Router
