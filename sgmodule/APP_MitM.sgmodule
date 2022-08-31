@@ -1,5 +1,10 @@
-#!name=🍟 MitM APP Hostnames
-#!desc=(BETA) Perform MitM on APP hostnames
+#!name=🍟 Fries for 🔓 MitM
+#!desc=(MitM) 整点薯条
+#!openUrl=http://boxjs.com/#/app/GetSomeFries
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne
+#!manual=https://github.com/VirgilClyne/GetSomeFries
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Unlock.png
 
 [MITM]
-hostname = %APPEND% *.netflix.com, *.nflxso.net, *.nflxvideo.net, *.bamgrid.com, *.media.dssott.com, *.disney-plus.net, disney.my.sentry.io, disney.demdex.net, cdn.registerdisney.go.com, www.cloudflare.com, api.cloudflare.com, *.cloudflareclient.com
+hostname = %APPEND% *.netflix.com, *.nflxso.net, *.nflxvideo.net, *.bamgrid.com, *.media.dssott.com, *.disney-plus.net, disney.my.sentry.io, disney.demdex.net, cdn.registerdisney.go.com
