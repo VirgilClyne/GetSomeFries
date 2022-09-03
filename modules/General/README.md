@@ -27,6 +27,8 @@
         * ~~闽政通APP: mztapp.fujian.gov.cn~~
         * ~~趣动Will Go: capi.wewillpro.com~~
         * 沃小号: wxh.wo.cn
+        * 拉勾: gate.lagou.com
+        * 中国农业银行: www.abchina.com.cn
       * 跨端链接:
         * 印象笔记 插件: app.yinxiang.com
         * AdGuard 本地拦截劫持: injections.adguard.org
