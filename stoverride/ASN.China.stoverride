@@ -1,8 +1,8 @@
 name: 🌐 ASN for Mainland China
 desc: 按ASN分流中国大陆IP与域名直连
-#!author: VirgilClyne
-#!homepage: https://github.com/VirgilClyne/VirgilClyne/blob/main/modules/ASN/README.md
-#!icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+author: VirgilClyne
+homepage: https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-ASN
+icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 rules:
   - IP-ASN,4134,DIRECT,no-resolve // 金融街31号

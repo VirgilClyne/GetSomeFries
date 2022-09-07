@@ -1,8 +1,12 @@
 #!name=🍟 Disney Plus
 #!desc=Disney Plus Mod
+#!openUrl=http://boxjs.com/#/app/GetSomeFries.Disney_Plus
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🍟-Disney-Plus
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney%2B.png
 
-^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(session|(graph\/)?v1\/(public|device)\/graphql) url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney_Plus.js
-^https?:\/\/disney\.content\.edge\.bamgrid\.com\/svc url script-request-header https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney_Plus.js
-# ^https?:\/\/disney\.content\.edge\.bamgrid\.com\/(svc\/content\/DmcVideo) url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney_Plus.js
+^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(session|(graph\/)?v1\/(public|device)\/graphql) url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney%2B.js
+^https?:\/\/disney\.content\.edge\.bamgrid\.com\/svc url script-request-header https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney%2B.js
+# ^https?:\/\/disney\.content\.edge\.bamgrid\.com\/(svc\/content\/DmcVideo) url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney%2B.js
 
 hostname = disney.api.edge.bamgrid.com, disney.content.edge.bamgrid.com

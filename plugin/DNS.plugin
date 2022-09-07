@@ -1,7 +1,7 @@
 #!name=🌐 DNS for Router and Companys
 #!desc=1.按企业/公司分流使用所属DNS进行解析 2.路由器地址使用系统DNS进行解析
 #!author=VirgilClyne
-#!homepage=https://github.com/VirgilClyne/VirgilClyne/blob/main/modules/DNS/README.md
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-DNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 [Host]

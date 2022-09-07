@@ -1,11 +1,15 @@
 #!name=🍟 Netflix
 #!desc=(BETA) Netflix Mod
+#!openUrl=http://boxjs.com/#/app/GetSomeFries.Netflix.beta
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🍟-Netflix
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Netflix.png
 
 [Script]
-Netflix Web = type=http-response,pattern=^https?:\/\/www\.netflix\.com\/(api\/ftl\/probe), requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
-Netflix iOS = type=http-response,pattern=^https?:\/\/(ios|ios-anycast|ios-prefix)\.prod\.(ftl|cloud|http1)\.netflix\.com\/, requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
-Netflix Android = type=http-response,pattern=^https?:\/\/(android|android-anycast|android-prefix)\.prod\.(ftl|cloud)\.netflix\.com\/, requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
-Netflix Chromecast = type=http-response,pattern=^https?:\/\/(cast|cast-uiboot|android-prefix)\.prod\.(http1)\.netflix\.com\/, requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
+🍟 Netflix Web = type=http-response,pattern=^https?:\/\/www\.netflix\.com\/(api\/ftl\/probe), requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
+🍟 Netflix iOS = type=http-response,pattern=^https?:\/\/(ios|ios-anycast|ios-prefix)\.prod\.(ftl|cloud|http1)\.netflix\.com\/, requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
+🍟 Netflix Android = type=http-response,pattern=^https?:\/\/(android|android-anycast|android-prefix)\.prod\.(ftl|cloud)\.netflix\.com\/, requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
+🍟 Netflix Chromecast = type=http-response,pattern=^https?:\/\/(cast|cast-uiboot|android-prefix)\.prod\.(http1)\.netflix\.com\/, requires-body=1, binary-body-mode=0, max-size=0, argument=, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Netflix.beta.js
 
 [MITM]
 hostname = %APPEND% www.netflix.com, *.prod.ftl.netflix.com, *.prod.cloud.netflix.com
