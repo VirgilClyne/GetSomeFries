@@ -53,18 +53,35 @@ orbilogin.com = server:system
 www.LinksysSmartWiFi.com = server:system
 LinksysSmartWiFi.com = server:system
 myrouter.local = server:system
-# Xiaomi Mi WiFi Router
+# Aurba Router
+instant.arubanetworks.com = server:syslib
+setmeup.arubanetworks.com = server:syslib
+# 小米 Mi WiFi Router
 www.miwifi.com = server:system
 miwifi.com = server:system
-# Huawei Router
+# 华为 Huawei Router
 mediarouter.home = server:system
 # TP-Link Router
 tplogin.cn = server:system
 tplinklogin.net = server:system
-# MERCURY Router
+tplinkwifi.net = server:syslib
+# 水星 MERCURY Router
 melogin.cn = server:system
-# FAST Router
+# 迅捷 FAST Router
 falogin.cn = server:system
+# 腾达 Tenda Router
+tendawifi.com = server:syslib
+# 磊科 Netcore Router
+leike.cc = server:syslib
+# 中兴 ZTE Router
+zte.home = server:syslib
+# 斐讯 PHICOMM Router
+p.to = server:syslib
+phicomm.me = server:syslib
+# 极路由 HiWiFi Router
+hiwifi.com = server:syslib
+# 迅雷路由
+peiluyou.com = server:syslib
 
 # > Apple
 networking.apple = server:https://doh.dns.apple.com/dns-query
