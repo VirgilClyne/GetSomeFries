@@ -936,7 +936,7 @@ rules:
   - IP-ASN,149790,DIRECT,no-resolve // Octopus Cloud Computing (Shanghai) Co., Ltd
   - IP-ASN,149795,DIRECT,no-resolve // XiaoJin233 Network
   - IP-ASN,205794,DIRECT,no-resolve // JINZE YANG
-  - IP-ASN,206729,DIRECT,no-resolve // YANGYINGTAO
+  - IP-ASN,206729,DIRECT,no-resolve // Vincent Yang
   - IP-ASN,208191,DIRECT,no-resolve // MINGWEI LI
   - IP-ASN,208577,DIRECT,no-resolve // Chaohui Liu
   - IP-ASN,208679,DIRECT,no-resolve // YIKAI-ZHAO
