@@ -228,6 +228,7 @@ upos-sz-mirrorcos?.bilivideo.com = server:https://doh.pub/dns-query // BiliBili 
 upos-sz-mirrorcos??.bilivideo.com = server:https://doh.pub/dns-query // BiliBili upos视频服务器（腾讯云）
 upos-sz-mirrorhw.bilivideo.com = server:syslib // BiliBili upos视频服务器（华为云）
 upos-sz-mirrorhw?.bilivideo.com = server:syslib // BiliBili upos视频服务器（华为云）
+upos-sz-mirrorhwo?.bilivideo.com = server:syslib // BiliBili upos视频服务器（华为云）
 upos-sz-mirrorks3.bilivideo.com = server:syslib // BiliBili upos视频服务器（金山云）
 upos-sz-mirrorks3?.bilivideo.com = server:syslib // BiliBili upos视频服务器（金山云）
 upos-sz-mirrorkodo.bilivideo.com = server:syslib // BiliBili upos视频服务器（七牛云）

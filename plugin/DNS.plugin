@@ -361,6 +361,7 @@ upos-sz-mirrorcos??.bilivideo.com = server:https://doh.pub/dns-query
 # BiliBili upos视频服务器（华为云）
 upos-sz-mirrorhw.bilivideo.com = server:system
 upos-sz-mirrorhw?.bilivideo.com = server:system
+upos-sz-mirrorhwo?.bilivideo.com = server:system
 # BiliBili upos视频服务器（金山云）
 upos-sz-mirrorks3.bilivideo.com = server:system
 upos-sz-mirrorks3?.bilivideo.com = server:system
