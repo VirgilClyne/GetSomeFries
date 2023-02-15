@@ -9,6 +9,10 @@
 encrypted-dns-follow-outbound-mode = true
 
 [Host]
+# > IPv6
+ip6-localhost = ::1
+ip6-loopback = ::1
+
 # > Modify Contents
 # Firebase Cloud Messaging
 talk.google.com = 108.177.125.188 // Firebase Cloud Messaging
@@ -63,6 +67,8 @@ p.to = server:syslib // 斐讯 PHICOMM Router
 phicomm.me = server:syslib // 斐讯 PHICOMM Router
 hiwifi.com = server:syslib // 极路由 HiWiFi Router
 peiluyou.com = server:syslib // 迅雷路由
+_hotspot_.m2m = server:syslib // M2M routers at MiFi Hotspot
+hotspot.cslwifi.com = server:syslib // csl Wi-Fi
 
 # > Apple
 networking.apple = server:https://doh.dns.apple.com/dns-query // Apple

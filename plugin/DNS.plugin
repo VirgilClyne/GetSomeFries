@@ -54,8 +54,8 @@ www.LinksysSmartWiFi.com = server:system
 LinksysSmartWiFi.com = server:system
 myrouter.local = server:system
 # Aurba Router
-instant.arubanetworks.com = server:syslib
-setmeup.arubanetworks.com = server:syslib
+instant.arubanetworks.com = server:system
+setmeup.arubanetworks.com = server:system
 # 小米 Mi WiFi Router
 www.miwifi.com = server:system
 miwifi.com = server:system
@@ -64,24 +64,28 @@ mediarouter.home = server:system
 # TP-Link Router
 tplogin.cn = server:system
 tplinklogin.net = server:system
-tplinkwifi.net = server:syslib
+tplinkwifi.net = server:system
 # 水星 MERCURY Router
 melogin.cn = server:system
 # 迅捷 FAST Router
 falogin.cn = server:system
 # 腾达 Tenda Router
-tendawifi.com = server:syslib
+tendawifi.com = server:system
 # 磊科 Netcore Router
-leike.cc = server:syslib
+leike.cc = server:system
 # 中兴 ZTE Router
-zte.home = server:syslib
+zte.home = server:system
 # 斐讯 PHICOMM Router
-p.to = server:syslib
-phicomm.me = server:syslib
+p.to = server:system
+phicomm.me = server:system
 # 极路由 HiWiFi Router
-hiwifi.com = server:syslib
+hiwifi.com = server:system
 # 迅雷路由
-peiluyou.com = server:syslib
+peiluyou.com = server:system
+# M2M routers at MiFi Hotspot
+_hotspot_.m2m = server:system
+# csl Wi-Fi
+hotspot.cslwifi.com = server:system
 
 # > Apple
 networking.apple = server:https://doh.dns.apple.com/dns-query
