@@ -409,26 +409,6 @@ acg.tv = server:system
 # 京东短网址
 3.cn = server:system
 
-# > iQDNS
-*.iqdns.xyz = server:https://a.passcloud.xyz/dns-query
-*.iqdnsio.co = server:https://a.passcloud.xyz/dns-query
-*.iqiq.io = server:https://a.passcloud.xyz/dns-query
-*.passcloud.xyz = server:https://a.passcloud.xyz/dns-query
-# iQZone
-uuu.glass = server:https://a.passcloud.xyz/dns-query
-*.uuu.glass = server:https://a.passcloud.xyz/dns-query
-*.uuuglass.co = server:https://a.passcloud.xyz/dns-query
-*.leoddns.cn = server:https://a.passcloud.xyz/dns-query
-*.gov-ddns.cn = server:https://a.passcloud.xyz/dns-query
-*.daliddns.cn = server:https://a.passcloud.xyz/dns-query
-*.xn--mes98khzje07c.xyz = server:https://a.passcloud.xyz/dns-query
-*.9218561.xyz = server:https://a.passcloud.xyz/dns-query
-*.211129.xyz = server:https://a.passcloud.xyz/dns-query
-*.gia.wiki = server:https://a.passcloud.xyz/dns-query
-*.checkmails.xyz = server:https://a.passcloud.xyz/dns-query
-*.iqyun.zone = server:https://a.passcloud.xyz/dns-query
-*.ddns-pop.cyou = server:https://a.passcloud.xyz/dns-query
-
 # > 🇨🇳 CN
 # CNNIC SDNS
 # 中国政府网
