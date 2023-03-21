@@ -1,0 +1,67 @@
+#!name=🚫 Block well-known HTTPDNS β
+#!desc=(BETA)阻止常见的 HTTPDNS 服务器
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+
+[Rule]
+# ali
+DOMAIN,httpdns.alicdn.com,REJECT
+DOMAIN,httpdns.c.alicdn.com,REJECT
+
+# aliyun
+# http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
+# http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
+IP-CIDR,203.107.1.1/32,REJECT
+
+# alipay
+URL-REGEX,^https?:\/\/amdc\.alipay\.com\/squery,REJECT
+URL-REGEX,^https?:\/\/110\.76\.8\.150\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.230\.39\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.245\.102\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B200:5000:B000::C8\/squery,REJECT
+
+# tencent
+# https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
+# https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
+URL-REGEX,^https?:\/\/119\.29\.29\.29\/d,REJECT
+
+# baidu
+DOMAIN,httpsdns.baidu.com,REJECT
+DOMAIN,httpdns.baidu.com,REJECT
+URL-REGEX,^http:\/\/180\.76\.76\.112\/v4\/reslove,REJECT
+URL-REGEX,^http:\/\/180\.76\.76\.220\/v4\/reslove,REJECT
+
+# baidu cloud
+# https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf?timeStamp=1623369600118
+DOMAIN,httpdns.baidubce.com,REJECT
+IP-CIDR,186.76.76.200/32,REJECT
+
+# netease
+# https://lbs.netease.im/lbs/conf.jsp # httpdns
+DOMAIN,httpdns.n.netease.com,REJECT
+IP-CIDR,59.111.239.61/32,REJECT
+IP-CIDR,59.111.239.62/32,REJECT
+DOMAIN,music.httpdns.c.163.com,REJECT
+
+# sina
+DOMAIN,httpdns.sina.cn,REJECT
+DOMAIN,httpdns.sina.com.cn,REJECT
+DOMAIN,httpdns.c.sina.cn,REJECT
+DOMAIN,httpdns.c.sina.com.cn,REJECT
+DOMAIN,dns.weibo.cn,REJECT
+
+# huawei
+DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+
+# oppo
+DOMAIN,httpdns.push.oppomobile.com,REJECT
+
+# zhihu
+# https://github.com/lwd-temp/anti-ip-attribution/issues/24
+IP-CIDR,118.89.204.198/23,REJECT
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT
+URL-REGEX,^http:\/\/103\.41\.167\.237\/v2\/reslov,REJECT
+
+[MITM]
+hostname = %APPEND% 119.29.29.29
