@@ -4,6 +4,9 @@
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
+[General]
+force-http-engine-hosts = %APPEND% dns.weixin.qq.com:80, dns.weixin.qq.com:8080
+
 [Rule]
 # ali
 DOMAIN,httpdns.alicdn.com,REJECT
@@ -37,6 +40,8 @@ URL-REGEX,^https?:\/\/119\.29\.29\.29\/d,REJECT
 
 # weixin
 URL-REGEX,^http:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns,REJECT
+URL-REGEX,^http:\/\/dns\.weixin\.qq\.com:80\/mmtls\/,REJECT
+URL-REGEX,^http:\/\/dns\.weixin\.qq\.com:8080\/mmtls\/,REJECT
 
 # baidu
 DOMAIN,httpsdns.baidu.com,REJECT
