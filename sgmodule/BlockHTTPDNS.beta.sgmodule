@@ -1,5 +1,5 @@
-#!name=🚫 Block well-known HTTPDNS
-#!desc=阻止常见的 HTTPDNS 服务器
+#!name=🚫 Block well-known HTTPDNS β
+#!desc=(BETA)阻止常见的 HTTPDNS 服务器
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
@@ -16,6 +16,10 @@ IP-CIDR,203.107.1.1/32,REJECT
 
 # alipay
 URL-REGEX,^https?:\/\/amdc\.alipay\.com\/squery,REJECT
+URL-REGEX,^https?:\/\/110\.76\.8\.150\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.230\.39\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.245\.102\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B200:5000:B000::C8\/squery,REJECT
 
 # tencent
 # refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
