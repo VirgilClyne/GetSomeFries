@@ -69,8 +69,8 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 
 [URL Rewrite]
 # alipay
-^https?:\/\/amdc\.alipay\.com\/squery - reject
-^https?:\/\/amdc-sibling\.alipay\.com\.cn\/squery - reject
+^https?:\/\/amdc\.alipay\.com\/s?query - reject
+^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query - reject
 ^https?:\/\/110\.76\.8\.150\/squery - reject
 ^https?:\/\/203\.209\.230\.39\/squery - reject
 ^https?:\/\/203\.209\.245\.102\/squery - reject
@@ -110,4 +110,4 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
 
 [MITM]
-hostname = %APPEND% 119.29.29.29
+hostname = %APPEND% 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn
