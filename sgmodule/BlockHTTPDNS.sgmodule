@@ -11,7 +11,7 @@ DOMAIN,httpdns.alicdn.com,REJECT
 # aliyun
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
-IP-CIDR,203.107.1.1/32,REJECT
+IP-CIDR,203.107.1.1/32,REJECT,no-resolve
 # refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
 DOMAIN,httpdns-api.aliyuncs.com,REJECT
 
@@ -20,13 +20,13 @@ DOMAIN,httpdns-api.aliyuncs.com,REJECT
 # refer: https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/HTTPDNS.html
 DOMAIN,dns.weixin.qq.com,REJECT
 DOMAIN,dns.weixin.qq.com.cn,REJECT
-IP-CIDR,42.81.232.18/32,REJECT
-IP-CIDR,42.187.182.106/32,REJECT
-IP-CIDR,42.187.182.123/32,REJECT
-IP-CIDR,42.187.184.154/32,REJECT
-IP-CIDR,123.151.54.50/32,REJECT
-IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT
-IP-CIDR6,240e:928:1400:10::25/128,REJECT
+IP-CIDR,42.81.232.18/32,REJECT,no-resolve
+IP-CIDR,42.187.182.106/32,REJECT,no-resolve
+IP-CIDR,42.187.182.123/32,REJECT,no-resolve
+IP-CIDR,42.187.184.154/32,REJECT,no-resolve
+IP-CIDR,123.151.54.50/32,REJECT,no-resolve
+IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
+IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
 
 # baidu
 DOMAIN,httpsdns.baidu.com,REJECT
@@ -35,13 +35,13 @@ DOMAIN,httpdns.baidu.com,REJECT
 # baidu cloud
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
 DOMAIN,httpdns.baidubce.com,REJECT
-IP-CIDR,186.76.76.200/32,REJECT
+IP-CIDR,186.76.76.200/32,REJECT,no-resolve
 
 # netease
 # refer: https://lbs.netease.im/lbs/conf.jsp
 DOMAIN,httpdns.n.netease.com,REJECT
-IP-CIDR,59.111.239.61/32,REJECT
-IP-CIDR,59.111.239.62/32,REJECT
+IP-CIDR,59.111.239.61/32,REJECT,no-resolve
+IP-CIDR,59.111.239.62/32,REJECT,no-resolve
 DOMAIN,music.httpdns.c.163.com,REJECT
 
 # sina
@@ -61,8 +61,8 @@ DOMAIN,httpdns.push.oppomobile.com,REJECT
 
 # zhihu
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
-IP-CIDR,118.89.204.198/23,REJECT
-IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT
+IP-CIDR,118.89.204.198/23,REJECT,no-resolve
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 
 [URL Rewrite]
 # alipay
@@ -80,6 +80,13 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT
 ^https?:\/\/2400:B200:1005:3000::155\/squery - reject
 ^https?:\/\/2400:B200:1005:3000::1D3\/squery - reject
 ^https?:\/\/2400:B200:5000:B000::C8\/squery - reject
+
+# weixin
+# 注意: 以下域名HTTPS无法MitM，如通过此链接查询，无法处理
+^https?:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
+^https?:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
+^https?:\/\/short\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
+^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 
 # qcloud
 # refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
