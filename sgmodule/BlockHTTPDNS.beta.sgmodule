@@ -16,7 +16,17 @@ IP-CIDR,203.107.1.1/32,REJECT
 DOMAIN,httpdns-api.aliyuncs.com,REJECT
 
 # weixin
+# refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns
+# refer: https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/HTTPDNS.html
 DOMAIN,dns.weixin.qq.com,REJECT
+DOMAIN,dns.weixin.qq.com.cn,REJECT
+IP-CIDR,42.81.232.18/32,REJECT
+IP-CIDR,42.187.182.106/32,REJECT
+IP-CIDR,42.187.182.123/32,REJECT
+IP-CIDR,42.187.184.154/32,REJECT
+IP-CIDR,123.151.54.50/32,REJECT
+IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT
+IP-CIDR6,240e:928:1400:10::25/128,REJECT
 
 # baidu
 DOMAIN,httpsdns.baidu.com,REJECT
