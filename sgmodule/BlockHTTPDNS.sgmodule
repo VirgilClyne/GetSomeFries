@@ -7,39 +7,20 @@
 [Rule]
 # ali
 DOMAIN,httpdns.alicdn.com,REJECT
-DOMAIN,httpdns.c.alicdn.com,REJECT
 
 # aliyun
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
 IP-CIDR,203.107.1.1/32,REJECT
+# refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
+DOMAIN,httpdns-api.aliyuncs.com,REJECT
 
-# alipay
-URL-REGEX,^https?:\/\/amdc\.alipay\.com\/squery,REJECT
-URL-REGEX,^https?:\/\/110\.76\.8\.150\/squery,REJECT
-URL-REGEX,^https?:\/\/203\.209\.230\.39\/squery,REJECT
-URL-REGEX,^https?:\/\/203\.209\.245\.102\/squery,REJECT
-URL-REGEX,^https?:\/\/203\.209\.245\.158\/squery,REJECT
-URL-REGEX,^https?:\/\/203\.209\.247\.95\/squery,REJECT
-URL-REGEX,^https?:\/\/203\.209\.250\.41\/squery,REJECT
-URL-REGEX,^https?:\/\/203\.209\.250\.114\/squery,REJECT
-URL-REGEX,^https?:\/\/203\.209\.251\.147\/squery,REJECT
-URL-REGEX,^https?:\/\/2400:B180:6001::18F\/squery,REJECT
-URL-REGEX,^https?:\/\/2400:B200:1005:3000::155\/squery,REJECT
-URL-REGEX,^https?:\/\/2400:B200:1005:3000::1D3\/squery,REJECT
-URL-REGEX,^https?:\/\/2400:B200:5000:B000::C8\/squery,REJECT
-
-# tencent
-# refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
-# refer: https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
-# refer: https://cloud.tencent.com/document/product/379/61200
-URL-REGEX,^https?:\/\/119\.29\.29\.29\/d,REJECT
+# weixin
+DOMAIN,dns.weixin.qq.com,REJECT
 
 # baidu
 DOMAIN,httpsdns.baidu.com,REJECT
 DOMAIN,httpdns.baidu.com,REJECT
-URL-REGEX,^http:\/\/180\.76\.76\.112\/v4\/reslove,REJECT
-URL-REGEX,^http:\/\/180\.76\.76\.220\/v4\/reslove,REJECT
 
 # baidu cloud
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
@@ -60,8 +41,6 @@ DOMAIN,httpdns.c.sina.cn,REJECT
 DOMAIN,httpdns.c.sina.com.cn,REJECT
 
 # weibo
-URL-REGEX,^http:\/\/api\.weibo\.cn\/2\/httpdns\/config,REJECT
-URL-REGEX,^http:\/\/api\.weibo\.cn\/httpdns\/config,REJECT
 DOMAIN,dns.weibo.cn,REJECT
 
 # huawei
@@ -74,7 +53,41 @@ DOMAIN,httpdns.push.oppomobile.com,REJECT
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
 IP-CIDR,118.89.204.198/23,REJECT
 IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT
-URL-REGEX,^http:\/\/103\.41\.167\.237\/v2\/reslov,REJECT
+
+[URL Rewrite]
+# alipay
+^https?:\/\/amdc\.alipay\.com\/squery - reject
+^https?:\/\/amdc-sibling\.alipay\.com\.cn\/squery - reject
+^https?:\/\/110\.76\.8\.150\/squery - reject
+^https?:\/\/203\.209\.230\.39\/squery - reject
+^https?:\/\/203\.209\.245\.102\/squery - reject
+^https?:\/\/203\.209\.245\.158\/squery - reject
+^https?:\/\/203\.209\.247\.95\/squery - reject
+^https?:\/\/203\.209\.250\.41\/squery - reject
+^https?:\/\/203\.209\.250\.114\/squery - reject
+^https?:\/\/203\.209\.251\.147\/squery - reject
+^https?:\/\/2400:B180:6001::18F\/squery - reject
+^https?:\/\/2400:B200:1005:3000::155\/squery - reject
+^https?:\/\/2400:B200:1005:3000::1D3\/squery - reject
+^https?:\/\/2400:B200:5000:B000::C8\/squery - reject
+
+# qcloud
+# refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
+# refer: https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
+# refer: https://cloud.tencent.com/document/product/379/61200
+^https?:\/\/119\.29\.29\.29\/d - reject
+
+# baidu
+^http:\/\/180\.76\.76\.112\/v4\/reslove - reject
+^http:\/\/180\.76\.76\.220\/v4\/reslove - reject
+
+# weibo
+^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
+^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
+
+# zhihu
+# refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
+^http:\/\/103\.41\.167\.237\/v2\/reslov - reject
 
 [MITM]
 hostname = %APPEND% 119.29.29.29
