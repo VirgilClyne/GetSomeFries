@@ -4,6 +4,9 @@
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
+[General]
+force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443
+
 [Rule]
 # ali
 DOMAIN,httpdns.alicdn.com,REJECT
