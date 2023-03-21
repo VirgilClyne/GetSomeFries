@@ -58,6 +58,10 @@ DOMAIN,httpdns.sina.cn,REJECT
 DOMAIN,httpdns.sina.com.cn,REJECT
 DOMAIN,httpdns.c.sina.cn,REJECT
 DOMAIN,httpdns.c.sina.com.cn,REJECT
+
+# weibo
+URL-REGEX,^http:\/\/api\.weibo\.cn\/2\/httpdns\/config,REJECT
+URL-REGEX,^http:\/\/api\.weibo\.cn\/httpdns\/config,REJECT
 DOMAIN,dns.weibo.cn,REJECT
 
 # huawei
