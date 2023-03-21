@@ -21,11 +21,14 @@ URL-REGEX,^https?:\/\/203\.209\.230\.39\/squery,REJECT
 URL-REGEX,^https?:\/\/203\.209\.245\.102\/squery,REJECT
 URL-REGEX,^https?:\/\/2400:B200:5000:B000::C8\/squery,REJECT
 
-# tencent
+# qcloud
 # refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
 # refer: https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
 # refer: https://cloud.tencent.com/document/product/379/61200
 URL-REGEX,^https?:\/\/119\.29\.29\.29\/d,REJECT
+
+# weixin
+URL-REGEX,^http:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns,REJECT
 
 # baidu
 DOMAIN,httpsdns.baidu.com,REJECT
