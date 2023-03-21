@@ -16,6 +16,18 @@ IP-CIDR,203.107.1.1/32,REJECT
 
 # alipay
 URL-REGEX,^https?:\/\/amdc\.alipay\.com\/squery,REJECT
+URL-REGEX,^https?:\/\/110\.76\.8\.150\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.230\.39\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.245\.102\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.245\.158\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.247\.95\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.250\.41\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.250\.114\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.251\.147\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B180:6001::18F\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B200:1005:3000::155\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B200:1005:3000::1D3\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B200:5000:B000::C8\/squery,REJECT
 
 # tencent
 # refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf

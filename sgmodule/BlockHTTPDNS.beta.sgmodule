@@ -19,6 +19,14 @@ URL-REGEX,^https?:\/\/amdc\.alipay\.com\/squery,REJECT
 URL-REGEX,^https?:\/\/110\.76\.8\.150\/squery,REJECT
 URL-REGEX,^https?:\/\/203\.209\.230\.39\/squery,REJECT
 URL-REGEX,^https?:\/\/203\.209\.245\.102\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.245\.158\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.247\.95\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.250\.41\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.250\.114\/squery,REJECT
+URL-REGEX,^https?:\/\/203\.209\.251\.147\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B180:6001::18F\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B200:1005:3000::155\/squery,REJECT
+URL-REGEX,^https?:\/\/2400:B200:1005:3000::1D3\/squery,REJECT
 URL-REGEX,^https?:\/\/2400:B200:5000:B000::C8\/squery,REJECT
 
 # qcloud
