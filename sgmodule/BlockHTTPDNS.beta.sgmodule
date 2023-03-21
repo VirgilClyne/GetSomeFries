@@ -16,6 +16,7 @@ IP-CIDR,203.107.1.1/32,REJECT
 
 # alipay
 URL-REGEX,^https?:\/\/amdc\.alipay\.com\/squery,REJECT
+URL-REGEX,^https?:\/\/amdc-sibling\.alipay\.com\.cn\/squery,REJECT
 URL-REGEX,^https?:\/\/110\.76\.8\.150\/squery,REJECT
 URL-REGEX,^https?:\/\/203\.209\.230\.39\/squery,REJECT
 URL-REGEX,^https?:\/\/203\.209\.245\.102\/squery,REJECT
