@@ -1,11 +1,11 @@
-#!name=🍟 Fries: 🚫 Block well-known HTTPDNS
+#!name=🍟 Fries: 🚫 Block HTTPDNS
 #!desc=阻止常见的 HTTPDNS 服务器
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 [General]
-force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443
+force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443, 203.107.1.65:80
 
 [Rule]
 # ali
@@ -40,6 +40,9 @@ DOMAIN,httpdns.baidu.com,REJECT
 DOMAIN,httpdns.baidubce.com,REJECT
 IP-CIDR,186.76.76.200/32,REJECT,no-resolve
 
+# bilibili
+DOMAIN,httpdns.bilivideo.com,REJECT
+
 # netease
 # refer: https://lbs.netease.im/lbs/conf.jsp
 DOMAIN,httpdns.n.netease.com,REJECT
@@ -69,8 +72,8 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 
 [URL Rewrite]
 # alipay
-^https?:\/\/amdc\.alipay\.com\/squery - reject
-^https?:\/\/amdc-sibling\.alipay\.com\.cn\/squery - reject
+^https?:\/\/amdc\.alipay\.com\/s?query - reject
+^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query - reject
 ^https?:\/\/110\.76\.8\.150\/squery - reject
 ^https?:\/\/203\.209\.230\.39\/squery - reject
 ^https?:\/\/203\.209\.245\.102\/squery - reject
@@ -101,6 +104,10 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
 ^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
 
+# bilibili
+^http:\/\/203\.107\.1\.65\/\d+\/resolve - reject
+^http:\/\/203\.107\.1\.66\/\d+\/resolve - reject
+
 # weibo
 ^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
 ^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
@@ -109,5 +116,14 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
 ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
 
+# meituan
+^http:\/\/103\.37\.155\.60\/fetch - reject
+
+# pinduoduo
+^http:\/\/101\.35\.204\.35\/d - reject
+^http:\/\/101\.35\.212\.35\/d - reject
+^http:\/\/114\.110\.96\.26\/d - reject
+^http:\/\/114\.110\.97\.97\/d - reject
+
 [MITM]
-hostname = %APPEND% 119.29.29.29
+hostname = %APPEND% 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn
