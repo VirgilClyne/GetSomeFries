@@ -5,7 +5,7 @@
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 [General]
-force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443
+force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443, 203.107.1.65:80
 
 [Rule]
 # ali
@@ -39,6 +39,9 @@ DOMAIN,httpdns.baidu.com,REJECT
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
 DOMAIN,httpdns.baidubce.com,REJECT
 IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+
+# bilibili
+DOMAIN,httpdns.bilivideo.com,REJECT
 
 # netease
 # refer: https://lbs.netease.im/lbs/conf.jsp
@@ -100,6 +103,10 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 # baidu
 ^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
 ^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
+
+# bilibili
+^http:\/\/203\.107\.1\.65\/\d+\/resolve - reject
+^http:\/\/203\.107\.1\.66\/\d+\/resolve - reject
 
 # weibo
 ^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
