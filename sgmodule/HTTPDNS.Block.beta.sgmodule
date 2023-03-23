@@ -54,13 +54,11 @@ DOMAIN,lofter.httpdns.c.163.com,REJECT
 
 # sina
 # refer: https://github.com/CNSRE/HTTPDNSLib
-DOMAIN,httpdns.sina.cn,REJECT
-DOMAIN,httpdns.sina.com.cn,REJECT
-DOMAIN,httpdns.c.sina.cn,REJECT
-DOMAIN,httpdns.c.sina.com.cn,REJECT
 
 # weibo
 DOMAIN,dns.weibo.cn,REJECT
+IP-CIDR,39.97.128.148/32,REJECT,no-resolve
+IP-CIDR,39.97.130.51/32,REJECT,no-resolve
 
 # huawei
 DOMAIN,httpdns.c.cdnhwc2.com,REJECT
@@ -115,6 +113,7 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^http:\/\/203\.107\.1\.66\/\d+\/resolve - reject
 
 # weibo
+# refer: https://github.com/CNSRE/HTTPDNSLib-for-iOS
 ^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
 ^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
 
