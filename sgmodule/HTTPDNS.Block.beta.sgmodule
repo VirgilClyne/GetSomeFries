@@ -53,6 +53,7 @@ DOMAIN,music.httpdns.c.163.com,REJECT
 DOMAIN,lofter.httpdns.c.163.com,REJECT
 
 # sina
+# refer: https://github.com/CNSRE/HTTPDNSLib
 DOMAIN,httpdns.sina.cn,REJECT
 DOMAIN,httpdns.sina.com.cn,REJECT
 DOMAIN,httpdns.c.sina.cn,REJECT
