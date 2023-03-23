@@ -49,6 +49,7 @@ DOMAIN,httpdns.n.netease.com,REJECT
 IP-CIDR,59.111.239.61/32,REJECT,no-resolve
 IP-CIDR,59.111.239.62/32,REJECT,no-resolve
 DOMAIN,music.httpdns.c.163.com,REJECT
+DOMAIN,lofter.httpdns.c.163.com,REJECT
 
 # sina
 DOMAIN,httpdns.sina.cn,REJECT
