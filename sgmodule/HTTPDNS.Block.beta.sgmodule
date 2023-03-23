@@ -100,6 +100,9 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 # refer: https://cloud.tencent.com/document/product/379/61200
 ^https?:\/\/119\.29\.29\.29\/d - reject
 
+# qqmusic
+^http:\/\/182\.256\.116\.116\/d - reject
+
 # baidu
 ^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
 ^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
