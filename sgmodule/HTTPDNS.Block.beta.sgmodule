@@ -12,11 +12,12 @@ force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.we
 DOMAIN,httpdns.alicdn.com,REJECT
 
 # aliyun
+# refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
+DOMAIN,httpdns-api.aliyuncs.com,REJECT
+DOMAIN,httpdns-sc.aliyuncs.com,REJECT
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
 IP-CIDR,203.107.1.1/24,REJECT,no-resolve
-# refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
-DOMAIN,httpdns-api.aliyuncs.com,REJECT
 
 # weixin
 # refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns
