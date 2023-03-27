@@ -5,9 +5,9 @@
  * @param {String} key - Persistent Store Key
  * @param {String} name - Platform Name
  * @param {Object} database - Default Database
- * @return {Promise<*>}
+ * @return {Object} { Settings, Caches, Configs }
  */
-async function getENV(key, name, database) {
+function getENV(key, name, database) {
 	//$.log(`⚠ ${$.name}, Get Environment Variables`, "");
 	/***************** BoxJs *****************/
 	// 包装为局部变量，用完释放内存
@@ -31,8 +31,8 @@ async function getENV(key, name, database) {
 	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
 	let Configs = { ...database?.Default?.Configs, ...database?.[name]?.Configs, ...BoxJs?.[name]?.Configs };
 	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Configs: ${typeof Configs}`, `Config内容: ${JSON.stringify(Configs)}`, "");
-	let Caches = BoxJs?.[name]?.Caches || undefined;
-	if (typeof Caches === "string") Caches = JSON.parse(Caches)
+	let Caches = BoxJs?.[name]?.Caches || {};
+	if (typeof Caches === "string") Caches = JSON.parse(Caches);
 	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
 	return { Settings, Caches, Configs };
 	/***************** setPath *****************/
