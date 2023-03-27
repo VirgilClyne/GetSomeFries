@@ -1,15 +1,16 @@
 function URLs(opts) {
 	return new (class {
 		constructor(opts = []) {
-			this.name = "URL v1.0.0";
+			this.name = "URL v1.0.2";
 			this.opts = opts;
-			this.json = { url: { scheme: "", host: "", path: "" }, params: {} };
+			this.json = { scheme: "", host: "", path: "", params: {} };
 		};
 
 		parse(url) {
 			const URLRegex = /(?<scheme>.+):\/\/(?<host>[^/]+)\/?(?<path>[^?]+)?\??(?<params>.*)?/;
 			let json = url.match(URLRegex)?.groups ?? null;
 			//$.log(`🚧 ${$.name}, URLSearch`, `url.match(URLRegex)?.groups: ${JSON.stringify(json)}`, "");
+			if (!json?.path) json.path = "";
 			if (json?.params) json.params = Object.fromEntries(json.params.split("&").map((param) => param.split("=")));
 			//$.log(`🚧 ${$.name}, URLSearch`, `Object.fromEntries(json.params.split("&").map((item) => item.split("="))): ${JSON.stringify(json?.params)}`, "");
 			//$.log(`🚧 ${$.name}, URLSearch`, `json: ${JSON.stringify(json)}`, "");
