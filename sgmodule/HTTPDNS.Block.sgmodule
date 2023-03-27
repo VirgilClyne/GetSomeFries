@@ -12,11 +12,12 @@ force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.we
 DOMAIN,httpdns.alicdn.com,REJECT
 
 # aliyun
+# refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
+DOMAIN,httpdns-api.aliyuncs.com,REJECT
+DOMAIN,httpdns-sc.aliyuncs.com,REJECT
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
 IP-CIDR,203.107.1.1/24,REJECT,no-resolve
-# refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
-DOMAIN,httpdns-api.aliyuncs.com,REJECT
 
 # weixin
 # refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns
@@ -49,15 +50,15 @@ DOMAIN,httpdns.n.netease.com,REJECT
 IP-CIDR,59.111.239.61/32,REJECT,no-resolve
 IP-CIDR,59.111.239.62/32,REJECT,no-resolve
 DOMAIN,music.httpdns.c.163.com,REJECT
+DOMAIN,lofter.httpdns.c.163.com,REJECT
 
 # sina
-DOMAIN,httpdns.sina.cn,REJECT
-DOMAIN,httpdns.sina.com.cn,REJECT
-DOMAIN,httpdns.c.sina.cn,REJECT
-DOMAIN,httpdns.c.sina.com.cn,REJECT
+# refer: https://github.com/CNSRE/HTTPDNSLib
 
 # weibo
 DOMAIN,dns.weibo.cn,REJECT
+IP-CIDR,39.97.128.148/32,REJECT,no-resolve
+IP-CIDR,39.97.130.51/32,REJECT,no-resolve
 
 # huawei
 DOMAIN,httpdns.c.cdnhwc2.com,REJECT
@@ -100,6 +101,9 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 # refer: https://cloud.tencent.com/document/product/379/61200
 ^https?:\/\/119\.29\.29\.29\/d - reject
 
+# qqmusic
+^http:\/\/182\.256\.116\.116\/d - reject
+
 # baidu
 ^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
 ^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
@@ -109,6 +113,7 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^http:\/\/203\.107\.1\.66\/\d+\/resolve - reject
 
 # weibo
+# refer: https://github.com/CNSRE/HTTPDNSLib-for-iOS
 ^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
 ^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
 
