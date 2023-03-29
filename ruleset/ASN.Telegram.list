@@ -2,11 +2,14 @@
 PROCESS-NAME,org.telegram.messenger
 DOMAIN-SUFFIX,comments.app // @CommentsBot
 DOMAIN-SUFFIX,t.me
+DOMAIN-SUFFIX,tx.me
 DOMAIN-SUFFIX,tdesktop.com
 DOMAIN-SUFFIX,telegra.ph // Telegraph
 DOMAIN-SUFFIX,telegram.me
 DOMAIN-SUFFIX,telegram.org
 DOMAIN-SUFFIX,telegram-cdn.org
+DOMAIN-SUFFIX,graph.org
+DOMAIN-SUFFIX,legra.ph
 DOMAIN-SUFFIX,telesco.pe // Telescope
 IP-CIDR,109.239.140.0/24,no-resolve // Telegram Messenger LLP
 IP-CIDR,5.28.192.0/18,no-resolve // IPFFM - Internet Provider Frankfurt GmbH
