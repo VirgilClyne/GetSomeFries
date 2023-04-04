@@ -90,6 +90,6 @@ rules:
   - DOMAIN,httpdns.push.oppomobile.com,REJECT
   - IP-CIDR,118.89.204.198/23,REJECT,no-resolve
   - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
-  # zhihu
+  # Zhihu
   - IP-CIDR,118.89.204.198/23,REJECT,no-resolve
   - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
