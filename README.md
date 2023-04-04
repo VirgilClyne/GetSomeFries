@@ -17,12 +17,12 @@
 
 | [🌐<br>通用](../../wiki/🌐-通用) | [🌐<br>DNS](../../wiki/🌐-DNS) | [🌐<br>ASN](../../wiki/🌐-ASN) | [🚫<br>HTTPDNS](../../wiki/🚫-HTTPDNS) |  | [🍟<br>Disney+](../../wiki/🍟-Disney-Plus) | [🍟<br>Netflix](../../wiki/🍟-Netflix) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| [简介](../../wiki/🌐-通用#简介) | [简介](../../wiki/🌐-DNS#简介) | [简介](../../wiki/🌐-ASN#简介) | [简介](../../wiki/🌐-DNS#简介) |  | [简介](../../wiki/🍟-Disney-Plus#简介) | [简介](../../wiki/🍟-Netflix#简介) |
-| [使用说明](../../wiki/🌐-通用#使用说明) | [使用说明](../../wiki/🌐-DNS#使用说明) | [使用说明](../../wiki/🌐-ASN#使用说明) | [使用说明](../../wiki/🌐-DNS#使用说明) |  | [使用说明](../../wiki/🍟-Disney-Plus#使用说明) | [使用说明](../../wiki/🍟-Netflix#使用说明) |
-| [功能列表](../../wiki/🌐-通用#功能列表) | [功能列表](../../wiki/🌐-DNS#功能列表) | [功能列表](../../wiki/🌐-ASN#功能列表) | [功能列表](../../wiki/🌐-DNS#功能列表) |  | [功能列表](../../wiki/🍟-Disney-Plus#功能列表) | [功能列表](../../wiki/🍟-Netflix#功能列表) |
-| [安装链接](../../wiki/🌐-通用#安装链接) | [安装链接](../../wiki/🌐-DNS#安装链接) | [安装链接](../../wiki/🌐-ASN#安装链接) | [安装链接](../../wiki/🌐-ASN#安装链接) |  | [安装链接](../../wiki/🍟-Disney-Plus#安装链接) | [安装链接](../../wiki/🍟-Netflix#安装链接) |
+| [简介](../../wiki/🌐-通用#简介) | [简介](../../wiki/🌐-DNS#简介) | [简介](../../wiki/🌐-ASN#简介) | [简介](../../wiki/🚫-HTTPDNS#简介) |  | [简介](../../wiki/🍟-Disney-Plus#简介) | [简介](../../wiki/🍟-Netflix#简介) |
+| [使用说明](../../wiki/🌐-通用#使用说明) | [使用说明](../../wiki/🌐-DNS#使用说明) | [使用说明](../../wiki/🌐-ASN#使用说明) | [使用说明](../../wiki/🚫-HTTPDNS#使用说明) |  | [使用说明](../../wiki/🍟-Disney-Plus#使用说明) | [使用说明](../../wiki/🍟-Netflix#使用说明) |
+| [功能列表](../../wiki/🌐-通用#功能列表) | [功能列表](../../wiki/🌐-DNS#功能列表) | [功能列表](../../wiki/🌐-ASN#功能列表) | [功能列表](../../wiki/🚫-HTTPDNS#功能列表) |  | [功能列表](../../wiki/🍟-Disney-Plus#功能列表) | [功能列表](../../wiki/🍟-Netflix#功能列表) |
+| [安装链接](../../wiki/🌐-通用#安装链接) | [安装链接](../../wiki/🌐-DNS#安装链接) | [安装链接](../../wiki/🌐-ASN#安装链接) | [安装链接](../../wiki/🚫-HTTPDNS#安装链接) |  | [安装链接](../../wiki/🍟-Disney-Plus#安装链接) | [安装链接](../../wiki/🍟-Netflix#安装链接) |
 | 持续更新 | 持续更新 | 持续更新 | 持续更新 |  | v1.0.0 | v1.0.0 |
-| [更新日志](../../wiki/🌐-通用#更新日志) | [更新日志](../../wiki/🌐-DNS#更新日志) | [更新日志](../../wiki/🌐-ASN#更新日志) | [更新日志](../../wiki/🌐-ASN#更新日志) |  | [更新日志](../../wiki/🍟-Disney-Plus#更新日志) | [更新日志](../../wiki/🍟-Netflix#更新日志) |
+| [更新日志](../../wiki/🌐-通用#更新日志) | [更新日志](../../wiki/🌐-DNS#更新日志) | [更新日志](../../wiki/🌐-ASN#更新日志) | [更新日志](../../wiki/🚫-HTTPDNS#更新日志) |  | [更新日志](../../wiki/🍟-Disney-Plus#更新日志) | [更新日志](../../wiki/🍟-Netflix#更新日志) |
 | [说明<br>讨论](https://t.me/GetSomeFriesChannel/) | [说明<br>讨论](https://t.me/GetSomeFriesChannel/) | [说明<br>讨论](https://t.me/GetSomeFriesChannel/) | [说明<br>讨论](https://t.me/GetSomeFriesChannel/) |  | [说明<br>讨论](https://t.me/GetSomeFriesChannel/) | 说明<br>讨论 |
 
 ---
