@@ -59,6 +59,7 @@ http:
 rules:
   # Alibaba
   - DOMAIN,httpdns.alicdn.com,REJECT
+  - IP-CIDR,203.107.1.0/24,REJECT,no-resolve
   # WeChat
   - DOMAIN,dns.weixin.qq.com,REJECT
   - DOMAIN,dns.weixin.qq.com.cn,REJECT
