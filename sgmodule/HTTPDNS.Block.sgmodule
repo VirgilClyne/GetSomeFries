@@ -56,6 +56,7 @@ IP-CIDR,39.97.128.148/32,REJECT,no-resolve
 IP-CIDR,39.97.130.51/32,REJECT,no-resolve
 
 # Volcengine
+# refer: https://www.volcengine.com/docs/6758/174756
 DOMAIN,httpdns.volcengineapi.com,REJECT
 
 # Weixin
