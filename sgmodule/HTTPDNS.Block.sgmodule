@@ -5,13 +5,13 @@
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 [General]
-force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443, 203.107.1.65:80
+force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443, 203.107.1.65:80, 203.107.1.66:80
 
 [Rule]
-# alibaba
+# Alibaba
 DOMAIN,httpdns.alicdn.com,REJECT
 
-# aliyun
+# Aliyun
 # refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
 DOMAIN,httpdns-api.aliyuncs.com,REJECT
 DOMAIN,httpdns-sc.aliyuncs.com,REJECT
@@ -21,7 +21,44 @@ DOMAIN,httpdns-sc.aliyuncs.com,REJECT
 # refer: https://alidocs.dingtalk.com/i/p/Y7kmbokZp3pgGLq2/docs/lo1YvX0prG98kvEewqNyJPw7xzbmLdEZ
 IP-CIDR,203.107.1.0/24,REJECT,no-resolve
 
-# weixin
+# Baidu
+DOMAIN,httpsdns.baidu.com,REJECT
+DOMAIN,httpdns.baidu.com,REJECT
+
+# BaiduBCE
+# refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
+DOMAIN,httpdns.baidubce.com,REJECT
+IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+
+# Bilibili
+DOMAIN,httpdns.bilivideo.com,REJECT
+
+# Huawei
+DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+
+# Netease
+# refer: https://lbs.netease.im/lbs/conf.jsp
+DOMAIN,httpdns.n.netease.com,REJECT
+IP-CIDR,59.111.239.61/32,REJECT,no-resolve
+IP-CIDR,59.111.239.62/32,REJECT,no-resolve
+DOMAIN,music.httpdns.c.163.com,REJECT
+DOMAIN,lofter.httpdns.c.163.com,REJECT
+
+# Oppo
+DOMAIN,httpdns.push.oppomobile.com,REJECT
+
+# Sina
+# refer: https://github.com/CNSRE/HTTPDNSLib
+
+# Weibo
+DOMAIN,dns.weibo.cn,REJECT
+IP-CIDR,39.97.128.148/32,REJECT,no-resolve
+IP-CIDR,39.97.130.51/32,REJECT,no-resolve
+
+# Volcengine
+DOMAIN,httpdns.volcengineapi.com,REJECT
+
+# Weixin
 # refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns
 # refer: https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/HTTPDNS.html
 DOMAIN,dns.weixin.qq.com,REJECT
@@ -34,47 +71,13 @@ IP-CIDR,123.151.54.50/32,REJECT,no-resolve
 IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
 IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
 
-# baidu
-DOMAIN,httpsdns.baidu.com,REJECT
-DOMAIN,httpdns.baidu.com,REJECT
-
-# baidu cloud
-# refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
-DOMAIN,httpdns.baidubce.com,REJECT
-IP-CIDR,186.76.76.200/32,REJECT,no-resolve
-
-# bilibili
-DOMAIN,httpdns.bilivideo.com,REJECT
-
-# netease
-# refer: https://lbs.netease.im/lbs/conf.jsp
-DOMAIN,httpdns.n.netease.com,REJECT
-IP-CIDR,59.111.239.61/32,REJECT,no-resolve
-IP-CIDR,59.111.239.62/32,REJECT,no-resolve
-DOMAIN,music.httpdns.c.163.com,REJECT
-DOMAIN,lofter.httpdns.c.163.com,REJECT
-
-# sina
-# refer: https://github.com/CNSRE/HTTPDNSLib
-
-# weibo
-DOMAIN,dns.weibo.cn,REJECT
-IP-CIDR,39.97.128.148/32,REJECT,no-resolve
-IP-CIDR,39.97.130.51/32,REJECT,no-resolve
-
-# huawei
-DOMAIN,httpdns.c.cdnhwc2.com,REJECT
-
-# oppo
-DOMAIN,httpdns.push.oppomobile.com,REJECT
-
-# zhihu
+# Zhihu
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
 IP-CIDR,118.89.204.198/23,REJECT,no-resolve
 IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 
 [URL Rewrite]
-# alipay
+# Alipay
 ^https?:\/\/amdc\.alipay\.com\/s?query - reject
 ^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query - reject
 ^https?:\/\/110\.76\.8\.150\/squery - reject
@@ -90,47 +93,47 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^https?:\/\/2400:B200:1005:3000::1D3\/squery - reject
 ^https?:\/\/2400:B200:5000:B000::C8\/squery - reject
 
-# weixin
+# Baidu
+^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
+^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
+
+# Bilibili
+^http:\/\/203\.107\.1\.65\/\d+\/resolve - reject
+^http:\/\/203\.107\.1\.66\/\d+\/resolve - reject
+
+# Meituan
+^http:\/\/103\.37\.155\.60\/fetch - reject
+
+# Pinduoduo
+^http:\/\/101\.35\.204\.35\/d - reject
+^http:\/\/101\.35\.212\.35\/d - reject
+^http:\/\/114\.110\.96\.26\/d - reject
+^http:\/\/114\.110\.97\.97\/d - reject
+
+# Qcloud
+# refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
+# refer: https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
+# refer: https://cloud.tencent.com/document/product/379/61200
+^https?:\/\/119\.29\.29\.29\/d - reject
+
+# QQmusic
+^http:\/\/182\.256\.116\.116\/d - reject
+
+# Weibo
+# refer: https://github.com/CNSRE/HTTPDNSLib-for-iOS
+^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
+^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
+
+# Weixin
 # 注意: 以下域名HTTPS无法MitM，如通过此链接查询，无法处理
 ^https?:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
 ^https?:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
 ^https?:\/\/short\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 ^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 
-# qcloud
-# refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
-# refer: https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
-# refer: https://cloud.tencent.com/document/product/379/61200
-^https?:\/\/119\.29\.29\.29\/d - reject
-
-# qqmusic
-^http:\/\/182\.256\.116\.116\/d - reject
-
-# baidu
-^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
-^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
-
-# bilibili
-^http:\/\/203\.107\.1\.65\/\d+\/resolve - reject
-^http:\/\/203\.107\.1\.66\/\d+\/resolve - reject
-
-# weibo
-# refer: https://github.com/CNSRE/HTTPDNSLib-for-iOS
-^http:\/\/api\.weibo\.cn\/2\/httpdns\/config - reject
-^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
-
-# zhihu
+# Zhihu
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
 ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
-
-# meituan
-^http:\/\/103\.37\.155\.60\/fetch - reject
-
-# pinduoduo
-^http:\/\/101\.35\.204\.35\/d - reject
-^http:\/\/101\.35\.212\.35\/d - reject
-^http:\/\/114\.110\.96\.26\/d - reject
-^http:\/\/114\.110\.97\.97\/d - reject
 
 [MITM]
 hostname = %APPEND% 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn
