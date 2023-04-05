@@ -1,6 +1,7 @@
 payload:
 # Alibaba
 - DOMAIN,httpdns.alicdn.com
+- IP-CIDR,203.107.1.0/24
 # WeChat
 - DOMAIN,dns.weixin.qq.com
 - DOMAIN,dns.weixin.qq.com.cn
