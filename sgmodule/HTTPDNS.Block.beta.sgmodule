@@ -50,14 +50,14 @@ DOMAIN,httpdns.push.oppomobile.com,REJECT
 # Sina
 # refer: https://github.com/CNSRE/HTTPDNSLib
 
+# Volcengine
+# refer: https://www.volcengine.com/docs/6758/174756
+DOMAIN,httpdns.volcengineapi.com,REJECT
+
 # Weibo
 DOMAIN,dns.weibo.cn,REJECT
 IP-CIDR,39.97.128.148/32,REJECT,no-resolve
 IP-CIDR,39.97.130.51/32,REJECT,no-resolve
-
-# Volcengine
-# refer: https://www.volcengine.com/docs/6758/174756
-DOMAIN,httpdns.volcengineapi.com,REJECT
 
 # Weixin
 # refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns

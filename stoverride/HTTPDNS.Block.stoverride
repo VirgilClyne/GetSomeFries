@@ -29,12 +29,12 @@ rules:
   - DOMAIN,lofter.httpdns.c.163.com,REJECT
   # Oppo
   - DOMAIN,httpdns.push.oppomobile.com,REJECT
+  # Volcengine
+  - DOMAIN,httpdns.volcengineapi.com,REJECT
   # Weibo
   - DOMAIN,dns.weibo.cn,REJECT
   - IP-CIDR,39.97.128.148/32,REJECT,no-resolve
   - IP-CIDR,39.97.130.51/32,REJECT,no-resolve
-  # Volcengine
-  - DOMAIN,httpdns.volcengineapi.com,REJECT
   # Weixin
   - DOMAIN,dns.weixin.qq.com,REJECT
   - DOMAIN,dns.weixin.qq.com.cn,REJECT
