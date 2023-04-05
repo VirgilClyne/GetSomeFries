@@ -1,5 +1,48 @@
-name: HTTPDNS Block
-desc: Block common HTTP DNS.
+name: "🍟 Fries: 🚫 Block HTTPDNS"
+desc: 阻止常见的 HTTPDNS 服务器
+author: shindgewongxj & VirgilClyne
+homepage: "https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS"
+icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png"
+
+rules:
+  # Alibaba
+  - DOMAIN,httpdns.alicdn.com,REJECT
+  # Aliyun
+  - DOMAIN,httpdns-api.aliyuncs.com,REJECT
+  - DOMAIN,httpdns-sc.aliyuncs.com,REJECT
+  - IP-CIDR,203.107.1.0/24,REJECT,no-resolve
+  # WeChat
+  - DOMAIN,dns.weixin.qq.com,REJECT
+  - DOMAIN,dns.weixin.qq.com.cn,REJECT
+  - IP-CIDR,42.81.232.18/32,REJECT,no-resolve
+  - IP-CIDR,42.187.182.106/32,REJECT,no-resolve
+  - IP-CIDR,42.187.182.123/32,REJECT,no-resolve
+  - IP-CIDR,42.187.184.154/32,REJECT,no-resolve
+  - IP-CIDR,123.151.54.50/32,REJECT,no-resolve
+  - IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
+  - IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
+  # Baidu
+  - DOMAIN,httpsdns.baidu.com,REJECT
+  - DOMAIN,httpdns.baidu.com,REJECT
+  # Bilibili
+  - DOMAIN,httpdns.bilivideo.com,REJECT
+  # NetEase
+  - DOMAIN,httpdns.n.netease.com,REJECT
+  - IP-CIDR,59.111.239.61/32,REJECT,no-resolve
+  - IP-CIDR,59.111.239.62/32,REJECT,no-resolve
+  - DOMAIN,music.httpdns.c.163.com,REJECT
+  - DOMAIN,lofter.httpdns.c.163.com,REJECT
+  # Sina Weibo
+  - DOMAIN,dns.weibo.cn,REJECT
+  - IP-CIDR,39.97.128.148/32,REJECT,no-resolve
+  - IP-CIDR,39.97.130.51/32,REJECT,no-resolve
+  # Huawei
+  - DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+  # Oppo
+  - DOMAIN,httpdns.push.oppomobile.com,REJECT
+  # Zhihu
+  - IP-CIDR,118.89.204.198/23,REJECT,no-resolve
+  - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 
 http:
   force-http-engine:
@@ -55,42 +98,3 @@ http:
     - ^http\/\/101\.35\.212\.35\/d - reject
     - ^http\/\/114\.110\.96\.26\/d - reject
     - ^http\/\/114\.110\.97\.97\/d - reject
-
-rules:
-  # Alibaba
-  - DOMAIN,httpdns.alicdn.com,REJECT
-  - IP-CIDR,203.107.1.0/24,REJECT,no-resolve
-  # WeChat
-  - DOMAIN,dns.weixin.qq.com,REJECT
-  - DOMAIN,dns.weixin.qq.com.cn,REJECT
-  - IP-CIDR,42.81.232.18/32,REJECT,no-resolve
-  - IP-CIDR,42.187.182.106/32,REJECT,no-resolve
-  - IP-CIDR,42.187.182.123/32,REJECT,no-resolve
-  - IP-CIDR,42.187.184.154/32,REJECT,no-resolve
-  - IP-CIDR,123.151.54.50/32,REJECT,no-resolve
-  - IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
-  - IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
-  # Baidu
-  - DOMAIN,httpsdns.baidu.com,REJECT
-  - DOMAIN,httpdns.baidu.com,REJECT
-  # Bilibili
-  - DOMAIN,httpdns.bilivideo.com,REJECT
-  # NetEase
-  - DOMAIN,httpdns.n.netease.com,REJECT
-  - IP-CIDR,59.111.239.61/32,REJECT,no-resolve
-  - IP-CIDR,59.111.239.62/32,REJECT,no-resolve
-  - DOMAIN,music.httpdns.c.163.com,REJECT
-  - DOMAIN,lofter.httpdns.c.163.com,REJECT
-  # Sina Weibo
-  - DOMAIN,dns.weibo.cn,REJECT
-  - IP-CIDR,39.97.128.148/32,REJECT,no-resolve
-  - IP-CIDR,39.97.130.51/32,REJECT,no-resolve
-  # Huawei
-  - DOMAIN,httpdns.c.cdnhwc2.com,REJECT
-  # Oppo
-  - DOMAIN,httpdns.push.oppomobile.com,REJECT
-  - IP-CIDR,118.89.204.198/23,REJECT,no-resolve
-  - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
-  # Zhihu
-  - IP-CIDR,118.89.204.198/23,REJECT,no-resolve
-  - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve

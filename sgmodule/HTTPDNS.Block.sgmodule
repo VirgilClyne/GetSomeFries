@@ -8,7 +8,7 @@
 force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443, 203.107.1.65:80
 
 [Rule]
-# ali
+# alibaba
 DOMAIN,httpdns.alicdn.com,REJECT
 
 # aliyun
@@ -17,7 +17,9 @@ DOMAIN,httpdns-api.aliyuncs.com,REJECT
 DOMAIN,httpdns-sc.aliyuncs.com,REJECT
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
-IP-CIDR,203.107.1.1/24,REJECT,no-resolve
+# refer: https://help.aliyun.com/document_detail/435282.html
+# refer: https://alidocs.dingtalk.com/i/p/Y7kmbokZp3pgGLq2/docs/lo1YvX0prG98kvEewqNyJPw7xzbmLdEZ
+IP-CIDR,203.107.1.0/24,REJECT,no-resolve
 
 # weixin
 # refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns
