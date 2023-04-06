@@ -1,0 +1,50 @@
+#!name=🍟 Fries: 🚫 Block HTTPDNS
+#!desc=阻止常见的 HTTPDNS 服务器
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+
+
+# Alibaba
+DOMAIN,httpdns.alicdn.com
+# Aliyun
+DOMAIN,httpdns-api.aliyuncs.com
+DOMAIN,httpdns-sc.aliyuncs.com
+IP-CIDR,203.107.1.0/24
+# Baidu
+DOMAIN,httpsdns.baidu.com
+DOMAIN,httpdns.baidu.com
+# BaiduBCE
+DOMAIN,httpdns.baidubce.com
+IP-CIDR,186.76.76.200/32
+# Bilibili
+DOMAIN,httpdns.bilivideo.com
+# Huawei
+DOMAIN,httpdns.c.cdnhwc2.com
+# NetEase
+DOMAIN,httpdns.n.netease.com
+DOMAIN,music.httpdns.c.163.com
+DOMAIN,lofter.httpdns.c.163.com
+IP-CIDR,59.111.239.61/32
+IP-CIDR,59.111.239.62/32
+# Oppo
+DOMAIN,httpdns.push.oppomobile.com
+# Volcengine
+DOMAIN,httpdns.volcengineapi.com
+# Weibo
+DOMAIN,dns.weibo.cn
+IP-CIDR,39.97.128.148/32
+IP-CIDR,39.97.130.51/32
+# Weixin
+DOMAIN,dns.weixin.qq.com
+DOMAIN,dns.weixin.qq.com.cn
+IP-CIDR,42.81.232.18/32
+IP-CIDR,42.187.182.106/32
+IP-CIDR,42.187.182.123/32
+IP-CIDR,42.187.184.154/32
+IP-CIDR,123.151.54.50/32
+IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128
+IP-CIDR6,240e:928:1400:10::25/128
+# Zhihu
+IP-CIDR,118.89.204.198/23
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40
