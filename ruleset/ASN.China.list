@@ -1,3 +1,10 @@
+#!name=🍟 Fries: 🌐 ASN China
+#!desc=按ASN分流中国大陆IP与域名直连
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-ASN
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+
+
 IP-ASN,4134 // 中国电信骨干网
 IP-ASN,4538 // 中国教育科研网络中心
 IP-ASN,4611 // 中国新华网

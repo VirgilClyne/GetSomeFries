@@ -1,4 +1,10 @@
-# 🌐 ASN for Telegram Messenger Inc
+#!name=🍟 Fries: 🌐 ASN Telegram
+#!desc=按ASN分流Telegram
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-ASN
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+
+
 PROCESS-NAME,org.telegram.messenger
 DOMAIN-SUFFIX,comments.app // @CommentsBot
 DOMAIN-SUFFIX,t.me
