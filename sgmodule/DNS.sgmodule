@@ -1,5 +1,5 @@
-#!name=🌐 DNS for Router and Companys
-#!desc=1.按企业/公司分流使用所属DNS进行解析 2.路由器地址使用系统DNS进行解析
+#!name=🍟 Fries: 🌐 DNS enhanced
+#!desc=1.域名按所属DNS进行分流解析 2.路由器地址使用系统DNS进行解析 3.特殊地址使用规范DNS进行解析
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-DNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
@@ -10,8 +10,13 @@ encrypted-dns-follow-outbound-mode = true
 
 [Host]
 # > IPv6
-ip6-localhost = ::1
-ip6-loopback = ::1
+ip6-localhost = ::1 // IPv6 Localhost
+ip6-loopback = ::1 // IPv6 Loopback
+ip6-localnet = fe00::0 // IPv6 Link-Local
+ip6-mcastprefix = ff00::0 // IPv6 Multicast
+ip6-allnodes = ff02::1 // IPv6 All Nodes
+ip6-allrouters = ff02::2 // IPv6 All Routers
+ip6-allhosts = ff02::3 // IPv6 All Hosts
 
 # > Modify Contents
 # Firebase Cloud Messaging
@@ -76,7 +81,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 *.icloud.com = server:https://doh.dns.apple.com/dns-query // iCloud.com
 
 # > Alphabet
-*.google = server:https://dns.google/dns-query // Google
+# *.google = server:https://dns.google/dns-query // Google
 *.google.com = server:https://dns.google/dns-query // Google
 *.google.com.?? = server:https://dns.google/dns-query // Google
 # *.goog = server:https://dns.google/dns-query // Google sites

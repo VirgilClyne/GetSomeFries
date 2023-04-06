@@ -1,10 +1,19 @@
-#!name=🌐 DNS for Router and Companys
-#!desc=1.按企业/公司分流使用所属DNS进行解析 2.路由器地址使用系统DNS进行解析
+#!name=🍟 Fries: 🌐 DNS enhanced
+#!desc=1.域名按所属DNS进行分流解析 2.路由器地址使用系统DNS进行解析 3.特殊地址使用规范DNS进行解析
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-DNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 [Host]
+# > IPv6
+ip6-localhost = ::1
+ip6-loopback = ::1
+ip6-localnet = fe00::0
+ip6-mcastprefix = ff00::0
+ip6-allnodes = ff02::1
+ip6-allrouters = ff02::2
+ip6-allhosts = ff02::3
+
 # > Modify Contents
 # Firebase Cloud Messaging
 talk.google.com = 108.177.125.188
@@ -95,7 +104,7 @@ networking.apple = server:https://doh.dns.apple.com/dns-query
 *.icloud.com = server:https://doh.dns.apple.com/dns-query
 
 # > Alphabet
-*.google = server:https://dns.google/dns-query
+# *.google = server:https://dns.google/dns-query
 *.google.com = server:https://dns.google/dns-query
 *.google.com.?? = server:https://dns.google/dns-query
 # Google sites
