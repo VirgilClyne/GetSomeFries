@@ -12,6 +12,14 @@ hosts:
 # test.com: [1.1.1.1, 2.2.2.2]
 # clash.lan: clash # clash 为特别字段，将加入本地所有网卡的地址
 # baidu.com: google.com # 只允许配置一个别名
+  # > IPv6
+  "ip6-localhost": "::1" # IPv6 Localhost
+  "ip6-loopback": "::1" # IPv6 Loopback
+  "ip6-localnet": "fe00::0" # IPv6 Link-Local
+  "ip6-mcastprefix": "ff00::0" # IPv6 Multicast
+  "ip6-allnodes": "ff02::1" # IPv6 All Nodes
+  "ip6-allrouters": "ff02::2" # IPv6 All Routers
+  "ip6-allhosts": "ff02::3" # IPv6 All Hosts
   # > Modify Contents
   # Firebase Cloud Messaging
   "talk.google.com": "108.177.125.188" # Firebase Cloud Messaging
@@ -30,15 +38,6 @@ dns:
   prefer-h3: true # 开启 DoH 支持 HTTP/3，将并发尝试
   # 配置查询域名使用的 DNS 服务器
   nameserver-policy:
-    # > IPv6
-    "ip6-localhost": "::1" # IPv6 Localhost
-    "ip6-loopback": "::1" # IPv6 Loopback
-    "ip6-localnet": "fe00::0" # IPv6 Link-Local
-    "ip6-mcastprefix": "ff00::0" # IPv6 Multicast
-    "ip6-allnodes": "ff02::1" # IPv6 All Nodes
-    "ip6-allrouters": "ff02::2" # IPv6 All Routers
-    "ip6-allhosts": "ff02::3" # IPv6 All Hosts
-
     # > Modify Contents
     # Google CDN
     "blog.google": "119.29.29.29" # Google Blog
