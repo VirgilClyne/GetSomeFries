@@ -1,5 +1,8 @@
 name: "🍟 Fries: 🌐 DNS enhanced"
-desc: 1.域名按所属DNS进行分流解析 2.路由器地址使用系统DNS进行解析 3.特殊地址使用规范DNS进行解析
+desc: |-
+  1.域名按所属DNS进行分流解析
+  2.路由器地址使用系统DNS进行解析
+  3.特殊地址使用规范DNS进行解析
 author: VirgilClyne
 homepage: "https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-DNS"
 icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png"
