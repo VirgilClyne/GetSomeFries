@@ -33,6 +33,11 @@ IP-CIDR,186.76.76.200/32,REJECT,no-resolve
 # Bilibili
 DOMAIN,httpdns.bilivideo.com,REJECT
 
+# JD Cloud
+# refer: https://docs.jdcloud.com/cn/jd-cloud-dns/HTTPDNS
+# refer: https://docs.jdcloud.com/cn/httpdns/interface-specification
+IP-CIDR,103.224.222.208/32,REJECT,no-resolve
+
 # Huawei
 DOMAIN,httpdns.c.cdnhwc2.com,REJECT
 
