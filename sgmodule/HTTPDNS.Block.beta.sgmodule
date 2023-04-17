@@ -33,6 +33,9 @@ IP-CIDR,186.76.76.200/32,REJECT,no-resolve
 # Bilibili
 DOMAIN,httpdns.bilivideo.com,REJECT
 
+# Huawei
+DOMAIN,httpdns.c.cdnhwc2.com,REJECT
+
 # JD
 DOMAIN,dns.jd.com,REJECT
 IP-CIDR,101.124.19.122/32,REJECT,no-resolve
@@ -43,10 +46,7 @@ IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
 # refer: https://docs.jdcloud.com/cn/httpdns/interface-specification
 IP-CIDR,103.224.222.208/32,REJECT,no-resolve
 
-# Huawei
-DOMAIN,httpdns.c.cdnhwc2.com,REJECT
-
-# Netease
+# NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp
 DOMAIN,httpdns.n.netease.com,REJECT
 IP-CIDR,59.111.239.61/32,REJECT,no-resolve
@@ -85,7 +85,7 @@ IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
 # Zhihu
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
 IP-CIDR,118.89.204.198/23,REJECT,no-resolve
-IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
 
 [URL Rewrite]
 # Alipay
@@ -125,7 +125,7 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^http:\/\/114\.110\.96\.26\/d - reject
 ^http:\/\/114\.110\.97\.97\/d - reject
 
-# Qcloud
+# QCloud
 # refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
 # refer: https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
 # refer: https://cloud.tencent.com/document/product/379/61200
