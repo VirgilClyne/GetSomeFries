@@ -15,6 +15,12 @@ payload:
 - DOMAIN,httpdns.bilivideo.com
 # Huawei
 - DOMAIN,httpdns.c.cdnhwc2.com
+# JD
+- DOMAIN,dns.jd.com
+- IP-CIDR,101.124.19.122/32
+- IP-CIDR6,2402:db40:5100:1011::5/128
+# JD Cloud
+- IP-CIDR,103.224.222.208/32
 # NetEase
 - DOMAIN,httpdns.n.netease.com
 - DOMAIN,music.httpdns.c.163.com

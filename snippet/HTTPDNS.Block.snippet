@@ -29,6 +29,10 @@
 ^http:\/\/203\.107\.1\.65\/\d+\/resolve url reject
 ^http:\/\/203\.107\.1\.66\/\d+\/resolve url reject
 
+# JD
+^https:\/\/dns\.jd\.com\/v6\/b url reject
+^https:\/\/dns\.jd\.com\/v6\/d url reject
+
 # Meituan
 ^http:\/\/103\.37\.155\.60\/fetch url reject
 
@@ -38,7 +42,7 @@
 ^http:\/\/114\.110\.96\.26\/d url reject
 ^http:\/\/114\.110\.97\.97\/d url reject
 
-# Qcloud
+# QCloud
 # refer: https://mc.qcloudimg.com/static/qc_doc/d39d48b733835af8a2e223115ac67da7/doc-HttpDNS-Getting+Started.pdf
 # refer: https://main.qcloudimg.com/raw/document/product/pdf/379_3513_cn.pdf
 # refer: https://cloud.tencent.com/document/product/379/61200
@@ -64,4 +68,4 @@
 ^http:\/\/103\.41\.167\.237\/v2\/resolv url reject
 
 #[MITM]
-hostname = 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn
+hostname = 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com
