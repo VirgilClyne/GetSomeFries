@@ -33,6 +33,11 @@ IP-CIDR,186.76.76.200/32,REJECT,no-resolve
 # Bilibili
 DOMAIN,httpdns.bilivideo.com,REJECT
 
+# JD
+DOMAIN,dns.jd.com,REJECT
+IP-CIDR,101.124.19.122/32,REJECT,no-resolve
+IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
+
 # JD Cloud
 # refer: https://docs.jdcloud.com/cn/jd-cloud-dns/HTTPDNS
 # refer: https://docs.jdcloud.com/cn/httpdns/interface-specification
@@ -107,6 +112,10 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^http:\/\/203\.107\.1\.65\/\d+\/resolve - reject
 ^http:\/\/203\.107\.1\.66\/\d+\/resolve - reject
 
+# JD
+^https:\/\/dns\.jd\.com\/v6\/b - reject
+^https:\/\/dns\.jd\.com\/v6\/d - reject
+
 # Meituan
 ^http:\/\/103\.37\.155\.60\/fetch - reject
 
@@ -142,4 +151,4 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/40,REJECT,no-resolve
 ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
 
 [MITM]
-hostname = %APPEND% 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn
+hostname = %APPEND% 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com
