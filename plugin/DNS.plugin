@@ -36,6 +36,12 @@ update.googleapis.com = server:119.29.29.29
 translate.googleapis.com = server:119.29.29.29
 fonts.googleapis.com = server:119.29.29.29
 fonts.gstatic.com = server:119.29.29.29
+# Google STUN
+stun.l.google.com = server:system
+stun1.l.google.com = server:system
+stun2.l.google.com = server:system
+stun3.l.google.com = server:system
+stun4.l.google.com = server:system
 
 # > Router Admin Panel
 # Ubiquiti Unifi Network App

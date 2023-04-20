@@ -40,6 +40,12 @@ update.googleapis.com = server:119.29.29.29 // Google Update
 translate.googleapis.com = server:119.29.29.29 // Google Translate
 fonts.googleapis.com = server:119.29.29.29 // Google Fonts
 fonts.gstatic.com = server:119.29.29.29 // Google Fonts
+# Google STUN
+stun.l.google.com = server:syslib // Google STUN
+stun1.l.google.com = server:syslib // Google STUN
+stun2.l.google.com = server:syslib // Google STUN
+stun3.l.google.com = server:syslib // Google STUN
+stun4.l.google.com = server:syslib // Google STUN
 
 # > Router Admin Panel
 *.id.ui.direct = server:syslib // Ubiquiti Unifi Network App

@@ -52,6 +52,12 @@ dns:
     "translate.googleapis.com": "119.29.29.29" # Google Translate
     "fonts.googleapis.com": "119.29.29.29" # Google Fonts
     "fonts.gstatic.com": "119.29.29.29" # Google Fonts
+    # Google STUN
+    "stun.l.google.com": system # Google STUN
+    "stun1.l.google.com": system # Google STUN
+    "stun2.l.google.com": system # Google STUN
+    "stun3.l.google.com": system # Google STUN
+    "stun4.l.google.com": system # Google STUN
 
     # > Router Admin Panel
     "+.id.ui.direct": system # Ubiquiti Unifi Network App
