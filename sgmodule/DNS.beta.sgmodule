@@ -21,14 +21,14 @@ ip6-allhosts = ff02::3 // IPv6 All Hosts
 # > Modify Contents
 # Firebase Cloud Messaging
 talk.google.com = 108.177.125.188 // Firebase Cloud Messaging
-mtalk.google.com = 108.177.125.188 // Firebase Cloud Messaging
-alt1-mtalk.google.com = 3.3.3.3 // Firebase Cloud Messaging
-alt2-mtalk.google.com = 3.3.3.3 // Firebase Cloud Messaging
-alt3-mtalk.google.com = 74.125.200.188 // Firebase Cloud Messaging
-alt4-mtalk.google.com = 74.125.200.188 // Firebase Cloud Messaging
-alt5-mtalk.google.com = 3.3.3.3 // Firebase Cloud Messaging
-alt6-mtalk.google.com = 3.3.3.3 // Firebase Cloud Messaging
-alt7-mtalk.google.com = 74.125.200.188 // Firebase Cloud Messaging
+mtalk.google.com = 108.177.125.188, 2404:6800:4008:c07::bc, 142.250.31.188 // Firebase Cloud Messaging
+alt1-mtalk.google.com = 3.3.3.3, 2607:f8b0:4023:c0b::bc, 64.233.171.188 // Firebase Cloud Messaging
+alt2-mtalk.google.com = 3.3.3.3, 142.250.115.188 // Firebase Cloud Messaging
+alt3-mtalk.google.com = 74.125.200.188, 173.194.77.188 // Firebase Cloud Messaging
+alt4-mtalk.google.com = 74.125.200.188, 173.194.219.188 // Firebase Cloud Messaging
+alt5-mtalk.google.com = 3.3.3.3, 2607:f8b0:4023:1::bc, 142.250.112.188 // Firebase Cloud Messaging
+alt6-mtalk.google.com = 3.3.3.3, 172.217.197.188 // Firebase Cloud Messaging
+alt7-mtalk.google.com = 74.125.200.188, 2607:f8b0:4002:c03::bc, 108.177.12.188 // Firebase Cloud Messaging
 alt8-mtalk.google.com = 3.3.3.3 // Firebase Cloud Messaging
 # Google CDN
 blog.google = server:119.29.29.29 // Google Blog
