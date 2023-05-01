@@ -29,10 +29,12 @@ IP-CIDR6,2402:db40:5100:1011::5/128
 IP-CIDR,103.224.222.208/32
 # NetEase
 DOMAIN,httpdns.n.netease.com
-IP-CIDR,59.111.239.61/32
-IP-CIDR,59.111.239.62/32
 DOMAIN,music.httpdns.c.163.com
 DOMAIN,lofter.httpdns.c.163.com
+IP-CIDR,59.111.239.61/32
+IP-CIDR,59.111.239.62/32
+IP-CIDR,115.236.121.51/32
+IP-CIDR,115.236.121.195/32
 # Oppo
 DOMAIN,httpdns.push.oppomobile.com
 # Volcengine
