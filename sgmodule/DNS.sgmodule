@@ -47,6 +47,20 @@ stun2.l.google.com = server:syslib // Google STUN
 stun3.l.google.com = server:syslib // Google STUN
 stun4.l.google.com = server:syslib // Google STUN
 
+# > Encrypted DNS
+dns.google = 8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844 // https://dns.google/dns-query
+dns64.dns.google = 2001:4860:4860::6464, 2001:4860:4860::64 // https://dns64.dns.google/dns-query
+cloudflare-dns.com = 104.16.249.249, 104.16.248.249, 2606:4700::6810:f8f9, 2606:4700::6810:f9f9 // https://cloudflare-dns.com/dns-query
+1dot1dot1dot1.cloudflare-dns.com = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1001, 2606:4700:4700::1111 // 1dot1dot1dot1.cloudflare-dns.com:853
+one.one.one.one = 1.1.1.1, 1.0.0.1, 2606:4700:4700::1001, 2606:4700:4700::1111  // one.one.one.one:853
+dns.alidns.com = 223.5.5.5, 223.6.6.6, 2400:3200:baba::1, 2400:3200::1 // https://dns.alidns.com/dns-query
+doh.pub = 1.12.12.12, 120.53.53.53 // https://doh.pub/dns-query
+dot.pub = 1.12.12.12, 120.53.53.53 // dot.pub:853
+doh.360.cn = 23.6.48.18, 112.65.69.15 // https://doh.360.cn/dns-query
+dot.360.cn = 101.198.198.198, 101.198.199.200, 101.198.192.33, 112.65.69.15 // dot.360.cn:853
+dns.twnic.tw = 101.101.101.101, 2001:de4::101, 2001:de4::102 // https://dns.twnic.tw/dns-query
+ordns.he.net = 74.82.42.42, 2001:470:20::2 // https://ordns.he.net/dns-query
+
 # > Router Admin Panel
 *.id.ui.direct = server:syslib // Ubiquiti Unifi Network App
 # unifi.ui.com = server:syslib // Ubiquiti Unifi Portal
