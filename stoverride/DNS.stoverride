@@ -23,8 +23,23 @@ hosts:
   "ip6-allnodes": "ff02::1" # IPv6 All Nodes
   "ip6-allrouters": "ff02::2" # IPv6 All Routers
   "ip6-allhosts": "ff02::3" # IPv6 All Hosts
+
+  # > Encrypted DNS
+  "dns.google": "8.8.8.8" # https://dns.google/dns-query
+  "dns64.dns.google": "2001:4860:4860::6464" # https://dns64.dns.google/dns-query
+  "cloudflare-dns.com": "104.16.249.249" # https://cloudflare-dns.com/dns-query
+  "1dot1dot1dot1.cloudflare-dns.com": "1.1.1.1" # 1dot1dot1dot1.cloudflare-dns.com:853
+  "one.one.one.one": "1.1.1.1" # one.one.one.one:853
+  "dns.alidns.com": "223.5.5.5" # https://dns.alidns.com/dns-query
+  "doh.pub": "1.12.12.12" # https://doh.pub/dns-query
+  "dot.pub": "1.12.12.12" # dot.pub:853
+  "doh.360.cn": "23.6.48.18" # https://doh.360.cn/dns-query
+  "dot.360.cn": "101.198.198.198" # dot.360.cn:853
+  "dns.twnic.tw": "101.101.101.101" # https://dns.twnic.tw/dns-query
+  "ordns.he.net": "74.82.42.42" # https://ordns.he.net/dns-query
+
   # > Modify Contents
-  # Firebase Cloud Messaging
+  # "services.googleapis.cn": "74.125.193.94" # Google API Services China
   "talk.google.com": "108.177.125.188" # Firebase Cloud Messaging
   "mtalk.google.com": "108.177.125.188" # Firebase Cloud Messaging
   "alt1-mtalk.google.com": "3.3.3.3" # Firebase Cloud Messaging
@@ -35,6 +50,8 @@ hosts:
   "alt6-mtalk.google.com": "3.3.3.3" # Firebase Cloud Messaging
   "alt7-mtalk.google.com": "74.125.200.188" # Firebase Cloud Messaging
   "alt8-mtalk.google.com": "3.3.3.3" # Firebase Cloud Messaging
+  # "dl.google.com": "180.163.151.161" # Google CDN
+  # "dl.l.google.com": "180.163.151.161" # Google CDN
 
 # DNS配置
 dns:
@@ -42,7 +59,6 @@ dns:
   # 配置查询域名使用的 DNS 服务器
   nameserver-policy:
     # > Modify Contents
-    # Google CDN
     "blog.google": "119.29.29.29" # Google Blog
     "googletraveladservices.com": "119.29.29.29" # Google Flights
     "dl.google.com": "119.29.29.29" # Google Download
@@ -52,18 +68,14 @@ dns:
     "translate.googleapis.com": "119.29.29.29" # Google Translate
     "fonts.googleapis.com": "119.29.29.29" # Google Fonts
     "fonts.gstatic.com": "119.29.29.29" # Google Fonts
-    # Google STUN
     "stun.l.google.com": system # Google STUN
-    "stun1.l.google.com": system # Google STUN
-    "stun2.l.google.com": system # Google STUN
-    "stun3.l.google.com": system # Google STUN
-    "stun4.l.google.com": system # Google STUN
+    "stun?.l.google.com": system # Google STUN
 
     # > Router Admin Panel
     "+.id.ui.direct": system # Ubiquiti Unifi Network App
-    #  "unifi.ui.com": system # Ubiquiti Unifi Portal
+    # "unifi.ui.com": system # Ubiquiti Unifi Portal
     "unifi.local": system # Ubiquiti Unifi OS
-    #  "network.unifi.ui.com": system # Ubiquiti Unifi Controller
+    # "network.unifi.ui.com": system # Ubiquiti Unifi Controller
     "amplifi.lan": system # Ubiquiti Amplifi Router
     "router.synology.com": system # Synology Router
     "sila.razer.com": system # Razer Sila Router

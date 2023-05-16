@@ -6,6 +6,8 @@
 
 [dns]
 prefer-doh3
+
+# --- CUSTOM HOSTS ---
 # > IPv6
 address = /ip6-localhost/[::1]
 address = /ip6-loopback/[::1]
@@ -15,7 +17,23 @@ address = /ip6-allnodes/[ff02::1]
 address = /ip6-allrouters/[ff02::2]
 address = /ip6-allhosts/[ff02::3]
 
+# > Encrypted DNS
+address = /dns.google/8.8.8.8
+address = /dns64.dns.google/[2001:4860:4860::6464]
+address = /cloudflare-dns.com/104.16.249.249
+address = /1dot1dot1dot1.cloudflare-dns.com/1.1.1.1
+address = /one.one.one.one/1.1.1.1
+address = /dns.alidns.com/223.5.5.5
+address = /doh.pub/1.12.12.12
+address = /dot.pub/1.12.12.12
+address = /doh.360.cn/23.6.48.18
+address = /dot.360.cn/101.198.198.198
+address = /dns.twnic.tw/101.101.101.101
+address = /ordns.he.net/74.82.42.42
+
 # > Modify Contents
+# Google API Services China
+# address = /services.googleapis.cn/74.125.193.94
 # Firebase Cloud Messaging
 address = /talk.google.com/108.177.125.188
 address = /mtalk.google.com/108.177.125.188
@@ -28,6 +46,12 @@ address = /alt6-mtalk.google.com/3.3.3.3
 address = /alt7-mtalk.google.com/74.125.200.188
 address = /alt8-mtalk.google.com/3.3.3.3
 # Google CDN
+# address = /dl.google.com/180.163.151.161
+# address = /dl.l.google.com/180.163.151.161
+
+# --- CUSTOM DNS ---
+# > Modify Contents
+# Google CDN
 doh-server = /blog.google/https://doh.pub/dns-query
 doh-server = /googletraveladservices.com/https://doh.pub/dns-query
 doh-server = /dl.google.com/https://doh.pub/dns-query
@@ -39,10 +63,7 @@ doh-server = /fonts.googleapis.com/https://doh.pub/dns-query
 doh-server = /fonts.gstatic.com/https://doh.pub/dns-query
 # Google STUN
 server = /stun.l.google.com/system
-server = /stun1.l.google.com/system
-server = /stun2.l.google.com/system
-server = /stun3.l.google.com/system
-server = /stun4.l.google.com/system
+server = /stun?.l.google.com/system
 
 # > Router Admin Panel
 # Ubiquiti Unifi Network App

@@ -4,7 +4,10 @@
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-DNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
+[General]
+
 [Host]
+# --- CUSTOM HOSTS ---
 # > IPv6
 ip6-localhost = ::1
 ip6-loopback = ::1
@@ -14,7 +17,23 @@ ip6-allnodes = ff02::1
 ip6-allrouters = ff02::2
 ip6-allhosts = ff02::3
 
+# > Encrypted DNS
+dns.google = 8.8.8.8
+dns64.dns.google = 2001:4860:4860::6464
+cloudflare-dns.com = 104.16.249.249
+1dot1dot1dot1.cloudflare-dns.com = 1.1.1.1
+one.one.one.one = 1.1.1.1
+dns.alidns.com = 223.5.5.5
+doh.pub = 1.12.12.12
+dot.pub = 1.12.12.12
+doh.360.cn = 23.6.48.18
+dot.360.cn = 101.198.198.198
+dns.twnic.tw = 101.101.101.101
+ordns.he.net = 74.82.42.42
+
 # > Modify Contents
+# Google API Services China
+# services.googleapis.cn = 74.125.193.94
 # Firebase Cloud Messaging
 talk.google.com = 108.177.125.188
 mtalk.google.com = 108.177.125.188
@@ -27,6 +46,12 @@ alt6-mtalk.google.com = 3.3.3.3
 alt7-mtalk.google.com = 74.125.200.188
 alt8-mtalk.google.com = 3.3.3.3
 # Google CDN
+# dl.google.com = 180.163.151.161
+# dl.l.google.com = 180.163.151.161
+
+# --- CUSTOM DNS ---
+# > Modify Contents
+# Google CDN
 blog.google = server:119.29.29.29
 googletraveladservices.com = server:119.29.29.29
 dl.google.com = server:119.29.29.29
@@ -38,10 +63,7 @@ fonts.googleapis.com = server:119.29.29.29
 fonts.gstatic.com = server:119.29.29.29
 # Google STUN
 stun.l.google.com = server:system
-stun1.l.google.com = server:system
-stun2.l.google.com = server:system
-stun3.l.google.com = server:system
-stun4.l.google.com = server:system
+stun?.l.google.com = server:system
 
 # > Router Admin Panel
 # Ubiquiti Unifi Network App
@@ -437,13 +459,13 @@ acg.tv = server:system
 # 京东短网址
 3.cn = server:system
 
-# > 🇨🇳 CN
+# > 🇨🇳 CHN
 # CNNIC SDNS
 # 中国政府网
 # *.gov.cn = server:1.2.4.8
 # *.政务 = server:1.2.4.8
 
-# > 🇭🇰 HK
+# > 🇭🇰 HKG
 # PCCW Enterprises Limited
 # *.pccw.com = server:dns1.pccw.com
 # 1O1O
@@ -473,9 +495,9 @@ acg.tv = server:system
 # KDDI Hong Kong Limited
 # *.hk.kddi.com = server:apple.kdd.net.hk
 
-# > 🇹🇼 TW
+# > 🇹🇼 TWN
 # 中华电信
-*.cht.com.tw  = server:https://dns.hinet.net/dns-query
+*.cht.com.tw = server:https://dns.hinet.net/dns-query
 # 中华电信HiNet
 *.hinet.net = server:https://dns.hinet.net/dns-query
 # 中华电信emome
@@ -487,6 +509,6 @@ acg.tv = server:system
 *.tw = server:https://dns.twnic.tw/dns-query
 *.taipei = server:https://dns.twnic.tw/dns-query
 
-# > 🇺🇸 US
+# > 🇺🇸 USA
 # Hurricane Electric
 *.he.net = server:https://ordns.he.net/dns-query
