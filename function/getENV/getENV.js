@@ -1,14 +1,14 @@
 /**
  * Get Environment Variables
- * @link https://github.com/VirgilClyne/VirgilClyne/blob/main/function/getENV/getENV.js
+ * @link https://github.com/VirgilClyne/GetSomeFries/blob/main/function/getENV/getENV.js
  * @author VirgilClyne
  * @param {String} key - Persistent Store Key
- * @param {String} name - Platform Name
+ * @param {Array} names - Platform Names
  * @param {Object} database - Default Database
  * @return {Object} { Settings, Caches, Configs }
  */
-function getENV(key, name, database) {
-	//$.log(`⚠ ${$.name}, Get Environment Variables`, "");
+function getENV(key, names, database) {
+	//$.log(`☑️ ${$.name}, Get Environment Variables`, "");
 	/***************** BoxJs *****************/
 	// 包装为局部变量，用完释放内存
 	// BoxJs的清空操作返回假值空字符串, 逻辑或操作符会在左侧操作数为假值时返回右侧操作数。
@@ -24,17 +24,29 @@ function getENV(key, name, database) {
 			for (let item in arg) setPath(Argument, item, arg[item]);
 			//$.log(JSON.stringify(Argument));
 		};
+		//$.log(`✅ ${$.name}, Get Environment Variables`, `Argument类型: ${typeof Argument}`, `Argument内容: ${JSON.stringify(Argument)}`, "");
 	};
-	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Argument类型: ${typeof Argument}`, `Argument内容: ${JSON.stringify(Argument)}`, "");
-	/***************** Settings *****************/
-	let Settings = { ...database?.Default?.Settings, ...database?.[name]?.Settings, ...BoxJs?.[name]?.Settings, ...Argument };
-	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Settings: ${typeof Settings}`, `Settings内容: ${JSON.stringify(Settings)}`, "");
-	let Configs = { ...database?.Default?.Configs, ...database?.[name]?.Configs, ...BoxJs?.[name]?.Configs };
-	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Configs: ${typeof Configs}`, `Config内容: ${JSON.stringify(Configs)}`, "");
-	let Caches = BoxJs?.[name]?.Caches || {};
-	if (typeof Caches === "string") Caches = JSON.parse(Caches);
-	//$.log(`🎉 ${$.name}, Get Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
-	return { Settings, Caches, Configs };
-	/***************** setPath *****************/
+	/***************** Store *****************/
+	const Store = { Settings: database?.Default?.Settings || {}, Configs: database?.Default?.Configs || {}, Caches: {}};
+	if (!Array.isArray(names)) names = [names];
+	//$.log(`🚧 ${$.name}, Get Environment Variables`, `names类型: ${typeof names}`, `names内容: ${JSON.stringify(names)}`, "");
+	for (let name of names) {
+		Store.Settings = { ...Store.Settings, ...database?.[name]?.Settings, ...BoxJs?.[name]?.Settings, ...Argument };
+		Store.Configs = { ...Store.Configs, ...database?.[name]?.Configs };
+		if (typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
+		Store.Caches = { ...Store.Caches, ...BoxJs?.[name]?.Caches };
+	};
+	traverseObject(Store.Settings, (key, value) => {
+		if (value === "true" || value === "false") value = JSON.parse(value); // 字符串转Boolean
+		else if (typeof value === "string") {
+			if (value?.includes(",")) value = value.split(","); // 字符串转数组
+			else if (!isNaN(value)) value = parseInt(value, 10) // 字符串转数字
+		};
+		return value;
+	});
+	//$.log(`✅ ${$.name}, Get Environment Variables`, `Store: ${typeof Store.Caches}`, `Store内容: ${JSON.stringify(Store)}`, "");
+	return Store;
+	/***************** function *****************/
 	function setPath(object, path, value) { path.split(".").reduce((o, p, i) => o[p] = path.split(".").length === ++i ? value : o[p] || {}, object) }
+	function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}
 };
