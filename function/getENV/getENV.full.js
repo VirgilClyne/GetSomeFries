@@ -33,7 +33,7 @@ function getENV(key, names, database) {
 	for (let name of names) {
 		Store.Settings = { ...Store.Settings, ...database?.[name]?.Settings, ...BoxJs?.[name]?.Settings, ...Argument };
 		Store.Configs = { ...Store.Configs, ...database?.[name]?.Configs };
-		if (typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
+		if (BoxJs?.[name]?.Caches && typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
 		Store.Caches = { ...Store.Caches, ...BoxJs?.[name]?.Caches };
 	};
 	traverseObject(Store.Settings, (key, value) => {
