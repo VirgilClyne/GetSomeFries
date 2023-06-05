@@ -1,13 +1,13 @@
 function URLs(opts) {
 	return new (class {
 		constructor(opts = []) {
-			this.name = "URL v1.2.0";
+			this.name = "URL v1.2.1";
 			this.opts = opts;
 			this.json = { scheme: "", host: "", path: "", type: "", query: {} };
 		};
 
 		parse(url) {
-			const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^/?]+)/;
+			const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^/?]+)?/;
 			let json = url.match(URLRegex)?.groups ?? null;
 			if (json?.path) json.paths = json?.path?.split("/"); else json.path = "";
 			if (json?.paths) json.type = json?.paths?.[json?.paths?.length - 1]?.split(".")?.[1];
