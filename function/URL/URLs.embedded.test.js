@@ -15,25 +15,31 @@ $.done();
 function URLs(opts) {
 	return new (class {
 		constructor(opts = []) {
-			this.name = "URL v1.0.2";
+			this.name = "URL v1.1.0";
 			this.opts = opts;
-			this.json = { scheme: "", host: "", path: "", params: {} };
+			this.json = { scheme: "", host: "", path: "", type: "", query: {} };
 		};
 
 		parse(url) {
-			const URLRegex = /(?<scheme>.+):\/\/(?<host>[^/]+)\/?(?<path>[^?]+)?\??(?<params>.*)?/;
+			const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+)\/)?(?<path>[^?]+(?:\.(?<type>[^?]+)))?\??(?<query>.*)?/;
 			let json = url.match(URLRegex)?.groups ?? null;
 			$.log(`🚧 ${$.name}, URLSearch`, `url.match(URLRegex)?.groups: ${JSON.stringify(json)}`, "");
 			if (!json?.path) json.path = "";
-			if (json?.params) json.params = Object.fromEntries(json.params.split("&").map((param) => param.split("=")));
-			$.log(`🚧 ${$.name}, URLSearch`, `Object.fromEntries(json.params.split("&").map((item) => item.split("="))): ${JSON.stringify(json?.params)}`, "");
+			if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
+			$.log(`🚧 ${$.name}, URLSearch`, `Object.fromEntries(json.query.split("&").map((item) => item.split("="))): ${JSON.stringify(json?.query)}`, "");
 			$.log(`🚧 ${$.name}, URLSearch`, `json: ${JSON.stringify(json)}`, "");
 			return json
 		};
 
 		stringify(json = this.json) {
-			const url = (json?.params) ? json.scheme + "://" + json.host + "/" + json.path + "?" + Object.entries(json.params).map(param => param.join("=")).join("&")
+			let url = "";
+			if (json?.scheme && json?.host) url += json.scheme + "://" + json.host;
+			if (json?.path) url += (json?.host) ? "/" + json.path : json.path;
+			if (json?.query) url += "?" + Object.entries(json.query).map(param => param.join("=")).join("&");
+			/*
+			const url = (json?.query) ? json.scheme + "://" + json.host + "/" + json.path + "?" + Object.entries(json.query).map(param => param.join("=")).join("&")
 				: json.scheme + "://" + json.host + "/" + json.path;
+			*/
 			$.log(`🚧 ${$.name}, URLSearch`, `url: ${url}`, "");
 			return url
 		};
