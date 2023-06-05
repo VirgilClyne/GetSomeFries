@@ -40,7 +40,7 @@ function getENV(key, names, database) {
 		if (value === "true" || value === "false") value = JSON.parse(value); // 字符串转Boolean
 		else if (typeof value === "string") {
 			if (value?.includes(",")) value = value.split(","); // 字符串转数组
-			else if (!isNaN(value)) value = parseInt(value, 10) // 字符串转数字
+			else if (value && !isNaN(value)) value = parseInt(value, 10) // 字符串转数字
 		};
 		return value;
 	});
