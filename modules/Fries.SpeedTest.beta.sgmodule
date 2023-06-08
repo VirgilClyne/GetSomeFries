@@ -1,0 +1,17 @@
+#!name=🍟 GetSomeFries: SpeedTest β
+#!desc=(BETA) 1.1.1.1 by Cloudflare APP with WARP Client Config Management
+#!openUrl=http://boxjs.com/#/app/GetSomeFries.1dot1dot1dot1.beta
+#!author=VirgilClyne & R·E
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/
+#!manual=https://github.com/VirgilClyne/GetSomeFries/wiki/
+#!icon=
+
+[Panel]
+☁ WARP Panel = title="☁ 𝙒𝘼𝙍𝙋 𝙄𝙣𝙛𝙤", icon="lock.icloud.fill", "icon-color": "#f48220", script-name=☁ WARP Panel
+
+[Script]
+# WARP Panel
+#!PROFILE-VERSION-REQUIRED 10 ☁ WARP Panel = type=generic, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/Cloudflare/beta/js/Cloudflare.1.1.1.1.panel.beta.js
+
+[MITM]
+hostname = %APPEND% *.speedtest.net
