@@ -29,6 +29,7 @@ IP-CIDR6,2402:db40:5100:1011::5/128
 IP-CIDR,103.224.222.208/32
 # NetEase
 DOMAIN,httpdns.n.netease.com
+DOMAIN,httpdns.music.163.com
 DOMAIN,music.httpdns.c.163.com
 DOMAIN,lofter.httpdns.c.163.com
 IP-CIDR,59.111.239.61/32
