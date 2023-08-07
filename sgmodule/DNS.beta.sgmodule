@@ -70,7 +70,7 @@ stun?.l.google.com = server:syslib // Google STUN
 # > Router Admin Panel
 *.id.ui.direct = server:syslib // Ubiquiti Unifi Network App
 # unifi.ui.com = server:syslib // Ubiquiti Unifi Portal
-unifi.local = server:system // Ubiquiti Unifi OS
+unifi.local = server:syslib // Ubiquiti Unifi OS
 # network.unifi.ui.com = server:syslib // Ubiquiti Unifi Controller
 amplifi.lan = server:syslib // Ubiquiti Amplifi Router
 router.synology.com = server:syslib // Synology Router
