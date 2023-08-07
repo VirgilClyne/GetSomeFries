@@ -106,11 +106,13 @@ dns:
     "hotspot.cslwifi.com": system # csl Wi-Fi
 
     # > Apple
+    # refer: https://support.apple.com/zh-cn/HT210060
     "networking.apple": "https://doh.dns.apple.com/dns-query" # Apple
     # "+.apple.com": "https://doh.dns.apple.com/dns-query" # Apple.com
     "+.icloud.com": "https://doh.dns.apple.com/dns-query" # iCloud.com
 
     # > Alphabet
+    # refer: https://developers.google.com/speed/public-dns/docs/doh?hl=zh-cn
     # "+.google" = "https://dns.google/dns-query" # Google
     # "+.google.com" = "https://dns.google/dns-query" # Google
     # "+.google.com.??": "https://dns.google/dns-query" # Google
@@ -137,6 +139,7 @@ dns:
     # "goo.gl": "https://dns.google/dns-query" # Google URL Shortener
 
     # > Cloudflare
+    # refer: https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/
     "+.cloudflare.com": "https://cloudflare-dns.com/dns-query" # Cloudflare
     "+.cloudflarestream.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Stream
     "+.cloudflareclient.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Client
@@ -147,6 +150,7 @@ dns:
     "+.workers.dev": "https://cloudflare-dns.com/dns-query" # CloudFlare Workers
 
     # > 阿里巴巴
+    # refer: https://www.alidns.com
     "+.alibaba.cn": "https://dns.alidns.com/dns-query" # 阿里巴巴
     "+.alibaba.com.cn": "https://dns.alidns.com/dns-query" # 阿里巴巴
     "+.china.alibaba.com": "https://dns.alidns.com/dns-query" # Alibaba 中国
@@ -173,6 +177,7 @@ dns:
     "+.aliyun-inc.com": "https://dns.alidns.com/dns-query" # 阿里云 内部
 
     # > 蚂蚁集团
+    # refer: https://www.alidns.com
     "+.antgroup.com": "https://dns.alidns.com/dns-query" # 蚂蚁集团
     "+.antfin.com": "https://dns.alidns.com/dns-query" # 蚂蚁金服
     "+.antfinancial.com": "https://dns.alidns.com/dns-query" # 蚂蚁金服
@@ -185,6 +190,7 @@ dns:
     "+.alipay-eco.com": "https://dns.alidns.com/dns-query" # 支付宝 开放技术生态体系
 
     # > 腾讯
+    # refer: https://www.dnspod.cn/products/publicdns
     "+.tencent.com": "https://doh.pub/dns-query" # 腾讯
     "+.qcloud.com": "https://doh.pub/dns-query" # 腾讯云
     "+.qcloudcdn.cn": "https://doh.pub/dns-query" # 腾讯云CDN
@@ -218,6 +224,7 @@ dns:
     "url.cn": "https://doh.pub/dns-query" # 腾讯短网址
 
     # > 百度
+    # refer: https://dudns.baidu.com/support/localdns/Address/index.html
     "+.baidu": "180.76.76.76" # 百度
     "+.baidu.com": "180.76.76.76" # 百度
     "+.bdimg.com": "180.76.76.76" # 百度 静态资源
@@ -239,6 +246,7 @@ dns:
     "dwz.cn": "180.76.76.76" # 百度短网址
 
     # > 360
+    # refer: https://sdns.360.net/dnsPublic.html#course
     "+.360.cn": "https://doh.360.cn/dns-query" # 360安全中心
     "+.360safe.com": "https://doh.360.cn/dns-query" # 360安全卫士
     "+.360kuai.com": "https://doh.360.cn/dns-query" # 360快资讯
