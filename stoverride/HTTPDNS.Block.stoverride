@@ -66,6 +66,10 @@ rules:
   - IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
   - IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
 
+  # Wework
+  - IP-CIDR,182.254.116.117/32,REJECT,no-resolve
+  - IP-CIDR,182.254.118.119/32,REJECT,no-resolve
+
   # Zhihu
   - IP-CIDR,118.89.204.198/23,REJECT,no-resolve
   - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
@@ -136,6 +140,10 @@ http:
     - ^https?:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
     - ^https?:\/\/short\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
     - ^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
+
+    # Wework
+    ^http:\/\/182\.254\.116\.117\/d - reject
+    ^http:\/\/182\.254\.118\.119\/d - reject
 
     # Zhihu
     - ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
