@@ -395,6 +395,85 @@ dwz.cn = server:180.76.76.76
 # 360短网址
 urlqh.cn = server:https://doh.360.cn/dns-query
 
+# > Bytedance
+# refer: https://www.volcengine.com/docs/6758/179060
+# 艾特迷
+*.amemv.com = server:180.184.1.1
+# 西瓜 图片服务
+*.bdxiguaimg.com = server:180.184.1.1
+# 西瓜 静态资源
+*.bdxiguastatic.com = server:180.184.1.1
+# 字节跳动 UNPKG
+*.byted-static.com = server:180.184.1.1
+# 字节跳动
+*.bytedance.* = server:180.184.1.1
+# 字节跳动 DNS
+*.bytedns.net = server:180.184.1.1
+# 字节跳动 CDN 文件存储
+*.bytednsdoc.com = server:180.184.1.1
+# 字节跳动 Goofy
+*.bytegoofy.com = server:180.184.1.1
+# 字节跳动 图片服务
+*.byteimg.com = server:180.184.1.1
+# 字节跳动 SCM
+*.bytescm.com = server:180.184.1.1
+# 字节跳动 TOS
+*.bytetos.com = server:180.184.1.1
+# 飞书企业服务平台
+*.bytexservice.com = server:180.184.1.1
+# 抖音
+*.douyin.com = server:180.184.1.1
+# 抖音 静态资源
+*.douyinpic.com = server:180.184.1.1
+# 抖音 静态资源
+*.douyinstatic.com = server:180.184.1.1
+# 抖音 静态资源
+*.douyinvod.com = server:180.184.1.1
+# FeelGood平台
+*.feelgood.cn = server:180.184.1.1
+# 飞聊官网
+*.feiliao.com = server:180.184.1.1
+# 快手
+*.gifshow.com = server:180.184.1.1
+# 火山网
+*.huoshan.com = server:180.184.1.1
+# 火山直播
+*.huoshanzhibo.com = server:180.184.1.1
+# 抖音 dapm
+*.ibytedapm.com = server:180.184.1.1
+# 抖音 CDN
+*.iesdouyin.com = server:180.184.1.1
+# 西瓜视频
+*.ixigua.com = server:180.184.1.1
+# 快手
+*.kspkg.com = server:180.184.1.1
+# 抖音 静态资源
+*.pstatp.com = server:180.184.1.1
+# 今日头条
+*.snssdk.com = server:180.184.1.1
+# 今日头条
+*.toutiao.com = server:180.184.1.1
+# 今日头条
+*.toutiao13.com = server:180.184.1.1
+# 今日头条 静态资源
+*.toutiao???.??? = server:180.184.1.1
+# 头条云
+*.toutiaocloud.cn = server:180.184.1.1
+# 头条云
+*.toutiaocloud.com = server:180.184.1.1
+# 今日头条 建站
+*.toutiaopage.com = server:180.184.1.1
+# 悟空
+*.wukong.com = server:180.184.1.1
+# 字节跳动 API
+*.zijieapi.com = server:180.184.1.1
+# 字节跳动 图片服务
+*.zijieimg.com = server:180.184.1.1
+# 今日头条 网页版
+*.zjbyte.com = server:180.184.1.1
+# 字节跳动 CDN
+*.zjcdn.com = server:180.184.1.1
+
 # > BiliBili
 *.bilibili.com = server:system
 # BiliBili API

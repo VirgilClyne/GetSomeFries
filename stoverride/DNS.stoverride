@@ -266,6 +266,47 @@ dns:
     "+.yunpan.com": "https://doh.360.cn/dns-query" # 360安全云盘
     "urlqh.cn": "https://doh.360.cn/dns-query" # 360短网址
 
+    # > Bytedance
+    # refer: https://www.volcengine.com/docs/6758/179060
+    "+.amemv.com": "180.184.1.1" # 艾特迷
+    "+.bdxiguaimg.com": "180.184.1.1" # 西瓜 图片服务
+    "+.bdxiguastatic.com": "180.184.1.1" # 西瓜 静态资源
+    "+.byted-static.com": "180.184.1.1" # 字节跳动 UNPKG
+    "+.bytedance.*": "180.184.1.1" # 字节跳动
+    "+.bytedns.net": "180.184.1.1" # 字节跳动 DNS
+    "+.bytednsdoc.com": "180.184.1.1" # 字节跳动 CDN 文件存储
+    "+.bytegoofy.com": "180.184.1.1" # 字节跳动 Goofy
+    "+.byteimg.com": "180.184.1.1" # 字节跳动 图片服务
+    "+.bytescm.com": "180.184.1.1" # 字节跳动 SCM
+    "+.bytetos.com": "180.184.1.1" # 字节跳动 TOS
+    "+.bytexservice.com": "180.184.1.1" # 飞书企业服务平台
+    "+.douyin.com": "180.184.1.1" # 抖音
+    "+.douyinpic.com": "180.184.1.1" # 抖音 静态资源
+    "+.douyinstatic.com": "180.184.1.1" # 抖音 静态资源
+    "+.douyinvod.com": "180.184.1.1" # 抖音 静态资源
+    "+.feelgood.cn": "180.184.1.1" # FeelGood平台
+    "+.feiliao.com": "180.184.1.1" # 飞聊官网
+    "+.gifshow.com": "180.184.1.1" # 快手
+    "+.huoshan.com": "180.184.1.1" # 火山网
+    "+.huoshanzhibo.com": "180.184.1.1" # 火山直播
+    "+.ibytedapm.com": "180.184.1.1" # 抖音 dapm
+    "+.iesdouyin.com": "180.184.1.1" # 抖音 CDN
+    "+.ixigua.com": "180.184.1.1" # 西瓜视频
+    "+.kspkg.com": "180.184.1.1" # 快手
+    "+.pstatp.com": "180.184.1.1" # 抖音 静态资源
+    "+.snssdk.com": "180.184.1.1" # 今日头条
+    "+.toutiao.com": "180.184.1.1" # 今日头条
+    "+.toutiao13.com": "180.184.1.1" # 今日头条
+    "+.toutiao???.???": "180.184.1.1" # 今日头条 静态资源
+    "+.toutiaocloud.cn": "180.184.1.1" # 头条云
+    "+.toutiaocloud.com": "180.184.1.1" # 头条云
+    "+.toutiaopage.com": "180.184.1.1" # 今日头条 建站
+    "+.wukong.com": "180.184.1.1" # 悟空
+    "+.zijieapi.com": "180.184.1.1" # 字节跳动 API
+    "+.zijieimg.com": "180.184.1.1" # 字节跳动 图片服务
+    "+.zjbyte.com": "180.184.1.1" # 今日头条 网页版
+    "+.zjcdn.com": "180.184.1.1" # 字节跳动 CDN
+
     # > BiliBili
     "+.bilibili.com": system # BiliBili
     "+.biliapi.com": system # BiliBili API
