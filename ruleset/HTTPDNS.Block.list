@@ -27,6 +27,8 @@ IP-CIDR,101.124.19.122/32
 IP-CIDR6,2402:db40:5100:1011::5/128
 # JD Cloud
 IP-CIDR,103.224.222.208/32
+# Meituan
+DOMAIN,httpdns.meituan.com
 # NetEase
 DOMAIN,httpdns.n.netease.com
 DOMAIN,httpdns.music.163.com
