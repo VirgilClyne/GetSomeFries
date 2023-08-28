@@ -34,6 +34,12 @@ rules:
 
   # JD Cloud
   - IP-CIDR,103.224.222.208/32,REJECT,no-resolve
+  
+  # Kuaishou
+  - DOMAIN,kuaishou.httpdns.pro,REJECT
+  
+  # Meituan
+  - DOMAIN,httpdns.meituan.com,REJECT
 
   # NetEase
   - DOMAIN,httpdns.n.netease.com,REJECT
@@ -114,8 +120,7 @@ http:
 
     # JD
     - ^https:\/\/dns\.jd\.com\/v6\/b - reject
-    - ^https:\/\/dns\.jd\.com\/v6\/d - reject
-
+    
     # Meituan
     - ^http:\/\/103\.37\.155\.60\/fetch - reject
 
