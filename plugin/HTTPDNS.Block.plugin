@@ -46,6 +46,12 @@ IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
 # refer: https://docs.jdcloud.com/cn/httpdns/interface-specification
 IP-CIDR,103.224.222.208/32,REJECT,no-resolve
 
+# Kuaishou
+DOMAIN,kuaishou.httpdns.pro,REJECT
+
+# Meituan
+DOMAIN,httpdns.meituan.com,REJECT
+
 # NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp
 DOMAIN,httpdns.n.netease.com,REJECT
@@ -122,7 +128,6 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
 
 # JD
 ^https:\/\/dns\.jd\.com\/v6\/b - reject
-^https:\/\/dns\.jd\.com\/v6\/d - reject
 
 # Meituan
 ^http:\/\/103\.37\.155\.60\/fetch - reject
