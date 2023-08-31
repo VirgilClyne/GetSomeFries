@@ -46,9 +46,6 @@ IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
 # refer: https://docs.jdcloud.com/cn/httpdns/interface-specification
 IP-CIDR,103.224.222.208/32,REJECT,no-resolve
 
-# Kuaishou
-DOMAIN,kuaishou.httpdns.pro,REJECT
-
 # Meituan
 DOMAIN,httpdns.meituan.com,REJECT
 
@@ -68,6 +65,12 @@ DOMAIN,httpdns.push.oppomobile.com,REJECT
 
 # Sina
 # refer: https://github.com/CNSRE/HTTPDNSLib
+
+# Tencent Cloud
+# refer：https://cloud.tencent.com/document/product/379/95497
+DOMAIN-SUFFIX,httpdns.pro,REJECT
+IP-CIDR,119.29.29.98/32,REJECT,no-resolve
+IP-CIDR,119.29.29.99/32,REJECT,no-resolve
 
 # Volcengine
 # refer: https://www.volcengine.com/docs/6758/174756
@@ -174,4 +177,4 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
 ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
 
 [MITM]
-hostname = %APPEND% 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com
+hostname = %APPEND% 119.29.29.98, 119.29.29.99, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro

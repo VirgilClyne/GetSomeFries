@@ -69,6 +69,11 @@ DOMAIN,httpdns.push.oppomobile.com,REJECT
 # Sina
 # refer: https://github.com/CNSRE/HTTPDNSLib
 
+# Tencent Cloud
+# refer：https://cloud.tencent.com/document/product/379/95497
+IP-CIDR,119.29.29.98/32,REJECT,no-resolve
+IP-CIDR,119.29.29.99/32,REJECT,no-resolve
+
 # Volcengine
 # refer: https://www.volcengine.com/docs/6758/174756
 DOMAIN,httpdns.volcengineapi.com,REJECT
@@ -169,4 +174,4 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
 ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
 
 [MITM]
-hostname = 119.29.29.29, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com
+hostname = 119.29.29.98, 119.29.29.99, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro
