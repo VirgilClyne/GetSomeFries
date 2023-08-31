@@ -52,6 +52,10 @@ rules:
 
   # Oppo
   - DOMAIN,httpdns.push.oppomobile.com,REJECT
+  
+  # Tencent Cloud
+  - IP-CIDR,119.29.29.98/32,REJECT,no-resolve
+  - IP-CIDR,119.29.29.99/32,REJECT,no-resolve
 
   # Volcengine
   - DOMAIN,httpdns.volcengineapi.com,REJECT
