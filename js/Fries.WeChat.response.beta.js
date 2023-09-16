@@ -1,7 +1,7 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: WeChat v0.1.0(5) response.beta");
+const $ = new Env("🍟 GetSomeFries: WeChat v0.2.0(1) response.beta");
 const URL = new URLs();
 const XML = new XMLs();
 const DataBase = {
@@ -60,8 +60,58 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							eval(script);
 							//Function(`"use strict";return (${script})`)();
 							$.log(`🚧 ${$.name}`, `cgiData: ${JSON.stringify(cgiData ?? undefined)}`, "");
-							if (cgiData?.url) $response = await $.http.get(cgiData.url);
-							//$.log(`🚧 ${$.name}`, `script: ${JSON.stringify(script)}`, "");
+							if (cgiData?.url) {
+								let url = URL.parse(cgiData.url);
+								switch (url?.host) {
+									case "mp.weixin.qq.com":
+									default:
+										break;
+									case "qr.alipay.com":
+										//$request.url = `alipays://platformapi/startapp?appId=20000067&url=${cgiData.url}`;
+										url.scheme = "alipays";
+										url.host = "platformapi";
+										url.path = "startapp";
+										url.query = {
+											"appId": 20000067,
+											"url": encodeURIComponent(cgiData.url)
+										};
+										break;
+									case "www.taobao.com":
+									case "taobao.com":
+									case "www.tmall.com":
+									case "tmall.com":
+									case "c.tb.cn":
+									case "m.tb.cn":
+									case "s.tb.cn":
+									case "t.tb.cn":
+									case "tb.cn":
+										url.scheme = "taobao";
+										break;
+								};
+								switch (url?.scheme) {
+									case "alipays":
+									case "taobao":
+									default:
+										switch ($.getEnv()) {
+											case "Quantumult X":
+												$response.status = "HTTP/1.1 302 Temporary Redirect";
+												break;
+											case "Surge":
+											case "Loon":
+											case "Stash":
+											case "Shadowrocket":
+											default:
+												$response.status = 302;
+												break;
+										};
+										$response.headers = { Location: URL.stringify(url) };
+										delete $response.body;
+										break;
+									case "http":
+									case "https":
+										$response = await $.http.get(cgiData.url);
+								};
+							}
 							break;
 					};
 					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
