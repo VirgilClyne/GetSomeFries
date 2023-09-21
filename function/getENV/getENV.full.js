@@ -36,11 +36,13 @@ function getENV(key, names, database) {
 		if (BoxJs?.[name]?.Caches && typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
 		Store.Caches = { ...Store.Caches, ...BoxJs?.[name]?.Caches };
 	};
+	$.log(`🚧 ${$.name}, Get Environment Variables`, `Store.Settings类型: ${typeof Store.Settings}`, `Store.Settings: ${JSON.stringify(Store.Settings)}`, "");
 	traverseObject(Store.Settings, (key, value) => {
+		$.log(`🚧 ${$.name}, traverseObject`, `${key}: ${typeof value}`, `${key}: ${JSON.stringify(value)}`, "");
 		if (value === "true" || value === "false") value = JSON.parse(value); // 字符串转Boolean
 		else if (typeof value === "string") {
-			if (value?.includes(",")) value = value.split(","); // 字符串转数组
-			else if (value && !isNaN(value)) value = parseInt(value, 10) // 字符串转数字
+			if (value.includes(",")) value = value.split(",").map(item => string2number(item)); // 字符串转数组转数字
+			else value = string2number(value); // 字符串转数字
 		};
 		return value;
 	});
@@ -49,4 +51,5 @@ function getENV(key, names, database) {
 	/***************** function *****************/
 	function setPath(object, path, value) { path.split(".").reduce((o, p, i) => o[p] = path.split(".").length === ++i ? value : o[p] || {}, object) }
 	function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}
+	function string2number(string){ if(string && !isNaN(string)) string = parseInt(string, 10); return string}
 };
