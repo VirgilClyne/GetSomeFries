@@ -1,7 +1,7 @@
 function URLs(opts) {
 	return new (class {
 		constructor(opts = []) {
-			this.name = "URL v1.2.3";
+			this.name = "URL v1.2.4";
 			this.opts = opts;
 			this.json = { scheme: "", host: "", path: "", type: "", query: {} };
 		};
@@ -9,8 +9,8 @@ function URLs(opts) {
 		parse(url) {
 			const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
 			let json = url.match(URLRegex)?.groups ?? null;
-			if (json?.path) json.paths = json?.path?.split("/"); else json.path = "";
-			if (json?.paths) json.type = json?.paths?.[json?.paths?.length - 1]?.split(".")?.at(-1);
+			if (json?.path) json.paths = json.path.split("/"); else json.path = "";
+			if (json?.paths?.at(-1)?.includes(".")) json.type = json.paths.at(-1).split(".").at(-1);
 			if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
 			return json
 		};
