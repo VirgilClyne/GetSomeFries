@@ -48,6 +48,7 @@ IP-CIDR,103.224.222.208/32,REJECT,no-resolve
 
 # Meituan
 DOMAIN,httpdns.meituan.com,REJECT,extended-matching
+DOMAIN,httpdnsvip.meituan.com,REJECT,extended-matching
 
 # NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp
