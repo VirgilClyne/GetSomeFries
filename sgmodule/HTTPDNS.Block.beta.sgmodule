@@ -5,7 +5,7 @@
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
 
 [General]
-force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443, 203.107.1.65:80, 203.107.1.66:80
+force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443
 
 [Rule]
 # Alibaba
@@ -82,7 +82,7 @@ DOMAIN,dns.weibo.cn,REJECT,extended-matching
 IP-CIDR,39.97.128.148/32,REJECT,no-resolve
 IP-CIDR,39.97.130.51/32,REJECT,no-resolve
 
-#Wework
+# Wework
 # refer: https://res.mail.qq.com/zh_CN/wework_ip/latest.html
 IP-CIDR,182.254.116.117/32,REJECT,no-resolve
 IP-CIDR,182.254.118.119/32,REJECT,no-resolve
