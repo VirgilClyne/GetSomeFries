@@ -308,15 +308,6 @@ dns:
     "+.zjcdn.com": "180.184.1.1" # 字节跳动 CDN
 
     # > BiliBili
-    "+.bilibili.com": system # BiliBili
-    "+.biliapi.com": system # BiliBili API
-    "+.biliapi.net": system # BiliBili API
-    "+.bilicdn?.com": system # BiliBili CDN
-    "+.hdslb.com": system # BiliBili 静态资源
-    "+.hdslb.net": system # BiliBili 静态资源
-    "cn-hk-eq-bcache-??.bilivideo.com": system # BiliBili 视频服务器（unknown）
-    "upos-hz-mirrorakam.akamaized.net": system # BiliBili upos视频服务器（akamai）
-    "upos-sz-mirrorasiaov.bilibilivideo.com": system # BiliBili upos视频服务器（asia-abroad.com）
     "upos-sz-mirrorali.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（阿里云）
     "upos-sz-mirrorali?.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（阿里云）
     "upos-sz-mirrorali??.bilivideo.com": "https://dns.alidns.com/dns-query" # BiliBili upos视频服务器（阿里云）
@@ -324,25 +315,8 @@ dns:
     "upos-sz-mirrorcos.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
     "upos-sz-mirrorcos?.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
     "upos-sz-mirrorcos??.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
-    "upos-sz-mirrorhw.bilivideo.com": system # BiliBili upos视频服务器（华为云）
-    "upos-sz-mirrorhw?.bilivideo.com": system # BiliBili upos视频服务器（华为云）
-    "upos-sz-mirrorhwo?.bilivideo.com": system # BiliBili upos视频服务器（华为云）
-    "upos-sz-mirrorks3.bilivideo.com": system # BiliBili upos视频服务器（金山云）
-    "upos-sz-mirrorks3?.bilivideo.com": system # BiliBili upos视频服务器（金山云）
-    "upos-sz-mirrorkodo.bilivideo.com": system # BiliBili upos视频服务器（七牛云）
-    "upos-sz-mirrorkodo?.bilivideo.com": system # BiliBili upos视频服务器（七牛云）
-    "upos-sz-mirrorwcs.bilivideo.com": system # BiliBili upos视频服务器（网宿）
-    "upos-sz-mirrorwcs?.bilivideo.com": system # BiliBili upos视频服务器（网宿）
-    "upos-sz-mirrorxycdn.bilivideo.com": system # BiliBili upos视频服务器（迅雷）
     "upos-sz-upcdnbd??.bilivideo.com": "180.76.76.76" # BiliBili upos视频服务器（百度云）
-    "upos-sz-upcdnhw.bilivideo.com": system # BiliBili uupos视频服务器（华为云）
     "upos-sz-upcdntx.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
-    "upos-sz-upcdnws.bilivideo.com": system # BiliBili upos视频服务器（网宿）
-    "upos-tf-all-js.bilivideo.com": system # BiliBili upos视频服务器（unknown）
-    "+.mcdn.bilivideo.com": system # BiliBili mCDN视频服务器
-    "+.bilivideo.com": system # BiliBili 视频
-    "+.bilivideo.cn": system # BiliBili 视频
-    "acg.tv": system # BiliBili短网址
 
     # > 京东
     "+.jd.com": system # 京东
