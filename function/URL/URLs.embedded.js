@@ -1,16 +1,23 @@
 function URLs(opts) {
 	return new (class {
 		constructor(opts = []) {
-			this.name = "URL v1.2.4";
+			this.name = "URL v1.2.5";
 			this.opts = opts;
-			this.json = { scheme: "", host: "", path: "", type: "", query: {} };
+			this.json = { scheme: "", host: "", path: "", query: {} };
 		};
 
 		parse(url) {
 			const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
 			let json = url.match(URLRegex)?.groups ?? null;
 			if (json?.path) json.paths = json.path.split("/"); else json.path = "";
-			if (json?.paths?.at(-1)?.includes(".")) json.type = json.paths.at(-1).split(".").at(-1);
+			//if (json?.paths?.at(-1)?.includes(".")) json.format = json.paths.at(-1).split(".").at(-1);
+			if (json?.paths) {
+				const fileName = json.paths[json.paths.length - 1];
+				if (fileName?.includes(".")) {
+					const list = fileName.split(".");
+					json.format = list[list.length - 1];
+				}
+			}
 			if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
 			return json
 		};
