@@ -145,8 +145,8 @@ http:
     - ^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 
     # Wework
-    ^http:\/\/182\.254\.116\.117\/d - reject
-    ^http:\/\/182\.254\.118\.119\/d - reject
+    - ^http:\/\/182\.254\.116\.117\/d - reject
+    - ^http:\/\/182\.254\.118\.119\/d - reject
 
     # Zhihu
     - ^http:\/\/103\.41\.167\.237\/v2\/resolv - reject
