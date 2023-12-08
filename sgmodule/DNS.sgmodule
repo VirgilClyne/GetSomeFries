@@ -315,15 +315,6 @@ upos-sz-mirrorcos??.bilivideo.com = server:https://doh.pub/dns-query // BiliBili
 upos-sz-upcdnbd??.bilivideo.com = server:180.76.76.76 // BiliBili upos视频服务器（百度云）
 upos-sz-upcdntx.bilivideo.com = server:https://doh.pub/dns-query // BiliBili upos视频服务器（腾讯云）
 
-# > 京东
-*.jd.com = server:syslib // 京东
-*.360buyimg.com = server:syslib // 京东 静态资源
-*.jdcloud.com = server:syslib // 京东云
-*.jcloudstatic.com = server:syslib // 京东云 缓存和存储
-*.jcloudstatic.net = server:syslib // 京东云 静态资源
-*.jdgslb.com = server:syslib // 京东云 全局负载均衡
-3.cn = server:syslib // 京东短网址
-
 # > 🇨🇳 CHN
 # CNNIC SDNS
 # *.gov.cn = server:1.2.4.8 // 中国政府网

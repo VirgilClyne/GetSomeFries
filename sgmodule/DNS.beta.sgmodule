@@ -342,13 +342,13 @@ upos-sz-upcdntx.bilivideo.com = server:https://doh.pub/dns-query // BiliBili upo
 # acg.tv = server:syslib // BiliBili短网址
 
 # > 京东
-*.jd.com = server:syslib // 京东
-*.360buyimg.com = server:syslib // 京东 静态资源
-*.jdcloud.com = server:syslib // 京东云
-*.jcloudstatic.com = server:syslib // 京东云 缓存和存储
-*.jcloudstatic.net = server:syslib // 京东云 静态资源
-*.jdgslb.com = server:syslib // 京东云 全局负载均衡
-3.cn = server:syslib // 京东短网址
+# *.jd.com = server:syslib // 京东
+# *.360buyimg.com = server:syslib // 京东 静态资源
+# *.jdcloud.com = server:syslib // 京东云
+# *.jcloudstatic.com = server:syslib // 京东云 缓存和存储
+# *.jcloudstatic.net = server:syslib // 京东云 静态资源
+# *.jdgslb.com = server:syslib // 京东云 全局负载均衡
+# 3.cn = server:syslib // 京东短网址
 
 # > 🇨🇳 CHN
 # CNNIC SDNS

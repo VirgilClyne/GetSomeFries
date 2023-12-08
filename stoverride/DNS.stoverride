@@ -318,15 +318,6 @@ dns:
     "upos-sz-upcdnbd??.bilivideo.com": "180.76.76.76" # BiliBili upos视频服务器（百度云）
     "upos-sz-upcdntx.bilivideo.com": "https://doh.pub/dns-query" # BiliBili upos视频服务器（腾讯云）
 
-    # > 京东
-    "+.jd.com": system # 京东
-    "+.360buyimg.com": system # 京东 静态资源
-    "+.jdcloud.com": system # 京东云
-    "+.jcloudstatic.com": system # 京东云 缓存和存储
-    "+.jcloudstatic.net": system # 京东云 静态资源
-    "+.jdgslb.com": system # 京东云 全局负载均衡
-    "3.cn": system # 京东短网址
-
     # > 🇨🇳 CHN
     # CNNIC SDNS
     # "+.gov.cn": "1.2.4.8" # 中国政府网

@@ -490,21 +490,6 @@ upos-sz-upcdnbd??.bilivideo.com = server:180.76.76.76
 # BiliBili upos视频服务器（腾讯云）
 upos-sz-upcdntx.bilivideo.com = server:https://doh.pub/dns-query
 
-# > 京东
-*.jd.com = server:system
-# 京东 静态资源
-*.360buyimg.com = server:system
-# 京东云
-*.jdcloud.com = server:system
-# 京东云 缓存和存储
-*.jcloudstatic.com = server:system
-# 京东云 静态资源
-*.jcloudstatic.net = server:system
-# 京东云 全局负载均衡
-*.jdgslb.com = server:system
-# 京东短网址
-3.cn = server:system
-
 # > 🇨🇳 CHN
 # CNNIC SDNS
 # 中国政府网
