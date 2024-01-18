@@ -1,7 +1,7 @@
-function URLs(opts) {
+function URIs(opts) {
 	return new (class {
 		constructor(opts = []) {
-			this.name = "URL v1.2.5";
+			this.name = "URI v1.2.6";
 			this.opts = opts;
 			this.json = { scheme: "", host: "", path: "", query: {} };
 		};

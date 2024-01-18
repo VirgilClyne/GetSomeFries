@@ -1,21 +1,21 @@
 /*
-README:https://github.com/VirgilClyne/iRingo
+README: https://github.com/VirgilClyne/GetSomeFries/function/URI/README.md
 */
 const $ = new Env("URLSearch");
-const URL = new URLs();
+const URI = new URIs();
 var { url } = $request;
 $.log(`🚧 ${$.name}`, `url: ${url}`, "");
 
-let json = URL.parse(url);
-url = URL.stringify(json);
+let json = URI.parse(url);
+url = URI.stringify(json);
 
 $.done();
 
 /***************** Function *****************/
-function URLs(opts) {
+function URIs(opts) {
 	return new (class {
 		constructor(opts = []) {
-			this.name = "URL v1.2.4";
+			this.name = "URI v1.2.6";
 			this.opts = opts;
 			this.json = { scheme: "", host: "", path: "", type: "", query: {} };
 		};
@@ -25,7 +25,14 @@ function URLs(opts) {
 			let json = url.match(URLRegex)?.groups ?? null;
 			console.log(`🚧 ${console.name}, URLSearch, url.match(URLRegex)?.groups: ${JSON.stringify(json)}`, "");
 			if (json?.path) json.paths = json.path.split("/"); else json.path = "";
-			if (json?.paths?.at(-1)?.includes(".")) json.type = json.paths.at(-1).split(".").at(-1);
+			//if (json?.paths?.at(-1)?.includes(".")) json.format = json.paths.at(-1).split(".").at(-1);
+			if (json?.paths) {
+				const fileName = json.paths[json.paths.length - 1];
+				if (fileName?.includes(".")) {
+					const list = fileName.split(".");
+					json.format = list[list.length - 1];
+				}
+			}
 			if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
 			console.log(`🚧 ${console.name}, URLSearch, Object.fromEntries(json.query.split("&").map((item) => item.split("="))): ${JSON.stringify(json?.query)}`, "");
 			console.log(`🚧 ${console.name}, URLSearch, json: ${JSON.stringify(json)}`, "");
