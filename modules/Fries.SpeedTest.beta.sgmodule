@@ -1,10 +1,11 @@
-#!name=🍟 GetSomeFries: SpeedTest β
+#!name=🍟 Fries: SpeedTest β
 #!desc=(BETA) 1.1.1.1 by Cloudflare APP with WARP Client Config Management
 #!openUrl=http://boxjs.com/#/app/GetSomeFries.1dot1dot1dot1.beta
 #!author=VirgilClyne & R·E
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/
 #!manual=https://github.com/VirgilClyne/GetSomeFries/wiki/
 #!icon=
+#!category=🍟 Fries
 
 [Panel]
 ☁ WARP Panel = title="☁ 𝙒𝘼𝙍𝙋 𝙄𝙣𝙛𝙤", icon="lock.icloud.fill", "icon-color": "#f48220", script-name=☁ WARP Panel

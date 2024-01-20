@@ -3,6 +3,7 @@
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-ASN
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+#!category=🍟 Fries
 
 [Rule]
 IP-ASN,4134,DIRECT,no-resolve // 中国电信骨干网

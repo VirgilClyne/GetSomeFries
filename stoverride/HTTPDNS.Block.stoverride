@@ -3,6 +3,7 @@ desc: 阻止常见的 HTTPDNS 服务器
 author: shindgewongxj & VirgilClyne
 homepage: "https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS"
 icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png"
+category: "🍟 Fries"
 
 rules:
   # Alibaba

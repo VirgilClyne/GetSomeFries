@@ -5,6 +5,7 @@
 #!homepage=https://github.com/VirgilClyne
 #!manual=https://github.com/VirgilClyne/GetSomeFries
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Unlock.png
+#!category=🍟 Fries
 
 [MITM]
 hostname = %APPEND% wap.10010.com, resuac.10010.com, *.netflix.com, *.nflxso.net, *.bamgrid.com, *.media.dssott.com, *.disney-plus.net, disney.my.sentry.io, disney.demdex.net, cdn.registerdisney.go.com

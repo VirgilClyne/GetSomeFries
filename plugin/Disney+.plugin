@@ -1,9 +1,10 @@
-#!name=🍟 Disney+
+#!name=🍟 Fries: Disney+
 #!desc=Disney+ Mod
-#!openUrl=http://boxjs.com/#/app/GetSomeFries.Disney_Plus
+#!openUrl=http://boxjs.com/#/app/GetSomeFries.Disney+
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🍟-Disney-Plus
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney%2B.png
+#!category=🍟 Fries
 
 [Script]
 http-response ^https?:\/\/disney\.api\.edge\.bamgrid\.com\/(session|(graph\/)?v1\/(public|device)\/graphql) script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/Disney%2B.js, requires-body=1, tag=🍟 Disney+ Response

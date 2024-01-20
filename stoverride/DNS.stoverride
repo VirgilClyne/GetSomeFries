@@ -6,6 +6,7 @@ desc: |-
 author: VirgilClyne
 homepage: "https://github.com/VirgilClyne/GetSomeFries/wiki/🌐-DNS"
 icon: "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png"
+category: "🍟 Fries"
 
 # 类似于 /etc/hosts, 仅支持配置单个 IP
 hosts:

@@ -3,6 +3,7 @@
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🚫-HTTPDNS
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Server.png
+#!category=🍟 Fries
 
 [General]
 force-http-engine-hosts = 119.29.29.29:80, dns.weixin.qq.com:80, dns.weixin.qq.com:8080, dns.weixin.qq.com:443, 203.107.1.65:80, 203.107.1.66:80

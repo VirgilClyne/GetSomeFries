@@ -1,9 +1,10 @@
-#!name=🍟 Disney+
+#!name=🍟 Fries: Disney+ β
 #!desc=(BETA) Disney+ Mod
-#!openUrl=http://boxjs.com/#/app/GetSomeFries.Disney_Plus.beta
+#!openUrl=http://boxjs.com/#/app/GetSomeFries.Disney+.beta
 #!author=VirgilClyne
 #!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/🍟-Disney-Plus
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Disney%2B.png
+#!category=🍟 Fries
 
 [Rule]
 # https://disney.playback.edge.bamgrid.com/media/{uuid}/scenarios/tvs-drm-cbcs
