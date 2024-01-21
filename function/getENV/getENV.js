@@ -31,7 +31,7 @@ function getENV(key, names, database) {
 	if (!Array.isArray(names)) names = [names];
 	//$.log(`🚧 ${$.name}, Get Environment Variables`, `names类型: ${typeof names}`, `names内容: ${JSON.stringify(names)}`, "");
 	for (let name of names) {
-		Store.Settings = { ...Store.Settings, ...database?.[name]?.Settings, ...BoxJs?.[name]?.Settings, ...Argument };
+		Store.Settings = { ...Store.Settings, ...database?.[name]?.Settings, ...Argument, ...BoxJs?.[name]?.Settings };
 		Store.Configs = { ...Store.Configs, ...database?.[name]?.Configs };
 		if (BoxJs?.[name]?.Caches && typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
 		Store.Caches = { ...Store.Caches, ...BoxJs?.[name]?.Caches };
