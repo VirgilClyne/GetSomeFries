@@ -1,8 +1,8 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: WeChat v0.2.0(4) response.beta");
-const URL = new URLs();
+const $ = new Env("🍟 GetSomeFries: WeChat v0.2.0(5) response.beta");
+const URI = new URIs();
 const XML = new XMLs();
 const DataBase = {
 	"WeChat":{
@@ -15,12 +15,13 @@ const DataBase = {
 
 /***************** Processing *****************/
 // 解构URL
-let url = URL.parse($request?.url);
+const URL = URI.parse($request.url);
+$.log(`⚠ ${$.name}`, `URL: ${JSON.stringify(URL)}`, "");
 // 获取连接参数
-const METHOD = $request?.method, HOST = url?.host, PATH = url?.path, PATHs = url?.paths;
-$.log(`⚠ ${$.name}`, `METHOD: ${METHOD}`, `HOST: ${HOST}`, `PATH: ${PATH}`, `PATHs: ${PATHs}`, "");
+const METHOD = $request.method, HOST = URL.host, PATH = URL.path, PATHs = URL.paths;
+$.log(`⚠ ${$.name}`, `METHOD: ${METHOD}`, "");
 // 解析格式
-const FORMAT = ($response?.headers?.["Content-Type"] ?? $response?.headers?.["content-type"])?.split(";")?.[0];
+const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 (async () => {
 	const { Settings, Caches, Configs } = setENV("GetSomeFries", "WeChat", DataBase);
@@ -41,6 +42,10 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				case "application/x-mpegURL":
 				case "application/x-mpegurl":
 				case "application/vnd.apple.mpegurl":
+				case "audio/mpegurl":
+					//body = M3U8.parse($response.body);
+					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+					//$response.body = M3U8.stringify(body);
 					break;
 				case "text/xml":
 				case "text/html":
@@ -63,7 +68,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							$.log(`🚧 ${$.name}`, `cgiData: ${JSON.stringify(cgiData ?? undefined)}`, "");
 							/*
 							if (cgiData?.url) {
-								let url = URL.parse(cgiData.url);
+								let url = URI.parse(cgiData.url);
 								switch (url?.host) {
 									case "mp.weixin.qq.com":
 									default:
@@ -106,7 +111,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 												$response.status = 302;
 												break;
 										};
-										$response.headers = { Location: URL.stringify(url) };
+										$response.headers = { Location: URI.stringify(url) };
 										delete $response.body;
 										break;
 									case "http":
@@ -122,14 +127,19 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 					break;
 				case "text/vtt":
 				case "application/vtt":
+					//body = VTT.parse($response.body);
+					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+					//$response.body = VTT.stringify(body);
 					break;
 				case "text/json":
 				case "application/json":
-					//body = JSON.parse($request.body);
-					//$.log(body);
+					//body = JSON.parse($request.body ?? "{}");
+					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 					//$request.body = JSON.stringify(body);
 					break;
+				case "application/protobuf":
 				case "application/x-protobuf":
+				case "application/vnd.google.protobuf":
 				case "application/grpc":
 				case "application/grpc+proto":
 				case "applecation/octet-stream":
@@ -154,19 +164,21 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				switch (FORMAT) {
 					case undefined: // 视为无body
 						// 返回普通数据
-						$.done({ headers: $response.headers });
+						$.done({ status: $response.status, headers: $response.headers });
 						break;
 					default:
 						// 返回普通数据
-						$.done({ headers: $response.headers, body: $response.body });
+						$.done({ status: $response.status, headers: $response.headers, body: $response.body });
 						break;
+					case "application/protobuf":
 					case "application/x-protobuf":
+					case "application/vnd.google.protobuf":
 					case "application/grpc":
 					case "application/grpc+proto":
-					//case "applecation/octet-stream":
+					case "applecation/octet-stream":
 						// 返回二进制数据
 						//$.log(`${$response.bodyBytes.byteLength}---${$response.bodyBytes.buffer.byteLength}`);
-						$.done({ headers: $response.headers, bodyBytes: $response.bodyBytes.buffer.slice($response.bodyBytes.byteOffset, $response.bodyBytes.byteLength + $response.bodyBytes.byteOffset) });
+						$.done({ status: $response.status, headers: $response.headers, bodyBytes: $response.bodyBytes.buffer.slice($response.bodyBytes.byteOffset, $response.bodyBytes.byteLength + $response.bodyBytes.byteOffset) });
 						break;
 				};
 			} else $.done($response);
@@ -212,10 +224,10 @@ function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==
  * @param {Object} database - Default Database
  * @return {Object} { Settings, Caches, Configs }
  */
-function getENV(key,names,database){let BoxJs=$.getjson(key,database),Argument={};if("undefined"!=typeof $argument&&Boolean($argument)){let arg=Object.fromEntries($argument.split("&").map((item=>item.split("="))));for(let item in arg)setPath(Argument,item,arg[item])}const Store={Settings:database?.Default?.Settings||{},Configs:database?.Default?.Configs||{},Caches:{}};Array.isArray(names)||(names=[names]);for(let name of names)Store.Settings={...Store.Settings,...database?.[name]?.Settings,...BoxJs?.[name]?.Settings,...Argument},Store.Configs={...Store.Configs,...database?.[name]?.Configs},BoxJs?.[name]?.Caches&&"string"==typeof BoxJs?.[name]?.Caches&&(BoxJs[name].Caches=JSON.parse(BoxJs?.[name]?.Caches)),Store.Caches={...Store.Caches,...BoxJs?.[name]?.Caches};return function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}(Store.Settings,((key,value)=>("true"===value||"false"===value?value=JSON.parse(value):"string"==typeof value&&(value?.includes(",")?value=value.split(","):value&&!isNaN(value)&&(value=parseInt(value,10))),value))),Store;function setPath(object,path,value){path.split(".").reduce(((o,p,i)=>o[p]=path.split(".").length===++i?value:o[p]||{}),object)}}
+function getENV(key,names,database){let BoxJs=$.getjson(key,database),Argument={};if("undefined"!=typeof $argument&&Boolean($argument)){let arg=Object.fromEntries($argument.split("&").map((item=>item.split("="))));for(let item in arg)setPath(Argument,item,arg[item])}const Store={Settings:database?.Default?.Settings||{},Configs:database?.Default?.Configs||{},Caches:{}};Array.isArray(names)||(names=[names]);for(let name of names)Store.Settings={...Store.Settings,...database?.[name]?.Settings,...Argument,...BoxJs?.[name]?.Settings},Store.Configs={...Store.Configs,...database?.[name]?.Configs},BoxJs?.[name]?.Caches&&"string"==typeof BoxJs?.[name]?.Caches&&(BoxJs[name].Caches=JSON.parse(BoxJs?.[name]?.Caches)),Store.Caches={...Store.Caches,...BoxJs?.[name]?.Caches};return function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}(Store.Settings,((key,value)=>("true"===value||"false"===value?value=JSON.parse(value):"string"==typeof value&&(value=value.includes(",")?value.split(",").map((item=>string2number(item))):string2number(value)),value))),Store;function setPath(object,path,value){path.split(".").reduce(((o,p,i)=>o[p]=path.split(".").length===++i?value:o[p]||{}),object)}function string2number(string){return string&&!isNaN(string)&&(string=parseInt(string,10)),string}}
 
-// https://github.com/VirgilClyne/GetSomeFries/blob/main/function/URL/URLs.embedded.min.js
-function URLs(t){return new class{constructor(t=[]){this.name="URL v1.2.2",this.opts=t,this.json={scheme:"",host:"",path:"",type:"",query:{}}}parse(t){let s=t.match(/(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/)?.groups??null;return s?.path?s.paths=s?.path?.split("/"):s.path="",s?.paths&&(s.type=s?.paths?.[s?.paths?.length-1]?.split(".")?.[1]),s?.query&&(s.query=Object.fromEntries(s.query.split("&").map((t=>t.split("="))))),s}stringify(t=this.json){let s="";return t?.scheme&&t?.host&&(s+=t.scheme+"://"+t.host),t?.path&&(s+=t?.host?"/"+t.path:t.path),t?.query&&(s+="?"+Object.entries(t.query).map((t=>t.join("="))).join("&")),s}}(t)}
+// https://github.com/VirgilClyne/GetSomeFries/blob/main/function/URI/URIs.embedded.min.js
+function URIs(t){return new class{constructor(t=[]){this.name="URI v1.2.6",this.opts=t,this.json={scheme:"",host:"",path:"",query:{}}}parse(t){let s=t.match(/(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/)?.groups??null;if(s?.path?s.paths=s.path.split("/"):s.path="",s?.paths){const t=s.paths[s.paths.length-1];if(t?.includes(".")){const e=t.split(".");s.format=e[e.length-1]}}return s?.query&&(s.query=Object.fromEntries(s.query.split("&").map((t=>t.split("="))))),s}stringify(t=this.json){let s="";return t?.scheme&&t?.host&&(s+=t.scheme+"://"+t.host),t?.path&&(s+=t?.host?"/"+t.path:t.path),t?.query&&(s+="?"+Object.entries(t.query).map((t=>t.join("="))).join("&")),s}}(t)}
 
 // https://github.com/DualSubs/XML/blob/main/XML.embedded.min.js
 function XMLs(opts){return new class{#ATTRIBUTE_KEY="@";#CHILD_NODE_KEY="#";#UNESCAPE={"&amp;":"&","&lt;":"<","&gt;":">","&apos;":"'","&quot;":'"'};#ESCAPE={"&":"&amp;","<":"&lt;",">":"&gt;","'":"&apos;",'"':"&quot;"};constructor(opts){this.name="XML v0.3.6-2",this.opts=opts,BigInt.prototype.toJSON=()=>this.toString()}parse(xml=new String,reviver=""){const UNESCAPE=this.#UNESCAPE,ATTRIBUTE_KEY=this.#ATTRIBUTE_KEY,CHILD_NODE_KEY=this.#CHILD_NODE_KEY;let json=function fromXML(elem,reviver){let object;switch(typeof elem){case"string":case"undefined":object=elem;break;case"object":const raw=elem.raw,name=elem.name,tag=elem.tag,children=elem.children;object=raw||(tag?function(tag,reviver){if(!tag)return;const list=tag.split(/([^\s='"]+(?:\s*=\s*(?:'[\S\s]*?'|"[\S\s]*?"|[^\s'"]*))?)/),length=list.length;let attributes,val;for(let i=0;i<length;i++){let str=removeSpaces(list[i]);if(!str)continue;attributes||(attributes={});const pos=str.indexOf("=");if(pos<0)str=ATTRIBUTE_KEY+str,val=null;else{val=str.substr(pos+1).replace(/^\s+/,""),str=ATTRIBUTE_KEY+str.substr(0,pos).replace(/\s+$/,"");const firstChar=val[0];firstChar!==val[val.length-1]||"'"!==firstChar&&'"'!==firstChar||(val=val.substr(1,val.length-2)),val=unescapeXML(val)}reviver&&(val=reviver(str,val)),addObject(attributes,str,val)}return attributes;function removeSpaces(str){return str?.trim?.()}}(tag,reviver):children?{}:{[name]:void 0}),"plist"===name?object=Object.assign(object,fromPlist(children[0],reviver)):children?.forEach?.(((child,i)=>{"string"==typeof child?addObject(object,CHILD_NODE_KEY,fromXML(child,reviver),void 0):child.tag||child.children||child.raw?addObject(object,child.name,fromXML(child,reviver),void 0):addObject(object,child.name,fromXML(child,reviver),children?.[i-1]?.name)})),reviver&&(object=reviver(name||"",object))}return object;function addObject(object,key,val,prevKey=key){if(void 0!==val){const prev=object[prevKey];Array.isArray(prev)?prev.push(val):prev?object[prevKey]=[prev,val]:object[key]=val}}}(function(text){const list=text.split(/<([^!<>?](?:'[\S\s]*?'|"[\S\s]*?"|[^'"<>])*|!(?:--[\S\s]*?--|\[[^\[\]'"<>]+\[[\S\s]*?]]|DOCTYPE[^\[<>]*?\[[\S\s]*?]|(?:ENTITY[^"<>]*?"[\S\s]*?")?[\S\s]*?)|\?[\S\s]*?\?)>/),length=list.length,root={children:[]};let elem=root;const stack=[];for(let i=0;i<length;){const str=list[i++];str&&appendText(str);const tag=list[i++];tag&&parseNode(tag)}return root;function parseNode(tag){let child={};switch(tag[0]){case"/":const closed=tag.replace(/^\/|[\s\/].*$/g,"").toLowerCase();for(;stack.length;){const tagName=elem?.name?.toLowerCase?.();if(elem=stack.pop(),tagName===closed)break}break;case"?":"xml"===tag.slice(1,4)?(child.name="?xml",child.raw=tag.slice(5,-1)):(child.name="?",child.raw=tag.slice(1,-1)),appendChild(child);break;case"!":"DOCTYPE"===tag.slice(1,8)?(child.name="!DOCTYPE",child.raw=tag.slice(9)):"[CDATA["===tag.slice(1,8)&&"]]"===tag.slice(-2)?(child.name="!CDATA",child.raw=tag.slice(9,-2)):(child.name="!",child.raw=tag.slice(1)),appendChild(child);break;default:if(child=function(tag){const elem={children:[]};tag=tag.replace(/\s*\/?$/,"");const pos=tag.search(/[\s='"\/]/);pos<0?elem.name=tag:(elem.name=tag.substr(0,pos),elem.tag=tag.substr(pos));return elem}(tag),appendChild(child),"/"===tag.slice(-1))delete child.children;else stack.push(elem),elem=child}}function appendText(str){(str=function(str){return str?.replace?.(/^(\r\n|\r|\n|\t)+|(\r\n|\r|\n|\t)+$/g,"")}(str))&&appendChild(unescapeXML(str))}function appendChild(child){elem.children.push(child)}}(xml),reviver);return json;function fromPlist(elem,reviver){let object;switch(typeof elem){case"string":case"undefined":object=elem;break;case"object":const name=elem.name,children=elem.children;switch(object={},name){case"plist":let plist=fromPlist(children[0],reviver);object=Object.assign(object,plist);break;case"dict":let dict=children.map((child=>fromPlist(child,reviver)));dict=function(source,length){var index=0,target=[];for(;index<source.length;)target.push(source.slice(index,index+=length));return target}(dict,2),object=Object.fromEntries(dict);break;case"array":Array.isArray(object)||(object=[]),object=children.map((child=>fromPlist(child,reviver)));break;case"key":object=children[0];break;case"true":case"false":const boolean=name;object=JSON.parse(boolean);break;case"integer":const integer=children[0];object=BigInt(integer);break;case"real":const real=children[0];object=parseFloat(real);break;case"string":object=children[0]}reviver&&(object=reviver(name||"",object))}return object}function unescapeXML(str){return str.replace(/(&(?:lt|gt|amp|apos|quot|#(?:\d{1,6}|x[0-9a-fA-F]{1,5}));)/g,(function(str){if("#"===str[1]){const code="x"===str[2]?parseInt(str.substr(3),16):parseInt(str.substr(2),10);if(code>-1)return String.fromCharCode(code)}return UNESCAPE[str]||str}))}}stringify(json=new Object,tab=""){this.#ESCAPE;const ATTRIBUTE_KEY=this.#ATTRIBUTE_KEY,CHILD_NODE_KEY=this.#CHILD_NODE_KEY;let XML="";for(let elem in json)XML+=toXml(json[elem],elem,"");return XML=tab?XML.replace(/\t/g,tab):XML.replace(/\t|\n/g,""),XML;function toXml(Elem,Name,Ind){let xml="";switch(typeof Elem){case"object":if(Array.isArray(Elem))xml=Elem.reduce(((prevXML,currXML)=>prevXML+`${Ind}${toXml(currXML,Name,`${Ind}\t`)}\n`),"");else{let attribute="",hasChild=!1;for(let name in Elem)name[0]===ATTRIBUTE_KEY?(attribute+=` ${name.substring(1)}="${Elem[name].toString()}"`,delete Elem[name]):void 0===Elem[name]?Name=name:hasChild=!0;if(xml+=`${Ind}<${Name}${attribute}${hasChild?"":"/"}>`,hasChild){if("plist"===Name)xml+=toPlist(Elem,Name,`${Ind}\t`);else for(let name in Elem)if(name===CHILD_NODE_KEY)xml+=Elem[name];else xml+=toXml(Elem[name],name,`${Ind}\t`);xml+=("\n"===xml.slice(-1)?Ind:"")+`</${Name}>`}}break;case"string":switch(Name){case"?xml":xml+=`${Ind}<${Name} ${Elem.toString()}?>\n`;break;case"?":xml+=`${Ind}<${Name}${Elem.toString()}${Name}>`;break;case"!":xml+=`${Ind}\x3c!--${Elem.toString()}--\x3e`;break;case"!DOCTYPE":xml+=`${Ind}<!DOCTYPE ${Elem.toString()}>`;break;case"!CDATA":xml+=`${Ind}<![CDATA[${Elem.toString()}]]>`;case CHILD_NODE_KEY:xml+=Elem;break;default:xml+=`${Ind}<${Name}>${Elem.toString()}</${Name}>`}break;case"undefined":xml+=Ind+`<${Name.toString()}/>`}return xml}function toPlist(Elem,Name,Ind){let plist="";switch(typeof Elem){case"boolean":plist=`${Ind}<${Elem.toString()}/>`;break;case"number":plist=`${Ind}<real>${Elem.toString()}</real>`;break;case"bigint":plist=`${Ind}<integer>${Elem.toString()}</integer>`;break;case"string":plist=`${Ind}<string>${Elem.toString()}</string>`;break;case"object":let array="";if(Array.isArray(Elem)){for(var i=0,n=Elem.length;i<n;i++)array+=`${Ind}${toPlist(Elem[i],Name,`${Ind}\t`)}`;plist=`${Ind}<array>${array}${Ind}</array>`}else{let dict="";Object.entries(Elem).forEach((([key,value])=>{dict+=`${Ind}<key>${key}</key>`,dict+=toPlist(value,key,Ind)})),plist=`${Ind}<dict>${dict}${Ind}</dict>`}}return plist}}}(opts)}

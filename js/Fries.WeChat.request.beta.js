@@ -1,8 +1,8 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: WeChat v0.1.0(2) request.beta");
-const URL = new URLs();
+const $ = new Env("🍟 GetSomeFries: WeChat v0.1.1(1) request.beta");
+const URI = new URIs();
 const DataBase = {
 	"WeChat":{
 		"Settings":{"Switch":true}
@@ -17,12 +17,13 @@ let $response = undefined;
 
 /***************** Processing *****************/
 // 解构URL
-let url = URL.parse($request?.url);
+const URL = URI.parse($request.url);
+$.log(`⚠ ${$.name}`, `URL: ${JSON.stringify(URL)}`, "");
 // 获取连接参数
-const METHOD = $request?.method, HOST = url?.host, PATH = url?.path, PATHs = url?.paths;
-$.log(`⚠ ${$.name}`, `METHOD: ${METHOD}`, `HOST: ${HOST}`, `PATH: ${PATH}`, `PATHs: ${PATHs}`, "");
+const METHOD = $request.method, HOST = URL.host, PATH = URL.path, PATHs = URL.paths;
+$.log(`⚠ ${$.name}`, `METHOD: ${METHOD}`, "");
 // 解析格式
-const FORMAT = ($request?.headers?.["Content-Type"] ?? $request?.headers?.["content-type"])?.split(";")?.[0];
+const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 (async () => {
 	const { Settings, Caches, Configs } = setENV("GetSomeFries", "WeChat", DataBase);
@@ -49,6 +50,10 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "application/x-mpegURL":
 						case "application/x-mpegurl":
 						case "application/vnd.apple.mpegurl":
+						case "audio/mpegurl":
+							//body = M3U8.parse($request.body);
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							//$request.body = M3U8.stringify(body);
 							break;
 						case "text/xml":
 						case "text/html":
@@ -70,14 +75,19 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							break;
 						case "text/vtt":
 						case "application/vtt":
+							//body = VTT.parse($request.body);
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							//$request.body = VTT.stringify(body);
 							break;
 						case "text/json":
 						case "application/json":
-							//body = JSON.parse($request.body);
-							//$.log(body);
+							//body = JSON.parse($request.body ?? "{}");
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							//$request.body = JSON.stringify(body);
 							break;
+						case "application/protobuf":
 						case "application/x-protobuf":
+						case "application/vnd.google.protobuf":
 						case "application/grpc":
 						case "application/grpc+proto":
 						case "applecation/octet-stream":
@@ -89,24 +99,29 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				case "OPTIONS":
 				case undefined: // QX牛逼，script-echo-response不返回method
 				default:
+					let newURL = {};
 					// 路径判断
 					switch (PATH) {
 						case "cgi-bin/mmsupport-bin/readtemplate":
-							if (url?.query?.url) url = URL.parse(decodeURIComponent(url.query.url));
+							if (URL.query?.url) newURL = URI.parse(decodeURIComponent(URL.query.url));
 							break;
 						case "cgi-bin/mmspamsupport-bin/newredirectconfirmcgi":
-							if (url?.query?.url) url = URL.parse(decodeURIComponent(url.query.url));
+							if (URL.query?.url) newURL = URI.parse(decodeURIComponent(URL.query.url));
 							//$request.url = "https://mp.weixin.qq.com/mp/spredirect?url=" + body?.redirect_url;
 							break;
 					};
-					if ($request?.headers?.Host) $request.headers.Host = url.host;
-					$request.url = URL.stringify(url);
-					$.log(`🚧 ${$.name}, 调试信息`, `$request.url: ${$request.url}`, "");
+					URI.scheme = newURL?.scheme ?? URI.scheme ?? "https";
+					URI.host = newURL?.host ?? URI.host ?? "mp.weixin.qq.com";
+					URI.path = newURL?.path ?? URI.path ?? "/mp/spredirect";
+					URI.query = newURL?.query ?? URL.query ?? {};
 					break;
 				case "CONNECT":
 				case "TRACE":
 					break;
 			};
+			if ($request.headers?.Host) $request.headers.Host = URL.host;
+			$request.url = URI.stringify(URL);
+			$.log(`🚧 ${$.name}, 调试信息`, `$request.url: ${$request.url}`, "");
 			break;
 		case false:
 			break;
@@ -116,7 +131,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 	.finally(() => {
 		switch ($response) {
 			default: { // 有构造回复数据，返回构造的回复数据
-				//const FORMAT = ($response?.headers?.["Content-Type"] ?? $response?.headers?.["content-type"])?.split(";")?.[0];
+				const FORMAT = ($response?.headers?.["Content-Type"] ?? $response?.headers?.["content-type"])?.split(";")?.[0];
 				$.log(`🎉 ${$.name}, finally`, `echo $response`, `FORMAT: ${FORMAT}`, "");
 				//$.log(`🚧 ${$.name}, finally`, `echo $response: ${JSON.stringify($response)}`, "");
 				if ($response?.headers?.["Content-Encoding"]) $response.headers["Content-Encoding"] = "identity";
@@ -135,10 +150,12 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							// 返回普通数据
 							$.done({ status: $response.status, headers: $response.headers, body: $response.body });
 							break;
+						case "application/protobuf":
 						case "application/x-protobuf":
+						case "application/vnd.google.protobuf":
 						case "application/grpc":
 						case "application/grpc+proto":
-						//case "applecation/octet-stream":
+						case "applecation/octet-stream":
 							// 返回二进制数据
 							//$.log(`${$response.bodyBytes.byteLength}---${$response.bodyBytes.buffer.byteLength}`);
 							$.done({ status: $response.status, headers: $response.headers, bodyBytes: $response.bodyBytes });
@@ -161,7 +178,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							// 返回普通数据
 							$.done({ url: $request.url, headers: $request.headers, body: $request.body })
 							break;
+						case "application/protobuf":
 						case "application/x-protobuf":
+						case "application/vnd.google.protobuf":
 						case "application/grpc":
 						case "application/grpc+proto":
 						case "applecation/octet-stream":
@@ -211,7 +230,7 @@ function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==
  * @param {Object} database - Default Database
  * @return {Object} { Settings, Caches, Configs }
  */
-function getENV(key,names,database){let BoxJs=$.getjson(key,database),Argument={};if("undefined"!=typeof $argument&&Boolean($argument)){let arg=Object.fromEntries($argument.split("&").map((item=>item.split("="))));for(let item in arg)setPath(Argument,item,arg[item])}const Store={Settings:database?.Default?.Settings||{},Configs:database?.Default?.Configs||{},Caches:{}};Array.isArray(names)||(names=[names]);for(let name of names)Store.Settings={...Store.Settings,...database?.[name]?.Settings,...BoxJs?.[name]?.Settings,...Argument},Store.Configs={...Store.Configs,...database?.[name]?.Configs},BoxJs?.[name]?.Caches&&"string"==typeof BoxJs?.[name]?.Caches&&(BoxJs[name].Caches=JSON.parse(BoxJs?.[name]?.Caches)),Store.Caches={...Store.Caches,...BoxJs?.[name]?.Caches};return function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}(Store.Settings,((key,value)=>("true"===value||"false"===value?value=JSON.parse(value):"string"==typeof value&&(value?.includes(",")?value=value.split(","):value&&!isNaN(value)&&(value=parseInt(value,10))),value))),Store;function setPath(object,path,value){path.split(".").reduce(((o,p,i)=>o[p]=path.split(".").length===++i?value:o[p]||{}),object)}}
+function getENV(key,names,database){let BoxJs=$.getjson(key,database),Argument={};if("undefined"!=typeof $argument&&Boolean($argument)){let arg=Object.fromEntries($argument.split("&").map((item=>item.split("="))));for(let item in arg)setPath(Argument,item,arg[item])}const Store={Settings:database?.Default?.Settings||{},Configs:database?.Default?.Configs||{},Caches:{}};Array.isArray(names)||(names=[names]);for(let name of names)Store.Settings={...Store.Settings,...database?.[name]?.Settings,...Argument,...BoxJs?.[name]?.Settings},Store.Configs={...Store.Configs,...database?.[name]?.Configs},BoxJs?.[name]?.Caches&&"string"==typeof BoxJs?.[name]?.Caches&&(BoxJs[name].Caches=JSON.parse(BoxJs?.[name]?.Caches)),Store.Caches={...Store.Caches,...BoxJs?.[name]?.Caches};return function traverseObject(o,c){for(var t in o){var n=o[t];o[t]="object"==typeof n&&null!==n?traverseObject(n,c):c(t,n)}return o}(Store.Settings,((key,value)=>("true"===value||"false"===value?value=JSON.parse(value):"string"==typeof value&&(value=value.includes(",")?value.split(",").map((item=>string2number(item))):string2number(value)),value))),Store;function setPath(object,path,value){path.split(".").reduce(((o,p,i)=>o[p]=path.split(".").length===++i?value:o[p]||{}),object)}function string2number(string){return string&&!isNaN(string)&&(string=parseInt(string,10)),string}}
 
-// https://github.com/VirgilClyne/GetSomeFries/blob/main/function/URL/URLs.embedded.min.js
-function URLs(t){return new class{constructor(t=[]){this.name="URL v1.2.2",this.opts=t,this.json={scheme:"",host:"",path:"",type:"",query:{}}}parse(t){let s=t.match(/(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/)?.groups??null;return s?.path?s.paths=s?.path?.split("/"):s.path="",s?.paths&&(s.type=s?.paths?.[s?.paths?.length-1]?.split(".")?.[1]),s?.query&&(s.query=Object.fromEntries(s.query.split("&").map((t=>t.split("="))))),s}stringify(t=this.json){let s="";return t?.scheme&&t?.host&&(s+=t.scheme+"://"+t.host),t?.path&&(s+=t?.host?"/"+t.path:t.path),t?.query&&(s+="?"+Object.entries(t.query).map((t=>t.join("="))).join("&")),s}}(t)}
+// https://github.com/VirgilClyne/GetSomeFries/blob/main/function/URI/URIs.embedded.min.js
+function URIs(t){return new class{constructor(t=[]){this.name="URI v1.2.6",this.opts=t,this.json={scheme:"",host:"",path:"",query:{}}}parse(t){let s=t.match(/(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/)?.groups??null;if(s?.path?s.paths=s.path.split("/"):s.path="",s?.paths){const t=s.paths[s.paths.length-1];if(t?.includes(".")){const e=t.split(".");s.format=e[e.length-1]}}return s?.query&&(s.query=Object.fromEntries(s.query.split("&").map((t=>t.split("="))))),s}stringify(t=this.json){let s="";return t?.scheme&&t?.host&&(s+=t.scheme+"://"+t.host),t?.path&&(s+=t?.host?"/"+t.path:t.path),t?.query&&(s+="?"+Object.entries(t.query).map((t=>t.join("="))).join("&")),s}}(t)}
