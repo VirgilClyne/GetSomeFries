@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.0(6) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.0(11) response.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -44,6 +44,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				case "text/plain":
 				case "text/html":
 				default:
+					$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 					break;
 				case "application/x-mpegURL":
 				case "application/x-mpegurl":
@@ -79,23 +80,83 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "get_domains/v8/":
                         case "get_domains/v9/":
                             $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-                            /*
-                            if (body?.data?.force_http11_wildchar_hosts) body.data.force_http11_wildchar_hosts.push("*.tiktokv.com");
-                            else {
+							$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-config"]: ${$response.headers?.["x-tt-tnc-config"]}`, "");
+							delete $response.headers?.["x-tt-tnc-config"];
+
+							if (body?.data?.client_key_config) delete body.data.client_key_config;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.client_key_config 不存在`, "");
+							
+                            if (body?.data?.force_http11_wildchar_hosts) {
+								//body.data.force_http11_wildchar_hosts.push("*.tiktokv.com");
+								delete body.data.force_http11_wildchar_hosts;
+							} else {
                                 $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.force_http11_wildchar_hosts 不存在`, "");
-                                body.data.force_http11_wildchar_hosts = ["*.tiktokv.com"];
+                                //body.data.force_http11_wildchar_hosts = ["*.tiktokv.com"];
                             };
-                            body.data.ttnet_http_dns_enabled = 0;
+							
+							if (body?.data?.ios_downloader) delete body.data.ios_downloader;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ios_downloader 不存在`, "");
+
+							if (body?.data?.send_tnc_host_arrays) delete body.data.send_tnc_host_arrays;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.send_tnc_host_arrays 不存在`, "");
+
+							if (body?.data?.share_cookie_host_list) delete body.data.share_cookie_host_list;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.share_cookie_host_list 不存在`, "");
+
                             if (body?.data?.tnc_config) {
                                 body.data.tnc_config.detect_enable = 1;
                                 //body.data.tnc_config.local_enable = 0;
                             } else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tnc_config 不存在`, "");
+
                             if (body?.data?.ttnet_fake_network_detect_config) body.data.ttnet_fake_network_detect_config.detect_enable = 0;
                             else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_fake_network_detect_config 不存在`, "");
-                            //if (body?.data?.ttnet_h2_config) delete body.data.ttnet_h2_config;
-                            //else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_h2_config 不存在`, "");
-                            */
+
+							if (body?.data?.tt_ssl_config) {
+								body.data.tt_ssl_config.enable_file_cache = 0;
+								delete body.data.tt_ssl_config?.file_cache_whitelist;
+							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tt_ssl_config 不存在`, "");
+
+							if (body?.data?.ttnet_dispatch_actions) {
+								delete body.data.ttnet_dispatch_actions;
+								//body.data.ttnet_dispatch_actions.unshift({ "act_priority": 2001, "action": "dispatch", "desc": "skip frontier", "param": { "contain_group": ["/ws"], "dispatch_strategy": 0, "host_group": ["*frontier*"] }, "rule_id": 45227, "set_req_priority": 3000, "sign": "b2348456716f024522c08d88f6fb2fcc" })
+							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_dispatch_actions 不存在`, "");
+                            
+                            if (body?.data?.ttnet_h2_config) delete body.data.ttnet_h2_config;
+                            else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_h2_config 不存在`, "");
+
+							body.data.ttnet_h2_enabled = 0;
+
+							if (body?.data?.ttnet_http_dns_addr) delete body.data.ttnet_http_dns_addr;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_http_dns_addr 不存在`, "");
+
+							body.data.ttnet_http_dns_enabled = 0;
+
+							if (body?.data?.ttnet_preconnect_urls) delete body.data.ttnet_preconnect_urls;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_preconnect_urls 不存在`, "");
+
+							if (body?.data?.ttnet_quic_enabled) body.data.ttnet_quic_enabled = 0;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_enabled 不存在`, "");
+
+							if (body?.data?.ttnet_quic_hint) delete body.data.ttnet_quic_hint;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_hint 不存在`, "");
+
+							if(body?.data?.ttnet_quic_internal_param) delete body.data.ttnet_quic_internal_param;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_internal_param 不存在`, "");
+
+							if (body?.data?.ttnet_tt_http_dns) body.data.ttnet_tt_http_dns = 0;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_tt_http_dns 不存在`, "");
+
+							if (body.data?.ttnet_url_dispatcher_enabled) body.data.ttnet_url_dispatcher_enabled = 0;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_url_dispatcher_enabled 不存在`, "");
+
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                             break;
+						case "service/settings/v3/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							body = {};
+						case "aweme/v1/cmpl/set/settings/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							//body = {};
                         default:
                             $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                             break;

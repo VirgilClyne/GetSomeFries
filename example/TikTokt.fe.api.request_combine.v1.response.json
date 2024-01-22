@@ -1,0 +1,117 @@
+{
+	"status_code": 0,
+	"status_message": "",
+	"data": {
+		"/aweme/v1/rate/settings/": {
+			"http_code": 200,
+			"content_type": "application/json; charset=utf-8",
+			"body": {
+				"adaptive_gear_group": { "bitrate_range": [200000, 2500000], "default_bitrate": 800000, "default_gear_name": "adapt_720", "gear_group": ["adapt_720", "normal_540", "lower_540", "lowest_540", "normal_480"] },
+				"auto_bitrate_params": { "min_bitrate": 200000, "param_a": 0, "param_b": 9.6104e-9, "param_c": 0.29429, "param_d": -175870 },
+				"auto_bitrate_params_live": { "min_bitrate": 200000, "param_a": 0, "param_b": 9.6104e-9, "param_c": 0.29429, "param_d": -175870 },
+				"default_gear_group": "adaptive_gear_group",
+				"definition_gear_group": { "bitrate_range": null, "default_gear_name": "normal", "gear_group": ["normal_720", "lower_720"] },
+				"extra": { "fatal_item_ids": [], "logid": "20240122090340DC3885490DC7E2023556", "now": 1705914221000 },
+				"flow_gear_group": { "bitrate_range": null, "default_gear_name": "lower_720", "gear_group": ["lower_720", "lowest_720"] },
+				"gear_set": [
+					{ "bit_rate": 200000, "network_lower": 0, "network_upper": 150 },
+					{ "bit_rate": 300000, "network_lower": 100, "network_upper": 200 },
+					{ "bit_rate": 600000, "network_lower": 150, "network_upper": 250 },
+					{ "bit_rate": 800000, "network_lower": 200, "network_upper": 300 },
+					{ "bit_rate": 1200000, "network_lower": 250, "network_upper": 400 },
+					{ "bit_rate": 1600000, "network_lower": 300, "network_upper": 500 },
+					{ "bit_rate": 2400000, "network_lower": 400, "network_upper": 700 },
+					{ "bit_rate": 3200000, "network_lower": 600, "network_upper": 900 },
+					{ "bit_rate": 4000000, "network_lower": 800, "network_upper": 268000 }
+				],
+				"log_pb": { "impr_id": "20240122090340DC3885490DC7E2023556" },
+				"player_type_v2": { "bytevc1_decode_type": 1, "h264_decode_type": 1, "player_type": 0 },
+				"status_code": 0,
+				"status_msg": ""
+			}
+		},
+		"/aweme/v1/user/settings/": { "http_code": 200, "content_type": "application/json", "body": {} },
+		"/aweme/v2/platform/share/settings/": {
+			"http_code": 200,
+			"content_type": "application/json; charset=utf-8",
+			"body": {
+				"extra": { "fatal_item_ids": [], "logid": "20240122090340DC3885490DC7E2023556", "now": 1705914221000 },
+				"log_pb": { "impr_id": "20240122090340DC3885490DC7E2023556" },
+				"press_actions": [{ "action_id": "bc_view_insights" }, { "action_id": "ad_personalization_new" }, { "action_id": "report" }, { "action_id": "dislike" }, { "action_id": "save" }, { "action_id": "share_to_story" }, { "action_id": "prompt_customize_fyp" }, { "action_id": "manage_feed" }, { "action_id": "promote_for_others_fyp" }, { "action_id": "save_photo" }, { "action_id": "translation" }, { "action_id": "play_list" }, { "action_id": "captions" }, { "action_id": "clear_mode" }, { "action_id": "auto_scroll" }, { "action_id": "favorite" }, { "action_id": "gift" }, { "action_id": "playback_speed" }, { "action_id": "bc_remove_tag" }, { "action_id": "picture_in_picture" }, { "action_id": "mute_their_posts" }, { "action_id": "danmaku" }],
+				"share_actions": [{ "action_id": "video_tag_remove" }, { "action_id": "bc_view_insights" }, { "action_id": "insight" }, { "action_id": "campaign_detail" }, { "action_id": "ad_personalization_new" }, { "action_id": "report" }, { "action_id": "mute_their_posts" }, { "action_id": "dislike" }, { "action_id": "save" }, { "action_id": "prompt_customize_fyp" }, { "action_id": "manage_feed" }, { "action_id": "casting" }, { "action_id": "why_this_video" }, { "action_id": "promote_for_others_fyp" }, { "action_id": "now_save" }, { "action_id": "save_no_watermark" }, { "action_id": "save_photo" }, { "action_id": "top" }, { "action_id": "promote" }, { "action_id": "play_list" }, { "action_id": "reuse_sticker" }, { "action_id": "reuse_mv_template" }, { "action_id": "status" }, { "action_id": "green_screen" }, { "action_id": "captions" }, { "action_id": "promote_for_others" }, { "action_id": "share_to_story" }, { "action_id": "duet" }, { "action_id": "stitch" }, { "action_id": "create_sticker" }, { "action_id": "clear_mode" }, { "action_id": "auto_scroll" }, { "action_id": "react" }, { "action_id": "favorite" }, { "action_id": "gift" }, { "action_id": "playback_speed" }, { "action_id": "manage_captions" }, { "action_id": "video_tag_edit" }, { "action_id": "edit_post" }, { "action_id": "replace_sound" }, { "action_id": "privacy" }, { "action_id": "remove_ugc_template" }, { "action_id": "live_photo" }, { "action_id": "gif" }, { "action_id": "ad_settings" }, { "action_id": "delete" }, { "action_id": "ad_plan" }, { "action_id": "bc_remove_tag" }, { "action_id": "suggest_en_edit" }, { "action_id": "picture_in_picture" }, { "action_id": "ad_personalization" }, { "action_id": "podcast" }, { "action_id": "qr_code" }, { "action_id": "real_time" }, { "action_id": "danmaku" }],
+				"share_gif_platforms": [
+					{ "platform_id": "sms", "platform_name": "SMS" },
+					{ "platform_id": "whatsapp", "platform_name": "WhatsApp" },
+					{ "platform_id": "more", "platform_name": "Others" }
+				],
+				"share_platforms": [
+					{ "platform_id": "feedback", "platform_name": "Feedback" },
+					{ "platform_id": "general_qr_code", "platform_name": "GeneralQrCode" },
+					{ "platform_id": "repost", "platform_name": "Repost" },
+					{ "platform_id": "holiday", "platform_name": "Holiday" },
+					{ "platform_id": "sms", "platform_name": "SMS" },
+					{ "platform_id": "snapchat", "platform_name": "Snapchat" },
+					{ "platform_id": "snapchat_chats", "platform_name": "SnapchatChats" },
+					{ "platform_id": "whatsapp", "platform_name": "WhatsApp" },
+					{ "platform_id": "messenger", "platform_name": "Messenger" },
+					{ "platform_id": "chat_merge", "platform_name": "TIKTOK_IM" },
+					{ "platform_id": "instagram_dm", "platform_name": "InstagramDirect" },
+					{ "platform_id": "instagram", "platform_name": "Instagram" },
+					{ "platform_id": "copy", "platform_name": "COPY" },
+					{ "platform_id": "instagram_story", "platform_name": "InstagramStory" },
+					{ "platform_id": "facebook", "platform_name": "Facebook" },
+					{ "platform_id": "whatsapp_status", "platform_name": "whatsapp_status" },
+					{ "platform_id": "email", "platform_name": "Email" },
+					{ "platform_id": "twitter", "platform_name": "Twitter" },
+					{ "platform_id": "telegram", "platform_name": "telegram" },
+					{ "platform_id": "viber", "platform_name": "Viber" },
+					{ "platform_id": "facebook_lite", "platform_name": "FacebookLite" },
+					{ "platform_id": "messenger_lite", "platform_name": "MessengerLite" },
+					{ "platform_id": "line", "platform_name": "Line" },
+					{ "platform_id": "vk", "platform_name": "VK" },
+					{ "platform_id": "kakaotalk", "platform_name": "KakaoTalk" },
+					{ "platform_id": "qr_code", "platform_name": "QR_CODE" },
+					{ "platform_id": "reddit", "platform_name": "Reddit" },
+					{ "platform_id": "zalo", "platform_name": "zalo" },
+					{ "platform_id": "more", "platform_name": "Others" },
+					{ "platform_id": "personal_qr_code", "platform_name": "PersonalQrCode" }
+				],
+				"share_settings_biz_config": { "enable_silent_share_lemon8": false },
+				"status_code": 0,
+				"status_msg": ""
+			}
+		},
+		"/aweme/v1/compliance/settings/": {
+			"http_code": 200,
+			"content_type": "application/json; charset=utf-8",
+			"body": {
+				"device_limit_register_expired": true,
+				"interface_control_settings": "{\"rules\":null,\"use_new_control\":true,\"user_type\":\"-1\",\"version\":\"11\"}",
+				"ad_personality_settings": { "need_pop_up": false, "pers_ad_data_received_partner_mode": 0, "pers_ad_show_data_received_partner": false, "att_status": 255, "unified_mode": 0, "mode": 0, "is_follow_sys_config": false, "is_show_settings": false, "pers_ad_third_party_networks_mode": 0, "pers_ad_show_third_party_networks": false, "limit_ad_tracking": false, "is_np_user": 1, "pa_revising_switch": false },
+				"age_gate_info": { "register_age_gate_action": 1, "age_gate_action": 0, "age_gate_post_action": 0 },
+				"policy_notice_enable": true,
+				"status_code": 0,
+				"parental_guardian_name": "家长控制",
+				"commercial_content_library_url": "https://www.tiktok.com/adlibrary",
+				"policy_info_list": [
+					{ "policy_key": "privacy-policy", "policy_url": "https://www.tiktok.com/legal/privacy-policy" },
+					{ "policy_key": "terms-of-service", "policy_url": "https://www.tiktok.com/legal/terms-of-service" },
+					{ "policy_key": "tiktok-shoutouts-user-terms-of-service", "policy_url": "https://www.tiktok.com/legal/tiktok-shoutouts-user-terms-of-service" },
+					{ "policy_key": "cookie-policy", "policy_url": "https://www.tiktok.com/legal/cookie-policy" },
+					{ "policy_key": "virtual-items", "policy_url": "https://www.tiktok.com/legal/virtual-items" },
+					{ "policy_key": "rewards-policy-eea", "policy_url": "https://www.tiktok.com/legal/rewards-policy-eea" },
+					{ "policy_key": "privacy-policy-for-younger-users", "policy_url": "https://www.tiktok.com/legal/privacy-policy-for-younger-users" },
+					{ "policy_key": "copyright-policy", "policy_url": "https://www.tiktok.com/legal/copyright-policy" },
+					{ "policy_key": "changes-to-personalised-advertising-in-the-eea", "policy_url": "https://www.tiktok.com/legal/changes-to-personalised-advertising-in-the-eea" }
+				],
+				"about_privacy_policy_url": "https://www.tiktok.com/legal/privacy-policy-row",
+				"cmpl_enc": "UNKNOWN",
+				"log_pb": { "impr_id": "20240122090340DC3885490DC7E2023556" },
+				"idfa_popup_allow": false,
+				"extra": { "now": 1705914221000, "fatal_item_ids": [], "logid": "20240122090340DC3885490DC7E2023556" }
+			}
+		},
+		"/service/settings/v3/": { "http_code": 429, "content_type": "application/json", "body": { "err_msg": "触发过载保护" } },
+		"/aweme/v1/notice/count/": { "http_code": 200, "content_type": "application/json", "body": {} }
+	}
+}

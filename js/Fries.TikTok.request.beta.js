@@ -1,7 +1,7 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.0(6) request.beta");
+const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.0(8) request.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -50,6 +50,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "text/html":
 						case "text/plain":
 						default:
+                            $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						case "application/x-mpegURL":
 						case "application/x-mpegurl":
@@ -77,9 +78,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							break;
 						case "text/json":
 						case "application/json":
-							//body = JSON.parse($request.body ?? "{}");
-							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							//$request.body = JSON.stringify(body);
+							body = JSON.parse($request.body ?? "{}");
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							$request.body = JSON.stringify(body);
 							break;
 						case "application/protobuf":
 						case "application/x-protobuf":
@@ -105,7 +106,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "get_domains/v9/":
                             $.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query.cronet_version}`, "");
                             $.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query.ttnet_version}`, "");
-                            $request.headers["local-etag"] = "0";
+                            //$request.headers["local-etag"] = "0";
                             delete $request.headers?.["x-tt-tnc-summary"];
                         default:
                             if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
