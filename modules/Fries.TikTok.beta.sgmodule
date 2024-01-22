@@ -1,0 +1,17 @@
+#!name=🍟 Fries: ♪ TikTok β
+#!desc=(BETA) TikTok解锁与增强
+#!openUrl=http://boxjs.com/#/app/GetSomeFries.TikTok.beta
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/TikTok
+#!manual=https://github.com/VirgilClyne/GetSomeFries/wiki/TikTok
+#!icon=https://github.com/Koolson/Qure/raw/master/IconSet/Color/TikTok.png
+#!category=🍟 Fries
+#!arguments=CountryCode:US,MCC:310,MNC:260
+#!arguments-desc=CountryCode: 国家或地区代码\nMCC:移动国家代码\nMNC:移动网络代码
+[Script]
+Fries.TikTok.request = type=http-request, pattern=^https?:\/\/(.+)\.tiktokv\.(com|us|eu)\/(.+)\/\?, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.request.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
+Fries.TikTok.get_domains.response = type=http-response, pattern=^https?:\/\/tnc\d+-(platform|normal)-(.+)\.tiktokv\.(com|us|eu)\/get_domains\/v\d+\/\?, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
+Fries.TikTok.response = type=http-response, pattern=^https?:\/\/(.+)\.tiktokv\.(com|us|eu)\/(.+)\/\?, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
+
+[MITM]
+hostname = %APPEND% *.tiktokv.com, *.tiktokv.us, *.tiktokv.eu
