@@ -1,7 +1,7 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.0(8) request.beta");
+const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.0(10) request.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -108,6 +108,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                             $.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query.ttnet_version}`, "");
                             //$request.headers["local-etag"] = "0";
                             delete $request.headers?.["x-tt-tnc-summary"];
+							//delete URL.query;
                         default:
                             if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
                             if (URL.query?.op_region) URL.query.op_region = Settings.CountryCode;
