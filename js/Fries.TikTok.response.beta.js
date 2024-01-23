@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.1(1) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.1(7) response.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -82,19 +82,19 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                             $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 
 							$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-config"]: ${$response.headers?.["x-tt-tnc-config"]}`, "");
-							delete $response.headers?.["x-tt-tnc-config"];
+							//delete $response.headers?.["x-tt-tnc-config"];
 
 							//$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-attr"]: ${$response.headers?.["x-tt-tnc-attr"]}`, "");
 							//delete $response.headers?.["x-tt-tnc-attr"];
 
-							$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-abtest-tag"]: ${$response.headers?.["x-tt-tnc-abtest-tag"]}`, "");
-							delete $response.headers?.["x-tt-tnc-abtest-tag"];
+							//$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-abtest-tag"]: ${$response.headers?.["x-tt-tnc-abtest-tag"]}`, "");
+							//delete $response.headers?.["x-tt-tnc-abtest-tag"];
 
-							$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-abtest"]: ${$response.headers?.["x-tt-tnc-abtest"]}`, "");
-							delete $response.headers?.["x-tt-tnc-abtest"];
+							//$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-abtest"]: ${$response.headers?.["x-tt-tnc-abtest"]}`, "");
+							//delete $response.headers?.["x-tt-tnc-abtest"];
 
-							$.log(`🚧 ${$.name}`, `$response.headers["x-ss-canary"]: ${$response.headers?.["x-ss-canary"]}`, "");
-							delete $response.headers?.["x-ss-canary"];
+							//if ($response.headers?.["x-ss-canary"]) $response.headers?.["x-ss-canary"] = "0";
+							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, $response.headers["x-ss-canary"] 不存在`, "");
 
 							//if (body?.data?.chromium_open) body.data.chromium_open = 0;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.chromium_open 不存在`, "");
@@ -118,15 +118,18 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 
 							//if (body?.data?.http_show_hijack) body.data.http_show_hijack = 0;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.http_show_hijack 不存在`, "");
+							
+							$.log(`🚧 ${$.name}`, `https_retry_http: ${body?.data?.https_retry_http}`, "");
+							body.data.https_retry_http = 1;
 
-							if (body?.data?.https_to_http) body.data.https_to_http = 0;
-							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.https_to_http 不存在`, "");
+							$.log(`🚧 ${$.name}`, `https_to_http: ${body?.data?.https_to_http}`, "");
+							body.data.https_to_http = 1;
 
 							//if (body?.data?.ios_downloader) delete body.data.ios_downloader;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ios_downloader 不存在`, "");
 
-							if (body?.data?.opaque_data_enabled) body.data.opaque_data_enabled = 0;
-							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.opaque_data_enabled 不存在`, "");
+							$.log(`🚧 ${$.name}`, `opaque_data_enabled: ${body?.data?.opaque_data_enabled}`, "");
+							body.data.opaque_data_enabled = 0;
 
 							//if (body?.data?.request_tag_enabled) body.data.request_tag_enabled = 0;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.request_tag_enabled 不存在`, "");
@@ -160,24 +163,26 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                             //if (body?.data?.ttnet_h2_config) delete body.data.ttnet_h2_config;
                             //else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_h2_config 不存在`, "");
 
+							$.log(`🚧 ${$.name}`, `ttnet_h2_enabled: ${body?.data?.ttnet_h2_enabled}`, "");
 							//body.data.ttnet_h2_enabled = 0;
 
 							//if (body?.data?.ttnet_http_dns_addr) delete body.data.ttnet_http_dns_addr;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_http_dns_addr 不存在`, "");
 
-							//body.data.ttnet_http_dns_enabled = 0;
+							$.log(`🚧 ${$.name}`, `ttnet_http_dns_enabled: ${body?.data?.ttnet_http_dns_enabled}`, "");
+							body.data.ttnet_http_dns_enabled = 0;
 
 							//if (body?.data?.ttnet_preconnect_urls) delete body.data.ttnet_preconnect_urls;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_preconnect_urls 不存在`, "");
 
-							if (body?.data?.ttnet_quic_enabled) body.data.ttnet_quic_enabled = 0;
-							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_enabled 不存在`, "");
+							$.log(`🚧 ${$.name}`, `ttnet_quic_enabled: ${body?.data?.ttnet_quic_enabled}`, "");
+							body.data.ttnet_quic_enabled = 0;
 
-							if (body?.data?.ttnet_quic_hint) delete body.data.ttnet_quic_hint;
-							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_hint 不存在`, "");
+							//if (body?.data?.ttnet_quic_hint) delete body.data.ttnet_quic_hint;
+							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_hint 不存在`, "");
 
-							if (body?.data?.ttnet_quic_internal_param) delete body.data.ttnet_quic_internal_param;
-							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_internal_param 不存在`, "");
+							//if (body?.data?.ttnet_quic_internal_param) delete body.data.ttnet_quic_internal_param;
+							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_quic_internal_param 不存在`, "");
 
 							//if (body?.data?.ttnet_request_retry_force_httpdns_v2) delete body.data.ttnet_request_retry_force_httpdns_v2;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_request_retry_force_httpdns_v2 不存在`, "");
@@ -188,8 +193,8 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							//if (body?.data?.ttnet_retry_force_httpdns_white_list) delete body.data.ttnet_retry_force_httpdns_white_list;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_retry_force_httpdns_white_list 不存在`, "");
 
-							//if (body?.data?.ttnet_tt_http_dns) body.data.ttnet_tt_http_dns = 0;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_tt_http_dns 不存在`, "");
+							$.log(`🚧 ${$.name}`, `ttnet_tt_http_dns: ${body?.data?.ttnet_tt_http_dns}`, "");
+							body.data.ttnet_tt_http_dns = 0;
 
 							//if (body.data?.ttnet_url_dispatcher_enabled) body.data.ttnet_url_dispatcher_enabled = 0;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_url_dispatcher_enabled 不存在`, "");
