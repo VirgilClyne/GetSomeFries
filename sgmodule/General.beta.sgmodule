@@ -22,6 +22,6 @@ always-real-ip = %INSERT% *.lan, *.direct, cable.auth.com, *.msftconnecttest.com
 always-raw-tcp-hosts = www.google.com, 91.108.*, 5.28.195.*, 149.154.1*, 185.76.151.*, 91.105.1*
 
 [MITM]
-# 不可MitM也不应该被打断连接的域名
-hostname = %INSERT% -*.facebook.com, -*.instagram.com, -*.twitter.com, -*.tiktokv.com, -*.snssdk.com, -*.pstatp.com
+# 不可 MitM 也不应该被打断连接的域名
+hostname = %INSERT% -*.facebook.com, -*.instagram.com, -*.twitter.com, -*.snssdk.com, -*.pstatp.com
 hostname-disabled = %INSERT% gateway.icloud.com, gateway.icloud.com.cn, weather-data.apple.com, buy.itunes.apple.com
