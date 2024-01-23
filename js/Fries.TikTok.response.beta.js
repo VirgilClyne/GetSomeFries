@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.1(7) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.1(10) response.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -35,7 +35,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 		default:
 			// 获取字幕类型与语言
 			// 创建空数据
-			let body = { "message": "successs", "data": {} };
+			let body = { "data": {}, "message": "successs", "summary": "633f13170d641f15f73710f80b9419eb" };
 			// 格式判断
 			switch (FORMAT) {
 				case undefined: // 视为无body
@@ -44,7 +44,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				case "text/plain":
 				case "text/html":
 				default:
-					$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 					break;
 				case "application/x-mpegURL":
 				case "application/x-mpegurl":
@@ -80,6 +80,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "get_domains/v8/":
                         case "get_domains/v9/":
                             $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+
+							$.log(`🚧 ${$.name}`, `summary: ${body.summary}`, "");
+							//body.summary = "633f13170d641f15f73710f80b9419eb";
 
 							$.log(`🚧 ${$.name}`, `$response.headers["x-tt-tnc-config"]: ${$response.headers?.["x-tt-tnc-config"]}`, "");
 							//delete $response.headers?.["x-tt-tnc-config"];
@@ -146,8 +149,18 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                                 //body.data.tnc_config.local_enable = 0;
                             //} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tnc_config 不存在`, "");
 
-                            //if (body?.data?.ttnet_fake_network_detect_config) body.data.ttnet_fake_network_detect_config.detect_enable = 0;
-                            //else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_fake_network_detect_config 不存在`, "");
+                            if (body?.data?.ttnet_fake_network_detect_config) body.data.ttnet_fake_network_detect_config.detect_enable = 0;
+                            else {
+								$.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_fake_network_detect_config 不存在`, "");
+								body.data.ttnet_fake_network_detect_config = {
+									"bypass_httpdns": 1,
+									"detect_enable": 0,
+									//"detect_hosts": ["api16-core.tiktokv.com", "api22-core.tiktokv.com"],
+									//"detect_result_timeout_ms": 3000,
+									//"detect_timeout_ms": 5000,
+									//"detect_types": [1]
+								};
+							};
 
 							//if (body?.data?.tt_ssl_config) {
 								//delete body.data.tt_ssl_config;
@@ -204,10 +217,15 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                             break;
+						case "passport/auth/only_login/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							break;
 						case "service/settings/v3/":
 							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							break;
 						case "aweme/v1/cmpl/set/settings/":
 							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							break;
                         default:
                             //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                             break;
@@ -221,11 +239,11 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				case "application/grpc+proto":
 				case "applecation/octet-stream":
 					//$.log(`🚧 ${$.name}`, `$response.body: ${JSON.stringify($response.body)}`, "");
-					let rawBody = $.isQuanX() ? new Uint8Array($response.bodyBytes ?? []) : $response.body ?? new Uint8Array();
+					//let rawBody = $.isQuanX() ? new Uint8Array($response.bodyBytes ?? []) : $response.body ?? new Uint8Array();
 					//$.log(`🚧 ${$.name}`, `isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");
 					// 写入二进制数据
-					if ($.isQuanX()) $response.bodyBytes = rawBody
-					else $response.body = rawBody;
+					//if ($.isQuanX()) $response.bodyBytes = rawBody
+					//else $response.body = rawBody;
 					break;
 			};
 			break;

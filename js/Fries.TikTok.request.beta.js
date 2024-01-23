@@ -106,10 +106,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "get_domains/v9/":
                             $.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query.cronet_version}`, "");
                             $.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query.ttnet_version}`, "");
-                            //$request.headers["local-etag"] = "0";
                             delete $request.headers?.["x-tt-tnc-summary"];
-							//delete URL.query;
                         default:
+							$.log(`🚧 ${$.name}, 调试信息`, `mcc_mnc: ${URL.query.mcc_mnc}`, "");
                             if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
                             if (URL.query?.op_region) URL.query.op_region = Settings.CountryCode;
                             if (URL.query?.carrier_region) URL.query.carrier_region = Settings.CountryCode;
