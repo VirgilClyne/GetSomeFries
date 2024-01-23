@@ -50,15 +50,11 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "text/html":
 						case "text/plain":
 						default:
-                            //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						case "application/x-mpegURL":
 						case "application/x-mpegurl":
 						case "application/vnd.apple.mpegurl":
 						case "audio/mpegurl":
-							//body = M3U8.parse($request.body);
-							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							//$request.body = M3U8.stringify(body);
 							break;
 						case "text/xml":
 						case "text/html":
@@ -66,21 +62,12 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "application/xml":
 						case "application/plist":
 						case "application/x-plist":
-							//body = XML.parse($response.body);
-                            //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							//$response.body = XML.stringify(body);
 							break;
 						case "text/vtt":
 						case "application/vtt":
-							//body = VTT.parse($request.body);
-							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							//$request.body = VTT.stringify(body);
 							break;
 						case "text/json":
 						case "application/json":
-							//body = JSON.parse($request.body ?? "{}");
-							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							//$request.body = JSON.stringify(body);
 							break;
 						case "application/protobuf":
 						case "application/x-protobuf":
@@ -106,9 +93,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "get_domains/v9/":
                             $.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query.cronet_version}`, "");
                             $.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query.ttnet_version}`, "");
-                            //$request.headers["local-etag"] = "0";
                             delete $request.headers?.["x-tt-tnc-summary"];
-							//delete URL.query;
                         default:
                             if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
                             if (URL.query?.op_region) URL.query.op_region = Settings.CountryCode;
@@ -137,7 +122,6 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 			default: { // 有构造回复数据，返回构造的回复数据
 				const FORMAT = ($response?.headers?.["Content-Type"] ?? $response?.headers?.["content-type"])?.split(";")?.[0];
 				$.log(`🎉 ${$.name}, finally`, `echo $response`, `FORMAT: ${FORMAT}`, "");
-				//$.log(`🚧 ${$.name}, finally`, `echo $response: ${JSON.stringify($response)}`, "");
 				if ($response?.headers?.["Content-Encoding"]) $response.headers["Content-Encoding"] = "identity";
 				if ($response?.headers?.["content-encoding"]) $response.headers["content-encoding"] = "identity";
 				if ($.isQuanX()) {
@@ -169,9 +153,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				break;
 			};
 			case undefined: { // 无构造回复数据，发送修改的请求数据
-				//const FORMAT = ($request?.headers?.["Content-Type"] ?? $request?.headers?.["content-type"])?.split(";")?.[0];
 				$.log(`🎉 ${$.name}, finally`, `$request`, `FORMAT: ${FORMAT}`, "");
-				//$.log(`🚧 ${$.name}, finally`, `$request: ${JSON.stringify($request)}`, "");
 				if ($.isQuanX()) {
 					switch (FORMAT) {
 						case undefined: // 视为无body
