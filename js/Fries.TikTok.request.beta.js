@@ -50,7 +50,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "text/html":
 						case "text/plain":
 						default:
-                            $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+                            //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						case "application/x-mpegURL":
 						case "application/x-mpegurl":
@@ -78,9 +78,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							break;
 						case "text/json":
 						case "application/json":
-							body = JSON.parse($request.body ?? "{}");
-							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							$request.body = JSON.stringify(body);
+							//body = JSON.parse($request.body ?? "{}");
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							//$request.body = JSON.stringify(body);
 							break;
 						case "application/protobuf":
 						case "application/x-protobuf":

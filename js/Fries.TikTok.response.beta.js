@@ -205,13 +205,11 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                             break;
 						case "service/settings/v3/":
-							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							body = {};
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 						case "aweme/v1/cmpl/set/settings/":
-							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							//body = {};
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                         default:
-                            $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+                            //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                             break;
                     };
 					$response.body = JSON.stringify(body);
