@@ -104,11 +104,11 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
                         case "get_domains/v7/":
                         case "get_domains/v8/":
                         case "get_domains/v9/":
-                            $.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query.cronet_version}`, "");
-                            $.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query.ttnet_version}`, "");
+                            $.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query?.cronet_version}`, "");
+                            $.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query?.ttnet_version}`, "");
                             delete $request.headers?.["x-tt-tnc-summary"];
                         default:
-							$.log(`🚧 ${$.name}, 调试信息`, `mcc_mnc: ${URL.query.mcc_mnc}`, "");
+							$.log(`🚧 ${$.name}, 调试信息`, `mcc_mnc: ${URL.query?.mcc_mnc}`, "");
                             if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
                             if (URL.query?.op_region) URL.query.op_region = Settings.CountryCode;
                             if (URL.query?.carrier_region) URL.query.carrier_region = Settings.CountryCode;
