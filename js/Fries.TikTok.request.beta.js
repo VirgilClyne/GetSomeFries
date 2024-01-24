@@ -1,7 +1,7 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.0(10) request.beta");
+const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.0(17) request.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -47,10 +47,10 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case undefined: // 视为无body
 							break;
 						case "application/x-www-form-urlencoded":
-                        case "text/html":
+						case "text/html":
 						case "text/plain":
 						default:
-                            //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						case "application/x-mpegURL":
 						case "application/x-mpegurl":
@@ -67,7 +67,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "application/plist":
 						case "application/x-plist":
 							//body = XML.parse($response.body);
-                            //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							//$response.body = XML.stringify(body);
 							break;
 						case "text/vtt":
@@ -90,33 +90,86 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "applecation/octet-stream":
 							break;
 					};
-					//break; // 不中断，继续处理URL
+				//break; // 不中断，继续处理URL
 				case "GET":
 				case "HEAD":
 				case "OPTIONS":
 				case undefined: // QX牛逼，script-echo-response不返回method
 				default:
-                    // 路径判断
-                    switch (PATH) {
-                        case "get_domains/v4/":
-                        case "get_domains/v5/":
-                        case "get_domains/v6/":
-                        case "get_domains/v7/":
-                        case "get_domains/v8/":
-                        case "get_domains/v9/":
-                            $.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query?.cronet_version}`, "");
-                            $.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query?.ttnet_version}`, "");
-                            delete $request.headers?.["x-tt-tnc-summary"];
-                        default:
+					// 路径判断
+					switch (PATH) {
+						case "get_domains/v4/":
+						case "get_domains/v5/":
+						case "get_domains/v6/":
+						case "get_domains/v7/":
+						case "get_domains/v8/":
+						case "get_domains/v9/":
+							$.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query?.cronet_version}`, "");
+							$.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query?.ttnet_version}`, "");
+							delete $request.headers?.["x-tt-tnc-summary"];
+						default:
 							$.log(`🚧 ${$.name}, 调试信息`, `mcc_mnc: ${URL.query?.mcc_mnc}`, "");
-                            if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
-                            if (URL.query?.op_region) URL.query.op_region = Settings.CountryCode;
-                            if (URL.query?.carrier_region) URL.query.carrier_region = Settings.CountryCode;
-                            if (URL.query?.carrier_region1) URL.query.carrier_region1 = Settings.CountryCode;
-                            if (URL.query?.current_region) URL.query.current_region = Settings.CountryCode;
-                            if (URL.query?.mcc_mnc) URL.query.mcc_mnc = `${Settings.MCC}${Settings.MNC}`;
-                            break;
-                    };
+							//if (URL.query?.carrier) URL.query.carrier = "Google Fi";
+							//if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
+							if (URL.query?.sim_region) URL.query.sim_region = Settings.CountryCode;
+							if (URL.query?.op_region) URL.query.op_region = Settings.CountryCode;
+							if (URL.query?.carrier_region) URL.query.carrier_region = Settings.CountryCode;
+							//if (URL.query?.carrier_region1) URL.query.carrier_region1 = Settings.CountryCode;
+							if (URL.query?.current_region) URL.query.current_region = Settings.CountryCode;
+							switch (URL.query?.mcc_mnc) {
+								case "46000":
+								case "46001":
+								case "46002":
+								case "46003":
+								case "46004":
+								case "46005":
+								case "46006":
+								case "46007":
+								case "46008":
+								case "46009":
+								case "46010":
+								case "46011":
+								case "46012":
+								case "46013":
+								case "46014":
+								case "46015":
+								case "46016":
+								case "46017":
+								case "46018":
+								case "46019":
+								case "46020":
+									URL.query.mcc_mnc = `${Settings.MCC}${Settings.MNC}`;
+									break;
+								case "45400":
+								case "45401":
+								case "45402":
+								case "45403":
+								case "45404":
+								case "45405":
+								case "45406":
+								case "45407":
+								case "45408":
+								case "45409":
+								case "45410":
+								case "45411":
+								case "45412":
+								case "45413":
+								case "45414":
+								case "45415":
+								case "45416":
+								case "45417":
+								case "45418":
+								case "45419":
+								case "45420":
+								case "45429":
+									URL.query.mcc_mnc = `${Settings.MCC}${Settings.MNC}`;
+									break;
+								case undefined:
+								default:
+									break;
+							};
+							break;
+					};
 					break;
 				case "CONNECT":
 				case "TRACE":

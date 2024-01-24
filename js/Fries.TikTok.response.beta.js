@@ -2,12 +2,12 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.2(7) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.2(11) response.beta");
 const URI = new URIs();
 const DataBase = {
-    "TikTok":{
-        "Settings":{"Switch":true,"CountryCode":"US","MCC":"310","MNC":"260"}
-    },
+	"TikTok":{
+		"Settings":{"Switch":true,"CountryCode":"US","MCC":"310","MNC":"260"}
+	},
 	"WeChat":{
 		"Settings":{"Switch":true}
 	},
@@ -35,7 +35,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 		default:
 			// 获取字幕类型与语言
 			// 创建空数据
-			let body = { "data": {}, "message": "successs", "summary": "633f13170d641f15f73710f80b9419eb" };
+			let body = {};
 			// 格式判断
 			switch (FORMAT) {
 				case undefined: // 视为无body
@@ -73,13 +73,13 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 				case "application/json":
 					body = JSON.parse($response.body ?? "{}");
 					switch (PATH) {
-                        case "get_domains/v4/":
+						case "get_domains/v4/":
 						case "get_domains/v5/":
-                        case "get_domains/v6/":
-                        case "get_domains/v7/":
-                        case "get_domains/v8/":
-                        case "get_domains/v9/":
-                            $.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+						case "get_domains/v6/":
+						case "get_domains/v7/":
+						case "get_domains/v8/":
+						case "get_domains/v9/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 
 							$.log(`🚧 ${$.name}`, `summary: ${body.summary}`, "");
 							//body.summary = "633f13170d641f15f73710f80b9419eb";
@@ -98,30 +98,30 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 
 							//if ($response.headers?.["x-ss-canary"]) $response.headers?.["x-ss-canary"] = "0";
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, $response.headers["x-ss-canary"] 不存在`, "");
+							/*
+							if (body?.data?.chromium_open) body.data.chromium_open = 0;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.chromium_open 不存在`, "");
 
-							//if (body?.data?.chromium_open) body.data.chromium_open = 0;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.chromium_open 不存在`, "");
+							if (body?.data?.client_key_config) delete body.data.client_key_config;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.client_key_config 不存在`, "");
 
-							//if (body?.data?.client_key_config) delete body.data.client_key_config;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.client_key_config 不存在`, "");
+							if (body?.data?.disable_encrypt_switch) body.data.disable_encrypt_switch = 1;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.disable_encrypt_switch 不存在`, "");
 
-							//if (body?.data?.disable_encrypt_switch) body.data.disable_encrypt_switch = 1;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.disable_encrypt_switch 不存在`, "");
+							if (body?.data?.force_http11_wildchar_hosts) {
+								body.data.force_http11_wildchar_hosts.push("*.tiktokv.com");
+								delete body.data.force_http11_wildchar_hosts;
+							} else {
+								$.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.force_http11_wildchar_hosts 不存在`, "");
+								body.data.force_http11_wildchar_hosts = ["*.tiktokv.com"];
+							};
 
-                            //if (body?.data?.force_http11_wildchar_hosts) {
-								//body.data.force_http11_wildchar_hosts.push("*.tiktokv.com");
-								//delete body.data.force_http11_wildchar_hosts;
-							//} else {
-                                //$.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.force_http11_wildchar_hosts 不存在`, "");
-                                //body.data.force_http11_wildchar_hosts = ["*.tiktokv.com"];
-                            //};
+							if (body?.data?.hs_open) body.data.hs_open = 0;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.hs_open 不存在`, "");
 
-							//if (body?.data?.hs_open) body.data.hs_open = 0;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.hs_open 不存在`, "");
-
-							//if (body?.data?.http_show_hijack) body.data.http_show_hijack = 0;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.http_show_hijack 不存在`, "");
-							
+							if (body?.data?.http_show_hijack) body.data.http_show_hijack = 0;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.http_show_hijack 不存在`, "");
+							*/
 							$.log(`🚧 ${$.name}`, `https_retry_http: ${body?.data?.https_retry_http}`, "");
 							body.data.https_retry_http = 1;
 
@@ -133,24 +133,24 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 
 							$.log(`🚧 ${$.name}`, `opaque_data_enabled: ${body?.data?.opaque_data_enabled}`, "");
 							body.data.opaque_data_enabled = 0;
+							/*
+							if (body?.data?.request_tag_enabled) body.data.request_tag_enabled = 0;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.request_tag_enabled 不存在`, "");
 
-							//if (body?.data?.request_tag_enabled) body.data.request_tag_enabled = 0;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.request_tag_enabled 不存在`, "");
+							if (body?.data?.send_tnc_host_arrays) delete body.data.send_tnc_host_arrays;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.send_tnc_host_arrays 不存在`, "");
 
-							//if (body?.data?.send_tnc_host_arrays) delete body.data.send_tnc_host_arrays;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.send_tnc_host_arrays 不存在`, "");
+							if (body?.data?.share_cookie_host_list) delete body.data.share_cookie_host_list;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.share_cookie_host_list 不存在`, "");
 
-							//if (body?.data?.share_cookie_host_list) delete body.data.share_cookie_host_list;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.share_cookie_host_list 不存在`, "");
-
-                            //if (body?.data?.tnc_config) {
-								//delete body.data.tnc_config;
-                                //body.data.tnc_config.detect_enable = 1;
-                                //body.data.tnc_config.local_enable = 0;
-                            //} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tnc_config 不存在`, "");
-
-                            if (body?.data?.ttnet_fake_network_detect_config) body.data.ttnet_fake_network_detect_config.detect_enable = 0;
-                            else {
+							if (body?.data?.tnc_config) {
+								delete body.data.tnc_config;
+								body.data.tnc_config.detect_enable = 1;
+								body.data.tnc_config.local_enable = 0;
+							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tnc_config 不存在`, "");
+							*/
+							if (body?.data?.ttnet_fake_network_detect_config) body.data.ttnet_fake_network_detect_config.detect_enable = 0;
+							else {
 								$.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_fake_network_detect_config 不存在`, "");
 								body.data.ttnet_fake_network_detect_config = {
 									"bypass_httpdns": 1,
@@ -161,23 +161,23 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 									//"detect_types": [1]
 								};
 							};
+							/*
+							if (body?.data?.tt_ssl_config) {
+								delete body.data.tt_ssl_config;
+								body.data.tt_ssl_config.enable_file_cache = 0;
+								delete body.data.tt_ssl_config?.file_cache_whitelist;
+							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tt_ssl_config 不存在`, "");
 
-							//if (body?.data?.tt_ssl_config) {
-								//delete body.data.tt_ssl_config;
-								//body.data.tt_ssl_config.enable_file_cache = 0;
-								//delete body.data.tt_ssl_config?.file_cache_whitelist;
-							//} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tt_ssl_config 不存在`, "");
+							if (body?.data?.ttnet_dispatch_actions) {
+								delete body.data.ttnet_dispatch_actions;
+								body.data.ttnet_dispatch_actions.unshift({ "act_priority": 2001, "action": "dispatch", "desc": "skip frontier", "param": { "contain_group": ["/ws"], "dispatch_strategy": 0, "host_group": ["*frontier*"] }, "rule_id": 45227, "set_req_priority": 3000, "sign": "b2348456716f024522c08d88f6fb2fcc" })
+							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_dispatch_actions 不存在`, "");
 
-							//if (body?.data?.ttnet_dispatch_actions) {
-								//delete body.data.ttnet_dispatch_actions;
-								//body.data.ttnet_dispatch_actions.unshift({ "act_priority": 2001, "action": "dispatch", "desc": "skip frontier", "param": { "contain_group": ["/ws"], "dispatch_strategy": 0, "host_group": ["*frontier*"] }, "rule_id": 45227, "set_req_priority": 3000, "sign": "b2348456716f024522c08d88f6fb2fcc" })
-							//} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_dispatch_actions 不存在`, "");
-                            
-                            //if (body?.data?.ttnet_h2_config) delete body.data.ttnet_h2_config;
-                            //else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_h2_config 不存在`, "");
-
+							if (body?.data?.ttnet_h2_config) delete body.data.ttnet_h2_config;
+							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_h2_config 不存在`, "");
+							*/
 							$.log(`🚧 ${$.name}`, `ttnet_h2_enabled: ${body?.data?.ttnet_h2_enabled}`, "");
-							//body.data.ttnet_h2_enabled = 0;
+							//body.data.ttnet_h2_enabled = 1;
 
 							//if (body?.data?.ttnet_http_dns_addr) delete body.data.ttnet_http_dns_addr;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_http_dns_addr 不存在`, "");
@@ -216,7 +216,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_verify_api_config 不存在`, "");
 
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-                            break;
+							break;
 						case "passport/auth/only_login/":
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
@@ -224,7 +224,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						case "aweme/v1/cmpl/set/settings/":
-							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						case "aweme/v1/aweme/detail/":
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
@@ -252,10 +252,22 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 								return item;
 							});
 							break;
-                        default:
-                            //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-                            break;
-                    };
+						case "aweme/v1/user/profile/other/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							if (!body.user) {
+								body.status_msg = "";
+								body.status_code = 0;
+								$.lodash_set(body, "user.sec_uid", URL.query?.sec_user_id);
+								$.lodash_set(body, "user.uid", URL.query?.user_id);
+							};
+							break;
+						case "aweme/v1/commit/follow/user/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							break;
+						default:
+							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							break;
+					};
 					$response.body = JSON.stringify(body);
 					break;
 				case "application/protobuf":

@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.2(7) response");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.2(11) response");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -35,7 +35,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 		default:
 			// 获取字幕类型与语言
 			// 创建空数据
-			let body = { "data": {}, "message": "successs", "summary": "633f13170d641f15f73710f80b9419eb" };
+			let body = {};
 			// 格式判断
 			switch (FORMAT) {
 				case undefined: // 视为无body
@@ -136,6 +136,18 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 								item.aweme_list = item.aweme_list.map(item => processAwemeList(item)).filter(Boolean);
 								return item;
 							});
+							break;
+						case "aweme/v1/user/profile/other/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							if (!body.user) {
+								body.status_msg = "";
+								body.status_code = 0;
+								$.lodash_set(body, "user.sec_uid", URL.query?.sec_user_id);
+								$.lodash_set(body, "user.uid", URL.query?.user_id);
+							};
+							break;
+						case "aweme/v1/commit/follow/user/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
                         default:
                             break;
