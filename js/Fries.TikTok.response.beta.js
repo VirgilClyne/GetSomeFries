@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.1(10) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.2(3) response.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -226,6 +226,17 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "aweme/v1/cmpl/set/settings/":
 							//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
+						case "aweme/v1/aweme/detail/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							//body.aweme_detail = processAwemeList(body.aweme_detail);
+							break;
+						case "aweme/v1/multi/aweme/detail/":
+						case "tiktok/v1/videos/detail/":
+							body.aweme_details = body.aweme_details.map(item => processAwemeList(item)).filter(Boolean);
+							break;
+						case "aweme/v1/aweme/post/":
+							body.aweme_list = body.aweme_list.map(item => processAwemeList(item)).filter(Boolean);
+							break;
                         default:
                             //$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
                             break;
@@ -308,6 +319,45 @@ function setENV(name, platforms, database) {
 	//$.log(`✅ ${$.name}, Set Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
 	/***************** Configs *****************/
 	return { Settings, Caches, Configs };
+};
+
+function processAwemeList(aweme_detail = {}) {
+	//$.log(`☑️ ${$.name}, process Aweme List`, "");
+	if (!aweme_detail?.is_ads) {
+	//$.log(`🚧 ${$.name}, process Aweme List`, `before aweme_detail: ${JSON.stringify(aweme_detail)}`, "");
+		aweme_detail.prevent_download = false;
+		aweme_detail.without_watermark = true;
+		if (aweme_detail?.video) {
+			aweme_detail.video.has_watermark = false;
+			aweme_detail.video.prevent_download = false;
+			aweme_detail.video.download_addr = aweme_detail.video.play_addr;
+			aweme_detail.video.download_suffix_logo_addr = aweme_detail.video.play_addr;
+			delete aweme_detail.video.misc_download_addrs;
+		};
+		if (aweme_detail?.music) {
+			aweme_detail.music.prevent_download = false;
+		};
+		if (aweme_detail?.aweme_acl) {
+			if (aweme_detail.aweme_acl?.download_general) {
+				aweme_detail.aweme_acl.download_general.code = 0;
+				aweme_detail.aweme_acl.download_general.transcode = 3;
+				aweme_detail.aweme_acl.download_general.mute = false;
+				aweme_detail.aweme_acl.download_general.show_type = 2;
+				delete aweme_detail.aweme_acl.download_general.extra;
+				aweme_detail.aweme_acl.download_mask_panel = aweme_detail.aweme_acl.download_general;
+				aweme_detail.aweme_acl.share_general = aweme_detail.aweme_acl.download_general;
+			}
+		};
+		if (aweme_detail?.video_control) {
+			aweme_detail.video_control.allow_music = true;
+			aweme_detail.video_control.prevent_download_type = 0;
+			aweme_detail.video_control.allow_dynamic_wallpaper = true;
+			aweme_detail.video_control.allow_download = true;
+		};
+		//$.log(`🚧 ${$.name}, process Aweme List`, `after aweme_detail: ${JSON.stringify(aweme_detail)}`, "");
+		return aweme_detail;
+	};
+	//$.log(`✅ ${$.name}, process Aweme List`, "");
 };
 
 /***************** Env *****************/
