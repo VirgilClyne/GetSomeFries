@@ -922,7 +922,7 @@ IP-ASN,140716 // UNICOM 江苏 WuXi IDC network
 IP-ASN,140717 // UNICOM 江苏 Suzhou IDC network
 IP-ASN,140720 // UNICOM 江苏省南通市IDC网络
 IP-ASN,140726 // UNICOM 安徽省 network
-IP-ASN,140731 // TOHU Public Internet
+# IP-ASN,140731 // TOHU Public Internet
 IP-ASN,140852 // CHINATELECOM 江西省 Shengji5G网络
 IP-ASN,140853 // CHINATELECOM 江西省 南昌5G网络
 IP-ASN,140854 // CHINATELECOM 江西省 Jiujiang5G网络
