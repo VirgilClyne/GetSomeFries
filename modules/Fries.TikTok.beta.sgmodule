@@ -10,14 +10,14 @@
 #!arguments-desc=CountryCode: 国家或地区代码\nMCC: 移动国家代码\nMNC: 移动网络代码
 
 [Script]
-Fries.TikTok.request = type=http-request, pattern=^https?:\/\/(.+)\.tiktok(v|cdn)\.(com|us|eu)\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.request.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
+Fries.TikTok.request = type=http-request, pattern=^https?:\/\/(.+)\.tiktokv\.(com|us|eu)\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.request.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
 
 Fries.TikTok.tnc.get_domains.response = type=http-response, pattern=^https?:\/\/tnc(.+)\.tiktokv\.com\/get_domains\/v\d\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
 Fries.TikTok.api.aweme.v2.feed.response = type=http-response, pattern=^https?:\/\/api(.+)\.tiktokv\.com\/aweme\/v2\/feed\/, requires-body=1, binary-body-mode=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
-Fries.TikTok.api.response = type=http-response, pattern=^https?:\/\/api(.+)\.tiktokv\.com\/aweme\/v\d\/, requires-body=1, max-size=1572864, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
-Fries.TikTok.response = type=http-response, pattern=^https?:\/\/(.+)\.tiktok(v|cdn)\.(com|us|eu)\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
+Fries.TikTok.api.response = type=http-response, pattern=^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/, requires-body=1, max-size=1572864, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
+Fries.TikTok.response = type=http-response, pattern=^https?:\/\/(.+)\.tiktokv\.(com|us|eu)\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
 
 Fries.TikTok.request = type=http-request, pattern=^https?:\/\/(.+)\.byteoversea\.com\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/Fries.TikTok.request.beta.js, argument=CountryCode={{{CountryCode}}}&MCC={{{MCC}}}&MNC={{{MNC}}}
 
 [MITM]
-hostname = %APPEND% *.tiktokv.com, *.tiktokv.us, *.tiktokv.eu, *.byteoversea.com, *.tiktokcdn.com
+hostname = %APPEND% *.tiktokv.com, *.tiktokv.us, *.tiktokv.eu, *.byteoversea.com
