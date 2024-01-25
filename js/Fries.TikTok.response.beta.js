@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(2) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(3) response.beta");
 const URI = new URIs();
 const DataBase = {
 	"TikTok":{
@@ -232,6 +232,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "aweme/v1/aweme/detail/":
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							//body.aweme_detail = processAwemeList(body.aweme_detail);
+							break;
+						case "/tiktok/feed/explore/v1":
+							body.awemes = body.awemes.map(item => processAwemeList(item)).filter(Boolean);
 							break;
 						case "aweme/v1/multi/aweme/detail/":
 						case "tiktok/v1/videos/detail/":
