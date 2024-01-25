@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.2(11) response");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(2) response");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -79,9 +79,19 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 
 							$.log(`🚧 ${$.name}`, `https_to_http: ${body?.data?.https_to_http}`, "");
 							body.data.https_to_http = 1;
+							
+							$.log(`🚧 ${$.name}`, `ios_downloader: ${JSON.stringify(body?.data?.ios_downloader)}`, "");
+							if (body?.data?.ios_downloader) {
+								body.data.ios_downloader.is_report_tracker_enable = 0;
+								body.data.ios_downloader.is_tracker_enable = 0;
+							};
 
 							$.log(`🚧 ${$.name}`, `opaque_data_enabled: ${body?.data?.opaque_data_enabled}`, "");
 							body.data.opaque_data_enabled = 0;
+
+							$.log(`🚧 ${$.name}`, `request_tag_enabled: ${body?.data?.request_tag_enabled}`, "");
+							if (body?.data?.request_tag_enabled) body.data.request_tag_enabled = 0;
+
 							if (body?.data?.ttnet_fake_network_detect_config) body.data.ttnet_fake_network_detect_config.detect_enable = 0;
                             else {
 								$.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_fake_network_detect_config 不存在`, "");
@@ -112,8 +122,6 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "aweme/v1/cmpl/set/settings/":
 							break;
 						case "aweme/v1/aweme/detail/":
-							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-							//body.aweme_detail = processAwemeList(body.aweme_detail);
 							break;
 						case "aweme/v1/multi/aweme/detail/":
 						case "tiktok/v1/videos/detail/":
@@ -147,7 +155,8 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							};
 							break;
 						case "aweme/v1/commit/follow/user/":
-							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							break;
+						case "tiktok/user/profile/other/v1":
 							break;
                         default:
                             break;
