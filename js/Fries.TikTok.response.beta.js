@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.2(11) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(2) response.beta");
 const URI = new URIs();
 const DataBase = {
 	"TikTok":{
@@ -128,15 +128,18 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							$.log(`🚧 ${$.name}`, `https_to_http: ${body?.data?.https_to_http}`, "");
 							body.data.https_to_http = 1;
 
-							//if (body?.data?.ios_downloader) delete body.data.ios_downloader;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ios_downloader 不存在`, "");
+							$.log(`🚧 ${$.name}`, `ios_downloader: ${JSON.stringify(body?.data?.ios_downloader)}`, "");
+							if (body?.data?.ios_downloader) {
+								body.data.ios_downloader.is_report_tracker_enable = 0;
+								body.data.ios_downloader.is_tracker_enable = 0;
+							};
 
 							$.log(`🚧 ${$.name}`, `opaque_data_enabled: ${body?.data?.opaque_data_enabled}`, "");
 							body.data.opaque_data_enabled = 0;
-							/*
-							if (body?.data?.request_tag_enabled) body.data.request_tag_enabled = 0;
-							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.request_tag_enabled 不存在`, "");
 
+							$.log(`🚧 ${$.name}`, `request_tag_enabled: ${body?.data?.request_tag_enabled}`, "");
+							if (body?.data?.request_tag_enabled) body.data.request_tag_enabled = 0;
+							/*
 							if (body?.data?.send_tnc_host_arrays) delete body.data.send_tnc_host_arrays;
 							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.send_tnc_host_arrays 不存在`, "");
 
@@ -262,6 +265,9 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							};
 							break;
 						case "aweme/v1/commit/follow/user/":
+							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
+							break;
+						case "tiktok/user/profile/other/v1":
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						default:

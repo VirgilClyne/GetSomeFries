@@ -1,7 +1,7 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.0(17) request.beta");
+const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.1(5) request.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
@@ -107,66 +107,25 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							$.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query?.cronet_version}`, "");
 							$.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query?.ttnet_version}`, "");
 							delete $request.headers?.["x-tt-tnc-summary"];
+						//case "service/2/app_log/":
+						case "aweme/v1/user/":
+						case "aweme/v1/user/profile/other/":
+						case "aweme/v1/commit/follow/user/":
+						case "aweme/v1/user/settings/":
+						case "tiktok/user/profile/self/v1":
+						case "tiktok/user/profile/other/v1":
+						case "tiktok/v1/mix/list/":
+							break;
 						default:
 							$.log(`🚧 ${$.name}, 调试信息`, `mcc_mnc: ${URL.query?.mcc_mnc}`, "");
-							//if (URL.query?.carrier) URL.query.carrier = "Google Fi";
-							//if (URL.query?.sys_region) URL.query.sys_region = Settings.CountryCode;
-							if (URL.query?.sim_region) URL.query.sim_region = Settings.CountryCode;
-							if (URL.query?.op_region) URL.query.op_region = Settings.CountryCode;
-							if (URL.query?.carrier_region) URL.query.carrier_region = Settings.CountryCode;
-							//if (URL.query?.carrier_region1) URL.query.carrier_region1 = Settings.CountryCode;
-							if (URL.query?.current_region) URL.query.current_region = Settings.CountryCode;
-							switch (URL.query?.mcc_mnc) {
-								case "46000":
-								case "46001":
-								case "46002":
-								case "46003":
-								case "46004":
-								case "46005":
-								case "46006":
-								case "46007":
-								case "46008":
-								case "46009":
-								case "46010":
-								case "46011":
-								case "46012":
-								case "46013":
-								case "46014":
-								case "46015":
-								case "46016":
-								case "46017":
-								case "46018":
-								case "46019":
-								case "46020":
-									URL.query.mcc_mnc = `${Settings.MCC}${Settings.MNC}`;
-									break;
-								case "45400":
-								case "45401":
-								case "45402":
-								case "45403":
-								case "45404":
-								case "45405":
-								case "45406":
-								case "45407":
-								case "45408":
-								case "45409":
-								case "45410":
-								case "45411":
-								case "45412":
-								case "45413":
-								case "45414":
-								case "45415":
-								case "45416":
-								case "45417":
-								case "45418":
-								case "45419":
-								case "45420":
-								case "45429":
-									URL.query.mcc_mnc = `${Settings.MCC}${Settings.MNC}`;
-									break;
-								case undefined:
-								default:
-									break;
+							URL.query = processParams(URL.query, Settings.CountryCode, Settings.MCC, Settings.MNC);
+							if ($request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"]) {
+								let commonParams = $request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"];
+								commonParams = Object.fromEntries(commonParams.split("&").map((param) => param.split("=")));
+								commonParams = processParams(commonParams, Settings.CountryCode, Settings.MCC, Settings.MNC);
+								commonParams = Object.entries(commonParams).map(param => param.join("=")).join("&");
+								if ($request.headers?.["x-common-params-v2"]) $request.headers["x-common-params-v2"] = commonParams;
+								if ($request.headers?.["X-Common-Params-V2"]) $request.headers["X-Common-Params-V2"] = commonParams;
 							};
 							break;
 					};
@@ -223,7 +182,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 			case undefined: { // 无构造回复数据，发送修改的请求数据
 				//const FORMAT = ($request?.headers?.["Content-Type"] ?? $request?.headers?.["content-type"])?.split(";")?.[0];
 				$.log(`🎉 ${$.name}, finally`, `$request`, `FORMAT: ${FORMAT}`, "");
-				//$.log(`🚧 ${$.name}, finally`, `$request: ${JSON.stringify($request)}`, "");
+				$.log(`🚧 ${$.name}, finally`, `$request: ${JSON.stringify($request)}`, "");
 				if ($.isQuanX()) {
 					switch (FORMAT) {
 						case undefined: // 视为无body
@@ -270,6 +229,73 @@ function setENV(name, platforms, database) {
 	//$.log(`✅ ${$.name}, Set Environment Variables`, `Caches: ${typeof Caches}`, `Caches内容: ${JSON.stringify(Caches)}`, "");
 	/***************** Configs *****************/
 	return { Settings, Caches, Configs };
+};
+
+function processParams(params = {}, cc = "US", mcc = "310", mnc = "260") {
+	$.log(`☑️ ${$.name}, process Params`, `Params: ${JSON.stringify(params)}`, "");
+	//if (params?.residence) params.residence = cc;
+	//if (params?.carrier) params.carrier = "Google Fi";
+	//if (params?.sys_region) params.sys_region = cc;
+	if (params?.sim_region) params.sim_region = cc;
+	if (params?.op_region) params.op_region = cc;
+	if (params?.carrier_region) params.carrier_region = cc;
+	//if (params?.carrier_region1) params.carrier_region1 = cc;
+	if (params?.current_region) params.current_region = cc;
+	//if (params?.account_region) params.account_region = cc.toLocaleLowerCase();
+	switch (params?.mcc_mnc) {
+		case "46000":
+		case "46001":
+		case "46002":
+		case "46003":
+		case "46004":
+		case "46005":
+		case "46006":
+		case "46007":
+		case "46008":
+		case "46009":
+		case "46010":
+		case "46011":
+		case "46012":
+		case "46013":
+		case "46014":
+		case "46015":
+		case "46016":
+		case "46017":
+		case "46018":
+		case "46019":
+		case "46020":
+			params.mcc_mnc = `${mcc}${mnc}`;
+			break;
+		case "45400":
+		case "45401":
+		case "45402":
+		case "45403":
+		case "45404":
+		case "45405":
+		case "45406":
+		case "45407":
+		case "45408":
+		case "45409":
+		case "45410":
+		case "45411":
+		case "45412":
+		case "45413":
+		case "45414":
+		case "45415":
+		case "45416":
+		case "45417":
+		case "45418":
+		case "45419":
+		case "45420":
+		case "45429":
+			params.mcc_mnc = `${mcc}${mnc}`;
+			break;
+		case undefined:
+		default:
+			break;
+	};
+	$.log(`✅ ${$.name}, process Params`, `Params: ${JSON.stringify(params)}`, "");
+	return params;
 };
 
 /***************** Env *****************/
