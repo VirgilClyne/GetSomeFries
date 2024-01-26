@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(3) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(6) response.beta");
 const URI = new URIs();
 const DataBase = {
 	"TikTok":{
@@ -98,13 +98,14 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 
 							//if ($response.headers?.["x-ss-canary"]) $response.headers?.["x-ss-canary"] = "0";
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, $response.headers["x-ss-canary"] 不存在`, "");
-							/*
+							
 							if (body?.data?.chromium_open) body.data.chromium_open = 0;
 							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.chromium_open 不存在`, "");
 
-							if (body?.data?.client_key_config) delete body.data.client_key_config;
-							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.client_key_config 不存在`, "");
-
+							$.log(`🚧 ${$.name}`, `client_key_config: ${JSON.stringify(body?.data?.client_key_config)}`, "");
+							if (body?.data?.client_key_config) body.data.client_key_config.client_key_sign_enabled = 0;
+							else $.lodash_set(body, "data.client_key_config.client_key_sign_enabled", 0);
+							/*
 							if (body?.data?.disable_encrypt_switch) body.data.disable_encrypt_switch = 1;
 							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.disable_encrypt_switch 不存在`, "");
 
@@ -170,12 +171,12 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 								body.data.tt_ssl_config.enable_file_cache = 0;
 								delete body.data.tt_ssl_config?.file_cache_whitelist;
 							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tt_ssl_config 不存在`, "");
-
+							*/
 							if (body?.data?.ttnet_dispatch_actions) {
 								delete body.data.ttnet_dispatch_actions;
-								body.data.ttnet_dispatch_actions.unshift({ "act_priority": 2001, "action": "dispatch", "desc": "skip frontier", "param": { "contain_group": ["/ws"], "dispatch_strategy": 0, "host_group": ["*frontier*"] }, "rule_id": 45227, "set_req_priority": 3000, "sign": "b2348456716f024522c08d88f6fb2fcc" })
+								//body.data.ttnet_dispatch_actions.unshift({ "act_priority": 2001, "action": "dispatch", "desc": "skip frontier", "param": { "contain_group": ["/ws"], "dispatch_strategy": 0, "host_group": ["*frontier*"] }, "rule_id": 45227, "set_req_priority": 3000, "sign": "b2348456716f024522c08d88f6fb2fcc" })
 							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_dispatch_actions 不存在`, "");
-
+							/*
 							if (body?.data?.ttnet_h2_config) delete body.data.ttnet_h2_config;
 							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_h2_config 不存在`, "");
 							*/
@@ -215,9 +216,8 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							//if (body.data?.ttnet_url_dispatcher_enabled) body.data.ttnet_url_dispatcher_enabled = 0;
 							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_url_dispatcher_enabled 不存在`, "");
 
-							//if (body?.data?.ttnet_verify_api_config) delete body.data.ttnet_verify_api_config;
-							//else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_verify_api_config 不存在`, "");
-
+							if (body?.data?.ttnet_verify_api_config) body.data.ttnet_verify_api_config["5xx_enabled"] = 0;
+							else $.lodash_set(body, "data.ttnet_verify_api_config.5xx_enabled", 0);
 							$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 							break;
 						case "passport/auth/only_login/":
