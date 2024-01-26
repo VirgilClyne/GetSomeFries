@@ -1,0 +1,414 @@
+{
+	"data": {
+		"opaque_data_enabled": 1,
+		"chromium_open": 1,
+		"frontier_urls": ["wss://frontier-va.tiktokv.com/ws/v2"],
+		"hs_open": 1,
+		"ok_http3_open": 1,
+		"ok_http_open": 1,
+		"send_tnc_host_arrays": ["tnc-boot.tiktokv.com"],
+		"share_cookie_host_list": ".tiktokv.com,.tiktok.com,.ttapis.com,",
+		"ttnet_dispatch_actions": [
+			{
+				"act_priority": 2001,
+				"action": "dispatch",
+				"desc": "skip frontier",
+				"param": {
+					"contain_group": ["/ws"],
+					"dispatch_strategy": 0,
+					"host_group": ["*frontier*"]
+				},
+				"set_req_priority": 3000
+			},
+			{
+				"act_priority": 2002,
+				"action": "tc",
+				"desc": "force https",
+				"param": {
+					"contain_group": ["/"],
+					"host_group": ["*.akamaized.net", "*.ibytedtos.com", "*.ibyteimg.com", "*.tiktok.com", "*.tiktokv.com", "*.tiktokcdn.com", "*.tiktokcdn-us.com", "*.byteoversea.com"],
+					"scheme_replace": "https"
+				}
+			},
+			{
+				"act_priority": 10009,
+				"action": "tc",
+				"param": {
+					"contain_group": ["/"],
+					"drop": 1,
+					"host_group": ["*.muscdn.com", "*.musical.ly", "*.mzfvozqybf.com", "*.qfyf1toi.com", "*.toutiao50.com", "*.xzcs3zlph.com"],
+					"possibility": 100
+				}
+			},
+			{
+				"act_priority": 10010,
+				"action": "tc",
+				"param": {
+					"contain_group": ["/"],
+					"drop": 1,
+					"host_group": ["*.snssdk.com", "*.pstatp.com", "*.byteimg.com", "*.amemv.com", "*.toutiao.com"],
+					"possibility": 100
+				}
+			},
+			{
+				"act_priority": 10013,
+				"action": "tc",
+				"param": {
+					"drop": 1,
+					"equal_group": ["/location/submit/", "/location/suusci/", "/location/locate/", "/location/batch-submit-wifi-bss/", "/location/geocode/", "/location/gis/reverse_geolocation", "/aweme/v1/poi/geo/reverse", "/aweme/v1/testidc/"],
+					"host_group": ["*"],
+					"possibility": 100
+				}
+			},
+			{
+				"act_priority": 20001,
+				"action": "dispatch",
+				"description": "skip_dispatch",
+				"param": {
+					"equal_group": ["/ies/speed/", "/ttnet/dsa/speed/"],
+					"host_group": ["*"]
+				},
+				"set_req_priority": 60000
+			},
+			{
+				"act_priority": 30001,
+				"action": "dispatch",
+				"param": {
+					"dispatch_strategy": 1,
+					"host_group": ["i.isnssdk.com", "i.sgsnssdk.com"],
+					"pattern_group": ["/service/settings/v\\d+/", "/feedback/\\d+/post_message/"],
+					"service_name": "change request",
+					"strategy_info": {
+						"i.isnssdk.com": "api-va.tiktokv.com",
+						"i.sgsnssdk.com": "api.tiktokv.com"
+					}
+				}
+			},
+			{
+				"act_priority": 30001,
+				"action": "dispatch",
+				"param": {
+					"contain_group": ["/monitor/collect/", "/monitor/appmonitor/v3/settings"],
+					"dispatch_strategy": 1,
+					"host_group": ["i.isnssdk.com", "i.sgsnssdk.com"],
+					"service_name": "change request",
+					"strategy_info": {
+						"i.isnssdk.com": "mon-va.tiktokv.com",
+						"i.sgsnssdk.com": "mon-sg.tiktokv.com"
+					}
+				}
+			},
+			{
+				"act_priority": 30003,
+				"action": "dispatch",
+				"param": {
+					"contain_group": ["/service/settings/", "/api/apps/"],
+					"dispatch_strategy": 1,
+					"host_group": ["developer-sg.byteoversea.com"],
+					"service_name": "change request",
+					"strategy_info": {
+						"developer-sg.byteoversea.com": "api.tiktokv.com"
+					}
+				}
+			},
+			{
+				"act_priority": 30005,
+				"action": "dispatch",
+				"param": {
+					"contain_group": ["/"],
+					"dispatch_strategy": 1,
+					"host_group": ["*"],
+					"service_name": "change request",
+					"strategy_info": {
+						"abtest-sg-tiktok.byteoversea.com": "libra-sg.tiktokv.com",
+						"abtest-va-tiktok-useast2a.byteoversea.com": "libra-va.tiktokv.com",
+						"abtest-va-tiktok.byteoversea.com": "libra-va.tiktokv.com",
+						"client_monitor.isnssdk.com": "mon.tiktokv.com",
+						"f-p-va.isnssdk.com": "fp-va.tiktokv.com",
+						"f-p.sgsnssdk.com": "fp-sg.tiktokv.com",
+						"hotapi-va-ueast2a-useast2a.isnssdk.com": "hotapi-va.tiktokv.com",
+						"hotapi-va.isnssdk.com": "hotapi-va.tiktokv.com",
+						"hotapi.sgsnssdk.com": "hotapi-sg.tiktokv.com",
+						"imapi-mu.isnssdk.com": "im-va.tiktokv.com",
+						"imapi-sg.isnssdk.com": "imapi-16.tiktokv.com",
+						"jsb-sg.byteoversea.com": "jsb-sg.tiktokv.com",
+						"jsb-va-useast2a.byteoversea.com": "jsb-va.tiktokv.com",
+						"jsb-va.byteoversea.com": "jsb-va.tiktokv.com",
+						"log.byteoversea.com": "log.tiktokv.com",
+						"log16.byteoversea.com": "log.tiktokv.com",
+						"mon-va.byteoversea.com": "mon.tiktokv.com",
+						"mon.byteoversea.com": "mon-sg.tiktokv.com",
+						"mon.isnssdk.com": "mon.tiktokv.com",
+						"mon.sgsnssdk.com": "mon-sg.tiktokv.com",
+						"mssdk-sg.byteoversea.com": "mssdk-sg.tiktokv.com",
+						"mssdk-va.byteoversea.com": "mssdk-va.tiktokv.com",
+						"pitaya-task-sg.byteintlapi.com": "pitaya-task.tiktokv.com",
+						"pitaya-task.byteintl.com": "pitaya-task.tiktokv.com",
+						"pitaya.byteintl.com": "pitaya.tiktokv.com",
+						"sdfp-sg.byteoversea.com": "sdfp-sg.tiktokv.com",
+						"sdfp-va.byteoversea.com": "sdfp-va.tiktokv.com",
+						"sg-link.byteoversea.com": "www.tiktok.com",
+						"smr-aliva-useast2a.byteoversea.com": "smr-va.tiktokv.com",
+						"smr-aliva.byteoversea.com": "smr-va.tiktokv.com",
+						"smr-sg.byteoversea.com": "smr-sg.tiktokv.com",
+						"starling-oversea.byteoversea.com": "starling-sg.tiktokv.com",
+						"starling-sg.byteoversea.com": "starling-sg.tiktokv.com",
+						"starling-va.byteoversea.com": "starling-va.tiktokv.com",
+						"tp-pay-mva.byteoversea.com": "tp-pay-mva.tiktokv.com",
+						"tp-pay-sg.byteoversea.com": "tp-pay-sg.tiktokv.com",
+						"tp-pay-useast2a.byteoversea.com": "tp-pay-mva.tiktokv.com",
+						"ug-sg.byteoversea.com": "ugattribution-sg.tiktokv.com",
+						"va-link.byteoversea.com": "www.tiktok.com",
+						"vcs-sg.byteoversea.com": "vcs-sg.tiktokv.com",
+						"vcs-va.byteoversea.com": "vcs-va.tiktokv.com",
+						"verification-va-useast2a.byteoversea.com": "verification-va.tiktokv.com",
+						"verification-va.byteoversea.com": "verification-va.tiktokv.com",
+						"verify-sg.byteoversea.com": "verify-sg.tiktokv.com",
+						"xlog-va.byteoversea.com": "xlog-va.tiktokv.com",
+						"xlog.byteoversea.com": "xlog.tiktokv.com",
+						"rtlog.byteoversea.com": "rtlog.tiktokv.com"
+					}
+				}
+			},
+			{
+				"act_priority": 30011,
+				"action": "tc",
+				"description": "core_domain",
+				"param": {
+					"contain_group": ["/"],
+					"host_group": ["api-core-va.tiktokv.com", "api-h2-eagle.tiktokv.com", "api16-core-va.tiktokv.com", "api19-core-va.tiktokv.com", "api21-core-va.tiktokv.com", "api21-h2-eagle.tiktokv.com", "api22-h2-eagle.tiktokv.com"],
+					"host_replace": "api-core.tiktokv.com"
+				}
+			},
+			{
+				"act_priority": 30013,
+				"action": "tc",
+				"description": "core_api",
+				"param": {
+					"host_group": ["*"],
+					"host_replace": "api-core.tiktokv.com",
+					"pattern_group": ["/aweme/v\\d+/aweme/post/", "/aweme/v\\d+/aweme/stats/", "/aweme/v\\d+/create/aweme/", "/aweme/v\\d+/feed/", "/aweme/v\\d+/follow/feed/", "/aweme/v\\d+/upload/authkey/", "/aweme/v\\d+/user/", "/aweme/v\\d+/user/profile/other/", "/aweme/v\\d+/user/profile/self/", "/video/openapi/v\\d+/", "/top/v\\d+"]
+				}
+			},
+			{
+				"act_priority": 30015,
+				"action": "tc",
+				"description": "normal_api",
+				"param": {
+					"host_group": ["*"],
+					"host_replace": "api-normal.tiktokv.com",
+					"pattern_group": ["/2/data/upload_image/.*", "/api/apps/v3/meta.*", "/passport/token/beat/.*", "/passport/token/change/.*", "/passport/user/logout/.*", "/tfe/api/request_combine/v\\d+/", "/v1/message/get_by_user", "/v1/message/get_by_user_init", "/v1/message/send", "/v1/stranger/get_conversation_list", "/v1/stranger/get_messages", "/v2/conversation/create", "/v2/message/get_by_user_init", "/v1/client/report_metrics", "/v2/conversation/get_info", "/v1/config/get", "/v2/conversation/get_info_list", "/v3/conversation/mark_read", "/v1/message/get_by_conversation", "/v1/conversation/batch_get_audit_unread", "/v1/conversation/", "/v1/message/delete", "/v1/message/set_property", "/v1/stranger/", "/v2/conversation/", "/v3/conversation/"]
+				}
+			},
+			{
+				"act_priority": 30017,
+				"action": "tc",
+				"param": {
+					"contain_group": ["/"],
+					"host_group": ["api.tiktokv.com", "api-h2.tiktokv.com", "api-va.tiktokv.com", "api16.tiktokv.com", "api16-va.tiktokv.com", "api19.tiktokv.com", "api19-va.tiktokv.com", "api21.tiktokv.com", "api21-h2.tiktokv.com", "api21-va.tiktokv.com", "api22.tiktokv.com", "api22-va.tiktokv.com", "api-t.tiktok.com", "tiktokv.com"],
+					"host_replace": "api-normal.tiktokv.com"
+				}
+			},
+			{
+				"act_priority": 30021,
+				"action": "tc",
+				"param": {
+					"equal_group": ["/webcast/feed/", "/webcast/room/enter/", "/webcast/room/create/", "/webcast/room/chat/", "/webcast/room/ping/anchor/", "/webcast/gift/list/", "/webcast/gift/send/", "/webcast/assets/effects/"],
+					"host_group": ["*"],
+					"host_replace": "webcast-normal.tiktokv.com"
+				}
+			},
+			{
+				"act_priority": 30023,
+				"action": "tc",
+				"param": {
+					"contain_group": ["/"],
+					"host_group": ["webcast.tiktokv.com", "webcast-va.tiktokv.com", "webcast16.tiktokv.com", "webcast16-va.tiktokv.com", "webcast19.tiktokv.com", "webcast19-va.tiktokv.com", "webcast21.tiktokv.com", "webcast21-va.tiktokv.com"],
+					"host_replace": "webcast-normal.tiktokv.com"
+				}
+			},
+			{
+				"act_priority": 30025,
+				"action": "tc",
+				"param": {
+					"contain_group": ["/"],
+					"host_group": ["ttlive-va.tiktok.com"],
+					"host_replace": "ttlive.tiktok.com"
+				}
+			},
+			{
+				"act_priority": 30031,
+				"action": "tc",
+				"description": "search_api",
+				"param": {
+					"host_group": ["*"],
+					"host_replace": "search.tiktokv.com",
+					"pattern_group": ["/aweme/v1/general/search/single/.*", "/aweme/v1/general/search/stream/.*", "/aweme/v1/search/item/.*", "/aweme/v1/challenge/search/.*", "/aweme/v1/music/search/.*", "/aweme/v1/discover/search/.*", "/aweme/v1/search/ecom/.*", "/aweme/v1/live/search/.*", "/aweme/v1/search/sug/.*", "/aweme/v1/search/user/sug/.*", "/aweme/v1/search/challengesug/.*", "/aweme/v1/search/clicksug/.*", "/aweme/v1/trending/search/inflow/.*", "/aweme/v1/suggest/deletemostvisit/.*", "/aweme/v1/suggest/guide/.*", "/aweme/v1/search/billboard/.*", "/aweme/v1/search/survey/submit/.*", "/aweme/v1/search/survey/detail/.*", "/aweme/v1/search/forecast/.*", "/aweme/v1/search/loadmore/.*", "/aweme/v1/loadmore/wish/.*", "/aweme/v\\d+/search/.*"]
+				}
+			},
+			{
+				"act_priority": 30041,
+				"action": "tc",
+				"param": {
+					"contain_group": ["/aweme/v1/oec/affiliate/live/", "/aweme/v1/oec/live/"],
+					"host_group": ["*"],
+					"host_replace": "oec-api.tiktokv.com"
+				}
+			},
+			{
+				"act_priority": 30061,
+				"action": "tc",
+				"description": "applog",
+				"param": {
+					"contain_group": ["/"],
+					"host_group": ["log.tiktokv.com", "log-va.tiktokv.com"],
+					"host_replace": "log.tiktokv.com"
+				}
+			},
+			{
+				"act_priority": 30063,
+				"action": "tc",
+				"description": "rtlog",
+				"param": {
+					"contain_group": ["/"],
+					"host_group": ["rtlog-va.tiktokv.com", "rtlog.tiktokv.com"],
+					"host_replace": "rtlog.tiktokv.com"
+				}
+			},
+			{
+				"act_priority": 30071,
+				"action": "tc",
+				"param": {
+					"host_group": ["*"],
+					"host_replace": "webcast-ws.tiktokv.com",
+					"pattern_group": ["/webcast/im/push/"]
+				}
+			},
+			{
+				"act_priority": 30121,
+				"action": "dispatch",
+				"param": {
+					"contain_group": ["/public/clue/vote/"],
+					"dispatch_strategy": 1,
+					"host_group": ["analytics.tiktok.com"],
+					"service_name": "clue domain replacement",
+					"strategy_info": {
+						"analytics.tiktok.com": "analytics-exp-sg.tiktok.com"
+					}
+				}
+			},
+			{
+				"act_priority": 30123,
+				"action": "dispatch",
+				"param": {
+					"contain_group": ["/api/v2/pixel", "/api/v2/performance", "/api/v2/interaction", "/api/v2/monitor", "/i18n/pixel/log", "/.well-known"],
+					"dispatch_strategy": 1,
+					"host_group": ["analytics.tiktok.com"],
+					"service_name": "analytics domain replacement",
+					"strategy_info": {
+						"analytics.tiktok.com": "analytics-sg.tiktok.com"
+					}
+				}
+			},
+			{
+				"act_priority": 39999,
+				"action": "dispatch",
+				"param": {
+					"contain_group": ["/"],
+					"dispatch_strategy": 1,
+					"host_group": ["api-normal.tiktokv.com", "api-core.tiktokv.com", "search.tiktokv.com", "webcast-normal.tiktokv.com", "webcast-ws.tiktokv.com", "hotapi-va.tiktokv.com", "hotapi-sg.tiktokv.com", "libra-va.tiktokv.com", "libra-sg.tiktokv.com", "log.tiktokv.com", "rtlog.tiktokv.com", "mon.tiktokv.com", "mon-sg.tiktokv.com", "mon-va.tiktokv.com", "pitaya.tiktokv.com", "vcs-sg.tiktokv.com", "vcs-va.tiktokv.com", "gecko-sg.tiktokv.com", "gecko-va.tiktokv.com", "mssdk-sg.tiktokv.com", "mssdk-va.tiktokv.com", "jsb-va.tiktokv.com", "jsb-sg.tiktokv.com", "ugattribution-sg.tiktokv.com", "xdevice-api.tiktokv.com"],
+					"service_name": "boot domain normalization",
+					"strategy_info": {
+						"api-normal.tiktokv.com": "api-boot.tiktokv.com",
+						"api-core.tiktokv.com": "api-core-boot.tiktokv.com",
+						"search.tiktokv.com": "search16-normal-c-useast1a.tiktokv.com",
+						"webcast-normal.tiktokv.com": "webcast-boot.tiktokv.com",
+						"webcast-ws.tiktokv.com": "webcast16-ws-useast1a.tiktokv.com",
+						"hotapi-va.tiktokv.com": "hotapi16-normal-useast1a.tiktokv.com",
+						"hotapi-sg.tiktokv.com": "hotapi16-normal-alisg.tiktokv.com",
+						"libra-va.tiktokv.com": "libra-boot.tiktokv.com",
+						"libra-sg.tiktokv.com": "libra-boot.tiktokv.com",
+						"log.tiktokv.com": "log-boot.tiktokv.com",
+						"rtlog.tiktokv.com": "rtlog-boot.tiktokv.com",
+						"mon.tiktokv.com": "mon-boot.tiktokv.com",
+						"mon-va.tiktokv.com": "mon-boot.tiktokv.com",
+						"mon-sg.tiktokv.com": "mon-boot.tiktokv.com",
+						"pitaya.tiktokv.com": "pitaya-boot.tiktokv.com",
+						"vcs-va.tiktokv.com": "vcs-boot.tiktokv.com",
+						"vcs-sg.tiktokv.com": "vcs-boot.tiktokv.com",
+						"gecko-va.tiktokv.com": "gecko-boot.tiktokv.com",
+						"gecko-sg.tiktokv.com": "gecko-boot.tiktokv.com",
+						"jsb-va.tiktokv.com": "jsb-boot.tiktokv.com",
+						"jsb-sg.tiktokv.com": "jsb-boot.tiktokv.com",
+						"mssdk-va.tiktokv.com": "mssdk-boot.tiktokv.com",
+						"mssdk-sg.tiktokv.com": "mssdk-boot.tiktokv.com",
+						"ugattribution-sg.tiktokv.com": "ugattribution-boot.tiktokv.com",
+						"xdevice-api.tiktokv.com": "xdevice-boot.tiktokv.com"
+					}
+				}
+			}
+		],
+		"ttnet_enable_br": 1,
+		"ttnet_enable_cronet_request_report": 1,
+		"ttnet_h2_config": {
+			"ping_keepalive_hosts": ["api16-core-c-alisg.tiktokv.com:443", "api16-core-c-useast1a.tiktokv.com:443", "api16-core-c-useast2a.tiktokv.com:443", "api16-normal-c-alisg.tiktokv.com:443", "api16-normal-c-useast1a.tiktokv.com:443", "api16-normal-c-useast2a.tiktokv.com:443", "api19-core-c-alisg.tiktokv.com:443", "api19-core-c-useast1a.tiktokv.com:443", "api19-core-c-useast2a.tiktokv.com:443", "api19-normal-c-alisg.tiktokv.com:443", "api19-normal-c-useast1a.tiktokv.com:443", "api19-normal-c-useast2a.tiktokv.com:443"],
+			"ping_keepalive_interval": 60,
+			"ping_probe_timeout": 5
+		},
+		"ttnet_http_dns_addr": {
+			"api-va.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-core-c-alisg.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-core-c-useast1a.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-core-c-useast2a.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-core-va.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-normal-c-alisg.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-normal-c-useast1a.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-normal-c-useast2a.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api16-va.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api22-core-c-alisg.tiktokv.com": "35.201.85.23",
+			"api22-core-c-useast1a.tiktokv.com": "130.44.212.185,130.44.212.187",
+			"api22-core-c-useast2a.tiktokv.com": "35.221.22.198,35.245.103.80",
+			"api22-normal-c-alisg.tiktokv.com": "35.186.205.139",
+			"api22-normal-c-useast1a.tiktokv.com": "34.98.93.234",
+			"api22-normal-c-useast2a.tiktokv.com": "35.241.42.67",
+			"api77-core-c-alisg.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api77-core-c-useast1a.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api77-normal-c-alisg.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"api77-normal-c-useast1a.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"dns.google.com": "216.58.220.206",
+			"log-va.tiktokv.com": "199.103.24.2,199.103.24.4,199.103.24.6,199.103.24.8",
+			"log.tiktokv.com": "103.136.221.185,103.136.220.163,103.136.220.162,103.136.221.184"
+		},
+		"ttnet_http_dns_enabled": 1,
+		"ttnet_http_dns_google": 1,
+		"ttnet_http_dns_prefer": 0,
+		"ttnet_local_dns_time_out": 2,
+		"ttnet_preconnect_urls": {
+			"https://api-core.tiktokv.com": 1,
+			"https://api-normal.tiktokv.com": 1,
+			"https://log.tiktokv.com": 1,
+			"https://search.tiktokv.com": 1,
+			"https://webcast-normal.tiktokv.com": 1,
+			"https://dns.google": 1
+		},
+		"ttnet_prefer_dns_addr": {
+			"dns.google": "8.8.4.4,2001:4860:4860::8844,8.8.8.8,2001:4860:4860::8888",
+			"dns.google.com": "8.8.4.4,2001:4860:4860::8844,8.8.8.8,2001:4860:4860::8888"
+		},
+		"ttnet_request_retry_delay_interval_ms": 500,
+		"ttnet_request_retry_error_list": [-21, -106, -109, -7, -126],
+		"ttnet_request_retry_max_attempts": 20,
+		"ttnet_socket_pool_param": {
+			"max_sockets_per_group": 20,
+			"used_idle_socket_timeout": 90
+		},
+		"ttnet_url_dispatcher_enabled": 1,
+		"client_key_config": {
+			"client_key_sign_enabled": 1,
+			"update_host_list": ["*.tiktokv.com"],
+			"update_path_list": ["/passport/*"]
+		}
+	},
+	"message": "success"
+}
