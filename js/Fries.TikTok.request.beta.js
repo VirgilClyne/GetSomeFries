@@ -1,11 +1,47 @@
 /*
 README: https://github.com/VirgilClyne/GetSomeFries
 */
-const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.1(5) request.beta");
+const $ = new Env("🍟 GetSomeFries: ♪ TikTok v0.1.2(2) request.beta");
 const URI = new URIs();
 const DataBase = {
     "TikTok":{
-        "Settings":{"Switch":true,"CountryCode":"US","MCC":"310","MNC":"260"}
+        "Settings":{"Switch":true,"CountryCode":"TW","Carrier":"中華電信"},
+		"Configs":{
+			"MCCMNC": {
+				"docomo": "44010",
+				"SoftBank": "44020",
+				"au": "44050",
+				"SKT": "45005",
+				"KT": "45008",
+				"LG U+": "45006",
+				"中国联通": "46001",
+				"中国移动": "46002",
+				"中国电信": "46003",
+				"中華電信": "46692",
+				"遠傳電信": "46693",
+				"台灣大哥大": "46697",
+				"台灣之星": "46699",
+				"Verizon": "310004",
+				"T-Mobile": "310260",
+				"AT&T": "310410",
+			},
+			"TimeZone": {
+				"US": "America/New_York",
+				"TW": "Asia/Taipei",
+				"KR": "Asia/Seoul",
+				"JP": "Asia/Tokyo",
+				"CN": "Asia/Shanghai",
+				"DE": "Europe/Berlin",
+				"FR": "Europe/Paris",
+				"GB": "Europe/London",
+				"RU": "Europe/Moscow",
+				"IN": "Asia/Kolkata",
+				"SG": "Asia/Singapore",
+				"CA": "America/Toronto",
+				"BR": "America/Sao_Paulo",
+				"MX": "America/Mexico_City",
+			}
+		}
     },
 	"WeChat":{
 		"Settings":{"Switch":true}
@@ -107,6 +143,7 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 							$.log(`🚧 ${$.name}, 调试信息`, `cronet_version: ${URL.query?.cronet_version}`, "");
 							$.log(`🚧 ${$.name}, 调试信息`, `ttnet_version: ${URL.query?.ttnet_version}`, "");
 							delete $request.headers?.["x-tt-tnc-summary"];
+						/*
 						//case "service/2/app_log/":
 						case "aweme/v1/user/":
 						case "aweme/v1/user/profile/other/":
@@ -116,13 +153,14 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 						case "tiktok/user/profile/other/v1":
 						case "tiktok/v1/mix/list/":
 							break;
+						*/
 						default:
 							$.log(`🚧 ${$.name}, 调试信息`, `mcc_mnc: ${URL.query?.mcc_mnc}`, "");
-							URL.query = processParams(URL.query, Settings.CountryCode, Settings.MCC, Settings.MNC);
+							URL.query = processParams(URL.query, Settings.CountryCode, Settings.Carrier, Configs);
 							if ($request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"]) {
 								let commonParams = $request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"];
 								commonParams = Object.fromEntries(commonParams.split("&").map((param) => param.split("=")));
-								commonParams = processParams(commonParams, Settings.CountryCode, Settings.MCC, Settings.MNC);
+								commonParams = processParams(commonParams, Settings.CountryCode, Settings.Carrier, Configs);
 								commonParams = Object.entries(commonParams).map(param => param.join("=")).join("&");
 								if ($request.headers?.["x-common-params-v2"]) $request.headers["x-common-params-v2"] = commonParams;
 								if ($request.headers?.["X-Common-Params-V2"]) $request.headers["X-Common-Params-V2"] = commonParams;
@@ -231,17 +269,18 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 };
 
-function processParams(params = {}, cc = "US", mcc = "310", mnc = "260") {
+function processParams(params = {}, cc = "TW", carrier = "中華電信", database = {}) {
 	$.log(`☑️ ${$.name}, process Params`, `Params: ${JSON.stringify(params)}`, "");
 	//if (params?.residence) params.residence = cc;
-	//if (params?.carrier) params.carrier = "Google Fi";
+	if (params?.carrier) params.carrier = encodeURIComponent(carrier);
 	//if (params?.sys_region) params.sys_region = cc;
-	if (params?.sim_region) params.sim_region = cc;
+	if (params?.sim_region) params.sim_region = database.MCCMNC[carrier];
 	if (params?.op_region) params.op_region = cc;
 	if (params?.carrier_region) params.carrier_region = cc;
 	//if (params?.carrier_region1) params.carrier_region1 = cc;
 	if (params?.current_region) params.current_region = cc;
 	//if (params?.account_region) params.account_region = cc.toLocaleLowerCase();
+	if (params?.tz_name) params.tz_name = database.TimeZone[carrier];
 	switch (params?.mcc_mnc) {
 		case "46000":
 		case "46001":
@@ -264,7 +303,7 @@ function processParams(params = {}, cc = "US", mcc = "310", mnc = "260") {
 		case "46018":
 		case "46019":
 		case "46020":
-			params.mcc_mnc = `${mcc}${mnc}`;
+			params.mcc_mnc = database.MCCMNC[carrier];
 			break;
 		case "45400":
 		case "45401":
@@ -288,7 +327,7 @@ function processParams(params = {}, cc = "US", mcc = "310", mnc = "260") {
 		case "45419":
 		case "45420":
 		case "45429":
-			params.mcc_mnc = `${mcc}${mnc}`;
+			params.mcc_mnc = database.MCCMNC[carrier];
 			break;
 		case undefined:
 		default:

@@ -2,7 +2,7 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(6) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(7) response.beta");
 const URI = new URIs();
 const DataBase = {
 	"TikTok":{
@@ -172,10 +172,12 @@ $.log(`⚠ ${$.name}, FORMAT: ${FORMAT}`, "");
 								delete body.data.tt_ssl_config?.file_cache_whitelist;
 							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.tt_ssl_config 不存在`, "");
 							*/
+							/*
 							if (body?.data?.ttnet_dispatch_actions) {
-								delete body.data.ttnet_dispatch_actions;
+								body.data.ttnet_dispatch_actions = [];
 								//body.data.ttnet_dispatch_actions.unshift({ "act_priority": 2001, "action": "dispatch", "desc": "skip frontier", "param": { "contain_group": ["/ws"], "dispatch_strategy": 0, "host_group": ["*frontier*"] }, "rule_id": 45227, "set_req_priority": 3000, "sign": "b2348456716f024522c08d88f6fb2fcc" })
 							} else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_dispatch_actions 不存在`, "");
+							*/
 							/*
 							if (body?.data?.ttnet_h2_config) delete body.data.ttnet_h2_config;
 							else $.log(`⚠ ${$.name}`, `⚠️ 警告, body.data.ttnet_h2_config 不存在`, "");
