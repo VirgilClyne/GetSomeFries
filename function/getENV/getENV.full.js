@@ -19,7 +19,7 @@ function getENV(key, names, database) {
 	if (typeof $argument !== "undefined"){
 		if (Boolean($argument)) {
 			$.log(`🎉 ${$.name}, $Argument`);
-			let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=")));
+			let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=").map(i => i.replace(/\"/g, ''))));
 			$.log(JSON.stringify(arg));
 			for (let item in arg) setPath(Argument, item, arg[item]);
 			$.log(JSON.stringify(Argument));
