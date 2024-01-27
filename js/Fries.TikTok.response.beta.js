@@ -2,12 +2,16 @@
 README: https://github.com/VirgilClyne/GetSomeFries
 */
 
-const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(7) response.beta");
+const $ = new Env("🍿 DualSubs: ♪ TikTok v0.1.3(8) response.beta");
 const URI = new URIs();
 const DataBase = {
-	"TikTok":{
-		"Settings":{"Switch":true,"CountryCode":"US","MCC":"310","MNC":"260"}
-	},
+    "TikTok":{
+        "Settings":{"Switch":true,"CountryCode":"TW","Carrier":"中華電信"},
+		"Configs":{
+			"MCCMNC":{"docomo":"44010","SoftBank":"44020","au":"44050","SKT":"45005","KT":"45008","LG U+":"45006","中国联通":"46001","中国移动":"46002","中国电信":"46003","中華電信":"46692","遠傳電信":"46693","台灣大哥大":"46697","台灣之星":"46699","Verizon":"310004","Rogers":"302720","Bell":"302610","Telus":"302220","T-Mobile":"310260","AT&T":"310410","Sprint":"310120"},
+			"TimeZone":{"US":"America/New_York","TW":"Asia/Taipei","KR":"Asia/Seoul","JP":"Asia/Tokyo","CN":"Asia/Shanghai","DE":"Europe/Berlin","FR":"Europe/Paris","GB":"Europe/London","RU":"Europe/Moscow","IN":"Asia/Kolkata","SG":"Asia/Singapore","CA":"America/Toronto","BR":"America/Sao_Paulo","MX":"America/Mexico_City"}
+		}
+    },
 	"WeChat":{
 		"Settings":{"Switch":true}
 	},
