@@ -1,0 +1,279 @@
+[
+	{
+		"act_priority": 1,
+		"action": "dispatch",
+		"param": {
+			"contain_group": ["/service/2/device_sdk/stats_collect/"],
+			"dispatch_strategy": 1,
+			"host_group": ["ib.snssdk.com"],
+			"service_name": "drop_device_sdk",
+			"strategy_info": {
+				"ib.snssdk.com": "unavailable.tiktokv.com"
+			}
+		}
+	},
+	{
+		"act_priority": 1,
+		"action": "dispatch",
+		"param": {
+			"equal_group": ["/ies/speed/"],
+			"host_group": ["*"]
+		},
+		"service_name": "speed",
+		"set_req_priority": 1000
+	},
+	{
+		"act_priority": 2,
+		"action": "dispatch",
+		"param": {
+			"contain_group": ["/"],
+			"dispatch_strategy": 1,
+			"host_group": ["ib.snssdk.com", "i.snssdk.com", "aweme.snssdk.com", "amfr.snssdk.com", "is.snssdk.com", "mon.snssdk.com"],
+			"service_name": "regular_reqs",
+			"strategy_info": {
+				"amfr.snssdk.com": "api-va.tiktokv.com",
+				"aweme.snssdk.com": "api-va.tiktokv.com",
+				"i.snssdk.com": "api-va.tiktokv.com",
+				"ib.snssdk.com": "api-va.tiktokv.com",
+				"is.snssdk.com": "api-va.tiktokv.com",
+				"mon.snssdk.com": "mon-va.tiktokv.com"
+			}
+		}
+	},
+	{
+		"act_priority": 2,
+		"action": "tc",
+		"param": {
+			"contain_group": ["/service/2/app_log/", "/service/2/device_register/", "/service/2/app_alert/", "/service/2/app_alert_check/", "/service/2/log_settings/"],
+			"host_replace": "log-va.tiktokv.com"
+		}
+	},
+	{
+		"act_priority": 101,
+		"action": "dispatch",
+		"param": {
+			"dispatch_strategy": 5,
+			"host_group": ["api-h2.tiktokv.com", "api.tiktokv.com", "api21-h2.tiktokv.com", "api2.musical.ly", "api2-19-h2.musical.ly", "api2-16-h2.musical.ly", "api-va.tiktokv.com", "api16-va.tiktokv.com", "api19-va.tiktokv.com"],
+			"pattern_group": ["/aweme/v\\d+/feed/.*", "/aweme/.*", "/tfe/api/request_combine/v\\d+/"],
+			"service_name": "mt_dispatch",
+			"strategy_info": {
+				"candidates": [
+					{
+						"host": "api16-normal-c-useast1a.tiktokv.com",
+						"weight": 0
+					},
+					{
+						"host": "api19-normal-c-useast1a.tiktokv.com",
+						"weight": 0
+					}
+				],
+				"scheme_option": 1,
+				"working_mode": 1
+			}
+		},
+		"set_req_priority": 1000
+	},
+	{
+		"act_priority": 102,
+		"action": "dispatch",
+		"param": {
+			"dispatch_strategy": 5,
+			"host_group": ["api-h2.tiktokv.com", "api.tiktokv.com", "api21-h2.tiktokv.com", "api2.musical.ly", "aweme.snssdk.com", "api2-19-h2.musical.ly", "api2-16-h2.musical.ly", "api-va.tiktokv.com", "api16-va.tiktokv.com", "api19-va.tiktokv.com"],
+			"pattern_group": ["/feedback/\\d+/list/.*", "/feedback/\\d+/common_feedback_list/.*", "/feedback/\\d+/post_message/.*", "/2/data/upload_image/.*"],
+			"service_name": "mt_dispatch",
+			"strategy_info": {
+				"candidates": [
+					{
+						"host": "api16-normal-c-useast1a.tiktokv.com",
+						"weight": 0
+					},
+					{
+						"host": "api19-normal-c-useast1a.tiktokv.com",
+						"weight": 0
+					}
+				],
+				"scheme_option": 1,
+				"working_mode": 1
+			}
+		},
+		"set_req_priority": 1000
+	},
+	{
+		"act_priority": 1098,
+		"action": "tc",
+		"param": {
+			"contain_group": ["/"],
+			"drop": 1,
+			"host_group": ["*.snssdk.com", "*.pstatp.com", "*.byteimg.com", "*.amemv.com", "*.toutiao.com"],
+			"possibility": 100,
+			"service_name": "drop flow"
+		}
+	},
+	{
+		"act_priority": 2099,
+		"action": "dispatch",
+		"param": {
+			"contain_group": ["/ws"],
+			"dispatch_strategy": 0,
+			"host_group": ["*frontier*"],
+			"service_name": "frontier_skip_replace_https"
+		},
+		"set_req_priority": 2102
+	},
+	{
+		"act_priority": 2100,
+		"action": "tc",
+		"param": {
+			"contain_group": ["/"],
+			"host_group": ["*.tiktokv.com", "*.byteoversea.com", "*.tiktok.com", "*.toutiao50.com", "*.xzcs3zlph.com", "*.mzfvozqybf.com", "*.qfyf1toi.com", "*.musical.ly"],
+			"scheme_replace": "https"
+		}
+	},
+	{
+		"act_priority": 2101,
+		"action": "tc",
+		"param": {
+			"contain_group": ["/"],
+			"host_group": ["*.ibyteimg.com", "*.akamaized.net", "*.muscdn.com", "*.tiktokcdn.com", "*.ibytedtos.com"],
+			"scheme_replace": "https"
+		}
+	},
+	{
+		"act_priority": 10001,
+		"action": "dispatch",
+		"param": {
+			"contain_group": ["/"],
+			"dispatch_strategy": 1,
+			"host_group": ["imapi-16.musical.ly", "im-va.tiktokv.com"],
+			"service_name": "m_domain_replace",
+			"strategy_info": {
+				"imapi-16.musical.ly": "imapi-mu.isnssdk.com",
+				"im-va.tiktokv.com": "imapi-mu.isnssdk.com"
+			}
+		}
+	},
+	{
+		"act_priority": 100001,
+		"action": "dispatch",
+		"param": {
+			"contain_group": ["/"],
+			"dispatch_strategy": 1,
+			"host_group": ["api2.musical.ly", "api-va.tiktokv.com"],
+			"service_name": "default",
+			"strategy_info": {
+				"api2.musical.ly": "api16-normal-c-useast1a.tiktokv.com",
+				"api-va.tiktokv.com": "api16-normal-c-useast1a.tiktokv.com"
+			}
+		}
+	},
+	{
+		"act_priority": 100002,
+		"action": "dispatch",
+		"param": {
+			"dispatch_strategy": 5,
+			"host_group": ["*"],
+			"pattern_group": ["/aweme/v\\d+/feed/", "/aweme/v\\d+/follow/feed/", "/aweme/v\\d+/aweme/post/", "/aweme/v\\d+/aweme/stats/", "/aweme/v\\d+/user/", "/aweme/v\\d+/user/profile/self/", "/aweme/v\\d+/user/profile/other/", "/aweme/v\\d+/create/aweme/"],
+			"service_name": "core_dispatch",
+			"strategy_info": {
+				"candidates": [
+					{
+						"host": "api19-core-c-useast1a.tiktokv.com",
+						"weight": 0
+					},
+					{
+						"host": "api16-core-c-useast1a.tiktokv.com",
+						"weight": 0
+					}
+				],
+				"scheme_option": 1,
+				"working_mode": 1
+			}
+		}
+	},
+	{
+		"act_priority": 10000000,
+		"action": "dispatch",
+		"param": {
+			"contain_group": ["/api/ad/", "/service/2/app_log/"],
+			"host_group": ["*"]
+		},
+		"set_req_priority": -1
+	},
+	{
+		"act_priority": 20000001,
+		"action": "dispatch",
+		"param": {
+			"contain_group": ["/"],
+			"dispatch_strategy": 1,
+			"host_group": ["*.musical.ly"],
+			"service_name": "end change request",
+			"strategy_info": {
+				"api2-16-h2-eagle-useast1a.musical.ly": "api16-core-c-useast1a.tiktokv.com",
+				"api2-16-h2-eagle-useast2a.musical.ly": "api16-core-c-useast2a.tiktokv.com",
+				"api2-16-h2-eagle.musical.ly": "api16-core-va.tiktokv.com",
+				"api2-16-h2-useast1a.musical.ly": "api16-normal-c-useast1a.tiktokv.com",
+				"api2-16-h2-useast2a.musical.ly": "api16-normal-c-useast2a.tiktokv.com",
+				"api2-16-h2.musical.ly": "api16-va.tiktokv.com",
+				"api2-19-h2-eagle-useast1a.musical.ly": "api19-core-c-useast1a.tiktokv.com",
+				"api2-19-h2-eagle-useast2a.musical.ly": "api19-core-c-useast2a.tiktokv.com",
+				"api2-19-h2-eagle.musical.ly": "api19-core-va.tiktokv.com",
+				"api2-19-h2-useast1a.musical.ly": "api19-normal-c-useast1a.tiktokv.com",
+				"api2-19-h2-useast2a.musical.ly": "api19-normal-c-useast2a.tiktokv.com",
+				"api2-19-h2.musical.ly": "api19-va.tiktokv.com",
+				"api2-21-h2-eagle-useast1a.musical.ly": "api21-core-c-useast1a.tiktokv.com",
+				"api2-21-h2-eagle-useast2a.musical.ly": "api21-core-c-useast2a.tiktokv.com",
+				"api2-21-h2-eagle.musical.ly": "api21-core-va.toktokv.com",
+				"api2-21-h2-useast1a.musical.ly": "api21-normal-c-useast1a.tiktokv.com",
+				"api2-21-h2-useast2a.musical.ly": "api21-normal-c-useast2a.tiktokv.com",
+				"api2-21-h2.musical.ly": "api21-va.tiktokv.com",
+				"api2-22-quic-eagle-useast1a.musical.ly": "api22-core-c-useast1a.tiktokv.com",
+				"api2-22-quic-eagle-useast2a.musical.ly": "api22-core-c-useast2a.tiktokv.com",
+				"api2-22-quic-eagle.musical.ly": "api22-core-va.tiktokv.com",
+				"api2-22-quic-useast1a.musical.ly": "api22-normal-c-useast1a.tiktokv.com",
+				"api2-22-quic-useast2a.musical.ly": "api22-normal-c-useast2a.tiktokv.com",
+				"api2-22-quic.musical.ly": "api22-va.tiktokv.com",
+				"api2-core-useast1a.musical.ly": "api16-core-c-useast1a.tiktokv.com",
+				"api2-core-useast2a.musical.ly": "api16-core-c-useast2a.tiktokv.com",
+				"api2-core.musical.ly": "api-core-va.tiktokv.com",
+				"api2-h2-useast1a.musical.ly": "api16-normal-c-useast1a.tiktokv.com",
+				"api2-h2-useast2a.musical.ly": "api16-normal-c-useast2a.tiktokv.com",
+				"api2-h2.musical.ly": "api16-va.tiktokv.com",
+				"api2-useast1a.musical.ly": "api16-normal-c-useast1a.tiktokv.com",
+				"api2-useast2a.musical.ly": "api16-normal-c-useast2a.tiktokv.com",
+				"api2.musical.ly": "api-va.tiktokv.com",
+				"applog-useast1a.musical.ly": "log16-normal-c-useast1a.tiktokv.com",
+				"applog-useast2a.musical.ly": "log16-normal-c-useast2a.tiktokv.com",
+				"applog.musical.ly": "log-va.tiktokv.com",
+				"gecko-va-useast1a.musical.ly": "gecko16-normal-c-useast1a.tiktokv.com",
+				"gecko-va-useast2a.musical.ly": "gecko16-normal-c-useast2a.tiktokv.com",
+				"gecko-va.musical.ly": "gecko-va.tiktokv.com",
+				"imapi-16-useast1a.musical.ly": "im16-normal-c-useast1a.tiktokv.com",
+				"imapi-16-useast2a.musical.ly": "im16-normal-c-useast2a.tiktokv.com",
+				"imapi-16.musical.ly": "im-va.tiktokv.com",
+				"log2-useast1a.musical.ly": "log16-normal-c-useast1a.tiktokv.com",
+				"log2-useast2a.musical.ly": "log16-normal-c-useast2a.tiktokv.com",
+				"log2.musical.ly": "log-va.tiktokv.com",
+				"mon.musical.ly": "mon-va.tiktokv.com",
+				"sdfp-va.musical.ly": "sdfp-va.tiktokv.com",
+				"verification-va-useast1a.musical.ly": "verification16-normal-c-useast1a.tiktokv.com",
+				"verification-va-useast2a.musical.ly": "verification16-normal-c-useast2a.tiktokv.com",
+				"verification-va.musical.ly": "verification-va.tiktokv.com",
+				"webcast-useast1a.musical.ly": "webcast16-normal-c-useast1a.tiktokv.com",
+				"webcast-useast2a.musical.ly": "webcast16-normal-c-useast2a.tiktokv.com",
+				"webcast.musical.ly": "webcast-va.tiktokv.com",
+				"webcast16-useast1a.musical.ly": "webcast16-normal-c-useast1a.tiktokv.com",
+				"webcast16-useast2a.musical.ly": "webcast16-normal-c-useast2a.tiktokv.com",
+				"webcast16.musical.ly": "webcast16-va.tiktokv.com",
+				"webcast19-useast1a.musical.ly": "webcast19-normal-c-useast1a.tiktokv.com",
+				"webcast19-useast2a.musical.ly": "webcast19-normal-c-useast2a.tiktokv.com",
+				"webcast19.musical.ly": "webcast19-va.tiktokv.com",
+				"webcast21-useast1a.musical.ly": "webcast21-normal-c-useast1a.tiktokv.com",
+				"webcast21-useast2a.musical.ly": "webcast21-normal-c-useast2a.tiktokv.com",
+				"webcast21.musical.ly": "webcast21-va.tiktokv.com",
+				"xlog-va.musical.ly": "xlog-va.tiktokv.com",
+				"jsb-va.musical.ly": "jsb-va.tiktokv.com",
+				"frontier.musical.ly": "frontier-va.tiktokv.com"
+			}
+		}
+	}
+]
