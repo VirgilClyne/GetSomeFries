@@ -111,29 +111,29 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 # > Alphabet
 # refer: https://developers.google.com/speed/public-dns/docs/doh?hl=zh-cn
 # *.google = server:https://dns.google/dns-query // Google
-*.google.com = server:https://dns.google/dns-query // Google
-*.google.com.?? = server:https://dns.google/dns-query // Google
+# *.google.com = server:https://dns.google/dns-query // Google
+# *.google.com.?? = server:https://dns.google/dns-query // Google
 # *.goog = server:https://dns.google/dns-query // Google sites
-*.gstatic.com = server:https://dns.google/dns-query // Google 静态资源
-*.ggpht.com = server:https://dns.google/dns-query // Google Photos
-*.googleusercontent.com = server:https://dns.google/dns-query // Google 用户上传数据
-*.googleapis.com = server:https://dns.google/dns-query // Google APIs
-*.1e100.net = server:https://dns.google/dns-query // Google backbone
-*.youtube = server:https://dns.google/dns-query // Youtube sites
-*.youtube.com = server:https://dns.google/dns-query // Youtube
-*.ytimg.com = server:https://dns.google/dns-query // Youtube 图片
-*.googlevideo.com = server:https://dns.google/dns-query // Youtube Video
-*.gvt?.com = server:https://dns.google/dns-query // Google Video Thumbnails
-*.recaptcha.net = server:https://dns.google/dns-query // reCaptcha
-*.gmail.com = server:https://dns.google/dns-query // Gmail
-*.googlesource.com = server:https://dns.google/dns-query // Google Source
-*.googleadservices.com = server:https://dns.google/dns-query // Google AD Services
-*.doubleclick.net = server:https://dns.google/dns-query // DoubleClick
-*.adsense.com = server:https://dns.google/dns-query // AdSense
-*.adsensecustomsearchads.com = server:https://dns.google/dns-query // AdSense Custom Search Ads
-*.adsenseformobileapps.com = server:https://dns.google/dns-query // AdSense for mobile apps
-*.gle = server:https://dns.google/dns-query // Google shortened URLs
-goo.gl = server:https://dns.google/dns-query // Google URL Shortener
+# *.gstatic.com = server:https://dns.google/dns-query // Google 静态资源
+# *.ggpht.com = server:https://dns.google/dns-query // Google Photos
+# *.googleusercontent.com = server:https://dns.google/dns-query // Google 用户上传数据
+# *.googleapis.com = server:https://dns.google/dns-query // Google APIs
+# *.1e100.net = server:https://dns.google/dns-query // Google backbone
+# *.youtube = server:https://dns.google/dns-query // Youtube sites
+# *.youtube.com = server:https://dns.google/dns-query // Youtube
+# *.ytimg.com = server:https://dns.google/dns-query // Youtube 图片
+# *.googlevideo.com = server:https://dns.google/dns-query // Youtube Video
+# *.gvt?.com = server:https://dns.google/dns-query // Google Video Thumbnails
+# *.recaptcha.net = server:https://dns.google/dns-query // reCaptcha
+# *.gmail.com = server:https://dns.google/dns-query // Gmail
+# *.googlesource.com = server:https://dns.google/dns-query // Google Source
+# *.googleadservices.com = server:https://dns.google/dns-query // Google AD Services
+# *.doubleclick.net = server:https://dns.google/dns-query // DoubleClick
+# *.adsense.com = server:https://dns.google/dns-query // AdSense
+# *.adsensecustomsearchads.com = server:https://dns.google/dns-query // AdSense Custom Search Ads
+# *.adsenseformobileapps.com = server:https://dns.google/dns-query // AdSense for mobile apps
+# *.gle = server:https://dns.google/dns-query // Google shortened URLs
+# goo.gl = server:https://dns.google/dns-query // Google URL Shortener
 
 # > Cloudflare
 # refer: https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/
@@ -143,7 +143,7 @@ goo.gl = server:https://dns.google/dns-query // Google URL Shortener
 *.cloudflareinsights.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Web Analytics
 *.every1dns.net = server:https://cloudflare-dns.com/dns-query // Cloudflare 1.1.1.1
 # *.cloudflaressl.com = server:https://cloudflare-dns.com/dns-query // Cloudflare SSL Certificate
-*.cloudflare-dns.com = server:https://cloudflare-dns.com/dns-query // Cloudflare DNS
+# *.cloudflare-dns.com = server:https://cloudflare-dns.com/dns-query // Cloudflare DNS
 *.workers.dev = server:https://cloudflare-dns.com/dns-query // CloudFlare Workers
 
 # > 阿里巴巴
