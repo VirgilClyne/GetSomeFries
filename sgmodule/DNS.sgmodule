@@ -137,14 +137,14 @@ networking.apple = server:https://doh.dns.apple.com/dns-query // Apple
 
 # > Cloudflare
 # refer: https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/
-*.cloudflare.com = server:https://cloudflare-dns.com/dns-query // Cloudflare
-*.cloudflarestream.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Stream
-*.cloudflareclient.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Client
-*.cloudflareinsights.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Web Analytics
-*.every1dns.net = server:https://cloudflare-dns.com/dns-query // Cloudflare 1.1.1.1
+# *.cloudflare.com = server:https://cloudflare-dns.com/dns-query // Cloudflare
+# *.cloudflarestream.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Stream
+# *.cloudflareclient.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Client
+# *.cloudflareinsights.com = server:https://cloudflare-dns.com/dns-query // Cloudflare Web Analytics
+# *.every1dns.net = server:https://cloudflare-dns.com/dns-query // Cloudflare 1.1.1.1
 # *.cloudflaressl.com = server:https://cloudflare-dns.com/dns-query // Cloudflare SSL Certificate
 # *.cloudflare-dns.com = server:https://cloudflare-dns.com/dns-query // Cloudflare DNS
-*.workers.dev = server:https://cloudflare-dns.com/dns-query // CloudFlare Workers
+# *.workers.dev = server:https://cloudflare-dns.com/dns-query // CloudFlare Workers
 
 # > 阿里巴巴
 # refer: https://www.alidns.com

@@ -141,14 +141,14 @@ dns:
 
     # > Cloudflare
     # refer: https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/
-    "+.cloudflare.com": "https://cloudflare-dns.com/dns-query" # Cloudflare
-    "+.cloudflarestream.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Stream
-    "+.cloudflareclient.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Client
-    "+.cloudflareinsights.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Web Analytics
-    "+.every1dns.net": "https://cloudflare-dns.com/dns-query" # Cloudflare
+    # "+.cloudflare.com": "https://cloudflare-dns.com/dns-query" # Cloudflare
+    # "+.cloudflarestream.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Stream
+    # "+.cloudflareclient.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Client
+    # "+.cloudflareinsights.com": "https://cloudflare-dns.com/dns-query" # Cloudflare Web Analytics
+    # "+.every1dns.net": "https://cloudflare-dns.com/dns-query" # Cloudflare
     # "+.cloudflaressl.com": "https://cloudflare-dns.com/dns-query" # Cloudflare SSL Certificate
-    "+.cloudflare-dns.com": "https://cloudflare-dns.com/dns-query" # Cloudflare DNS
-    "+.workers.dev": "https://cloudflare-dns.com/dns-query" # CloudFlare Workers
+    # "+.cloudflare-dns.com": "https://cloudflare-dns.com/dns-query" # Cloudflare DNS
+    # "+.workers.dev": "https://cloudflare-dns.com/dns-query" # CloudFlare Workers
 
     # > 阿里巴巴
     # refer: https://www.alidns.com
