@@ -8,11 +8,11 @@
 [General]
 # ---(DNS 服务器)---
 # > 通过代理请求使用本地DNS映射结果
-use-local-host-item-for-proxy=true
+use-local-host-item-for-proxy = true
 
 # > 加密DNS服务器
 # 使加密DNS请求通过代理策略执行
-encrypted-dns-follow-outbound-mode = true
+encrypted-dns-follow-outbound-mode = false
 
 [Host]
 # --- CUSTOM HOSTS ---
