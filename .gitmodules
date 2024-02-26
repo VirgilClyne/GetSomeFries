@@ -1,0 +1,6 @@
+[submodule "src/ENV"]
+	path = src/ENV
+	url = https://github.com/NanoCat-Me/ENV.git
+[submodule "src/URI"]
+	path = src/URI
+	url = https://github.com/NanoCat-Me/URI.git
