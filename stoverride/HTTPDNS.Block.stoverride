@@ -24,6 +24,26 @@ rules:
 
   # Bilibili
   - DOMAIN,httpdns.bilivideo.com,REJECT
+  # KEY_EXT_P2P_HTTPDNS_BILI_IP
+  - IP-CIDR,47.101.175.206/32,REJECT
+  - IP-CIDR,47.100.123.169/32,REJECT
+  - IP-CIDR,120.46.169.234/32,REJECT
+  - IP-CIDR,121.36.72.124/32,REJECT
+  # KEY_EXT_P2P_BILIDNS_CMCC_IP
+  - IP-CIDR,116.63.10.135/32,REJECT
+  - IP-CIDR,122.9.7.134/32,REJECT
+  - IP-CIDR,117.185.228.108/32,REJECT
+  - IP-CIDR,117.144.238.29/32,REJECT
+  # KEY_EXT_P2P_BILIDNS_CT_IP
+  - IP-CIDR,122.9.13.79/32,REJECT
+  - IP-CIDR,122.9.15.129/32,REJECT
+  - IP-CIDR,101.91.140.224/32,REJECT
+  - IP-CIDR,101.91.140.124/32,REJECT
+  # KEY_EXT_P2P_BILIDNS_CU_IP
+  - IP-CIDR,114.116.215.110/32,REJECT
+  - IP-CIDR,116.63.10.31/32,REJECT
+  - IP-CIDR,112.64.218.119/32,REJECT
+  - IP-CIDR,112.65.200.117/32,REJECT
 
   # Huawei
   - DOMAIN,httpdns.c.cdnhwc2.com,REJECT
@@ -116,6 +136,28 @@ http:
     # Baidu
     - ^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
     - ^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
+
+    # Bilibili
+    # KEY_EXT_P2P_HTTPDNS_BILI_IP
+    - ^http:\/\/47\.101\.175\.206\/resolve - reject
+    - ^http:\/\/47\.100\.123\.169\/resolve - reject
+    - ^http:\/\/120\.46\.169\.234\/resolve - reject
+    - ^http:\/\/121\.36\.72\.124\/resolve - reject
+    # KEY_EXT_P2P_BILIDNS_CMCC_IP
+    - ^http:\/\/116\.63\.10\.135\/resolve - reject
+    - ^http:\/\/122\.9\.7\.134\/resolve - reject
+    - ^http:\/\/117\.185\.228\.108\/resolve - reject
+    - ^http:\/\/117\.144\.238\.29\/resolve - reject
+    # KEY_EXT_P2P_BILIDNS_CT_IP
+    - ^http:\/\/122\.9\.13\.79\/resolve - reject
+    - ^http:\/\/122\.9\.15\.129\/resolve - reject
+    - ^http:\/\/101\.91\.140\.224\/resolve - reject
+    - ^http:\/\/101\.91\.140\.124\/resolve - reject
+    # KEY_EXT_P2P_BILIDNS_CU_IP
+    - ^http:\/\/114\.116\.215\.110\/resolve - reject
+    - ^http:\/\/116\.63\.10\.31\/resolve - reject
+    - ^http:\/\/112\.64\.218\.119\/resolve - reject
+    - ^http:\/\/112\.65\.200\.117\/resolve - reject
 
     # JD
     - ^https:\/\/dns\.jd\.com\/v6\/b - reject

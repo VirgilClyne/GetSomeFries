@@ -128,6 +128,28 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
 ^http:\/\/180\.76\.76\.112\/v4\/resolve - reject
 ^http:\/\/180\.76\.76\.220\/v4\/resolve - reject
 
+# Bilibili
+# KEY_EXT_P2P_HTTPDNS_BILI_IP
+^http:\/\/47\.101\.175\.206\/resolve - reject
+^http:\/\/47\.100\.123\.169\/resolve - reject
+^http:\/\/120\.46\.169\.234\/resolve - reject
+^http:\/\/121\.36\.72\.124\/resolve - reject
+# KEY_EXT_P2P_BILIDNS_CMCC_IP
+^http:\/\/116\.63\.10\.135\/resolve - reject
+^http:\/\/122\.9\.7\.134\/resolve - reject
+^http:\/\/117\.185\.228\.108\/resolve - reject
+^http:\/\/117\.144\.238\.29\/resolve - reject
+# KEY_EXT_P2P_BILIDNS_CT_IP
+^http:\/\/122\.9\.13\.79\/resolve - reject
+^http:\/\/122\.9\.15\.129\/resolve - reject
+^http:\/\/101\.91\.140\.224\/resolve - reject
+^http:\/\/101\.91\.140\.124\/resolve - reject
+# KEY_EXT_P2P_BILIDNS_CU_IP
+^http:\/\/114\.116\.215\.110\/resolve - reject
+^http:\/\/116\.63\.10\.31\/resolve - reject
+^http:\/\/112\.64\.218\.119\/resolve - reject
+^http:\/\/112\.65\.200\.117\/resolve - reject
+
 # JD
 ^https:\/\/dns\.jd\.com\/v6\/b - reject
 
