@@ -745,37 +745,6 @@ class ENV {
 	}
 }
 
-let URI$1 = class URI {
-	static name = "URI";
-	static version = "1.2.7";
-	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
-	static #json = { scheme: "", host: "", path: "", query: {} };
-
-	static parse(url) {
-		const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
-		let json = url.match(URLRegex)?.groups ?? null;
-		if (json?.path) json.paths = json.path.split("/"); else json.path = "";
-		//if (json?.paths?.at(-1)?.includes(".")) json.format = json.paths.at(-1).split(".").at(-1);
-		if (json?.paths) {
-			const fileName = json.paths[json.paths.length - 1];
-			if (fileName?.includes(".")) {
-				const list = fileName.split(".");
-				json.format = list[list.length - 1];
-			}
-		}
-		if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
-		return json
-	};
-
-	static stringify(json = this.#json) {
-		let url = "";
-		if (json?.scheme && json?.host) url += json.scheme + "://" + json.host;
-		if (json?.path) url += (json?.host) ? "/" + json.path : json.path;
-		if (json?.query) url += "?" + Object.entries(json.query).map(param => param.join("=")).join("&");
-		return url
-	};
-};
-
 var Settings$2 = {
 	Switch: true
 };
@@ -859,7 +828,7 @@ var TikTok$1 = /*#__PURE__*/Object.freeze({
 	default: TikTok
 });
 
-Database = {
+var Database$1 = Database = {
 	"Default": Default$1,
 	"WeChat": WeChat$1,
 	"TikTok": TikTok$1,
@@ -936,135 +905,76 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: WeChat v0.2.1(1) response.beta");
-const URI = new URI$1();
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(3) request.beta");
+
+// 构造回复数据
+let $response = undefined;
 
 /***************** Processing *****************/
 // 解构URL
-const URL = URI.parse($request.url);
-$.log(`⚠ URL: ${JSON.stringify(URL)}`, "");
+const url = new URL($request.url);
+$.log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
-const METHOD = $request.method; URL.host; const PATH = URL.path; URL.paths;
-$.log(`⚠ METHOD: ${METHOD}`, "");
+const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
+$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
-const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"] ?? $request.headers?.Accept ?? $request.headers?.accept)?.split(";")?.[0];
+const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
-!(async () => {
-	const { Settings, Caches, Configs } = setENV($, "GetSomeFries", "WeChat");
-	$.log(`⚠ ${$.name}`, `Settings.Switch: ${Settings?.Switch}`, "");
+(async () => {
+	const { Settings, Caches, Configs } = setENV("GetSomeFries", "TikTok", Database$1);
+	$.log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
 		default:
-			// 创建空数据
-			let body = {};
-			// 格式判断
-			switch (FORMAT) {
-				case undefined: // 视为无body
-					break;
-				case "application/x-www-form-urlencoded":
-				case "text/plain":
+			// 方法判断
+			switch (METHOD) {
+				case "POST":
+				case "PUT":
+				case "PATCH":
+				case "DELETE":
+					//break; // 不中断，继续处理URL
+				case "GET":
+				case "HEAD":
+				case "OPTIONS":
 				default:
-					break;
-				case "application/x-mpegURL":
-				case "application/x-mpegurl":
-				case "application/vnd.apple.mpegurl":
-				case "audio/mpegurl":
-					//body = M3U8.parse($response.body);
-					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-					//$response.body = M3U8.stringify(body);
-					break;
-				case "text/xml":
-				case "text/html":
-				case "text/plist":
-				case "application/xml":
-				case "application/plist":
-				case "application/x-plist":
-					$.log(`🚧 ${$.name}`, `body: ${$response.body}`, "");
-					body = new DOMParser().parseFromString($response.body, FORMAT);
-					$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
 					// 路径判断
 					switch (PATH) {
-						case "cgi-bin/mmsupport-bin/readtemplate":
+						case "/get_domains/v4/":
+						case "/get_domains/v5/":
+						case "/get_domains/v6/":
+						case "/get_domains/v7/":
+						case "/get_domains/v8/":
+						case "/get_domains/v9/":
+							$.log(`🚧 调试信息, cronet_version: ${URL.query?.cronet_version}`, "");
+							$.log(`🚧 调试信息, ttnet_version: ${URL.query?.ttnet_version}`, "");
+							delete $request.headers?.["x-tt-tnc-summary"];
+						/*
+						//case "/service/2/app_log/":
+						case "/aweme/v1/user/":
+						case "/aweme/v1/user/profile/other/":
+						case "/aweme/v1/commit/follow/user/":
+						case "/aweme/v1/user/settings/":
+						case "/tiktok/user/profile/self/v1":
+						case "/tiktok/user/profile/other/v1":
+						case "/tiktok/v1/mix/list/":
 							break;
-						case "cgi-bin/mmspamsupport-bin/newredirectconfirmcgi":
-							let script = body?.querySelector("script")?.textContent?.trim();
-							$.log(`🚧 ${$.name}`, `script: ${JSON.stringify(script)}`, "");
-							eval(script);
-							//Function(`"use strict";return (${script})`)();
-							$.log(`🚧 ${$.name}`, `cgiData: ${JSON.stringify(cgiData ?? undefined)}`, "");
-							if (cgiData?.url) {
-								let url = URI.parse(cgiData.url);
-								switch (url?.host) {
-									case "mp.weixin.qq.com":
-									default:
-										break;
-									case "qr.alipay.com":
-										//$request.url = `alipays://platformapi/startapp?appId=20000067&url=${cgiData.url}`;
-										url.scheme = "alipays";
-										url.host = "platformapi";
-										url.path = "startapp";
-										url.query = {
-											"appId": 20000067,
-											"url": encodeURIComponent(cgiData.url)
-										};
-										break;
-									case "www.taobao.com":
-									case "taobao.com":
-									case "www.tmall.com":
-									case "tmall.com":
-									case "c.tb.cn":
-									case "m.tb.cn":
-									case "s.tb.cn":
-									case "t.tb.cn":
-									case "tb.cn":
-										url.scheme = "taobao";
-										break;
-								}								switch (url?.scheme) {
-									case "alipays":
-									case "taobao":
-									default:
-										switch ($.platform()) {
-											case "Quantumult X":
-												$response.status = "HTTP/1.1 302 Temporary Redirect";
-												break;
-											case "Surge":
-											case "Loon":
-											case "Stash":
-											case "Shadowrocket":
-											default:
-												$response.status = 302;
-												break;
-										}										$response.headers = { Location: URI.stringify(url) };
-										delete $response.body;
-										break;
-									case "http":
-									case "https":
-										$response = await $.fetch(cgiData.url);
-								}							}
-							break;
-					}					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-					//$response.body = new XMLSerializer().serializeToString(body);
+						*/
+						default:
+							processParams(url.searchParams, Settings.CountryCode, Settings.Carrier, Configs);
+							if ($request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"]) {
+								let commonParams = $request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"];
+								commonParams = new Map(commonParams.split("&").map((param) => param.split("=")));
+								commonParams = processParams(commonParams, Settings.CountryCode, Settings.Carrier, Configs);
+								commonParams = Array.from(commonParams).map(param => param.join("=")).join("&");
+								if ($request.headers?.["x-common-params-v2"]) $request.headers["x-common-params-v2"] = commonParams;
+								if ($request.headers?.["X-Common-Params-V2"]) $request.headers["X-Common-Params-V2"] = commonParams;
+							}							break;
+					}					break;
+				case "CONNECT":
+				case "TRACE":
 					break;
-				case "text/vtt":
-				case "application/vtt":
-					//body = VTT.parse($response.body);
-					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-					//$response.body = VTT.stringify(body);
-					break;
-				case "text/json":
-				case "application/json":
-					//body = JSON.parse($request.body ?? "{}");
-					//$.log(`🚧 ${$.name}`, `body: ${JSON.stringify(body)}`, "");
-					//$request.body = JSON.stringify(body);
-					break;
-				case "application/protobuf":
-				case "application/x-protobuf":
-				case "application/vnd.google.protobuf":
-				case "application/grpc":
-				case "application/grpc+proto":
-				case "application/octet-stream":
-					break;
-			}
+			}			$request.url = url.toString();
+			$.log(`🚧 调试信息`, `$request.url: ${$request.url}`, "");
 			break;
 		case false:
 			break;
@@ -1072,36 +982,83 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 .catch((e) => $.logErr(e))
 .finally(() => {
 	switch ($response) {
-		default: { // 有回复数据，返回回复数据
-			//const FORMAT = ($response?.headers?.["Content-Type"] ?? $response?.headers?.["content-type"])?.split(";")?.[0];
-			$.log(`🎉 ${$.name}, finally`, `$response`, `FORMAT: ${FORMAT}`, "");
-			//$.log(`🚧 ${$.name}, finally`, `$response: ${JSON.stringify($response)}`, "");
-			if ($response?.headers?.["Content-Encoding"]) $response.headers["Content-Encoding"] = "identity";
-			if ($response?.headers?.["content-encoding"]) $response.headers["content-encoding"] = "identity";
+		default: // 有构造回复数据，返回构造的回复数据
 			if ($.isQuanX()) {
-				switch (FORMAT) {
-					case undefined: // 视为无body
-						// 返回普通数据
-						$.done({ status: $response.status, headers: $response.headers });
-						break;
-					default:
-						// 返回普通数据
-						$.done({ status: $response.status, headers: $response.headers, body: $response.body });
-						break;
-					case "application/protobuf":
-					case "application/x-protobuf":
-					case "application/vnd.google.protobuf":
-					case "application/grpc":
-					case "application/grpc+proto":
-					case "application/octet-stream":
-						// 返回二进制数据
-						//$.log(`${$response.bodyBytes.byteLength}---${$response.bodyBytes.buffer.byteLength}`);
-						$.done({ status: $response.status, headers: $response.headers, bodyBytes: $response.bodyBytes.buffer.slice($response.bodyBytes.byteOffset, $response.bodyBytes.byteLength + $response.bodyBytes.byteOffset) });
-						break;
-				}			} else $.done($response);
+				if (!$response.status) $response.status = "HTTP/1.1 200 OK";
+				delete $response.headers?.["Content-Length"];
+				delete $response.headers?.["content-length"];
+				delete $response.headers?.["Transfer-Encoding"];
+				$.done($response);
+			} else $.done({ response: $response });
 			break;
-		}		case undefined: { // 无回复数据
+		case undefined: // 无构造回复数据，发送修改的请求数据
+			//$.log(`🚧 finally`, `$request: ${JSON.stringify($request, null, 2)}`, "");
+			$.done($request);
 			break;
-		}	}});
+	}});
 
 /***************** Function *****************/
+function processParams(searchParams = new URL($request.url).searchParams, cc = "TW", carrier = "中華電信", database = {}) {
+	const MCCMNC = searchParams.get("mcc_mnc");
+	$.log(`☑️ process Params, MCCMNC: ${MCCMNC}`, "");
+	//if (searchParams.has("residence")) searchParams.set("residence", cc);
+	if (searchParams.has("carrier")) searchParams.set("carrier", encodeURIComponent(carrier));
+	//if (searchParams.has("sys_region")) searchParams.set("sys_region", cc);
+	if (searchParams.has("sim_region")) searchParams.set("sim_region", database.MCCMNC[carrier]);
+	if (searchParams.has("op_region")) searchParams.set("op_region", cc);
+	if (searchParams.has("carrier_region")) searchParams.set("carrier_region", cc);
+	//if (searchParams.has("carrier_region1")) searchParams.set("carrier_region1", cc);
+	if (searchParams.has("current_region")) searchParams.set("current_region", cc);
+	//if (searchParams.has("account_region")) searchParams.set("account_region", cc.toLocaleLowerCase());
+	if (searchParams.has("tz_name")) searchParams.set("tz_name", database.TimeZone[carrier]);
+	switch (MCCMNC) {
+		case "46000":
+		case "46001":
+		case "46002":
+		case "46003":
+		case "46004":
+		case "46005":
+		case "46006":
+		case "46007":
+		case "46008":
+		case "46009":
+		case "46010":
+		case "46011":
+		case "46012":
+		case "46013":
+		case "46014":
+		case "46015":
+		case "46016":
+		case "46017":
+		case "46018":
+		case "46019":
+		case "46020":
+			searchParams.set("mcc_mnc", database.MCCMNC[carrier]);
+			break;
+		case "45400":
+		case "45401":
+		case "45402":
+		case "45403":
+		case "45404":
+		case "45405":
+		case "45406":
+		case "45407":
+		case "45408":
+		case "45409":
+		case "45410":
+		case "45411":
+		case "45412":
+		case "45413":
+		case "45414":
+		case "45415":
+		case "45416":
+		case "45417":
+		case "45418":
+		case "45419":
+		case "45420":
+		case "45429":
+			searchParams.set("mcc_mnc", database.MCCMNC[carrier]);
+			break;
+	}	$.log(`✅ process Params`, "");
+	return searchParams;
+}

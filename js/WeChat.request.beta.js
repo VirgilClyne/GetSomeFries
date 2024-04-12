@@ -1,12 +1,11 @@
 /* README: https://github.com/VirgilClyne/GetSomeFries */
+/* https://www.lodashjs.com */
 class Lodash {
-	constructor() {
-		this.name = "Lodash";
-		this.version = '1.0.0';
-		console.log(`\n${this.name} v${this.version}\n`);
-	}
+	static name = "Lodash";
+	static version = "1.2.2";
+	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
 
-	get(object = {}, path = "", defaultValue = undefined) {
+	static get(object = {}, path = "", defaultValue = undefined) {
 		// translate array case to dot case, then split with .
 		// a[0].b -> a.0.b -> ['a', '0', 'b']
 		if (!Array.isArray(path)) path = this.toPath(path);
@@ -17,7 +16,7 @@ class Lodash {
 		return (result === undefined) ? defaultValue : result;
 	}
 
-	set(object = {}, path = "", value) {
+	static set(object = {}, path = "", value) {
 		if (!Array.isArray(path)) path = this.toPath(path);
 		path
 			.slice(0, -1)
@@ -31,27 +30,315 @@ class Lodash {
 		return object
 	}
 
-	toPath(value) {
+	static unset(object = {}, path = "") {
+		if (!Array.isArray(path)) path = this.toPath(path);
+		let result = path.reduce((previousValue, currentValue, currentIndex) => {
+			if (currentIndex === path.length - 1) {
+				delete previousValue[currentValue];
+				return true
+			}
+			return Object(previousValue)[currentValue]
+		}, object);
+		return result
+	}
+
+	static toPath(value) {
 		return value.replace(/\[(\d+)\]/g, '.$1').split('.').filter(Boolean);
+	}
+
+	static escape(string) {
+		const map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#39;',
+		};
+		return string.replace(/[&<>"']/g, m => map[m])
+	};
+
+	static unescape(string) {
+		const map = {
+			'&amp;': '&',
+			'&lt;': '<',
+			'&gt;': '>',
+			'&quot;': '"',
+			'&#39;': "'",
+		};
+		return string.replace(/&amp;|&lt;|&gt;|&quot;|&#39;/g, m => map[m])
 	}
 
 }
 
+/* https://developer.mozilla.org/zh-CN/docs/Web/API/Storage/setItem */
+class $Storage {
+	static name = "$Storage";
+	static version = "1.0.9";
+	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
+	static data = null
+	static dataFile = 'box.dat'
+	static #nameRegex = /^@(?<key>[^.]+)(?:\.(?<path>.*))?$/;
+
+	static #platform() {
+		if ('undefined' !== typeof $environment && $environment['surge-version'])
+			return 'Surge'
+		if ('undefined' !== typeof $environment && $environment['stash-version'])
+			return 'Stash'
+		if ('undefined' !== typeof module && !!module.exports) return 'Node.js'
+		if ('undefined' !== typeof $task) return 'Quantumult X'
+		if ('undefined' !== typeof $loon) return 'Loon'
+		if ('undefined' !== typeof $rocket) return 'Shadowrocket'
+		if ('undefined' !== typeof Egern) return 'Egern'
+	}
+
+    static getItem(keyName = new String, defaultValue = null) {
+        let keyValue = defaultValue;
+        // 如果以 @
+		switch (keyName.startsWith('@')) {
+			case true:
+				const { key, path } = keyName.match(this.#nameRegex)?.groups;
+				//console.log(`1: ${key}, ${path}`);
+				keyName = key;
+				let value = this.getItem(keyName, {});
+				//console.log(`2: ${JSON.stringify(value)}`)
+				if (typeof value !== "object") value = {};
+				//console.log(`3: ${JSON.stringify(value)}`)
+				keyValue = Lodash.get(value, path);
+				//console.log(`4: ${JSON.stringify(keyValue)}`)
+				try {
+					keyValue = JSON.parse(keyValue);
+				} catch (e) {
+					// do nothing
+				}				//console.log(`5: ${JSON.stringify(keyValue)}`)
+				break;
+			default:
+				switch (this.#platform()) {
+					case 'Surge':
+					case 'Loon':
+					case 'Stash':
+					case 'Egern':
+					case 'Shadowrocket':
+						keyValue = $persistentStore.read(keyName);
+						break;
+					case 'Quantumult X':
+						keyValue = $prefs.valueForKey(keyName);
+						break;
+					case 'Node.js':
+						this.data = this.#loaddata(this.dataFile);
+						keyValue = this.data?.[keyName];
+						break;
+					default:
+						keyValue = this.data?.[keyName] || null;
+						break;
+				}				try {
+					keyValue = JSON.parse(keyValue);
+				} catch (e) {
+					// do nothing
+				}				break;
+		}		return keyValue ?? defaultValue;
+    };
+
+	static setItem(keyName = new String, keyValue = new String) {
+		let result = false;
+		//console.log(`0: ${typeof keyValue}`);
+		switch (typeof keyValue) {
+			case "object":
+				keyValue = JSON.stringify(keyValue);
+				break;
+			default:
+				keyValue = String(keyValue);
+				break;
+		}		switch (keyName.startsWith('@')) {
+			case true:
+				const { key, path } = keyName.match(this.#nameRegex)?.groups;
+				//console.log(`1: ${key}, ${path}`);
+				keyName = key;
+				let value = this.getItem(keyName, {});
+				//console.log(`2: ${JSON.stringify(value)}`)
+				if (typeof value !== "object") value = {};
+				//console.log(`3: ${JSON.stringify(value)}`)
+				Lodash.set(value, path, keyValue);
+				//console.log(`4: ${JSON.stringify(value)}`)
+				result = this.setItem(keyName, value);
+				//console.log(`5: ${result}`)
+				break;
+			default:
+				switch (this.#platform()) {
+					case 'Surge':
+					case 'Loon':
+					case 'Stash':
+					case 'Egern':
+					case 'Shadowrocket':
+						result = $persistentStore.write(keyValue, keyName);
+						break;
+					case 'Quantumult X':
+						result =$prefs.setValueForKey(keyValue, keyName);
+						break;
+					case 'Node.js':
+						this.data = this.#loaddata(this.dataFile);
+						this.data[keyName] = keyValue;
+						this.#writedata(this.dataFile);
+						result = true;
+						break;
+					default:
+						result = this.data?.[keyName] || null;
+						break;
+				}				break;
+		}		return result;
+	};
+
+    static removeItem(keyName){
+		let result = false;
+		switch (keyName.startsWith('@')) {
+			case true:
+				const { key, path } = keyName.match(this.#nameRegex)?.groups;
+				keyName = key;
+				let value = this.getItem(keyName);
+				if (typeof value !== "object") value = {};
+				keyValue = Lodash.unset(value, path);
+				result = this.setItem(keyName, value);
+				break;
+			default:
+				switch (this.#platform()) {
+					case 'Surge':
+					case 'Loon':
+					case 'Stash':
+					case 'Egern':
+					case 'Shadowrocket':
+						result = false;
+						break;
+					case 'Quantumult X':
+						result = $prefs.removeValueForKey(keyName);
+						break;
+					case 'Node.js':
+						result = false;
+						break;
+					default:
+						result = false;
+						break;
+				}				break;
+		}		return result;
+    }
+
+    static clear() {
+		let result = false;
+		switch (this.#platform()) {
+			case 'Surge':
+			case 'Loon':
+			case 'Stash':
+			case 'Egern':
+			case 'Shadowrocket':
+				result = false;
+				break;
+			case 'Quantumult X':
+				result = $prefs.removeAllValues();
+				break;
+			case 'Node.js':
+				result = false;
+				break;
+			default:
+				result = false;
+				break;
+		}		return result;
+    }
+
+	static #loaddata(dataFile) {
+		if (this.isNode()) {
+			this.fs = this.fs ? this.fs : require('fs');
+			this.path = this.path ? this.path : require('path');
+			const curDirDataFilePath = this.path.resolve(dataFile);
+			const rootDirDataFilePath = this.path.resolve(
+				process.cwd(),
+				dataFile
+			);
+			const isCurDirDataFile = this.fs.existsSync(curDirDataFilePath);
+			const isRootDirDataFile =
+				!isCurDirDataFile && this.fs.existsSync(rootDirDataFilePath);
+			if (isCurDirDataFile || isRootDirDataFile) {
+				const datPath = isCurDirDataFile
+					? curDirDataFilePath
+					: rootDirDataFilePath;
+				try {
+					return JSON.parse(this.fs.readFileSync(datPath))
+				} catch (e) {
+					return {}
+				}
+			} else return {}
+		} else return {}
+	}
+
+	static #writedata(dataFile = this.dataFile) {
+		if (this.isNode()) {
+			this.fs = this.fs ? this.fs : require('fs');
+			this.path = this.path ? this.path : require('path');
+			const curDirDataFilePath = this.path.resolve(dataFile);
+			const rootDirDataFilePath = this.path.resolve(
+				process.cwd(),
+				dataFile
+			);
+			const isCurDirDataFile = this.fs.existsSync(curDirDataFilePath);
+			const isRootDirDataFile =
+				!isCurDirDataFile && this.fs.existsSync(rootDirDataFilePath);
+			const jsondata = JSON.stringify(this.data);
+			if (isCurDirDataFile) {
+				this.fs.writeFileSync(curDirDataFilePath, jsondata);
+			} else if (isRootDirDataFile) {
+				this.fs.writeFileSync(rootDirDataFilePath, jsondata);
+			} else {
+				this.fs.writeFileSync(curDirDataFilePath, jsondata);
+			}
+		}
+	};
+
+}
+
 class ENV {
+	static name = "ENV"
+	static version = '1.8.3'
+	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) }
+
 	constructor(name, opts) {
+		console.log(`\n🟧 ${ENV.name} v${ENV.version}\n`);
 		this.name = name;
-		this.version = '1.4.1';
-		this.data = null;
-		this.dataFile = 'box.dat';
 		this.logs = [];
 		this.isMute = false;
+		this.isMuteLog = false;
 		this.logSeparator = '\n';
 		this.encoding = 'utf-8';
 		this.startTime = new Date().getTime();
 		Object.assign(this, opts);
-		this.log('', '🚩 开始!', `ENV v${this.version}`, '');
-		this.lodash = new Lodash(this.name);
-		this.log('', this.name, '');
+		this.log(`\n🚩 开始!\n${name}\n`);
+	}
+	
+	environment() {
+		switch (this.platform()) {
+			case 'Surge':
+				$environment.app = 'Surge';
+				return $environment
+			case 'Stash':
+				$environment.app = 'Stash';
+				return $environment
+			case 'Egern':
+				$environment.app = 'Egern';
+				return $environment
+			case 'Loon':
+				let environment = $loon.split(' ');
+				return {
+					"device": environment[0],
+					"ios": environment[1],
+					"loon-version": environment[2],
+					"app": "Loon"
+				};
+			case 'Quantumult X':
+				return {
+					"app": "Quantumult X"
+				};
+			case 'Node.js':
+				process.env.app = 'Node.js';
+				return process.env
+			default:
+				return {}
+		}
 	}
 
 	platform() {
@@ -94,198 +381,28 @@ class ENV {
 		return 'Egern' === this.platform()
 	}
 
-	toObj(str, defaultValue = null) {
-		try {
-			return JSON.parse(str)
-		} catch {
-			return defaultValue
-		}
+	async getScript(url) {
+		return await this.fetch(url).then(response => response.body);
 	}
 
-	toStr(obj, defaultValue = null) {
-		try {
-			return JSON.stringify(obj)
-		} catch {
-			return defaultValue
-		}
-	}
-
-	getjson(key, defaultValue) {
-		let json = defaultValue;
-		const val = this.getdata(key);
-		if (val) {
-			try {
-				json = JSON.parse(this.getdata(key));
-			} catch { }
-		}
-		return json
-	}
-
-	setjson(val, key) {
-		try {
-			return this.setdata(JSON.stringify(val), key)
-		} catch {
-			return false
-		}
-	}
-
-	getScript(url) {
-		return new Promise((resolve) => {
-			this.get({ url }, (error, response, body) => resolve(body));
-		})
-	}
-
-	runScript(script, runOpts) {
-		return new Promise((resolve) => {
-			let httpapi = this.getdata('@chavy_boxjs_userCfgs.httpapi');
-			httpapi = httpapi ? httpapi.replace(/\n/g, '').trim() : httpapi;
-			let httpapi_timeout = this.getdata(
-				'@chavy_boxjs_userCfgs.httpapi_timeout'
-			);
-			httpapi_timeout = httpapi_timeout ? httpapi_timeout * 1 : 20;
-			httpapi_timeout =
-				runOpts && runOpts.timeout ? runOpts.timeout : httpapi_timeout;
-			const [key, addr] = httpapi.split('@');
-			const opts = {
-				url: `http://${addr}/v1/scripting/evaluate`,
-				body: {
-					script_text: script,
-					mock_type: 'cron',
-					timeout: httpapi_timeout
-				},
-				headers: { 'X-Key': key, 'Accept': '*/*' },
+	async runScript(script, runOpts) {
+		let httpapi = $Storage.getItem('@chavy_boxjs_userCfgs.httpapi');
+		httpapi = httpapi?.replace?.(/\n/g, '')?.trim();
+		let httpapi_timeout = $Storage.getItem('@chavy_boxjs_userCfgs.httpapi_timeout');
+		httpapi_timeout = (httpapi_timeout * 1) ?? 20;
+		httpapi_timeout = runOpts?.timeout ?? httpapi_timeout;
+		const [password, address] = httpapi.split('@');
+		const request = {
+			url: `http://${address}/v1/scripting/evaluate`,
+			body: {
+				script_text: script,
+				mock_type: 'cron',
 				timeout: httpapi_timeout
-			};
-			this.post(opts, (error, response, body) => resolve(body));
-		}).catch((e) => this.logErr(e))
-	}
-
-	loaddata() {
-		if (this.isNode()) {
-			this.fs = this.fs ? this.fs : require('fs');
-			this.path = this.path ? this.path : require('path');
-			const curDirDataFilePath = this.path.resolve(this.dataFile);
-			const rootDirDataFilePath = this.path.resolve(
-				process.cwd(),
-				this.dataFile
-			);
-			const isCurDirDataFile = this.fs.existsSync(curDirDataFilePath);
-			const isRootDirDataFile =
-				!isCurDirDataFile && this.fs.existsSync(rootDirDataFilePath);
-			if (isCurDirDataFile || isRootDirDataFile) {
-				const datPath = isCurDirDataFile
-					? curDirDataFilePath
-					: rootDirDataFilePath;
-				try {
-					return JSON.parse(this.fs.readFileSync(datPath))
-				} catch (e) {
-					return {}
-				}
-			} else return {}
-		} else return {}
-	}
-
-	writedata() {
-		if (this.isNode()) {
-			this.fs = this.fs ? this.fs : require('fs');
-			this.path = this.path ? this.path : require('path');
-			const curDirDataFilePath = this.path.resolve(this.dataFile);
-			const rootDirDataFilePath = this.path.resolve(
-				process.cwd(),
-				this.dataFile
-			);
-			const isCurDirDataFile = this.fs.existsSync(curDirDataFilePath);
-			const isRootDirDataFile =
-				!isCurDirDataFile && this.fs.existsSync(rootDirDataFilePath);
-			const jsondata = JSON.stringify(this.data);
-			if (isCurDirDataFile) {
-				this.fs.writeFileSync(curDirDataFilePath, jsondata);
-			} else if (isRootDirDataFile) {
-				this.fs.writeFileSync(rootDirDataFilePath, jsondata);
-			} else {
-				this.fs.writeFileSync(curDirDataFilePath, jsondata);
-			}
-		}
-	}
-	getdata(key) {
-		let val = this.getval(key);
-		// 如果以 @
-		if (/^@/.test(key)) {
-			const [, objkey, paths] = /^@(.*?)\.(.*?)$/.exec(key);
-			const objval = objkey ? this.getval(objkey) : '';
-			if (objval) {
-				try {
-					const objedval = JSON.parse(objval);
-					val = objedval ? this.lodash.get(objedval, paths, '') : val;
-				} catch (e) {
-					val = '';
-				}
-			}
-		}
-		return val
-	}
-
-	setdata(val, key) {
-		let issuc = false;
-		if (/^@/.test(key)) {
-			const [, objkey, paths] = /^@(.*?)\.(.*?)$/.exec(key);
-			const objdat = this.getval(objkey);
-			const objval = objkey
-				? objdat === 'null'
-					? null
-					: objdat || '{}'
-				: '{}';
-			try {
-				const objedval = JSON.parse(objval);
-				this.lodash.set(objedval, paths, val);
-				issuc = this.setval(JSON.stringify(objedval), objkey);
-			} catch (e) {
-				const objedval = {};
-				this.lodash.set(objedval, paths, val);
-				issuc = this.setval(JSON.stringify(objedval), objkey);
-			}
-		} else {
-			issuc = this.setval(val, key);
-		}
-		return issuc
-	}
-
-	getval(key) {
-		switch (this.platform()) {
-			case 'Surge':
-			case 'Loon':
-			case 'Stash':
-			case 'Egern':
-			case 'Shadowrocket':
-				return $persistentStore.read(key)
-			case 'Quantumult X':
-				return $prefs.valueForKey(key)
-			case 'Node.js':
-				this.data = this.loaddata();
-				return this.data[key]
-			default:
-				return (this.data && this.data[key]) || null
-		}
-	}
-
-	setval(val, key) {
-		switch (this.platform()) {
-			case 'Surge':
-			case 'Loon':
-			case 'Stash':
-			case 'Egern':
-			case 'Shadowrocket':
-				return $persistentStore.write(val, key)
-			case 'Quantumult X':
-				return $prefs.setValueForKey(val, key)
-			case 'Node.js':
-				this.data = this.loaddata();
-				this.data[key] = val;
-				this.writedata();
-				return true
-			default:
-				return (this.data && this.data[key]) || null
-		}
+			},
+			headers: { 'X-Key': password, 'Accept': '*/*' },
+			timeout: httpapi_timeout
+		};
+		await this.fetch(request).then(response => response.body, error => this.logErr(error));
 	}
 
 	initGotEnv(opts) {
@@ -301,19 +418,26 @@ class ENV {
 	}
 
 	async fetch(request = {} || "", option = {}) {
+		// 初始化参数
 		switch (request.constructor) {
 			case Object:
-				request = { ...request, ...option };
+				request = { ...option, ...request };
 				break;
 			case String:
-				request = { "url": request, ...option };
+				request = { ...option, "url": request };
 				break;
-		}		if (!request.method) {
+		}		// 自动判断请求方法
+		if (!request.method) {
 			request.method = "GET";
 			if (request.body ?? request.bodyBytes) request.method = "POST";
-		}		delete request.headers?.['Content-Length'];
+		}		// 移除请求头中的部分参数, 让其自动生成
+		delete request.headers?.Host;
+		delete request.headers?.[":authority"];
+		delete request.headers?.['Content-Length'];
 		delete request.headers?.['content-length'];
+		// 定义请求方法（小写）
 		const method = request.method.toLocaleLowerCase();
+		// 判断平台
 		switch (this.platform()) {
 			case 'Loon':
 			case 'Surge':
@@ -321,15 +445,20 @@ class ENV {
 			case 'Egern':
 			case 'Shadowrocket':
 			default:
-				// 移除不可写字段
-				delete request.id;
-				// 添加策略组
-				if (request.policy) {
+				// 转换请求参数
+				if (request.timeout) {
+					request.timeout = parseInt(request.timeout, 10);
+					if (this.isSurge()) ; else request.timeout = request.timeout * 1000;
+				}				if (request.policy) {
 					if (this.isLoon()) request.node = request.policy;
-					if (this.isStash()) this.lodash.set(request, "headers.X-Stash-Selected-Proxy", encodeURI(request.policy));
-				}				// 判断请求数据类型
-				if (ArrayBuffer.isView(request.body)) request["binary-mode"] = true;
-				// 发送请求
+					if (this.isStash()) Lodash.set(request, "headers.X-Stash-Selected-Proxy", encodeURI(request.policy));
+					if (this.isShadowrocket()) Lodash.set(request, "headers.X-Surge-Proxy", request.policy);
+				}				if (typeof request.redirection === "boolean") request["auto-redirect"] = request.redirection;
+				// 转换请求体
+				if (request.bodyBytes && !request.body) {
+					request.body = request.bodyBytes;
+					delete request.bodyBytes;
+				}				// 发送请求
 				return await new Promise((resolve, reject) => {
 					$httpClient[method](request, (error, response, body) => {
 						if (error) reject(error);
@@ -344,32 +473,18 @@ class ENV {
 					});
 				});
 			case 'Quantumult X':
-				// 移除不可写字段
-				delete request.scheme;
-				delete request.sessionIndex;
-				delete request.charset;
-				// 添加策略组
-				if (request.policy) this.lodash.set(request, "opts.policy", request.policy);
-				// 判断请求数据类型
-				switch ((request?.headers?.["Content-Type"] ?? request?.headers?.["content-type"])?.split(";")?.[0]) {
-					default:
-						// 返回普通数据
-						delete request.bodyBytes;
-						break;
-					case "application/protobuf":
-					case "application/x-protobuf":
-					case "application/vnd.google.protobuf":
-					case "application/grpc":
-					case "application/grpc+proto":
-					case "application/octet-stream":
-						// 返回二进制数据
-						delete request.body;
-						if (ArrayBuffer.isView(request.bodyBytes)) request.bodyBytes = request.bodyBytes.buffer.slice(request.bodyBytes.byteOffset, request.bodyBytes.byteLength + request.bodyBytes.byteOffset);
-						break;
-					case undefined: // 视为构造请求或无body
-						// 返回普通数据
-						break;
-				}				// 发送请求
+				// 转换请求参数
+				if (request.policy) Lodash.set(request, "opts.policy", request.policy);
+				if (typeof request["auto-redirect"] === "boolean") Lodash.set(request, "opts.redirection", request["auto-redirect"]);
+				// 转换请求体
+				if (request.body instanceof ArrayBuffer) {
+					request.bodyBytes = request.body;
+					delete request.body;
+				} else if (ArrayBuffer.isView(request.body)) {
+					request.bodyBytes = request.body.buffer.slice(request.body.byteOffset, request.body.byteLength + request.body.byteOffset);
+					delete object.body;
+				} else if (request.body) delete request.bodyBytes;
+				// 发送请求
 				return await $task.fetch(request).then(
 					response => {
 						response.ok = /^2\d\d$/.test(response.statusCode);
@@ -572,88 +687,71 @@ class ENV {
 		return new Promise((resolve) => setTimeout(resolve, time))
 	}
 
-	done(val = {}) {
+	done(object = {}) {
 		const endTime = new Date().getTime();
 		const costTime = (endTime - this.startTime) / 1000;
-		this.log('', `🚩 ${this.name}, 结束! 🕛 ${costTime} 秒`);
-		this.log();
+		this.log("", `🚩 ${this.name}, 结束! 🕛 ${costTime} 秒`, "");
 		switch (this.platform()) {
 			case 'Surge':
+				if (object.policy) Lodash.set(object, "headers.X-Surge-Policy", object.policy);
+				$done(object);
+				break;
 			case 'Loon':
+				if (object.policy) object.node = object.policy;
+				$done(object);
+				break;
 			case 'Stash':
+				if (object.policy) Lodash.set(object, "headers.X-Stash-Selected-Proxy", encodeURI(object.policy));
+				$done(object);
+				break;
 			case 'Egern':
+				$done(object);
+				break;
 			case 'Shadowrocket':
-			case 'Quantumult X':
 			default:
-				$done(val);
-				break
+				$done(object);
+				break;
+			case 'Quantumult X':
+				if (object.policy) Lodash.set(object, "opts.policy", object.policy);
+				// 移除不可写字段
+				delete object["auto-redirect"];
+				delete object["auto-cookie"];
+				delete object["binary-mode"];
+				delete object.charset;
+				delete object.host;
+				delete object.insecure;
+				delete object.method; // 1.4.x 不可写
+				delete object.opt; // $task.fetch() 参数, 不可写
+				delete object.path; // 可写, 但会与 url 冲突
+				delete object.policy;
+				delete object["policy-descriptor"];
+				delete object.scheme;
+				delete object.sessionIndex;
+				delete object.statusCode;
+				delete object.timeout;
+				if (object.body instanceof ArrayBuffer) {
+					object.bodyBytes = object.body;
+					delete object.body;
+				} else if (ArrayBuffer.isView(object.body)) {
+					object.bodyBytes = object.body.buffer.slice(object.body.byteOffset, object.body.byteLength + object.body.byteOffset);
+					delete object.body;
+				} else if (object.body) delete object.bodyBytes;
+				$done(object);
+				break;
 			case 'Node.js':
 				process.exit(1);
-				break
+				break;
 		}
 	}
-
-	/**
-	 * Get Environment Variables
-	 * @link https://github.com/VirgilClyne/GetSomeFries/blob/main/function/getENV/getENV.js
-	 * @author VirgilClyne
-	 * @param {String} key - Persistent Store Key
-	 * @param {Array} names - Platform Names
-	 * @param {Object} database - Default Database
-	 * @return {Object} { Settings, Caches, Configs }
-	 */
-	getENV(key, names, database) {
-		//this.log(`☑️ ${this.name}, Get Environment Variables`, "");
-		/***************** BoxJs *****************/
-		// 包装为局部变量，用完释放内存
-		// BoxJs的清空操作返回假值空字符串, 逻辑或操作符会在左侧操作数为假值时返回右侧操作数。
-		let BoxJs = this.getjson(key, database);
-		//this.log(`🚧 ${this.name}, Get Environment Variables`, `BoxJs类型: ${typeof BoxJs}`, `BoxJs内容: ${JSON.stringify(BoxJs)}`, "");
-		/***************** Argument *****************/
-		let Argument = {};
-		if (typeof $argument !== "undefined") {
-			if (Boolean($argument)) {
-				//this.log(`🎉 ${this.name}, $Argument`);
-				let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=").map(i => i.replace(/\"/g, ''))));
-				//this.log(JSON.stringify(arg));
-				for (let item in arg) this.lodash.set(Argument, item, arg[item]);
-				//this.log(JSON.stringify(Argument));
-			}			//this.log(`✅ ${this.name}, Get Environment Variables`, `Argument类型: ${typeof Argument}`, `Argument内容: ${JSON.stringify(Argument)}`, "");
-		}		/***************** Store *****************/
-		const Store = { Settings: database?.Default?.Settings || {}, Configs: database?.Default?.Configs || {}, Caches: {} };
-		if (!Array.isArray(names)) names = [names];
-		//this.log(`🚧 ${this.name}, Get Environment Variables`, `names类型: ${typeof names}`, `names内容: ${JSON.stringify(names)}`, "");
-		for (let name of names) {
-			Store.Settings = { ...Store.Settings, ...database?.[name]?.Settings, ...Argument, ...BoxJs?.[name]?.Settings };
-			Store.Configs = { ...Store.Configs, ...database?.[name]?.Configs };
-			if (BoxJs?.[name]?.Caches && typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
-			Store.Caches = { ...Store.Caches, ...BoxJs?.[name]?.Caches };
-		}		//this.log(`🚧 ${this.name}, Get Environment Variables`, `Store.Settings类型: ${typeof Store.Settings}`, `Store.Settings: ${JSON.stringify(Store.Settings)}`, "");
-		this.traverseObject(Store.Settings, (key, value) => {
-			//this.log(`🚧 ${this.name}, traverseObject`, `${key}: ${typeof value}`, `${key}: ${JSON.stringify(value)}`, "");
-			if (value === "true" || value === "false") value = JSON.parse(value); // 字符串转Boolean
-			else if (typeof value === "string") {
-				if (value.includes(",")) value = value.split(",").map(item => this.string2number(item)); // 字符串转数组转数字
-				else value = this.string2number(value); // 字符串转数字
-			}			return value;
-		});
-		//this.log(`✅ ${this.name}, Get Environment Variables`, `Store: ${typeof Store.Caches}`, `Store内容: ${JSON.stringify(Store)}`, "");
-		return Store;
-	};
-
-	/***************** function *****************/
-	traverseObject(o, c) { for (var t in o) { var n = o[t]; o[t] = "object" == typeof n && null !== n ? this.traverseObject(n, c) : c(t, n); } return o }
-	string2number(string) { if (string && !isNaN(string)) string = parseInt(string, 10); return string }
 }
 
 let URI$1 = class URI {
-	constructor(opts = []) {
-		this.name = "URI v1.2.6";
-		this.opts = opts;
-		this.json = { scheme: "", host: "", path: "", query: {} };
-	};
+	static name = "URI";
+	static version = "1.2.7";
+	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
+	static #json = { scheme: "", host: "", path: "", query: {} };
 
-	parse(url) {
+	static parse(url) {
 		const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
 		let json = url.match(URLRegex)?.groups ?? null;
 		if (json?.path) json.paths = json.path.split("/"); else json.path = "";
@@ -669,7 +767,7 @@ let URI$1 = class URI {
 		return json
 	};
 
-	stringify(json = this.json) {
+	static stringify(json = this.#json) {
 		let url = "";
 		if (json?.scheme && json?.host) url += json.scheme + "://" + json.host;
 		if (json?.path) url += (json?.host) ? "/" + json.path : json.path;
@@ -678,49 +776,158 @@ let URI$1 = class URI {
 	};
 };
 
-var Settings$1 = {
+var Settings$2 = {
 	Switch: true
 };
 var Default = {
-	Settings: Settings$1
+	Settings: Settings$2
 };
 
 var Default$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$1,
+	Settings: Settings$2,
 	default: Default
 });
 
-var Settings = {
+var Settings$1 = {
 	Switch: true
 };
 var WeChat = {
-	Settings: Settings
+	Settings: Settings$1
 };
 
 var WeChat$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings,
+	Settings: Settings$1,
 	default: WeChat
 });
 
-var Database$1 = Database = {
+var Settings = {
+	Switch: true,
+	CountryCode: "TW",
+	Carrier: "中華電信"
+};
+var Configs = {
+	MCCMNC: {
+		docomo: "44010",
+		SoftBank: "44020",
+		au: "44050",
+		SKT: "45005",
+		KT: "45008",
+		"LG U+": "45006",
+		"中国联通": "46001",
+		"中国移动": "46002",
+		"中国电信": "46003",
+		"中華電信": "46692",
+		"遠傳電信": "46693",
+		"台灣大哥大": "46697",
+		"台灣之星": "46699",
+		Verizon: "310004",
+		Rogers: "302720",
+		Bell: "302610",
+		Telus: "302220",
+		"T-Mobile": "310260",
+		"AT&T": "310410",
+		Sprint: "310120"
+	},
+	TimeZone: {
+		US: "America/New_York",
+		TW: "Asia/Taipei",
+		KR: "Asia/Seoul",
+		JP: "Asia/Tokyo",
+		CN: "Asia/Shanghai",
+		DE: "Europe/Berlin",
+		FR: "Europe/Paris",
+		GB: "Europe/London",
+		RU: "Europe/Moscow",
+		IN: "Asia/Kolkata",
+		SG: "Asia/Singapore",
+		CA: "America/Toronto",
+		BR: "America/Sao_Paulo",
+		MX: "America/Mexico_City"
+	}
+};
+var TikTok = {
+	Settings: Settings,
+	Configs: Configs
+};
+
+var TikTok$1 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
+	Configs: Configs,
+	Settings: Settings,
+	default: TikTok
+});
+
+Database = {
 	"Default": Default$1,
 	"WeChat": WeChat$1,
+	"TikTok": TikTok$1,
 };
+
+/**
+ * Get Storage Variables
+ * @link https://github.com/NanoCat-Me/ENV/blob/main/getStorage.mjs
+ * @author VirgilClyne
+ * @param {String} key - Persistent Store Key
+ * @param {Array} names - Platform Names
+ * @param {Object} database - Default Database
+ * @return {Object} { Settings, Caches, Configs }
+ */
+function getStorage(key, names, database) {
+    //console.log(`☑️ ${this.name}, Get Environment Variables`, "");
+    /***************** BoxJs *****************/
+    // 包装为局部变量，用完释放内存
+    // BoxJs的清空操作返回假值空字符串, 逻辑或操作符会在左侧操作数为假值时返回右侧操作数。
+    let BoxJs = $Storage.getItem(key, database);
+    //console.log(`🚧 ${this.name}, Get Environment Variables`, `BoxJs类型: ${typeof BoxJs}`, `BoxJs内容: ${JSON.stringify(BoxJs)}`, "");
+    /***************** Argument *****************/
+    let Argument = {};
+    if (typeof $argument !== "undefined") {
+        if (Boolean($argument)) {
+            //console.log(`🎉 ${this.name}, $Argument`);
+            let arg = Object.fromEntries($argument.split("&").map((item) => item.split("=").map(i => i.replace(/\"/g, ''))));
+            //console.log(JSON.stringify(arg));
+            for (let item in arg) Lodash.set(Argument, item, arg[item]);
+            //console.log(JSON.stringify(Argument));
+        }        //console.log(`✅ ${this.name}, Get Environment Variables`, `Argument类型: ${typeof Argument}`, `Argument内容: ${JSON.stringify(Argument)}`, "");
+    }    /***************** Store *****************/
+    const Store = { Settings: database?.Default?.Settings || {}, Configs: database?.Default?.Configs || {}, Caches: {} };
+    if (!Array.isArray(names)) names = [names];
+    //console.log(`🚧 ${this.name}, Get Environment Variables`, `names类型: ${typeof names}`, `names内容: ${JSON.stringify(names)}`, "");
+    for (let name of names) {
+        Store.Settings = { ...Store.Settings, ...database?.[name]?.Settings, ...Argument, ...BoxJs?.[name]?.Settings };
+        Store.Configs = { ...Store.Configs, ...database?.[name]?.Configs };
+        if (BoxJs?.[name]?.Caches && typeof BoxJs?.[name]?.Caches === "string") BoxJs[name].Caches = JSON.parse(BoxJs?.[name]?.Caches);
+        Store.Caches = { ...Store.Caches, ...BoxJs?.[name]?.Caches };
+    }    //console.log(`🚧 ${this.name}, Get Environment Variables`, `Store.Settings类型: ${typeof Store.Settings}`, `Store.Settings: ${JSON.stringify(Store.Settings)}`, "");
+    traverseObject(Store.Settings, (key, value) => {
+        //console.log(`🚧 ${this.name}, traverseObject`, `${key}: ${typeof value}`, `${key}: ${JSON.stringify(value)}`, "");
+        if (value === "true" || value === "false") value = JSON.parse(value); // 字符串转Boolean
+        else if (typeof value === "string") {
+            if (value.includes(",")) value = value.split(",").map(item => string2number(item)); // 字符串转数组转数字
+            else value = string2number(value); // 字符串转数字
+        }        return value;
+    });
+    //console.log(`✅ ${this.name}, Get Environment Variables`, `Store: ${typeof Store.Caches}`, `Store内容: ${JSON.stringify(Store)}`, "");
+    return Store;
+
+    /***************** function *****************/
+    function traverseObject(o, c) { for (var t in o) { var n = o[t]; o[t] = "object" == typeof n && null !== n ? traverseObject(n, c) : c(t, n); } return o }
+    function string2number(string) { if (string && !isNaN(string)) string = parseInt(string, 10); return string }
+}
 
 /**
  * Set Environment Variables
  * @author VirgilClyne
- * @param {Object} $ - ENV
  * @param {String} name - Persistent Store Key
  * @param {Array} platforms - Platform Names
  * @param {Object} database - Default DataBase
  * @return {Object} { Settings, Caches, Configs }
  */
-function setENV($, name, platforms, database) {
+function setENV(name, platforms, database) {
 	console.log(`☑️ Set Environment Variables`, "");
-	let { Settings, Caches, Configs } = $.getENV(name, platforms, database);
+	let { Settings, Caches, Configs } = getStorage(name, platforms, database);
 	/***************** Settings *****************/
 	console.log(`✅ Set Environment Variables, Settings: ${typeof Settings}, Settings内容: ${JSON.stringify(Settings)}`, "");
 	/***************** Caches *****************/
@@ -746,7 +953,7 @@ $.log(`⚠ METHOD: ${METHOD}`, "");
 const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
 (async () => {
-	const { Settings, Caches, Configs } = setENV($, "GetSomeFries", "WeChat", Database$1);
+	const { Settings, Caches, Configs } = setENV($, "GetSomeFries", "WeChat");
 	$.log(`⚠ ${$.name}`, `Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:

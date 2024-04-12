@@ -21,4 +21,23 @@ export default [
 		},
 		plugins: [json(), commonjs()],
 	},
+	{
+		input: 'src/TikTok.request.beta.js',
+		output: {
+			file: 'js/TikTok.request.beta.js',
+			banner: '/* README: https://github.com/VirgilClyne/GetSomeFries */',
+			format: 'es'
+		},
+		plugins: [json(), commonjs()],
+		
+	},
+	{
+		input: 'src/TikTok.response.beta.js',
+		output: {
+			file: 'js/TikTok.response.beta.js',
+			banner: '/* README: https://github.com/VirgilClyne/GetSomeFries */',
+			format: 'es'
+		},
+		plugins: [json(), commonjs()],
+	},
 ];

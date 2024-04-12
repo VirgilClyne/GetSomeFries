@@ -1,5 +1,5 @@
 import ENVs from "./ENV/ENV.mjs";
-import URIs from "./URI/URI.mjs";
+import URIs from "./URL/URI.mjs";
 
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
