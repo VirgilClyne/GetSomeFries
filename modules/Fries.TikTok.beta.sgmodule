@@ -12,12 +12,12 @@
 [Script]
 Fries.TikTok.request = type=http-request, pattern=^https?:\/\/(.+)\.tiktokv\.(com|us|eu)\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.request.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
 
-Fries.TikTok.tnc.get_domains.response = type=http-response, pattern=^https?:\/\/tnc(.+)\.tiktokv\.com\/get_domains\/v\d\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
-Fries.TikTok.api.aweme.v2.feed.response = type=http-response, pattern=^https?:\/\/api(.+)\.tiktokv\.com\/aweme\/v2\/feed\/, requires-body=1, binary-body-mode=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
-Fries.TikTok.api.response = type=http-response, pattern=^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/, requires-body=1, max-size=2097152, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
-Fries.TikTok.response = type=http-response, pattern=^https?:\/\/(.+)\.tiktokv\.(com|us|eu)\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
+Fries.TikTok.tnc.get_domains.response = type=http-response, pattern=^https?:\/\/tnc(.+)\.tiktokv\.com\/get_domains\/v\d\/, requires-body=1, engine=webview, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
+Fries.TikTok.api.aweme.v2.feed.response = type=http-response, pattern=^https?:\/\/api(.+)\.tiktokv\.com\/aweme\/v2\/feed\/, requires-body=1, binary-body-mode=1, engine=webview, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
+Fries.TikTok.api.response = type=http-response, pattern=^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/, requires-body=1, max-size=2097152, engine=webview, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
+Fries.TikTok.response = type=http-response, pattern=^https?:\/\/(.+)\.tiktokv\.(com|us|eu)\/, requires-body=1, engine=webview, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.response.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
 
-Fries.TikTok.request = type=http-request, pattern=^https?:\/\/(.+)\.byteoversea\.com\/, requires-body=1, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.request.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
+Fries.TikTok.request = type=http-request, pattern=^https?:\/\/(.+)\.byteoversea\.com\/, requires-body=1, engine=webview, debug=1, script-path=https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/beta/js/TikTok.request.beta.js, argument=CountryCode={{{CountryCode}}}&Carrier={{{Carrier}}}
 
 [MITM]
 hostname = %APPEND% *.tiktokv.com, *.tiktokv.us, *.tiktokv.eu, *.byteoversea.com
