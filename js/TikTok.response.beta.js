@@ -905,7 +905,7 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(2) response.beta");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(3) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
@@ -1026,7 +1026,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 								body.data.ios_downloader.is_tracker_enable = 0;
 							}
 							$.log(`🚧 opaque_data_enabled: ${body?.data?.opaque_data_enabled}`, "");
-							body.data.opaque_data_enabled = 0;
+							body.data.opaque_data_enabled = 0; // 关闭证书固定
 
 							$.log(`🚧 request_tag_enabled: ${body?.data?.request_tag_enabled}`, "");
 							if (body?.data?.request_tag_enabled) body.data.request_tag_enabled = 0;
@@ -1043,6 +1043,10 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 								body.data.tnc_config.local_enable = 0;
 							} else $.log(`⚠ ⚠️ 警告, body.data.tnc_config 不存在`, "");
 							*/
+
+							$.log(`🚧 tt_sandbox_intercept_enabled: ${body?.data?.tt_sandbox_intercept_enabled}`, "");
+							body.data.tt_sandbox_intercept_enabled = 1;
+
 							if (body?.data?.ttnet_fake_network_detect_config) body.data.ttnet_fake_network_detect_config.detect_enable = 0;
 							else {
 								$.log(`⚠ ⚠️ 警告, body.data.ttnet_fake_network_detect_config 不存在`, "");
@@ -1154,8 +1158,8 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							if (!body.user) {
 								body.status_msg = "";
 								body.status_code = 0;
-								Lodash.set(body, "user.sec_uid", URL.query?.sec_user_id);
-								Lodash.set(body, "user.uid", URL.query?.user_id);
+								Lodash.set(body, "user.sec_uid", url.searchParams.get("sec_user_id"));
+								Lodash.set(body, "user.uid", url.searchParams.get("user_id"));
 							}							break;
 						case "/aweme/v1/commit/follow/user/":
 							$.log(`🚧 body: ${JSON.stringify(body)}`, "");

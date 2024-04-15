@@ -5,7 +5,7 @@ import ENV from "./ENV/ENV.mjs";
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(3) request.beta");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(5) request.beta");
 
 // 构造回复数据
 let $response = undefined;
@@ -94,8 +94,8 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "/get_domains/v7/":
 						case "/get_domains/v8/":
 						case "/get_domains/v9/":
-							$.log(`🚧 调试信息, cronet_version: ${URL.query?.cronet_version}`, "");
-							$.log(`🚧 调试信息, ttnet_version: ${URL.query?.ttnet_version}`, "");
+							$.log(`🚧 调试信息, cronet_version: ${url.searchParams.get("cronet_version")}`, "");
+							$.log(`🚧 调试信息, ttnet_version: ${url.searchParams.get("ttnet_version")}`, "");
 							delete $request.headers?.["x-tt-tnc-summary"];
 						/*
 						//case "/service/2/app_log/":
@@ -109,6 +109,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							break;
 						*/
 						default:
+							/*
 							processParams(url.searchParams, Settings.CountryCode, Settings.Carrier, Configs);
 							if ($request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"]) {
 								let commonParams = $request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"];
@@ -118,6 +119,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 								if ($request.headers?.["x-common-params-v2"]) $request.headers["x-common-params-v2"] = commonParams;
 								if ($request.headers?.["X-Common-Params-V2"]) $request.headers["X-Common-Params-V2"] = commonParams;
 							};
+							*/
 							break;
 					};
 					break;
