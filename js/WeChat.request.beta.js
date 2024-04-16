@@ -745,37 +745,6 @@ class ENV {
 	}
 }
 
-let URI$1 = class URI {
-	static name = "URI";
-	static version = "1.2.7";
-	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
-	static #json = { scheme: "", host: "", path: "", query: {} };
-
-	static parse(url) {
-		const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
-		let json = url.match(URLRegex)?.groups ?? null;
-		if (json?.path) json.paths = json.path.split("/"); else json.path = "";
-		//if (json?.paths?.at(-1)?.includes(".")) json.format = json.paths.at(-1).split(".").at(-1);
-		if (json?.paths) {
-			const fileName = json.paths[json.paths.length - 1];
-			if (fileName?.includes(".")) {
-				const list = fileName.split(".");
-				json.format = list[list.length - 1];
-			}
-		}
-		if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
-		return json
-	};
-
-	static stringify(json = this.#json) {
-		let url = "";
-		if (json?.scheme && json?.host) url += json.scheme + "://" + json.host;
-		if (json?.path) url += (json?.host) ? "/" + json.path : json.path;
-		if (json?.query) url += "?" + Object.entries(json.query).map(param => param.join("=")).join("&");
-		return url
-	};
-};
-
 var Settings$2 = {
 	Switch: true
 };
@@ -859,7 +828,7 @@ var TikTok$1 = /*#__PURE__*/Object.freeze({
 	default: TikTok
 });
 
-Database = {
+var Database$1 = Database = {
 	"Default": Default$1,
 	"WeChat": WeChat$1,
 	"TikTok": TikTok$1,
@@ -936,24 +905,23 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: WeChat v0.1.2(1) request.beta");
-const URI = new URI$1();
+const $ = new ENV("🍟 GetSomeFries: WeChat v0.2.0(1) request.beta");
 
 // 构造回复数据
 let $response = undefined;
 
 /***************** Processing *****************/
 // 解构URL
-const URL = URI.parse($request.url);
-$.log(`⚠ URL: ${JSON.stringify(URL)}`, "");
+const url = new URL($request.url);
+$.log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
-const METHOD = $request.method; URL.host; const PATH = URL.path; URL.paths;
-$.log(`⚠ METHOD: ${METHOD}`, "");
+const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
+$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
 (async () => {
-	const { Settings, Caches, Configs } = setENV($, "GetSomeFries", "WeChat");
+	const { Settings, Caches, Configs } = setENV("GetSomeFries", "WeChat", Database$1);
 	$.log(`⚠ ${$.name}`, `Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
@@ -991,10 +959,10 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							body = new DOMParser().parseFromString($response.body, FORMAT);
 							// 路径判断
 							switch (PATH) {
-								case "cgi-bin/mmsupport-bin/readtemplate":
+								case "/cgi-bin/mmsupport-bin/readtemplate":
 									$.log(body);
 									break;
-								case "cgi-bin/mmspamsupport-bin/newredirectconfirmcgi":
+								case "/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi":
 									$.log(body);
 									break;
 							}							$response.body = new XMLSerializer().serializeToString(body);
@@ -1024,26 +992,25 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "OPTIONS":
 				case undefined: // QX牛逼，script-echo-response不返回method
 				default:
-					let newURL = {};
+					let newURL;
 					// 路径判断
 					switch (PATH) {
-						case "cgi-bin/mmsupport-bin/readtemplate":
-							if (URL.query?.url) newURL = URI.parse(decodeURIComponent(URL.query.url));
+						case "/cgi-bin/mmsupport-bin/readtemplate":
+							newURL = new URL(decodeURIComponent(url.searchParams.get("url")));
 							break;
-						case "cgi-bin/mmspamsupport-bin/newredirectconfirmcgi":
-							if (URL.query?.url) newURL = URI.parse(decodeURIComponent(URL.query.url));
+						case "/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi":
+							newURL = new URL(decodeURIComponent(url.searchParams.get("url")));
 							//$request.url = "https://mp.weixin.qq.com/mp/spredirect?url=" + body?.redirect_url;
 							break;
-					}					URI.scheme = newURL?.scheme ?? URI.scheme ?? "https";
-					URI.host = newURL?.host ?? URI.host ?? "mp.weixin.qq.com";
-					URI.path = newURL?.path ?? URI.path ?? "/mp/spredirect";
-					URI.query = newURL?.query ?? URL.query ?? {};
+					}					url.protocol = newURL?.protocol || "https";
+					url.hostname = newURL?.hostname || "mp.weixin.qq.com";
+					url.pathname = newURL?.pathname || "/mp/spredirect";
+					url.searchParams = newURL?.searchParams || new URLSearchParams();
 					break;
 				case "CONNECT":
 				case "TRACE":
 					break;
-			}			if ($request.headers?.Host) $request.headers.Host = URL.host;
-			$request.url = URI.stringify(URL);
+			}			$request.url = url.toString();
 			$.log(`🚧 ${$.name}, 调试信息`, `$request.url: ${$request.url}`, "");
 			break;
 		case false:
@@ -1052,61 +1019,17 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 	.catch((e) => $.logErr(e))
 	.finally(() => {
 		switch ($response) {
-			default: { // 有构造回复数据，返回构造的回复数据
-				const FORMAT = ($response?.headers?.["content-type"])?.split(";")?.[0];
-				$.log(`🎉 ${$.name}, finally`, `echo $response`, `FORMAT: ${FORMAT}`, "");
+			default: // 有构造回复数据，返回构造的回复数据
 				if ($.isQuanX()) {
-					$response.status = "HTTP/1.1 200 OK";
-					delete $response?.headers?.["Content-Length"];
-					delete $response?.headers?.["content-length"];
-					delete $response?.headers?.["Transfer-Encoding"];
-					switch (FORMAT) {
-						case undefined: // 视为无body
-							// 返回普通数据
-							$.done({ status: $response.status, headers: $response.headers });
-							break;
-						default:
-							// 返回普通数据
-							$.done({ status: $response.status, headers: $response.headers, body: $response.body });
-							break;
-						case "application/protobuf":
-						case "application/x-protobuf":
-						case "application/vnd.google.protobuf":
-						case "application/grpc":
-						case "application/grpc+proto":
-						case "application/octet-stream":
-							// 返回二进制数据
-							//$.log(`${$response.bodyBytes.byteLength}---${$response.bodyBytes.buffer.byteLength}`);
-							$.done({ status: $response.status, headers: $response.headers, bodyBytes: $response.bodyBytes });
-							break;
-					}				} else $.done({ response: $response });
+					if (!$response.status) $response.status = "HTTP/1.1 200 OK";
+					delete $response.headers?.["Content-Length"];
+					delete $response.headers?.["content-length"];
+					delete $response.headers?.["Transfer-Encoding"];
+					$.done($response);
+				} else $.done({ response: $response });
 				break;
-			}			case undefined: { // 无构造回复数据，发送修改的请求数据
-				//const FORMAT = ($request?.headers?.["Content-Type"] ?? $request?.headers?.["content-type"])?.split(";")?.[0];
-				$.log(`🎉 ${$.name}, finally`, `$request`, `FORMAT: ${FORMAT}`, "");
-				//$.log(`🚧 ${$.name}, finally`, `$request: ${JSON.stringify($request)}`, "");
-				if ($.isQuanX()) {
-					switch (FORMAT) {
-						case undefined: // 视为无body
-							// 返回普通数据
-							$.done({ url: $request.url, headers: $request.headers });
-							break;
-						default:
-							// 返回普通数据
-							$.done({ url: $request.url, headers: $request.headers, body: $request.body });
-							break;
-						case "application/protobuf":
-						case "application/x-protobuf":
-						case "application/vnd.google.protobuf":
-						case "application/grpc":
-						case "application/grpc+proto":
-						case "applecation/octet-stream":
-							// 返回二进制数据
-							//$.log(`${$request.bodyBytes.byteLength}---${$request.bodyBytes.buffer.byteLength}`);
-							$.done({ url: $request.url, headers: $request.headers, bodyBytes: $request.bodyBytes.buffer.slice($request.bodyBytes.byteOffset, $request.bodyBytes.byteLength + $request.bodyBytes.byteOffset) });
-							break;
-					}				} else $.done($request);
+			case undefined: // 无构造回复数据，发送修改的请求数据
+				//$.log(`🚧 finally`, `$request: ${JSON.stringify($request, null, 2)}`, "");
+				$.done($request);
 				break;
-			}		}	});
-
-/***************** Function *****************/
+		}	});

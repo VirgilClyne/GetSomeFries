@@ -745,37 +745,6 @@ class ENV {
 	}
 }
 
-let URI$1 = class URI {
-	static name = "URI";
-	static version = "1.2.7";
-	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) };
-	static #json = { scheme: "", host: "", path: "", query: {} };
-
-	static parse(url) {
-		const URLRegex = /(?:(?<scheme>.+):\/\/(?<host>[^/]+))?\/?(?<path>[^?]+)?\??(?<query>[^?]+)?/;
-		let json = url.match(URLRegex)?.groups ?? null;
-		if (json?.path) json.paths = json.path.split("/"); else json.path = "";
-		//if (json?.paths?.at(-1)?.includes(".")) json.format = json.paths.at(-1).split(".").at(-1);
-		if (json?.paths) {
-			const fileName = json.paths[json.paths.length - 1];
-			if (fileName?.includes(".")) {
-				const list = fileName.split(".");
-				json.format = list[list.length - 1];
-			}
-		}
-		if (json?.query) json.query = Object.fromEntries(json.query.split("&").map((param) => param.split("=")));
-		return json
-	};
-
-	static stringify(json = this.#json) {
-		let url = "";
-		if (json?.scheme && json?.host) url += json.scheme + "://" + json.host;
-		if (json?.path) url += (json?.host) ? "/" + json.path : json.path;
-		if (json?.query) url += "?" + Object.entries(json.query).map(param => param.join("=")).join("&");
-		return url
-	};
-};
-
 var Settings$2 = {
 	Switch: true
 };
@@ -936,16 +905,15 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: WeChat v0.2.1(1) response.beta");
-const URI = new URI$1();
+const $ = new ENV("🍟 GetSomeFries: WeChat v0.3.0(1) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
-const URL = URI.parse($request.url);
-$.log(`⚠ URL: ${JSON.stringify(URL)}`, "");
+const url = new URL($request.url);
+$.log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
-const METHOD = $request.method; URL.host; const PATH = URL.path; URL.paths;
-$.log(`⚠ METHOD: ${METHOD}`, "");
+const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
+$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"] ?? $request.headers?.Accept ?? $request.headers?.accept)?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
@@ -993,20 +961,18 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							//Function(`"use strict";return (${script})`)();
 							$.log(`🚧 ${$.name}`, `cgiData: ${JSON.stringify(cgiData ?? undefined)}`, "");
 							if (cgiData?.url) {
-								let url = URI.parse(cgiData.url);
-								switch (url?.host) {
+								let newURL = new URL(cgiData.url);
+								switch (newURL?.hostname) {
 									case "mp.weixin.qq.com":
 									default:
 										break;
 									case "qr.alipay.com":
 										//$request.url = `alipays://platformapi/startapp?appId=20000067&url=${cgiData.url}`;
-										url.scheme = "alipays";
-										url.host = "platformapi";
-										url.path = "startapp";
-										url.query = {
-											"appId": 20000067,
-											"url": encodeURIComponent(cgiData.url)
-										};
+										url.protocol = "alipays";
+										url.hostname = "platformapi";
+										url.pathname = "startapp";
+										url.searchParams.set("appId", 20000067);
+										url.searchParams.set("url", cgiData.url);
 										break;
 									case "www.taobao.com":
 									case "taobao.com":
@@ -1017,9 +983,9 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 									case "s.tb.cn":
 									case "t.tb.cn":
 									case "tb.cn":
-										url.scheme = "taobao";
+										url.protocol = "taobao";
 										break;
-								}								switch (url?.scheme) {
+								}								switch (newURL.protocol) {
 									case "alipays":
 									case "taobao":
 									default:
@@ -1034,7 +1000,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 											default:
 												$response.status = 302;
 												break;
-										}										$response.headers = { Location: URI.stringify(url) };
+										}										$response.headers = { Location: newURL.toString() };
 										delete $response.body;
 										break;
 									case "http":
@@ -1064,44 +1030,9 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/grpc+proto":
 				case "application/octet-stream":
 					break;
-			}
-			break;
+			}			break;
 		case false:
 			break;
 	}})()
-.catch((e) => $.logErr(e))
-.finally(() => {
-	switch ($response) {
-		default: { // 有回复数据，返回回复数据
-			//const FORMAT = ($response?.headers?.["Content-Type"] ?? $response?.headers?.["content-type"])?.split(";")?.[0];
-			$.log(`🎉 ${$.name}, finally`, `$response`, `FORMAT: ${FORMAT}`, "");
-			//$.log(`🚧 ${$.name}, finally`, `$response: ${JSON.stringify($response)}`, "");
-			if ($response?.headers?.["Content-Encoding"]) $response.headers["Content-Encoding"] = "identity";
-			if ($response?.headers?.["content-encoding"]) $response.headers["content-encoding"] = "identity";
-			if ($.isQuanX()) {
-				switch (FORMAT) {
-					case undefined: // 视为无body
-						// 返回普通数据
-						$.done({ status: $response.status, headers: $response.headers });
-						break;
-					default:
-						// 返回普通数据
-						$.done({ status: $response.status, headers: $response.headers, body: $response.body });
-						break;
-					case "application/protobuf":
-					case "application/x-protobuf":
-					case "application/vnd.google.protobuf":
-					case "application/grpc":
-					case "application/grpc+proto":
-					case "application/octet-stream":
-						// 返回二进制数据
-						//$.log(`${$response.bodyBytes.byteLength}---${$response.bodyBytes.buffer.byteLength}`);
-						$.done({ status: $response.status, headers: $response.headers, bodyBytes: $response.bodyBytes.buffer.slice($response.bodyBytes.byteOffset, $response.bodyBytes.byteLength + $response.bodyBytes.byteOffset) });
-						break;
-				}			} else $.done($response);
-			break;
-		}		case undefined: { // 无回复数据
-			break;
-		}	}});
-
-/***************** Function *****************/
+	.catch((e) => $.logErr(e))
+	.finally(() => $.done($response));
