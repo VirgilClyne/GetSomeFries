@@ -12,4 +12,23 @@ export default [
 		},
 		plugins: [json(), commonjs(), terser()]
 	},
+	{
+		input: 'src/TikTok.request.js',
+		output: {
+			file: 'js/TikTok.request.js',
+			banner: '/* README: https://github.com/VirgilClyne/GetSomeFries */',
+			format: 'es'
+		},
+		plugins: [json(), commonjs()],
+		
+	},
+	{
+		input: 'src/TikTok.response.js',
+		output: {
+			file: 'js/TikTok.response.js',
+			banner: '/* README: https://github.com/VirgilClyne/GetSomeFries */',
+			format: 'es'
+		},
+		plugins: [json(), commonjs()],
+	},
 ];
