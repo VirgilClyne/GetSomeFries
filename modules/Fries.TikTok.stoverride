@@ -22,12 +22,6 @@ http:
       type: response
       require-body: true
       argument:
-    - match: ^https?:\/\/api(.+)\.tiktokv\.com\/aweme\/v2\/feed\/
-      name: TikTok.response
-      type: response
-      require-body: true
-      binary-mode: true
-      argument:
     - match: ^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/
       name: TikTok.response
       type: response
