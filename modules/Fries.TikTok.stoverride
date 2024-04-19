@@ -23,6 +23,11 @@ http:
       require-body: true
       argument:
     - match: ^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/
+      name: TikTok.request
+      type: request
+      require-body: true
+      argument:
+    - match: ^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/
       name: TikTok.response
       type: response
       require-body: true
