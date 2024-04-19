@@ -5,7 +5,7 @@ import ENV from "./ENV/ENV.mjs";
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(7) request.beta");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(8) request.beta");
 
 // 构造回复数据
 let $response = undefined;
@@ -166,7 +166,7 @@ function processParams(searchParams = new URL($request.url).searchParams, cc = "
 	//if (searchParams.get("carrier_region1")) searchParams.set("carrier_region1", cc);
 	if (searchParams.get("current_region")) searchParams.set("current_region", cc);
 	//if (searchParams.get("account_region")) searchParams.set("account_region", cc.toLocaleLowerCase());
-	if (searchParams.get("tz_name")) searchParams.set("tz_name", database.TimeZone[carrier]);
+	if (searchParams.get("tz_name")) searchParams.set("tz_name", database.TimeZone[cc]);
 	switch (MCCMNC) {
 		case "46000":
 		case "46001":
