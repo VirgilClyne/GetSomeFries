@@ -1,0 +1,21 @@
+#!name=🍟 Fries: ♪ TikTok
+#!desc=TikTok解锁与增强
+#!openUrl=http://boxjs.com/#/app/GetSomeFries.TikTok
+#!author=VirgilClyne
+#!homepage=https://github.com/VirgilClyne/GetSomeFries/wiki/TikTok
+#!manual=https://github.com/VirgilClyne/GetSomeFries/wiki/TikTok
+#!icon=https://github.com/Koolson/Qure/raw/master/IconSet/Color/TikTok.png
+#!category=🍟 Fries
+
+#[rewrite_local]
+# Fries.TikTok.tnc.get_domains.request
+^https?:\/\/tnc(.+)\.tiktokv\.com\/get_domains\/v\d\/ url script-request-header https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/TikTok.request.js
+# Fries.TikTok.tnc.get_domains.response
+^https?:\/\/tnc(.+)\.tiktokv\.com\/get_domains\/v\d\/ url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/TikTok.response.js
+# Fries.TikTok.api.aweme.v2.feed.response
+^https?:\/\/api(.+)\.tiktokv\.com\/aweme\/v2\/feed\/ url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/TikTok.response.js
+# Fries.TikTok.api.response
+^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/ url script-response-body https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/TikTok.response.js
+
+#[mitm]
+hostname = *.tiktokv.com

@@ -1,0 +1,43 @@
+name: "🍟 Fries: ♪ TikTok"
+desc: |-
+  TikTok解锁与增强
+openUrl: "http://boxjs.com/#/app/GetSomeFries.TikTok"
+author: "VirgilClyne"
+homepage: "https://github.com/VirgilClyne/GetSomeFries/wiki/TikTok"
+manual: "https://github.com/VirgilClyne/GetSomeFries/wiki/TikTok"
+icon: "https://github.com/Koolson/Qure/raw/master/IconSet/Color/TikTok.png"
+category: "🍟 Fries"
+
+http:
+  mitm:
+    - "*.tiktokv.com"
+  script:
+    - match: ^https?:\/\/tnc(.+)\.tiktokv\.com\/get_domains\/v\d\/
+      name: TikTok.request
+      type: request
+      require-body: false
+      argument:
+    - match: ^https?:\/\/tnc(.+)\.tiktokv\.com\/get_domains\/v\d\/
+      name: TikTok.response
+      type: response
+      require-body: true
+      argument:
+    - match: ^https?:\/\/api(.+)\.tiktokv\.com\/aweme\/v2\/feed\/
+      name: TikTok.response
+      type: response
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/api(.+)\.tiktokv\.com\/(aweme|tiktok)\/v\d\/
+      name: TikTok.response
+      type: response
+      require-body: true
+      argument:
+
+script-providers:
+  TikTok.request:
+    url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/TikTok.request.js
+    interval: 86400
+  TikTok.response:
+    url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/js/TikTok.response.js
+    interval: 86400
