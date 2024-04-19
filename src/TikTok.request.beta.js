@@ -5,7 +5,7 @@ import ENV from "./ENV/ENV.mjs";
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(6) request.beta");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(7) request.beta");
 
 // 构造回复数据
 let $response = undefined;
@@ -96,6 +96,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "/get_domains/v9/":
 							$.log(`🚧 调试信息, cronet_version: ${url.searchParams.get("cronet_version")}`, "");
 							$.log(`🚧 调试信息, ttnet_version: ${url.searchParams.get("ttnet_version")}`, "");
+							delete $request.headers?.["local-etag"];
 							delete $request.headers?.["x-tt-tnc-summary"];
 						//case "/service/2/app_log/":
 						case "/aweme/v1/user/":

@@ -905,7 +905,7 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(3) response");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(4) response");
 
 /***************** Processing *****************/
 // 解构URL
@@ -970,6 +970,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "/get_domains/v7/":
 						case "/get_domains/v8/":
 						case "/get_domains/v9/":
+							delete $response.headers?.["x-ss-etag"];
 							$.log(`🚧 body: ${JSON.stringify(body)}`, "");
 
 							$.log(`🚧 summary: ${body.summary}`, "");

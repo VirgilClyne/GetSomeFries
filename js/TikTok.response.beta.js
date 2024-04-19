@@ -905,7 +905,7 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(3) response.beta");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(4) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
@@ -970,6 +970,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "/get_domains/v7/":
 						case "/get_domains/v8/":
 						case "/get_domains/v9/":
+							delete $response.headers?.["x-ss-etag"];
 							$.log(`🚧 body: ${JSON.stringify(body)}`, "");
 
 							$.log(`🚧 summary: ${body.summary}`, "");
@@ -1191,7 +1192,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 
 /***************** Function *****************/
 function processAwemeList(aweme_detail = {}) {
-	//$.log(`☑️ process Aweme List`, "");
+	$.log(`☑️ process Aweme List`, "");
 	if (!aweme_detail?.is_ads) {
 	//$.log(`🚧 process Aweme List`, `before aweme_detail: ${JSON.stringify(aweme_detail)}`, "");
 		aweme_detail.prevent_download = false;
@@ -1221,5 +1222,5 @@ function processAwemeList(aweme_detail = {}) {
 			aweme_detail.video_control.allow_download = true;
 		}		//$.log(`🚧 process Aweme List`, `after aweme_detail: ${JSON.stringify(aweme_detail)}`, "");
 		return aweme_detail;
-	}	//$.log(`✅ process Aweme List`, "");
+	}	$.log(`✅ process Aweme List`, "");
 }

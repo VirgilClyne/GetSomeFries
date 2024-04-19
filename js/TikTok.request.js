@@ -905,7 +905,7 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(6) request");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(7) request");
 
 // 构造回复数据
 let $response = undefined;
@@ -947,6 +947,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "/get_domains/v9/":
 							$.log(`🚧 调试信息, cronet_version: ${url.searchParams.get("cronet_version")}`, "");
 							$.log(`🚧 调试信息, ttnet_version: ${url.searchParams.get("ttnet_version")}`, "");
+							delete $request.headers?.["local-etag"];
 							delete $request.headers?.["x-tt-tnc-summary"];
 						case "/aweme/v1/user/":
 						case "/aweme/v1/user/profile/other/":
