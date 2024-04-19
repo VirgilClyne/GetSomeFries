@@ -5,7 +5,7 @@ import ENV from "./ENV/ENV.mjs";
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("🍟 GetSomeFries: WeChat v0.3.0(1) response");
+const $ = new ENV("🍟 GetSomeFries: WeChat v0.3.0(1002) response");
 
 /***************** Processing *****************/
 // 解构URL
@@ -18,7 +18,7 @@ $.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"] ?? $request.headers?.Accept ?? $request.headers?.accept)?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
-	const { Settings, Caches, Configs } = setENV($, "GetSomeFries", "WeChat", Database);
+	const { Settings, Caches, Configs } = setENV("GetSomeFries", "WeChat", Database);
 	$.log(`⚠ ${$.name}`, `Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:

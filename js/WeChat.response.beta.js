@@ -828,7 +828,7 @@ var TikTok$1 = /*#__PURE__*/Object.freeze({
 	default: TikTok
 });
 
-Database = {
+var Database$1 = Database = {
 	"Default": Default$1,
 	"WeChat": WeChat$1,
 	"TikTok": TikTok$1,
@@ -905,7 +905,7 @@ function setENV(name, platforms, database) {
 	return { Settings, Caches, Configs };
 }
 
-const $ = new ENV("🍟 GetSomeFries: WeChat v0.3.0(1) response.beta");
+const $ = new ENV("🍟 GetSomeFries: WeChat v0.3.0(1002) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
@@ -918,7 +918,7 @@ $.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"] ?? $request.headers?.Accept ?? $request.headers?.accept)?.split(";")?.[0];
 $.log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
-	const { Settings, Caches, Configs } = setENV($, "GetSomeFries", "WeChat");
+	const { Settings, Caches, Configs } = setENV("GetSomeFries", "WeChat", Database$1);
 	$.log(`⚠ ${$.name}`, `Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
