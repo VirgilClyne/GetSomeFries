@@ -5,7 +5,7 @@ import ENV from "./ENV/ENV.mjs";
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
 
-const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(5) request.beta");
+const $ = new ENV("🍟 GetSomeFries: ♪ TikTok v0.2.0(6) request.beta");
 
 // 构造回复数据
 let $response = undefined;
@@ -97,7 +97,6 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							$.log(`🚧 调试信息, cronet_version: ${url.searchParams.get("cronet_version")}`, "");
 							$.log(`🚧 调试信息, ttnet_version: ${url.searchParams.get("ttnet_version")}`, "");
 							delete $request.headers?.["x-tt-tnc-summary"];
-						/*
 						//case "/service/2/app_log/":
 						case "/aweme/v1/user/":
 						case "/aweme/v1/user/profile/other/":
@@ -107,9 +106,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "/tiktok/user/profile/other/v1":
 						case "/tiktok/v1/mix/list/":
 							break;
-						*/
 						default:
-							/*
 							processParams(url.searchParams, Settings.CountryCode, Settings.Carrier, Configs);
 							if ($request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"]) {
 								let commonParams = $request.headers?.["x-common-params-v2"] ?? $request.headers?.["X-Common-Params-V2"];
@@ -119,7 +116,6 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 								if ($request.headers?.["x-common-params-v2"]) $request.headers["x-common-params-v2"] = commonParams;
 								if ($request.headers?.["X-Common-Params-V2"]) $request.headers["X-Common-Params-V2"] = commonParams;
 							};
-							*/
 							break;
 					};
 					break;
@@ -160,16 +156,16 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 function processParams(searchParams = new URL($request.url).searchParams, cc = "TW", carrier = "中華電信", database = {}) {
 	const MCCMNC = searchParams.get("mcc_mnc");
 	$.log(`☑️ process Params, MCCMNC: ${MCCMNC}`, "");
-	//if (searchParams.has("residence")) searchParams.set("residence", cc);
-	if (searchParams.has("carrier")) searchParams.set("carrier", encodeURIComponent(carrier));
-	//if (searchParams.has("sys_region")) searchParams.set("sys_region", cc);
-	if (searchParams.has("sim_region")) searchParams.set("sim_region", database.MCCMNC[carrier]);
-	if (searchParams.has("op_region")) searchParams.set("op_region", cc);
-	if (searchParams.has("carrier_region")) searchParams.set("carrier_region", cc);
-	//if (searchParams.has("carrier_region1")) searchParams.set("carrier_region1", cc);
-	if (searchParams.has("current_region")) searchParams.set("current_region", cc);
-	//if (searchParams.has("account_region")) searchParams.set("account_region", cc.toLocaleLowerCase());
-	if (searchParams.has("tz_name")) searchParams.set("tz_name", database.TimeZone[carrier]);
+	//if (searchParams.get("residence")) searchParams.set("residence", cc);
+	if (searchParams.get("carrier")) searchParams.set("carrier", encodeURIComponent(carrier));
+	//if (searchParams.get("sys_region")) searchParams.set("sys_region", cc);
+	if (searchParams.get("sim_region")) searchParams.set("sim_region", database.MCCMNC[carrier]);
+	if (searchParams.get("op_region")) searchParams.set("op_region", cc);
+	if (searchParams.get("carrier_region")) searchParams.set("carrier_region", cc);
+	//if (searchParams.get("carrier_region1")) searchParams.set("carrier_region1", cc);
+	if (searchParams.get("current_region")) searchParams.set("current_region", cc);
+	//if (searchParams.get("account_region")) searchParams.set("account_region", cc.toLocaleLowerCase());
+	if (searchParams.get("tz_name")) searchParams.set("tz_name", database.TimeZone[carrier]);
 	switch (MCCMNC) {
 		case "46000":
 		case "46001":
