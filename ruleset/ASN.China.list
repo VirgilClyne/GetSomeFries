@@ -511,7 +511,7 @@ IP-ASN,134419 // 北海
 IP-ASN,134420 // 重庆电信
 IP-ASN,134425 // CHINANET 安徽省合肥市祁门路IDC网络
 IP-ASN,134477 // 绍兴 Junruiyunjisuan 有限公司
-IP-ASN,134478 // JSMSR
+# IP-ASN,134478 // JSMSR 【未广播中国大陆IP】
 IP-ASN,134488 // CTJ's Global Network
 IP-ASN,134542 // 中国联通IP网络
 IP-ASN,134543 // 中国联通广东IP网络
