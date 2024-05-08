@@ -63,6 +63,7 @@ rules:
   - DOMAIN,httpdns.meituan.com,REJECT
 
   # NetEase
+  - DOMAIN,httpdns.yunxindns.com,REJECT
   - DOMAIN,httpdns.n.netease.com,REJECT
   - DOMAIN,music.httpdns.c.163.com,REJECT
   - DOMAIN,lofter.httpdns.c.163.com,REJECT

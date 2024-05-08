@@ -55,6 +55,7 @@ DOMAIN,httpdns.meituan.com,REJECT
 
 # NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp
+DOMAIN,httpdns.yunxindns.com,REJECT
 DOMAIN,httpdns.n.netease.com,REJECT
 DOMAIN,httpdns.music.163.com,REJECT
 DOMAIN,music.httpdns.c.163.com,REJECT
