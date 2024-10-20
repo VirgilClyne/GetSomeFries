@@ -10,127 +10,127 @@ force-http-engine-hosts = %APPEND% 119.29.29.29:80, dns.weixin.qq.com:80, dns.we
 
 [Rule]
 # Alibaba
-DOMAIN,httpdns.alicdn.com,REJECT,extended-matching
+DOMAIN,httpdns.alicdn.com,REJECT,extended-matching,pre-matching
 
 # Aliyun
 # refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
-DOMAIN,httpdns-api.aliyuncs.com,REJECT,extended-matching
-DOMAIN,httpdns-sc.aliyuncs.com,REJECT,extended-matching
+DOMAIN,httpdns-api.aliyuncs.com,REJECT,extended-matching,pre-matching
+DOMAIN,httpdns-sc.aliyuncs.com,REJECT,extended-matching,pre-matching
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
 # refer: https://help.aliyun.com/document_detail/435282.html
 # refer: https://alidocs.dingtalk.com/i/p/Y7kmbokZp3pgGLq2/docs/lo1YvX0prG98kvEewqNyJPw7xzbmLdEZ
-IP-CIDR,203.107.1.0/24,REJECT,no-resolve
+IP-CIDR,203.107.1.0/24,REJECT,no-resolve,pre-matching
 
 # Baidu
-DOMAIN,httpsdns.baidu.com,REJECT,extended-matching
-DOMAIN,httpdns.baidu.com,REJECT,extended-matching
+DOMAIN,httpsdns.baidu.com,REJECT,extended-matching,pre-matching
+DOMAIN,httpdns.baidu.com,REJECT,extended-matching,pre-matching
 
 # BaiduBCE
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
-DOMAIN,httpdns.baidubce.com,REJECT,extended-matching
-IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+DOMAIN,httpdns.baidubce.com,REJECT,extended-matching,pre-matching
+IP-CIDR,186.76.76.200/32,REJECT,no-resolve,pre-matching
 
 # Bilibili
-DOMAIN,httpdns.bilivideo.com,REJECT,extended-matching
+DOMAIN,httpdns.bilivideo.com,REJECT,extended-matching,pre-matching
 # KEY_EXT_P2P_HTTPDNS_BILI_IP
-IP-CIDR,47.101.175.206/32,REJECT,no-resolve
-IP-CIDR,47.100.123.169/32,REJECT,no-resolve
-IP-CIDR,120.46.169.234/32,REJECT,no-resolve
-IP-CIDR,121.36.72.124/32,REJECT,no-resolve
+IP-CIDR,47.101.175.206/32,REJECT,no-resolve,pre-matching
+IP-CIDR,47.100.123.169/32,REJECT,no-resolve,pre-matching
+IP-CIDR,120.46.169.234/32,REJECT,no-resolve,pre-matching
+IP-CIDR,121.36.72.124/32,REJECT,no-resolve,pre-matching
 # KEY_EXT_P2P_BILIDNS_CMCC_IP
-IP-CIDR,116.63.10.135/32,REJECT,no-resolve
-IP-CIDR,122.9.7.134/32,REJECT,no-resolve
-IP-CIDR,117.185.228.108/32,REJECT,no-resolve
-IP-CIDR,117.144.238.29/32,REJECT,no-resolve
+IP-CIDR,116.63.10.135/32,REJECT,no-resolve,pre-matching
+IP-CIDR,122.9.7.134/32,REJECT,no-resolve,pre-matching
+IP-CIDR,117.185.228.108/32,REJECT,no-resolve,pre-matching
+IP-CIDR,117.144.238.29/32,REJECT,no-resolve,pre-matching
 # KEY_EXT_P2P_BILIDNS_CT_IP
-IP-CIDR,122.9.13.79/32,REJECT,no-resolve
-IP-CIDR,122.9.15.129/32,REJECT,no-resolve
-IP-CIDR,101.91.140.224/32,REJECT,no-resolve
-IP-CIDR,101.91.140.124/32,REJECT,no-resolve
+IP-CIDR,122.9.13.79/32,REJECT,no-resolve,pre-matching
+IP-CIDR,122.9.15.129/32,REJECT,no-resolve,pre-matching
+IP-CIDR,101.91.140.224/32,REJECT,no-resolve,pre-matching
+IP-CIDR,101.91.140.124/32,REJECT,no-resolve,pre-matching
 # KEY_EXT_P2P_BILIDNS_CU_IP
-IP-CIDR,114.116.215.110/32,REJECT,no-resolve
-IP-CIDR,116.63.10.31/32,REJECT,no-resolve
-IP-CIDR,112.64.218.119/32,REJECT,no-resolve
-IP-CIDR,112.65.200.117/32,REJECT,no-resolve
+IP-CIDR,114.116.215.110/32,REJECT,no-resolve,pre-matching
+IP-CIDR,116.63.10.31/32,REJECT,no-resolve,pre-matching
+IP-CIDR,112.64.218.119/32,REJECT,no-resolve,pre-matching
+IP-CIDR,112.65.200.117/32,REJECT,no-resolve,pre-matching
 
 # Huawei
-DOMAIN,httpdns.c.cdnhwc2.com,REJECT,extended-matching
+DOMAIN,httpdns.c.cdnhwc2.com,REJECT,extended-matching,pre-matching
 
 # JD
-DOMAIN,dns.jd.com,REJECT,extended-matching
-IP-CIDR,101.124.19.122/32,REJECT,no-resolve
-IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve
+DOMAIN,dns.jd.com,REJECT,extended-matching,pre-matching
+IP-CIDR,101.124.19.122/32,REJECT,no-resolve,pre-matching
+IP-CIDR6,2402:db40:5100:1011::5/128,REJECT,no-resolve,pre-matching
 
 # JD Cloud
 # refer: https://docs.jdcloud.com/cn/jd-cloud-dns/HTTPDNS
 # refer: https://docs.jdcloud.com/cn/httpdns/interface-specification
-IP-CIDR,103.224.222.208/32,REJECT,no-resolve
+IP-CIDR,103.224.222.208/32,REJECT,no-resolve,pre-matching
 
 # Meituan
-DOMAIN,httpdns.meituan.com,REJECT,extended-matching
-DOMAIN,httpdnsvip.meituan.com,REJECT,extended-matching
+DOMAIN,httpdns.meituan.com,REJECT,extended-matching,pre-matching
+DOMAIN,httpdnsvip.meituan.com,REJECT,extended-matching,pre-matching
 
 # NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp
-DOMAIN,httpdns.yunxindns.com,REJECT,extended-matching
-DOMAIN,httpdns.n.netease.com,REJECT,extended-matching
-DOMAIN,httpdns.music.163.com,REJECT,extended-matching
-DOMAIN,music.httpdns.c.163.com,REJECT,extended-matching
-DOMAIN,lofter.httpdns.c.163.com,REJECT,extended-matching
-IP-CIDR,59.111.239.61/32,REJECT,no-resolve
-IP-CIDR,59.111.239.62/32,REJECT,no-resolve
-IP-CIDR,115.236.121.51/32,REJECT,no-resolve
-IP-CIDR,115.236.121.195/32,REJECT,no-resolve
+DOMAIN,httpdns.yunxindns.com,REJECT,extended-matching,pre-matching
+DOMAIN,httpdns.n.netease.com,REJECT,extended-matching,pre-matching
+DOMAIN,httpdns.music.163.com,REJECT,extended-matching,pre-matching
+DOMAIN,music.httpdns.c.163.com,REJECT,extended-matching,pre-matching
+DOMAIN,lofter.httpdns.c.163.com,REJECT,extended-matching,pre-matching
+IP-CIDR,59.111.239.61/32,REJECT,no-resolve,pre-matching
+IP-CIDR,59.111.239.62/32,REJECT,no-resolve,pre-matching
+IP-CIDR,115.236.121.51/32,REJECT,no-resolve,pre-matching
+IP-CIDR,115.236.121.195/32,REJECT,no-resolve,pre-matching
 
 # Oppo
-DOMAIN,httpdns.push.oppomobile.com,REJECT,extended-matching
+DOMAIN,httpdns.push.oppomobile.com,REJECT,extended-matching,pre-matching
 
 # Sina
 # refer: https://github.com/CNSRE/HTTPDNSLib
 
 # Tencent Cloud
 # refer：https://cloud.tencent.com/document/product/379/95497
-DOMAIN-SUFFIX,httpdns.pro,REJECT,extended-matching
-IP-CIDR,119.29.29.98/32,REJECT,no-resolve
-IP-CIDR,119.29.29.99/32,REJECT,no-resolve
+DOMAIN-SUFFIX,httpdns.pro,REJECT,extended-matching,pre-matching
+IP-CIDR,119.29.29.98/32,REJECT,no-resolve,pre-matching
+IP-CIDR,119.29.29.99/32,REJECT,no-resolve,pre-matching
 
 # Volcengine
 # refer: https://www.volcengine.com/docs/6758/174756
-DOMAIN,httpdns.volcengineapi.com,REJECT,extended-matching
+DOMAIN,httpdns.volcengineapi.com,REJECT,extended-matching,pre-matching
 
 # Weibo
-DOMAIN,dns.weibo.cn,REJECT,extended-matching
-IP-CIDR,39.97.128.148/32,REJECT,no-resolve
-IP-CIDR,39.97.130.51/32,REJECT,no-resolve
+DOMAIN,dns.weibo.cn,REJECT,extended-matching,pre-matching
+IP-CIDR,39.97.128.148/32,REJECT,no-resolve,pre-matching
+IP-CIDR,39.97.130.51/32,REJECT,no-resolve,pre-matching
 
 # Wework
 # refer: https://res.mail.qq.com/zh_CN/wework_ip/latest.html
-IP-CIDR,182.254.116.117/32,REJECT,no-resolve
-IP-CIDR,182.254.118.119/32,REJECT,no-resolve
+IP-CIDR,182.254.116.117/32,REJECT,no-resolve,pre-matching
+IP-CIDR,182.254.118.119/32,REJECT,no-resolve,pre-matching
 
 # Weixin
 # refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns
 # refer: https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/HTTPDNS.html
-DOMAIN,dns.weixin.qq.com,REJECT,extended-matching
-DOMAIN,dns.weixin.qq.com.cn,REJECT,extended-matching
-IP-CIDR,42.81.232.18/32,REJECT,no-resolve
-IP-CIDR,42.187.182.106/32,REJECT,no-resolve
-IP-CIDR,42.187.182.123/32,REJECT,no-resolve
-IP-CIDR,42.187.184.154/32,REJECT,no-resolve
-IP-CIDR,123.151.54.50/32,REJECT,no-resolve
-IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve
-IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
+DOMAIN,dns.weixin.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,dns.weixin.qq.com.cn,REJECT,extended-matching,pre-matching
+IP-CIDR,42.81.232.18/32,REJECT,no-resolve,pre-matching
+IP-CIDR,42.187.182.106/32,REJECT,no-resolve,pre-matching
+IP-CIDR,42.187.182.123/32,REJECT,no-resolve,pre-matching
+IP-CIDR,42.187.184.154/32,REJECT,no-resolve,pre-matching
+IP-CIDR,123.151.54.50/32,REJECT,no-resolve,pre-matching
+IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,REJECT,no-resolve,pre-matching
+IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve,pre-matching
 
 # Wework
 # refer: https://res.mail.qq.com/zh_CN/wework_ip/latest.html
-IP-CIDR,182.254.116.117/32,REJECT,no-resolve
-IP-CIDR,182.254.118.119/32,REJECT,no-resolve
+IP-CIDR,182.254.116.117/32,REJECT,no-resolve,pre-matching
+IP-CIDR,182.254.118.119/32,REJECT,no-resolve,pre-matching
 
 # Zhihu
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24
-IP-CIDR,118.89.204.198/23,REJECT,no-resolve
-IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve
+IP-CIDR,118.89.204.198/23,REJECT,no-resolve,pre-matching
+IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve,pre-matching
 
 [URL Rewrite]
 # Alipay
