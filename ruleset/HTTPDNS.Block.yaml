@@ -21,6 +21,8 @@ payload:
 - IP-CIDR6,2402:db40:5100:1011::5/128
 # JD Cloud
 - IP-CIDR,103.224.222.208/32
+# Keep
+- DOMAIN,httpdns.calorietech.com
 # Kuaishou
 - DOMAIN,kuaishou.httpdns.pro
 # Meituan
