@@ -120,6 +120,7 @@ http:
     - amdc.alipay.com
     - amdc-sibling.alipay.com.cn
     - dns.jd.com
+    - *.zijieapi.com
   url-rewrite:
     # Alipay
     - ^https?:\/\/amdc\.alipay\.com\/s?query - reject
@@ -162,6 +163,9 @@ http:
     - ^http:\/\/116\.63\.10\.31\/resolve - reject
     - ^http:\/\/112\.64\.218\.119\/resolve - reject
     - ^http:\/\/112\.65\.200\.117\/resolve - reject
+
+    # ByteDance
+    - ^https?:\/\/.+\.zijieapi\.com\/get_domains\/ - reject
 
     # JD
     - ^https:\/\/dns\.jd\.com\/v6\/b - reject

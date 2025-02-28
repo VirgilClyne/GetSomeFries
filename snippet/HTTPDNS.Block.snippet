@@ -48,6 +48,9 @@
 ^http:\/\/112\.64\.218\.119\/resolve url reject
 ^http:\/\/112\.65\.200\.117\/resolve url reject
 
+# ByteDance
+^https?:\/\/.+\.zijieapi\.com\/get_domains\/ - reject
+
 # JD
 ^https:\/\/dns\.jd\.com\/v6\/b url reject
 
@@ -94,4 +97,4 @@
 ^http:\/\/103\.41\.167\.237\/v2\/resolv url reject
 
 #[MITM]
-hostname = 119.29.29.98, 119.29.29.99, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com
+hostname = 119.29.29.98, 119.29.29.99, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.zijieapi.com
