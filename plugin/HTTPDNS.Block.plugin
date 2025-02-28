@@ -52,6 +52,8 @@ DOMAIN,httpdns.calorietech.com,REJECT
 
 # Meituan
 DOMAIN,httpdns.meituan.com,REJECT
+IP-CIDR,202.90.108.13/32,REJECT,no-resolve
+IP-CIDR,202.90.110.46/32,REJECT,no-resolve
 
 # NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp

@@ -25,6 +25,8 @@ payload:
 - DOMAIN,httpdns.calorietech.com
 # Meituan
 - DOMAIN,httpdns.meituan.com
+- IP-CIDR,202.90.108.13/32
+- IP-CIDR,202.90.110.46/32
 # NetEase
 - DOMAIN,httpdns.yunxindns.com
 - DOMAIN,httpdns.n.netease.com
