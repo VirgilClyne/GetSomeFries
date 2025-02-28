@@ -59,9 +59,6 @@ rules:
   # Keep
   - DOMAIN,httpdns.calorietech.com,REJECT
 
-  # Kuaishou
-  - DOMAIN,kuaishou.httpdns.pro,REJECT
-
   # Meituan
   - DOMAIN,httpdns.meituan.com,REJECT
 
@@ -79,6 +76,7 @@ rules:
   - DOMAIN,httpdns.push.oppomobile.com,REJECT
 
   # Tencent Cloud
+  - DOMAIN-SUFFIX,httpdns.pro,REJECT
   - IP-CIDR,119.29.29.98/32,REJECT,no-resolve
   - IP-CIDR,119.29.29.99/32,REJECT,no-resolve
 

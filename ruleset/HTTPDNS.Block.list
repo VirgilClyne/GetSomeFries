@@ -29,8 +29,6 @@ IP-CIDR6,2402:db40:5100:1011::5/128
 IP-CIDR,103.224.222.208/32
 # Keep
 DOMAIN,httpdns.calorietech.com
-# Kuaishou
-DOMAIN,kuaishou.httpdns.pro
 # Meituan
 DOMAIN,httpdns.meituan.com
 # NetEase
@@ -46,6 +44,7 @@ IP-CIDR,115.236.121.195/32
 # Oppo
 DOMAIN,httpdns.push.oppomobile.com
 # Tencent Cloud
+DOMAIN-SUFFIX,httpdns.pro
 IP-CIDR,119.29.29.98/32
 IP-CIDR,119.29.29.99/32
 # Volcengine

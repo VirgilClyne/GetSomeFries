@@ -23,8 +23,6 @@ payload:
 - IP-CIDR,103.224.222.208/32
 # Keep
 - DOMAIN,httpdns.calorietech.com
-# Kuaishou
-- DOMAIN,kuaishou.httpdns.pro
 # Meituan
 - DOMAIN,httpdns.meituan.com
 # NetEase
@@ -40,6 +38,7 @@ payload:
 # Oppo
 - DOMAIN,httpdns.push.oppomobile.com
 # Tencent Cloud
+- DOMAIN-SUFFIX,httpdns.pro
 - IP-CIDR,119.29.29.98/32
 - IP-CIDR,119.29.29.99/32
 # Volcengine

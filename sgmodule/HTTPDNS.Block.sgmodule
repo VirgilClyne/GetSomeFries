@@ -70,9 +70,6 @@ IP-CIDR,103.224.222.208/32,REJECT,no-resolve,pre-matching
 # Keep
 DOMAIN,httpdns.calorietech.com,REJECT,extended-matching,pre-matching
 
-# Kuaishou
-DOMAIN,kuaishou.httpdns.pro,REJECT,extended-matching,pre-matching
-
 # Meituan
 DOMAIN,httpdns.meituan.com,REJECT,extended-matching,pre-matching
 DOMAIN,httpdnsvip.meituan.com,REJECT,extended-matching,pre-matching
