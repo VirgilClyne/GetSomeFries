@@ -29,7 +29,7 @@ DOMAIN,httpdns.baidu.com,REJECT,extended-matching,pre-matching
 # BaiduBCE
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
 DOMAIN,httpdns.baidubce.com,REJECT,extended-matching,pre-matching
-IP-CIDR,186.76.76.200/32,REJECT,no-resolve,pre-matching
+IP-CIDR,180.76.76.200/32,REJECT,no-resolve,pre-matching
 
 # Bilibili
 DOMAIN,httpdns.bilivideo.com,REJECT,extended-matching,pre-matching

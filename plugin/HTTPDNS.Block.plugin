@@ -29,7 +29,7 @@ DOMAIN,httpdns.baidu.com,REJECT
 # BaiduBCE
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
 DOMAIN,httpdns.baidubce.com,REJECT
-IP-CIDR,186.76.76.200/32,REJECT,no-resolve
+IP-CIDR,180.76.76.200/32,REJECT,no-resolve
 
 # Bilibili
 DOMAIN,httpdns.bilivideo.com,REJECT

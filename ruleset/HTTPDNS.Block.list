@@ -16,7 +16,7 @@ DOMAIN,httpsdns.baidu.com
 DOMAIN,httpdns.baidu.com
 # BaiduBCE
 DOMAIN,httpdns.baidubce.com
-IP-CIDR,186.76.76.200/32
+IP-CIDR,180.76.76.200/32
 # Bilibili
 DOMAIN,httpdns.bilivideo.com
 # Huawei
