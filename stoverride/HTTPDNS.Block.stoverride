@@ -120,7 +120,6 @@ http:
     - amdc.alipay.com
     - amdc-sibling.alipay.com.cn
     - dns.jd.com
-    - *.zijieapi.com
   url-rewrite:
     # Alipay
     - ^https?:\/\/amdc\.alipay\.com\/s?query - reject
