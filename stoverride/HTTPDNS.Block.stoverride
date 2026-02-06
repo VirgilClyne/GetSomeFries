@@ -56,6 +56,9 @@ rules:
   # JD Cloud
   - IP-CIDR,103.224.222.208/32,REJECT,no-resolve
 
+  # Kuwo
+  - DOMAIN,httpdns.kg.qq.com,REJECT
+
   # Keep
   - DOMAIN,httpdns.calorietech.com,REJECT
 

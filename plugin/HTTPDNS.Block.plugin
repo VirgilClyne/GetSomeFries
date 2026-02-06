@@ -50,6 +50,9 @@ IP-CIDR,103.224.222.208/32,REJECT,no-resolve
 # Keep
 DOMAIN,httpdns.calorietech.com,REJECT
 
+# Kuwo
+DOMAIN,httpdns.kg.qq.com,REJECT
+
 # Meituan
 DOMAIN,httpdns.meituan.com,REJECT
 IP-CIDR,202.90.108.13/32,REJECT,no-resolve
