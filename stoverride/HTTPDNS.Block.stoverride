@@ -12,6 +12,7 @@ rules:
   # Aliyun
   - DOMAIN,httpdns-api.aliyuncs.com,REJECT
   - DOMAIN,httpdns-sc.aliyuncs.com,REJECT
+  - DOMAIN,resolvers-cn.httpdns.aliyuncs.com,REJECT
   - IP-CIDR,203.107.1.0/24,REJECT,no-resolve
 
   # Baidu
@@ -48,6 +49,9 @@ rules:
   # Huawei
   - DOMAIN,httpdns.c.cdnhwc2.com,REJECT
 
+  # iQIYI
+  - DOMAIN,doh.iqiyi.com,REJECT
+
   # JD
   - DOMAIN,dns.jd.com,REJECT
   - IP-CIDR,101.124.19.122/32,REJECT,no-resolve
@@ -64,12 +68,20 @@ rules:
 
   # Meituan
   - DOMAIN,httpdns.meituan.com,REJECT
+  - DOMAIN,httpdnsmultiapi.meituan.com,REJECT
+  - DOMAIN,httpdnsmultiapivip.meituan.com,REJECT
+  - DOMAIN,dnspod.meituan.httpdns.qcloud.com,REJECT
+  - DOMAIN,dnspod.meituan.httpdns.start.qcloud.com,REJECT
   - IP-CIDR,202.90.108.13/32,REJECT,no-resolve
   - IP-CIDR,202.90.110.46/32,REJECT,no-resolve
+
+  # Momo
+  - DOMAIN,httpdns.immomo.com,REJECT
 
   # NetEase
   - DOMAIN,httpdns.yunxindns.com,REJECT
   - DOMAIN,httpdns.n.netease.com,REJECT
+  - DOMAIN,httpdns-sdk.n.netease.com,REJECT
   - DOMAIN,music.httpdns.c.163.com,REJECT
   - DOMAIN,lofter.httpdns.c.163.com,REJECT
   - IP-CIDR,59.111.239.61/32,REJECT,no-resolve
@@ -94,6 +106,7 @@ rules:
   - IP-CIDR,39.97.130.51/32,REJECT,no-resolve
 
   # Weixin
+  - DOMAIN,aedns.weixin.qq.com,REJECT
   - DOMAIN,dns.weixin.qq.com,REJECT
   - DOMAIN,dns.weixin.qq.com.cn,REJECT
   - IP-CIDR,42.81.232.18/32,REJECT,no-resolve
@@ -107,6 +120,9 @@ rules:
   # Wework
   - IP-CIDR,182.254.116.117/32,REJECT,no-resolve
   - IP-CIDR,182.254.118.119/32,REJECT,no-resolve
+
+  # YY
+  - DOMAIN,yuyin-httpdns.gslb.yy.com,REJECT
 
   # Zhihu
   - IP-CIDR,118.89.204.198/32,REJECT,no-resolve

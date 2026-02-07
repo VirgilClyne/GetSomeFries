@@ -16,6 +16,7 @@ DOMAIN,httpdns.alicdn.com,REJECT
 # refer: https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download%2Fpdf%2F30114%2F%25E7%2594%25A8%25E6%2588%25B7%25E6%258C%2587%25E5%258D%2597_cn_zh-CN.pdf
 DOMAIN,httpdns-api.aliyuncs.com,REJECT
 DOMAIN,httpdns-sc.aliyuncs.com,REJECT
+DOMAIN,resolvers-cn.httpdns.aliyuncs.com,REJECT
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-api-reference-cn-zh-2016-05-12.pdf
 # refer: http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/httpdns-product-introduction-cn-zh-2017-05-24.pdf
 # refer: https://help.aliyun.com/document_detail/435282.html
@@ -37,6 +38,9 @@ DOMAIN,httpdns.bilivideo.com,REJECT
 # Huawei
 DOMAIN,httpdns.c.cdnhwc2.com,REJECT
 
+# iQIYI
+DOMAIN,doh.iqiyi.com,REJECT
+
 # JD
 DOMAIN,dns.jd.com,REJECT
 IP-CIDR,101.124.19.122/32,REJECT,no-resolve
@@ -55,13 +59,21 @@ DOMAIN,httpdns.kg.qq.com,REJECT
 
 # Meituan
 DOMAIN,httpdns.meituan.com,REJECT
+DOMAIN,httpdnsmultiapi.meituan.com,REJECT
+DOMAIN,httpdnsmultiapivip.meituan.com,REJECT
+DOMAIN,dnspod.meituan.httpdns.qcloud.com,REJECT
+DOMAIN,dnspod.meituan.httpdns.start.qcloud.com,REJECT
 IP-CIDR,202.90.108.13/32,REJECT,no-resolve
 IP-CIDR,202.90.110.46/32,REJECT,no-resolve
+
+# Momo
+DOMAIN,httpdns.immomo.com,REJECT
 
 # NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp
 DOMAIN,httpdns.yunxindns.com,REJECT
 DOMAIN,httpdns.n.netease.com,REJECT
+DOMAIN,httpdns-sdk.n.netease.com,REJECT
 DOMAIN,httpdns.music.163.com,REJECT
 DOMAIN,music.httpdns.c.163.com,REJECT
 DOMAIN,lofter.httpdns.c.163.com,REJECT
@@ -94,6 +106,7 @@ IP-CIDR,39.97.130.51/32,REJECT,no-resolve
 # Weixin
 # refer: http://dns.weixin.qq.com/cgi-bin/micromsg-bin/newgetdns
 # refer: https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/Mini_Programs/HTTPDNS.html
+DOMAIN,aedns.weixin.qq.com,REJECT
 DOMAIN,dns.weixin.qq.com,REJECT
 DOMAIN,dns.weixin.qq.com.cn,REJECT
 IP-CIDR,42.81.232.18/32,REJECT,no-resolve
@@ -108,6 +121,9 @@ IP-CIDR6,240e:928:1400:10::25/128,REJECT,no-resolve
 # refer: https://res.mail.qq.com/zh_CN/wework_ip/latest.html
 IP-CIDR,182.254.116.117/32,REJECT,no-resolve
 IP-CIDR,182.254.118.119/32,REJECT,no-resolve
+
+# YY
+DOMAIN,yuyin-httpdns.gslb.yy.com,REJECT
 
 # Zhihu
 # refer: https://github.com/lwd-temp/anti-ip-attribution/issues/24

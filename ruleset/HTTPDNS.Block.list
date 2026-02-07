@@ -10,6 +10,7 @@ DOMAIN,httpdns.alicdn.com
 # Aliyun
 DOMAIN,httpdns-api.aliyuncs.com
 DOMAIN,httpdns-sc.aliyuncs.com
+DOMAIN,resolvers-cn.httpdns.aliyuncs.com
 IP-CIDR,203.107.1.0/24
 # Baidu
 DOMAIN,httpsdns.baidu.com
@@ -21,6 +22,8 @@ IP-CIDR,180.76.76.200/32
 DOMAIN,httpdns.bilivideo.com
 # Huawei
 DOMAIN,httpdns.c.cdnhwc2.com
+# iQIYI
+DOMAIN,doh.iqiyi.com
 # JD
 DOMAIN,dns.jd.com
 IP-CIDR,101.124.19.122/32
@@ -33,11 +36,18 @@ DOMAIN,httpdns.kg.qq.com
 DOMAIN,httpdns.calorietech.com
 # Meituan
 DOMAIN,httpdns.meituan.com
+DOMAIN,httpdnsmultiapi.meituan.com
+DOMAIN,httpdnsmultiapivip.meituan.com
+DOMAIN,dnspod.meituan.httpdns.qcloud.com
+DOMAIN,dnspod.meituan.httpdns.start.qcloud.com
 IP-CIDR,202.90.108.13/32
 IP-CIDR,202.90.110.46/32
+# Momo
+DOMAIN,httpdns.immomo.com
 # NetEase
 DOMAIN,httpdns.yunxindns.com
 DOMAIN,httpdns.n.netease.com
+DOMAIN,httpdns-sdk.n.netease.com
 DOMAIN,httpdns.music.163.com
 DOMAIN,music.httpdns.c.163.com
 DOMAIN,lofter.httpdns.c.163.com
@@ -58,6 +68,7 @@ DOMAIN,dns.weibo.cn
 IP-CIDR,39.97.128.148/32
 IP-CIDR,39.97.130.51/32
 # Weixin
+DOMAIN,aedns.weixin.qq.com
 DOMAIN,dns.weixin.qq.com
 DOMAIN,dns.weixin.qq.com.cn
 IP-CIDR,42.81.232.18/32
@@ -70,6 +81,8 @@ IP-CIDR6,240e:928:1400:10::25/128
 # Wework
 IP-CIDR,182.254.116.117/32
 IP-CIDR,182.254.118.119/32
+# YY
+DOMAIN,yuyin-httpdns.gslb.yy.com
 # Zhihu
 IP-CIDR,118.89.204.198/32
 IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128
