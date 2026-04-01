@@ -140,13 +140,13 @@ http:
     - match: ^https?:\/\/amdc\.alipay\.com\/s?query
       status-code: 200
       headers:
-        Content-Type: application/json; charset=UTF-8
+        Content-Type: text/json
       text: |-
         {}
     - match: ^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query
       status-code: 200
       headers:
-        Content-Type: application/json; charset=UTF-8
+        Content-Type: text/json
       text: |-
         {}
   mitm:
