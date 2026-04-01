@@ -248,8 +248,8 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve,pre-matching
 
 [Map Local]
 # Alipay
-^https?:\/\/amdc\.alipay\.com\/s?query data-type=text data='{}' status-code=200 header="Content-Type:application/json"
-^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query data-type=text data='{}' status-code=200 header="Content-Type:application/json"
+^https?:\/\/amdc\.alipay\.com\/s?query data-type=text data='{}' status-code=200 header="Content-Type:application/json; charset=UTF-8"
+^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query data-type=text data='{}' status-code=200 header="Content-Type:application/json; charset=UTF-8"
 
 [MITM]
 hostname = %APPEND% 119.29.29.98, 119.29.29.99, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro
