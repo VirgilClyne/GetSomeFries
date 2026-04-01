@@ -135,6 +135,36 @@ http:
     - dns.weixin.qq.com:80
     - dns.weixin.qq.com:8080
     - dns.weixin.qq.com:443
+  mock:
+    # Alipay
+    - match: ^https?:\/\/amdc\.alipay\.com\/s?query
+      status-code: 200
+      headers:
+        Content-Type: application/json
+      text: |-
+        {}
+    - match: ^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query
+      status-code: 200
+      headers:
+        Content-Type: application/json
+      text: |-
+        {}
+
+    # Weixin
+    - match: ^http:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns
+      status-code: 200
+      headers:
+        Content-Type: text/xml; charset=UTF-8
+      text: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xml></xml>
+    - match: ^http:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns
+      status-code: 200
+      headers:
+        Content-Type: text/xml; charset=UTF-8
+      text: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <xml></xml>
   mitm:
     - 119.29.29.29
     - amdc.alipay.com
@@ -142,8 +172,6 @@ http:
     - dns.jd.com
   url-rewrite:
     # Alipay
-    - ^https?:\/\/amdc\.alipay\.com\/s?query - reject
-    - ^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query - reject
     - ^https?:\/\/110\.76\.8\.150\/squery - reject
     - ^https?:\/\/203\.209\.230\.39\/squery - reject
     - ^https?:\/\/203\.209\.245\.102\/squery - reject
@@ -212,8 +240,8 @@ http:
     - ^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
 
     # Weixin
-    - ^https?:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
-    - ^https?:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
+    - ^https:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
+    - ^https:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
     - ^https?:\/\/short\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
     - ^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 
