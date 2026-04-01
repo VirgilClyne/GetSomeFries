@@ -232,8 +232,8 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve,pre-matching
 
 # Weixin
 # 注意: 以下域名HTTPS无法MitM，如通过此链接查询，无法处理
-^https:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
-^https:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
+^https?:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
+^https?:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
 ^https?:\/\/short\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 ^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 
@@ -250,10 +250,6 @@ IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,REJECT,no-resolve,pre-matching
 # Alipay
 ^https?:\/\/amdc\.alipay\.com\/s?query data-type=text data='{}' status-code=200 header="Content-Type:application/json"
 ^https?:\/\/amdc-sibling\.alipay\.com\.cn\/s?query data-type=text data='{}' status-code=200 header="Content-Type:application/json"
-
-# Weixin
-^http:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns data-type=text data='<?xml version="1.0" encoding="UTF-8"?><xml></xml>' status-code=200 header="Content-Type:text/xml; charset=UTF-8"
-^http:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns data-type=text data='<?xml version="1.0" encoding="UTF-8"?><xml></xml>' status-code=200 header="Content-Type:text/xml; charset=UTF-8"
 
 [MITM]
 hostname = %APPEND% 119.29.29.98, 119.29.29.99, amdc.alipay.com, amdc-sibling.alipay.com.cn, dns.jd.com, *.httpdns.pro

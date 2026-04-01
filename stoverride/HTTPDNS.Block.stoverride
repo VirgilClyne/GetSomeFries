@@ -149,22 +149,6 @@ http:
         Content-Type: application/json
       text: |-
         {}
-
-    # Weixin
-    - match: ^http:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns
-      status-code: 200
-      headers:
-        Content-Type: text/xml; charset=UTF-8
-      text: |-
-        <?xml version="1.0" encoding="UTF-8"?>
-        <xml></xml>
-    - match: ^http:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns
-      status-code: 200
-      headers:
-        Content-Type: text/xml; charset=UTF-8
-      text: |-
-        <?xml version="1.0" encoding="UTF-8"?>
-        <xml></xml>
   mitm:
     - 119.29.29.29
     - amdc.alipay.com
@@ -240,8 +224,8 @@ http:
     - ^http:\/\/api\.weibo\.cn\/httpdns\/config - reject
 
     # Weixin
-    - ^https:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
-    - ^https:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
+    - ^https?:\/\/dns\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/newgetdns - reject
+    - ^https?:\/\/dns\.weixin\.qq\.com\.cn\/cgi-bin\/micromsg-bin\/newgetdns - reject
     - ^https?:\/\/short\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
     - ^https?:\/\/hkextshort\.weixin\.qq\.com\/cgi-bin\/micromsg-bin\/getcdndns - reject
 
