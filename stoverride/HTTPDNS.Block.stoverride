@@ -18,6 +18,8 @@ rules:
   # Baidu
   - DOMAIN,httpsdns.baidu.com,REJECT
   - DOMAIN,httpdns.baidu.com,REJECT
+  - IP-CIDR,180.76.76.112/32,REJECT,no-resolve
+  - IP-CIDR,180.76.76.220/32,REJECT,no-resolve
 
   # BaiduBCE
   - DOMAIN,httpdns.baidubce.com,REJECT
@@ -80,6 +82,7 @@ rules:
   - DOMAIN,httpdns.immomo.com,REJECT
 
   # NetEase
+  - DOMAIN,httpdns.yunxinfw.com,REJECT
   - DOMAIN,httpdns.yunxindns.com,REJECT
   - DOMAIN,httpdns.n.netease.com,REJECT
   - DOMAIN,httpdns-sdk.n.netease.com,REJECT
@@ -91,6 +94,7 @@ rules:
   - IP-CIDR,115.236.121.195/32,REJECT,no-resolve
 
   # Oppo
+  - DOMAIN,httpdns.ocloud.oppomobile.com,REJECT
   - DOMAIN,httpdns.push.oppomobile.com,REJECT
 
   # Tencent Cloud
