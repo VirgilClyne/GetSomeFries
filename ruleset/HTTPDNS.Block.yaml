@@ -9,6 +9,8 @@ payload:
 # Baidu
 - DOMAIN,httpsdns.baidu.com
 - DOMAIN,httpdns.baidu.com
+- IP-CIDR,180.76.76.112/32
+- IP-CIDR,180.76.76.220/32
 # BaiduBCE
 - DOMAIN,httpdns.baidubce.com
 - DOMAIN,httpdns.bcelive.com
@@ -40,6 +42,7 @@ payload:
 # Momo
 - DOMAIN,httpdns.immomo.com
 # NetEase
+- DOMAIN,httpdns.yunxinfw.com
 - DOMAIN,httpdns.yunxindns.com
 - DOMAIN,httpdns.n.netease.com
 - DOMAIN,httpdns-sdk.n.netease.com
@@ -51,6 +54,7 @@ payload:
 - IP-CIDR,115.236.121.51/32
 - IP-CIDR,115.236.121.195/32
 # Oppo
+- DOMAIN,httpdns.ocloud.oppomobile.com
 - DOMAIN,httpdns.push.oppomobile.com
 # Tencent Cloud
 - DOMAIN-SUFFIX,httpdns.pro

@@ -26,6 +26,8 @@ IP-CIDR,203.107.1.0/24,REJECT,no-resolve,pre-matching
 # Baidu
 DOMAIN,httpsdns.baidu.com,REJECT,extended-matching,pre-matching
 DOMAIN,httpdns.baidu.com,REJECT,extended-matching,pre-matching
+IP-CIDR,180.76.76.112/32,REJECT,no-resolve,pre-matching
+IP-CIDR,180.76.76.220/32,REJECT,no-resolve,pre-matching
 
 # BaiduBCE
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
@@ -93,6 +95,7 @@ DOMAIN,httpdns.immomo.com,REJECT,extended-matching,pre-matching
 
 # NetEase
 # refer: https://lbs.netease.im/lbs/conf.jsp
+DOMAIN,httpdns.yunxinfw.com,REJECT,extended-matching,pre-matching
 DOMAIN,httpdns.yunxindns.com,REJECT,extended-matching,pre-matching
 DOMAIN,httpdns.n.netease.com,REJECT,extended-matching,pre-matching
 DOMAIN,httpdns-sdk.n.netease.com,REJECT,extended-matching,pre-matching
@@ -105,6 +108,7 @@ IP-CIDR,115.236.121.51/32,REJECT,no-resolve,pre-matching
 IP-CIDR,115.236.121.195/32,REJECT,no-resolve,pre-matching
 
 # Oppo
+DOMAIN,httpdns.ocloud.oppomobile.com,REJECT,extended-matching,pre-matching
 DOMAIN,httpdns.push.oppomobile.com,REJECT,extended-matching,pre-matching
 
 # Sina
