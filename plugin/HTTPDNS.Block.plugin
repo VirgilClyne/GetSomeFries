@@ -27,13 +27,13 @@ IP-CIDR,203.107.1.0/24,REJECT,no-resolve
 DOMAIN,httpsdns.baidu.com,REJECT
 DOMAIN,httpdns.baidu.com,REJECT
 IP-CIDR,180.76.76.112/32,REJECT,no-resolve
-IP-CIDR,180.76.76.220/32,REJECT,no-resolve
 
 # BaiduBCE
 # refer: https://bce-cdn.bj.bcebos.com/p3m/pdf/bce-doc/online/HTTPDNS/HTTPDNS.pdf
 DOMAIN,httpdns.baidubce.com,REJECT
 DOMAIN,httpdns.bcelive.com,REJECT
 IP-CIDR,180.76.76.200/32,REJECT,no-resolve
+IP-CIDR,180.76.76.220/32,REJECT,no-resolve
 
 # Bilibili
 DOMAIN,httpdns.bilivideo.com,REJECT

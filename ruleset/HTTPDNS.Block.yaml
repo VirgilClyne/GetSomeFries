@@ -10,11 +10,11 @@ payload:
 - DOMAIN,httpsdns.baidu.com
 - DOMAIN,httpdns.baidu.com
 - IP-CIDR,180.76.76.112/32
-- IP-CIDR,180.76.76.220/32
 # BaiduBCE
 - DOMAIN,httpdns.baidubce.com
 - DOMAIN,httpdns.bcelive.com
 - IP-CIDR,180.76.76.200/32
+- IP-CIDR,180.76.76.220/32
 # Bilibili
 - DOMAIN,httpdns.bilivideo.com
 # Huawei
